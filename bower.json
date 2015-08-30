@@ -1,0 +1,31 @@
+{
+	"name": "pixi-flash",
+	"version": "0.4.0",
+	"main": "dist/core.min.js",
+	"dependencies": {
+		"springroll": "master",
+		"tweenjs": "https://github.com/SpringRoll/TweenJS.git",
+		"pixi.js": "https://github.com/SpringRoll/pixi.js.git#master"
+	},
+	"devDependencies": {
+		"qunit": "*",
+		"google-code-prettify": "*",
+		"bind-polyfill": "*"
+	},
+	"ignore": [
+		"Gruntfile.js",
+		"tasks",
+		"examples",
+		"docs",
+		"src",
+		"test",
+		"tools",
+		".bowerrc",
+		".editorconfig",
+		".travis.yml",
+		".gitattributes",
+		"library.json",
+		"package.json",
+		".gitignore"
+	]
+}

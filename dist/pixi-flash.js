@@ -1,0 +1,1426 @@
+/*! Pixi Flash 0.1.0 */
+(function(undefined)
+{
+	//Set up namespaces, and check that PIXI and CreateJS have been set up
+	//any failures will likely cause other failures in the library set up, but that's okay
+	if(!window.PIXI)
+	{
+		console.error("Pixi Flash requires PIXI to be loaded before Pixi Flash is loaded!");
+		return;
+	}
+	if(!window.createjs || !createjs.Tween)
+	{
+		console.error("PIXI Flash requires TweenJS to be loaded before Pixi Flash is loaded!");
+		return;
+	}
+	if(!window.pixiflash)
+		window.pixiflash =
+		{
+			Rectangle: PIXI.Rectangle,
+			Tween: createjs.Tween,
+			Ease: createjs.Ease
+		};
+	if(!window.pixiflash_lib)
+		window.pixiflash_lib = {};
+	if(!window.pixiflash_images)
+		window.pixiflash_images = {};
+}());
+/**
+ * @module Pixi Flash
+ * @namespace pixiflash
+ * @requires Core, Pixi Display
+ */
+(function(undefined)
+{
+	var Point = PIXI.Point;
+	
+	var uniqueId = 0;
+	/**
+	*  Mixins for the display objects used for bridging CreateJS over to PIXI.
+	*  @class Container
+	*/
+	var DisplayObjectMixin = function()
+	{
+		this.id = ++uniqueId;
+		
+		//mark these objects so that we can recognize them internally.
+		this._isPixiFlash = true;
+		/**
+		 * x and y skew of the display object, with values in radians.
+		 * @property {PIXI.Point} skew
+		 */
+		this.skew = new Point();
+		
+		/**
+		 * Rotation of the display object, with values in radians.
+		 * @property {Number} rotation
+		 */
+		this._rotation = 0;
+		
+		this._srB = 0;
+		this._srC = 0;
+		this._crA = 1;
+		this._crD = 1;
+		
+		this._cachedRotY = 0;
+		this._cachedRotX = 0;
+		
+		/**
+		 * If false, the tick will not run on this display object (or its children). This can provide some performance benefits.
+		 * In addition to preventing the "tick" event from being dispatched, it will also prevent tick related updates
+		 * on some display objects (ex. Sprite & MovieClip frame advancing, DOMElement visibility handling).
+		 * @property tickEnabled
+		 * @type Boolean
+		 * @default true
+		 **/
+		this.tickEnabled = true;
+	};
+
+	var p = DisplayObjectMixin.prototype;
+	
+	var DEG_TO_RAD = Math.PI / 180;
+	var RAD_TO_DEG = 180 / Math.PI;
+	var PI_2 = Math.PI * 2;
+	
+	Object.defineProperties(p,
+	{
+		/**
+		 * The x skew value of the display object, in degrees.
+		 * This property provides parity with CreateJS display objects.
+		 * @property {Number} skewX
+		 */
+		skewX:
+		{
+			enumerable: true,
+			get: function() { return this.skew.x * RAD_TO_DEG; },
+			set: function(value)
+			{
+				this.skew.x = value * DEG_TO_RAD;
+			}
+		},
+		/**
+		 * The y skew value of the display object, in degrees.
+		 * This property provides parity with CreateJS display objects.
+		 * @property {Number} skewY
+		 */
+		skewY:
+		{
+			enumerable: true,
+			get: function() { return this.skew.y * RAD_TO_DEG; },
+			set: function(value)
+			{
+				this.skew.y = value * DEG_TO_RAD;
+			}
+		},
+		/**
+		 * The rotation of the display object, in degrees.
+		 * This overrides the radian degrees of the PIXI display objects so that
+		 * tweening exported from Flash will work correctly.
+		 * @property {Number} rotation
+		 */
+		rotation:
+		{
+			enumerable: true,
+			get: function() { return this._rotation * RAD_TO_DEG; },
+			set: function(value)
+			{
+				this._rotation = value * DEG_TO_RAD;
+			}
+		},
+		/**
+		 * The x scale value of the display object.
+		 * This property provides parity with CreateJS display objects.
+		 * @property {Number} scaleX
+		 */
+		scaleX:
+		{
+			enumerable: true,
+			get: function() { return this.scale.x; },
+			set: function(value)
+			{
+				this.scale.x = value;
+			}
+		},
+		/**
+		 * The y scale value of the display object.
+		 * This property provides parity with CreateJS display objects.
+		 * @property {Number} scaleY
+		 */
+		scaleY:
+		{
+			enumerable: true,
+			get: function() { return this.scale.y; },
+			set: function(value)
+			{
+				this.scale.y = value;
+			}
+		},
+		/**
+		 * The x value of the registration, or pivot, point.
+		 * This property provides parity with CreateJS display objects.
+		 * @property {Number} regX
+		 */
+		regX:
+		{
+			enumerable: true,
+			get: function() { return this.pivot.x; },
+			set: function(value)
+			{
+				this.pivot.x = value;
+			}
+		},
+		/**
+		 * The y value of the registration, or pivot, point.
+		 * This property provides parity with CreateJS display objects.
+		 * @property {Number} regY
+		 */
+		regY:
+		{
+			enumerable: true,
+			get: function() { return this.pivot.y; },
+			set: function(value)
+			{
+				this.pivot.y = value;
+			}
+		}
+	});
+	
+	p.displayObjectUpdateTransform = function()
+	{
+		// create some matrix refs for easy access
+		var pt = this.parent.worldTransform;
+		var wt = this.worldTransform;
+
+		// temporary matrix variables
+		var a, b, c, d, tx, ty,
+			rotY = this._rotation + this.skew.y,
+			rotX = this._rotation + this.skew.x;
+
+		// so if rotation is between 0 then we can simplify the multiplication process...
+		if (rotY % PI_2 || rotX % PI_2)
+		{
+			// check to see if the rotation is the same as the previous render. This means we only need to use sin and cos when rotation actually changes
+			if (rotX !== this._cachedRotX || rotY !== this._cachedRotY)
+			{
+				// cache new values
+				this._cachedRotX = rotX;
+				this._cachedRotY = rotY;
+				
+				// recalculate expensive ops
+				this._crA = Math.cos(rotY);
+				this._srB = Math.sin(rotY);
+				
+				this._srC = Math.sin(-rotX);
+				this._crD = Math.cos(rotX);
+			}
+
+			// get the matrix values of the displayobject based on its transform properties..
+			a  = this._crA * this.scale.x;
+			b  = this._srB * this.scale.x;
+			c  = this._srC * this.scale.y;
+			d  = this._crD * this.scale.y;
+			tx =  this.position.x;
+			ty =  this.position.y;
+
+			// check for pivot.. not often used so geared towards that fact!
+			if (this.pivot.x || this.pivot.y)
+			{
+				tx -= this.pivot.x * a + this.pivot.y * c;
+				ty -= this.pivot.x * b + this.pivot.y * d;
+			}
+
+			// concat the parent matrix with the objects transform.
+			wt.a  = a  * pt.a + b  * pt.c;
+			wt.b  = a  * pt.b + b  * pt.d;
+			wt.c  = c  * pt.a + d  * pt.c;
+			wt.d  = c  * pt.b + d  * pt.d;
+			wt.tx = tx * pt.a + ty * pt.c + pt.tx;
+			wt.ty = tx * pt.b + ty * pt.d + pt.ty;
+		}
+		else
+		{
+			// lets do the fast version as we know there is no rotation..
+			a  = this.scale.x;
+			d  = this.scale.y;
+
+			tx = this.position.x - this.pivot.x * a;
+			ty = this.position.y - this.pivot.y * d;
+
+			wt.a  = a  * pt.a;
+			wt.b  = a  * pt.b;
+			wt.c  = d  * pt.c;
+			wt.d  = d  * pt.d;
+			wt.tx = tx * pt.a + ty * pt.c + pt.tx;
+			wt.ty = tx * pt.b + ty * pt.d + pt.ty;
+		}
+
+		// multiply the alphas..
+		this.worldAlpha = this.alpha * this.parent.worldAlpha;
+
+		// reset the bounds each time this is called!
+		this._currentBounds = null;
+	};
+	
+	p.setTransform = function(x, y, scaleX, scaleY, rotation, skewX, skewY, regX, regY)
+	{
+		this.position.x = x || 0;
+		this.position.y = y || 0;
+		this.scale.x = !scaleX ? 1 : scaleX;
+		this.scale.y = !scaleY ? 1 : scaleY;
+		this.rotation = rotation || 0;
+		this.skewX = skewX || 0;
+		this.skewY = skewY || 0;
+		this.pivot.x = regX || 0;
+		this.pivot.y = regY || 0;
+		return this;
+	};
+	
+	DisplayObjectMixin.mixin = function(targetPrototype)
+	{
+		for(var prop in p)
+		{
+			// For things that we set using Object.defineProperty
+			// very important that enumerable:true for the
+			// defineProperty options
+			var propDesc = Object.getOwnPropertyDescriptor(p, prop);
+			if(propDesc)
+			{
+				Object.defineProperty(targetPrototype, prop, propDesc);
+			}
+			else
+			{
+				// Should cover all other prototype methods/properties
+				targetPrototype[prop] = p[prop];
+			}
+		}
+	};
+	
+	pixiflash.DisplayObjectMixin = DisplayObjectMixin;
+	
+}());
+/**
+ * @module Pixi Flash
+ * @namespace pixiflash
+ * @requires Core, Pixi Display
+ */
+(function(undefined)
+{
+	var PixiContainer = PIXI.Container,
+		DisplayObjectMixin = pixiflash.DisplayObjectMixin,
+		SharedTicker = PIXI.ticker.shared;
+	
+	var Container = function()
+	{
+		PixiContainer.call(this);
+		DisplayObjectMixin.call(this);
+		
+		/**
+		 * If false, the tick will not be propagated to children of this Container. This can provide some performance benefits.
+		 * In addition to preventing the "tick" event from being dispatched, it will also prevent tick related updates
+		 * on some display objects (ex. Sprite & MovieClip frame advancing, DOMElement visibility handling).
+		 * @property tickChildren
+		 * @type Boolean
+		 * @default true
+		 **/
+		this.tickChildren = true;
+		
+		//remove all lsiteners on this instance, because the CreateJS published files from flash
+		//makes prototypes in a way that breaks normal PIXI listener usage.
+		this.removeAllListeners();
+		//add a listener for the first time the object is added, to get around
+		//using new instances for prototypes that the CreateJS exporting does.
+		this.once("added", function()
+		{
+			this._tickListener = this._tickListener.bind(this);
+			this._onAdded();
+			this._onAdded = this._onAdded.bind(this);
+			this._onRemoved = this._onRemoved.bind(this);
+			this.on("added", this._onAdded);
+			this.on("removed", this._onRemoved);
+		}.bind(this));
+	};
+	
+	var p = extend(Container, PixiContainer);
+	
+	DisplayObjectMixin.mixin(p);
+	
+	//constructor for backwards compatibility
+	p.initialize = Container;
+	
+	p._onAdded = function()
+	{
+		if(!this.parent._isPixiFlash)
+		{
+			SharedTicker.add(this._tickListener);
+		}
+	};
+	
+	p._tickListener = function(tickerDeltaTime)
+	{
+		var ms = tickerDeltaTime / SharedTicker.speed / PIXI.TARGET_FPMS;
+		this._tick(ms);
+	};
+	
+	p._onRemoved = function()
+	{
+		if(this._tickListener)
+			SharedTicker.remove(this._tickListener);
+	};
+	
+	/**
+	 * @method _tick
+	 * @param {Number} delta Time elapsed since the previous tick, in milliseconds.
+	 * @protected
+	 **/
+	p._tick = p.Container__tick = function(delta) {
+		if (this.tickChildren) {
+			for (var i=this.children.length-1; i>=0; i--) {
+				var child = this.children[i];
+				if (child.tickEnabled && child._tick) { child._tick(delta); }
+				else if(child.tickChildren && child.Container__tick)
+				{
+					child.Container__tick(delta);
+				}
+			}
+		}
+	};
+	
+	pixiflash.Container = Container;
+	
+}());
+/**
+ * @module Pixi Flash
+ * @namespace pixiflash
+ * @requires Core, Pixi Display
+ */
+(function(undefined)
+{
+	var Sprite = PIXI.Sprite,
+		DisplayObjectMixin = pixiflash.DisplayObjectMixin;
+	
+	var Bitmap = function(image)
+	{
+		Sprite.call(this, image);
+		DisplayObjectMixin.call(this);
+	};
+	
+	var p = extend(Bitmap, Sprite);
+	
+	DisplayObjectMixin.mixin(p);
+	
+	//constructor for backwards compatibility
+	p.initialize = Bitmap;
+	
+	pixiflash.Bitmap = Bitmap;
+	
+}());
+/**
+ * @module Pixi Flash
+ * @namespace pixiflash
+ * @requires Core, Pixi Display
+ */
+(function(undefined)
+{
+	var Container = PIXI.Container,
+		DisplayObjectMixin = pixiflash.DisplayObjectMixin,
+		Timeline = createjs.Timeline,
+		Tween = createjs.Tween,
+		SharedTicker = PIXI.ticker.shared;
+	
+	var MovieClip = function(mode, startPosition, loop, labels)
+	{
+		Container.call(this);
+		DisplayObjectMixin.call(this);
+		
+		this.tickChildren = true;
+		
+		/**
+		 * Controls how this MovieClip advances its time. Must be one of 0 (INDEPENDENT), 1 (SINGLE_FRAME), or 2 (SYNCHED).
+		 * See each constant for a description of the behaviour.
+		 * @property mode
+		 * @type String
+		 * @default null
+		 **/
+		this.mode = mode||MovieClip.INDEPENDENT;
+
+		/**
+		 * Specifies what the first frame to play in this movieclip, or the only frame to display if mode is SINGLE_FRAME.
+		 * @property startPosition
+		 * @type Number
+		 * @default 0
+		 */
+		this.startPosition = startPosition || 0;
+
+		/**
+		 * Indicates whether this MovieClip should loop when it reaches the end of its timeline.
+		 * @property loop
+		 * @type Boolean
+		 * @default true
+		 */
+		this.loop = loop;
+
+		/**
+		 * The current frame of the movieclip.
+		 * @property currentFrame
+		 * @type Number
+		 * @default 0
+		 * @readonly
+		 */
+		this.currentFrame = 0;
+		
+		/**
+		 * The TweenJS Timeline that is associated with this MovieClip. This is created automatically when the MovieClip
+		 * instance is initialized. Animations are created by adding <a href="http://tweenjs.com">TweenJS</a> Tween
+		 * instances to the timeline.
+		 *
+		 * <h4>Example</h4>
+		 *
+		 *      var tween = createjs.Tween.get(target).to({x:0}).to({x:100}, 30);
+		 *      var mc = new createjs.MovieClip();
+		 *      mc.timeline.addTween(tween);
+		 *
+		 * Elements can be added and removed from the timeline by toggling an "_off" property
+		 * using the <code>tweenInstance.to()</code> method. Note that using <code>Tween.set</code> is not recommended to
+		 * create MovieClip animations. The following example will toggle the target off on frame 0, and then back on for
+		 * frame 1. You can use the "visible" property to achieve the same effect.
+		 *
+		 *      var tween = createjs.Tween.get(target).to({_off:false})
+		 *          .wait(1).to({_off:true})
+		 *          .wait(1).to({_off:false});
+		 *
+		 * @property timeline
+		 * @type Timeline
+		 * @default null
+		 */
+		this.timeline = new Timeline(null, labels, {paused:true, position:startPosition, useTicks:true});
+	
+		/**
+		 * If true, the MovieClip's position will not advance when ticked.
+		 * @property paused
+		 * @type Boolean
+		 * @default false
+		 */
+		this.paused = false;
+	
+		/**
+		 * If true, actions in this MovieClip's tweens will be run when the playhead advances.
+		 * @property actionsEnabled
+		 * @type Boolean
+		 * @default true
+		 */
+		this.actionsEnabled = true;
+	
+		/**
+		 * If true, the MovieClip will automatically be reset to its first frame whenever the timeline adds
+		 * it back onto the display list. This only applies to MovieClip instances with mode=INDEPENDENT.
+		 * <br><br>
+		 * For example, if you had a character animation with a "body" child MovieClip instance
+		 * with different costumes on each frame, you could set body.autoReset = false, so that
+		 * you can manually change the frame it is on, without worrying that it will be reset
+		 * automatically.
+		 * @property autoReset
+		 * @type Boolean
+		 * @default true
+		 */
+		this.autoReset = true;
+		
+		/**
+		 * @property _synchOffset
+		 * @type Number
+		 * @default 0
+		 * @private
+		 */
+		this._synchOffset = 0;
+	
+		/**
+		 * @property _prevPos
+		 * @type Number
+		 * @default -1
+		 * @private
+		 */
+		this._prevPos = -1; // TODO: evaluate using a ._reset Boolean prop instead of -1.
+	
+		/**
+		 * @property _prevPosition
+		 * @type Number
+		 * @default 0
+		 * @private
+		 */
+		this._prevPosition = 0;
+	
+		/**
+		* Note - changed from default: When the MovieClip is framerate independent, this is the time
+		* elapsed from frame 0 in seconds.
+		* @property _t
+		* @type Number
+		* @default 0
+		* @private
+		*/
+		this._t = 0;
+		
+		/**
+		* By default MovieClip instances advance one frame per tick. Specifying a framerate for the MovieClip
+		* will cause it to advance based on elapsed time between ticks as appropriate to maintain the target
+		* framerate.
+		*
+		* @property _framerate
+		* @type {Number}
+		* @default 0
+		**/
+		this._framerate = 0;
+		/**
+		* When the MovieClip is framerate independent, this is the total time in seconds for the animation.
+		* @property _duration
+		* @type Number
+		* @default 0
+		* @private
+		*/
+		this._duration = 0;
+	
+		/**
+		 * List of display objects that are actively being managed by the MovieClip.
+		 * @property _managed
+		 * @type Object
+		 * @private
+		 */
+		this._managed = {};
+		
+		//remove all lsiteners on this instance, because the CreateJS published files from flash
+		//makes prototypes in a way that breaks normal PIXI listener usage.
+		this.removeAllListeners();
+		//add a listener for the first time the object is added, to get around
+		//using new instances for prototypes that the CreateJS exporting does.
+		this.once("added", function()
+		{
+			this._tickListener = this._tickListener.bind(this);
+			this._onAdded();
+			this._onAdded = this._onAdded.bind(this);
+			this._onRemoved = this._onRemoved.bind(this);
+			this.on("added", this._onAdded);
+			this.on("removed", this._onRemoved);
+		}.bind(this));
+	};
+	
+	/**
+	 * The MovieClip will advance independently of its parent, even if its parent is paused.
+	 * This is the default mode.
+	 * @property INDEPENDENT
+	 * @static
+	 * @type String
+	 * @default "independent"
+	 * @readonly
+	 **/
+	MovieClip.INDEPENDENT = "independent";
+
+	/**
+	 * The MovieClip will only display a single frame (as determined by the startPosition property).
+	 * @property SINGLE_FRAME
+	 * @static
+	 * @type String
+	 * @default "single"
+	 * @readonly
+	 **/
+	MovieClip.SINGLE_FRAME = "single";
+
+	/**
+	 * The MovieClip will be advanced only when its parent advances and will be synched to the position of
+	 * the parent MovieClip.
+	 * @property SYNCHED
+	 * @static
+	 * @type String
+	 * @default "synched"
+	 * @readonly
+	 **/
+	MovieClip.SYNCHED = "synched";
+	
+	var p = extend(MovieClip, Container);
+	
+	DisplayObjectMixin.mixin(p);
+	
+	//constructor for backwards compatibility
+	p.initialize = MovieClip;
+	
+	p._onAdded = function()
+	{
+		if(!this.parent._isPixiFlash)
+		{
+			SharedTicker.add(this._tickListener);
+		}
+	};
+	
+	p._tickListener = function(tickerDeltaTime)
+	{
+		var ms = tickerDeltaTime / SharedTicker.speed / PIXI.TARGET_FPMS;
+		this._tick(ms);
+	};
+	
+	p._onRemoved = function()
+	{
+		if(this._tickListener)
+			SharedTicker.remove(this._tickListener);
+	};
+	
+	/**
+	 * Use the {{#crossLink "MovieClip/labels:property"}}{{/crossLink}} property instead.
+	 * @method getLabels
+	 * @return {Array}
+	 * @deprecated
+	 **/
+	p.getLabels = function() {
+		return this.timeline.getLabels();
+	};
+	
+	/**
+	 * Use the {{#crossLink "MovieClip/currentLabel:property"}}{{/crossLink}} property instead.
+	 * @method getCurrentLabel
+	 * @return {String}
+	 * @deprecated
+	 **/
+	p.getCurrentLabel = function() {
+		this._updateTimeline();
+		return this.timeline.getCurrentLabel();
+	};
+
+	/**
+	 * Returns an array of objects with label and position (aka frame) properties, sorted by position.
+	 * Shortcut to TweenJS: Timeline.getLabels();
+	 * @property labels
+	 * @type {Array}
+	 * @readonly
+	 **/
+	 
+	/**
+	 * Returns the name of the label on or immediately before the current frame. See TweenJS: Timeline.getCurrentLabel()
+	 * for more information.
+	 * @property currentLabel
+	 * @type {String}
+	 * @readonly
+	 **/
+	try {
+		Object.defineProperties(p, {
+			labels: { get: p.getLabels },
+			currentLabel: { get: p.getCurrentLabel }
+		});
+	} catch (e) {}
+	
+	/**
+	* When the MovieClip is framerate independent, this is the time elapsed from frame 0 in seconds.
+	* @property elapsedTime
+	* @type Number
+	* @default 0
+	* @public
+	*/
+	Object.defineProperty(p, 'elapsedTime', {
+		get: function() {
+			return this._t;
+		},
+		set: function(value) {
+			this._t = value;
+		}
+	});
+	
+	/**
+	* By default MovieClip instances advance one frame per tick. Specifying a framerate for the MovieClip
+	* will cause it to advance based on elapsed time between ticks as appropriate to maintain the target
+	* framerate.
+	*
+	* For example, if a MovieClip with a framerate of 10 is placed on a Stage being updated at 40fps, then the MovieClip will
+	* advance roughly one frame every 4 ticks. This will not be exact, because the time between each tick will
+	* vary slightly between frames.
+	*
+	* This feature is dependent on the tick event object (or an object with an appropriate "delta" property) being
+	* passed into {{#crossLink "Stage/update"}}{{/crossLink}}.
+	* @property framerate
+	* @type {Number}
+	* @default 0
+	**/
+	Object.defineProperty(p, 'framerate', {
+		get: function() {
+			return this._framerate;
+		},
+		set: function(value) {
+			if(value > 0)
+			{
+				this._framerate = value;
+				this._duration = value ? this.timeline.duration / value : 0;
+			}
+			else
+				this._framerate = this._duration = 0;
+		}
+	});
+	
+	/**
+	 * Sets paused to false.
+	 * @method play
+	 **/
+	p.play = function() {
+		this.paused = false;
+	};
+	
+	/**
+	 * Sets paused to true.
+	 * @method stop
+	 **/
+	p.stop = function() {
+		this.paused = true;
+	};
+	
+	/**
+	 * Advances this movie clip to the specified position or label and sets paused to false.
+	 * @method gotoAndPlay
+	 * @param {String|Number} positionOrLabel The animation name or frame number to go to.
+	 **/
+	p.gotoAndPlay = function(positionOrLabel) {
+		this.paused = false;
+		this._goto(positionOrLabel);
+	};
+	
+	/**
+	 * Advances this movie clip to the specified position or label and sets paused to true.
+	 * @method gotoAndStop
+	 * @param {String|Number} positionOrLabel The animation or frame name to go to.
+	 **/
+	p.gotoAndStop = function(positionOrLabel) {
+		this.paused = true;
+		this._goto(positionOrLabel);
+	};
+	
+	/**
+	 * Advances the playhead. This occurs automatically each tick by default.
+	 * @param [time] {Number} The amount of time in ms to advance by. Only applicable if framerate is set.
+	 * @method advance
+	*/
+	p.advance = function(time) {
+		// TODO: should we worry at all about clips who change their own modes via frame scripts?
+		var independent = MovieClip.INDEPENDENT;
+		if (this.mode != independent) { return; }
+		
+		if(!this._framerate)
+		{
+			var o=this, fps = o._framerate;
+			while ((o = o.parent) && !fps) {
+				if (o.mode == independent) { fps = o._framerate; }
+			}
+			this.framerate = fps;
+		}
+		
+		if(!this.paused)
+		{
+			if(this._framerate > 0)
+			{
+				if(time)
+					this._t += time * 0.001;//milliseconds -> seconds
+				if(this._t > this._duration)
+					this._t = this.timeline.loop ? this._t - this._duration : this._duration;
+				//add a tiny amount to account for potential floating point errors
+				this._prevPosition = Math.floor(this._t * this._framerate + 0.00000001);
+				if(this._prevPosition > this.timeline.duration)
+					this._prevPosition = this.timeline.duration;
+			}
+			else
+				this._prevPosition = (this._prevPos < 0) ? 0 : this._prevPosition+1;
+			this._updateTimeline();
+		}
+	};
+	
+	/**
+	 * @method _tick
+	 * @param {Number} delta Time elapsed since the previous tick, in milliseconds.
+	 * function.
+	 * @protected
+	 **/
+	p._tick = function(delta) {
+		if(this.tickEnabled)
+			this.advance(delta);
+		this.Container__tick(delta);
+	};
+	
+	p.Container__tick = function(delta) {
+		if (this.tickChildren) {
+			for (var i=this.children.length-1; i>=0; i--) {
+				var child = this.children[i];
+				if (child.tickEnabled && child._tick) { child._tick(delta); }
+				else if(child.tickChildren && child.Container__tick)
+				{
+					child.Container__tick(delta);
+				}
+			}
+		}
+	};
+	
+	/**
+	 * @method _goto
+	 * @param {String|Number} positionOrLabel The animation name or frame number to go to.
+	 * @protected
+	 **/
+	p._goto = function(positionOrLabel) {
+		var pos = this.timeline.resolve(positionOrLabel);
+		if (pos === null || pos === undefined) { return; }
+		// prevent _updateTimeline from overwriting the new position because of a reset:
+		if (this._prevPos == -1) { this._prevPos = NaN; }
+		this._prevPosition = pos;
+		//update the elapsed time if a time based movieclip
+		if(this._framerate > 0)
+			this._t = pos / this._framerate;
+		else
+			this._t = 0;
+		this._updateTimeline();
+	};
+	
+	/**
+	 * @method _reset
+	 * @private
+	 **/
+	p._reset = function() {
+		this._prevPos = -1;
+		this._t = 0;
+		this.currentFrame = 0;
+	};
+	
+	/**
+	 * @method _updateTimeline
+	 * @protected
+	 **/
+	p._updateTimeline = function() {
+		var tl = this.timeline;
+		var synched = this.mode != MovieClip.INDEPENDENT;
+		tl.loop = (!this.loop) ? true : this.loop;
+
+		// update timeline position, ignoring actions if this is a graphic.
+		if (synched) {
+			tl.setPosition(this.startPosition + (this.mode==MovieClip.SINGLE_FRAME?0:this._synchOffset), Tween.NONE);
+		} else {
+			tl.setPosition(this._prevPos < 0 ? 0 : this._prevPosition, this.actionsEnabled ? null : Tween.NONE);
+		}
+
+		this._prevPosition = tl._prevPosition;
+		if (this._prevPos == tl._prevPos) { return; }
+		this.currentFrame = this._prevPos = tl._prevPos;
+
+		for (var n in this._managed) { this._managed[n] = 1; }
+
+		var tweens = tl._tweens;
+		for (var i=0, l=tweens.length; i<l; i++) {
+			var tween = tweens[i];
+			var target = tween._target;
+			if (target == this || tween.passive) { continue; } // TODO: this assumes actions tween has this as the target. Valid?
+			var offset = tween._stepPosition;
+			
+			//Containers, Bitmaps(Sprites), and MovieClips(also Containers) all inherit from
+			//Container for PIXI
+			if (target instanceof Container) {
+				// motion tween.
+				this._addManagedChild(target, offset);
+			} else {
+				// state tween.
+				this._setState(target.state, offset);
+			}
+		}
+
+		var kids = this.children;
+		for (i=kids.length-1; i>=0; i--) {
+			var id = kids[i].id;
+			if (this._managed[id] == 1) {
+				this.removeChildAt(i);
+				delete(this._managed[id]);
+			}
+		}
+	};
+
+	/**
+	 * @method _setState
+	 * @param {Array} state
+	 * @param {Number} offset
+	 * @protected
+	 **/
+	p._setState = function(state, offset) {
+		if (!state) { return; }
+		for (var i=state.length-1;i>=0;i--) {
+			var o = state[i];
+			var target = o.t;
+			var props = o.p;
+			for (var n in props) { target[n] = props[n]; }
+			this._addManagedChild(target, offset);
+		}
+	};
+
+	/**
+	 * Adds a child to the timeline, and sets it up as a managed child.
+	 * @method _addManagedChild
+	 * @param {MovieClip} child The child MovieClip to manage
+	 * @param {Number} offset
+	 * @private
+	 **/
+	p._addManagedChild = function(child, offset) {
+		if (child._off) { return; }
+		this.addChildAt(child,0);
+
+		if (child instanceof MovieClip) {
+			child._synchOffset = offset;
+			child._updateTimeline();
+			// TODO: this does not precisely match Flash. Flash loses track of the clip if it is renamed or removed from the timeline, which causes it to reset.
+			if (child.mode == MovieClip.INDEPENDENT && child.autoReset && !this._managed[child.id]) { child._reset(); }
+		}
+		this._managed[child.id] = 2;
+	};
+	
+	pixiflash.MovieClip = MovieClip;
+	
+	/**
+	 * This plugin works with <a href="http://tweenjs.com" target="_blank">TweenJS</a> to prevent the startPosition
+	 * property from tweening.
+	 * @private
+	 * @class MovieClipPlugin
+	 * @constructor
+	 **/
+	function MovieClipPlugin() {
+		throw("MovieClipPlugin cannot be instantiated.");
+	}
+	
+	/**
+	 * @method priority
+	 * @private
+	 **/
+	MovieClipPlugin.priority = 100; // very high priority, should run first
+
+	/**
+	 * @method install
+	 * @private
+	 **/
+	MovieClipPlugin.install = function() {
+		Tween.installPlugin(MovieClipPlugin, ["startPosition"]);
+	};
+	
+	/**
+	 * @method init
+	 * @param {Tween} tween
+	 * @param {String} prop
+	 * @param {String|Number|Boolean} value
+	 * @private
+	 **/
+	MovieClipPlugin.init = function(tween, prop, value) {
+		return value;
+	};
+	
+	/**
+	 * @method step
+	 * @private
+	 **/
+	MovieClipPlugin.step = function() {
+		// unused.
+	};
+
+	/**
+	 * @method tween
+	 * @param {Tween} tween
+	 * @param {String} prop
+	 * @param {String | Number | Boolean} value
+	 * @param {Array} startValues
+	 * @param {Array} endValues
+	 * @param {Number} ratio
+	 * @param {Object} wait
+	 * @param {Object} end
+	 * @return {*}
+	 */
+	MovieClipPlugin.tween = function(tween, prop, value, startValues, endValues, ratio, wait, end) {
+		if (!(tween.target instanceof MovieClip)) { return value; }
+		return (ratio == 1 ? endValues[prop] : startValues[prop]);
+	};
+	
+}());
+/**
+ * @module Pixi Flash
+ * @namespace pixiflash
+ * @requires Core, Pixi Display
+ */
+(function(undefined)
+{
+	if(!window.include || !include('springroll')) return;
+	
+	var Debug;
+
+	/**
+	 * Handles the Asset loading for Flash Art takes care of unloading
+	 * @class FlashArt
+	 * @constructor
+	 * @private
+	 * @param {String} id The asset id
+	 * @param {NodeElement} dom The `<script>` element added to the document
+	 * @param {String} [libName='lib'] The window parameter name
+	 */
+	var FlashArt = function(id, dom, libName)
+	{
+		if (true && Debug === undefined)
+		{
+			Debug = include('springroll.Debug', false);
+		}
+
+		/**
+		 * Reference to the node element
+		 * @property {NodeElement} dom
+		 */
+		this.dom = dom;
+
+		/**
+		 * The collection of loaded symbols by name
+		 * @property {Array} symbols
+		 */
+		this.symbols = [];
+
+		/**
+		 * The name of the output lib name
+		 * @property {String} libName
+		 * @default 'lib'
+		 */
+		this.libName = libName || 'lib';
+
+		/**
+		 * The name of the output lib name
+		 * @property {String} id
+		 */
+		this.id = id;
+
+		// Pare the dome object
+		this.parseSymbols(dom.text);
+	};
+
+	// Reference to the prototype
+	var p = FlashArt.prototype;
+
+	/**
+	 * The collection of all symbols and assets
+	 * @property {Object} globalSymbols
+	 * @static
+	 * @private
+	 */
+	FlashArt.globalSymbols = {};
+
+	/**
+	 * Get the name of all the library elements of the dom text
+	 * @method parseSymbols
+	 * @param {String} text The DOM text contents
+	 */
+	p.parseSymbols = function(text)
+	{
+		// split into the initialization functions, that take 'lib' as a parameter
+		var textArray = text.split(/[\(!]function\s*\(/);
+		
+		var globalSymbols = FlashArt.globalSymbols;
+		// go through each initialization function
+		for (var i = 0; i < textArray.length; ++i)
+		{
+			text = textArray[i];
+			if (!text) continue;
+
+			// determine what the 'lib' parameter has been minified into
+			var libName = text.substring(0, text.indexOf(","));
+			if (!libName) continue;
+
+			// get all the things that are 'lib.X = <stuff>'
+			var varFinder = new RegExp("\\(" + libName + ".(\\w+)\\s*=", "g");
+			var foundName = varFinder.exec(text);
+			var assetId;
+
+			while (foundName)
+			{
+				assetId = foundName[1];
+
+				// Warn about collisions with assets that already exist
+				if (true && Debug && globalSymbols[assetId])
+				{
+					Debug.warn(
+						"Flash Asset Collision: asset '" + this.id +
+						"' wants to create 'lib." + assetId +
+						"' which is already created by asset '" +
+						FlashArt.globalSymbols[assetId] + "'"
+					);
+				}
+
+				// keep track of the asset id responsible
+				this.symbols.push(assetId);
+				globalSymbols[assetId] = this.id;
+				foundName = varFinder.exec(text);
+			}
+		}
+	};
+
+	/**
+	 * Cleanup the Flash library that's been loaded
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		// remove the <script> element from the stage
+		this.dom.parentNode.removeChild(this.dom);
+		this.dom = null;
+
+		// Delete the elements
+		var globalSymbols = FlashArt.globalSymbols;
+		var lib = window[this.libName];
+		this.symbols.forEach(function(id)
+		{
+			delete globalSymbols[id];
+			delete lib[id];
+		});
+		this.symbols = null;
+	};
+	
+	// Assign to namespace
+	namespace('pixiflash').FlashArt = FlashArt;
+
+}());
+/**
+ * @module Pixi Flash
+ * @namespace pixiflash
+ * @requires Core, Pixi Display
+ */
+(function()
+{
+	if(!window.include || !include('springroll')) return;
+	
+	var Task = include('springroll.Task'),
+		FlashArt = include('pixiflash.FlashArt'),
+		Application = include('springroll.Application'),
+		TextureAtlas = include('springroll.pixi.TextureAtlas'),
+		Texture = include('PIXI.Texture');
+
+	/**
+	 * Replaces Bitmaps in the global lib dictionary with a faux Bitmap
+	 * that pulls the image from a spritesheet.
+	 * @class FlashArtTask
+	 * @extends springroll.Task
+	 * @constructor
+	 * @private
+	 * @param {Object} asset The data properties
+	 * @param {String} asset.type Asset type must be "pixi"
+	 * @param {String} asset.format Asset format must be "pixiflash.FlashArt"
+	 * @param {String} asset.src The source
+	 * @param {Array} asset.images An array of Image, TextureAtlas, or SpriteSheet assets to load
+	 * @param {Boolean} [asset.cache=false] If we should cache the result
+	 * @param {String} [asset.id] Id of asset
+	 * @param {Function} [asset.complete] The event to call when done
+	 * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
+	 */
+	var FlashArtTask = function(asset)
+	{
+		Task.call(this, asset, asset.src);
+
+		/**
+		 * The path to the flash asset
+		 * @property {String} src
+		 */
+		this.src = this.filter(asset.src);
+		
+		/**
+		 * Any image, atlas, or SpriteSheet assets that should be loaded along with this piece
+		 * of flash art.
+		 * @property {Array} images
+		 */
+		this.images = asset.images;
+
+		/**
+		 * The name of the window object library items hang on
+		 * @property {String} libName
+		 */
+		this.libName = "pixiflash_lib";
+		
+		/**
+		 * The name of the window object images hang on
+		 * @property {String} imagesName
+		 */
+		this.imagesName = "pixiflash_images";
+	};
+
+	// Reference to prototype
+	var p = extend(FlashArtTask, Task);
+
+	/**
+	 * Test if we should run this task
+	 * @method test
+	 * @static
+	 * @param {Object} asset The asset to check
+	 * @return {Boolean} If the asset is compatible with this asset
+	 */
+	FlashArtTask.test = function(asset)
+	{
+		return asset.src &&
+			asset.src.search(/\.js$/i) > -1 &&
+			asset.type == "pixi" &&
+			asset.format == "pixiflash.FlashArt" &&
+			asset.images && Array.isArray(asset.images);
+	};
+
+	/**
+	 * Start the task
+	 * @method  start
+	 * @param  {Function} callback Callback when finished
+	 */
+	p.start = function(callback)
+	{
+		var images = [];
+		var atlas, assetCount = 0;
+		var asset;
+		for(var i = 0; i < this.images.length; ++i)
+		{
+			//check for texture atlases from TexturePacker or similar things
+			if(this.images[i].atlas)
+			{
+				asset = this.images[i];
+				atlas = {
+					atlas:this.filter(asset.atlas),
+					id: "asset_" + (assetCount++),
+					type:"pixi"
+				};
+				if(asset.image)
+					atlas.image = this.filter(asset.image);
+				else
+				{
+					atlas.alpha = this.filter(asset.alpha);
+					atlas.color = this.filter(asset.color);
+				}
+				images.push(atlas);
+			}
+			//Check for EaselJS SpriteSheets
+			else if(this.images[i].format == "createjs.SpriteSheet")
+			{
+				asset = this.images[i].clone();
+				images.push(asset);
+				if(!asset.type)
+					asset.type = "pixi";
+				if(!asset.id)
+					asset.id = "asset_" + (assetCount++);
+			}
+			//standard images
+			else
+			{
+				//check for urls
+				if(typeof this.images[i] == "string")
+					asset = {image:this.filter(this.images[i])};
+				//and full tasks
+				else
+					asset = this.images[i].clone();
+				//ensure an ID for these
+				if(!asset.id)
+				{
+					var fallbackId = asset.src || asset.color;
+					// Remove the file extension
+					var extIndex = fallbackId.lastIndexOf('.');
+					if (extIndex > -1)
+					{
+						fallbackId = fallbackId.substr(0, extIndex);
+					}
+					// Check for the last folder slash then remove it
+					var slashIndex = fallbackId.lastIndexOf('/');
+					if (slashIndex > -1)
+					{
+						fallbackId = fallbackId.substr(slashIndex + 1);
+					}
+					asset.id = fallbackId;
+				}
+				//also ensure that they are PIXI Texture assets
+				asset.type = "pixi";
+				images.push(asset);
+			}
+		}
+		
+		var assets = {
+			_flash : this.src
+		};
+		if(images.length)
+			assets._images = {assets:images};
+
+		// Load all the assets
+		Application.instance.load(assets, function(results)
+		{
+			var art = new FlashArt(
+				this.id,
+				results._flash,
+				this.libName
+			);
+			
+			var images = results._images;
+			if(images)
+			{
+				var image;
+				var objectsToDestroy = [];
+				var texturesToRemove = [];
+				var globalImages = namespace(this.imagesName);
+				
+				for(var id in images)
+				{
+					var result = images[id];
+					//save the item for cleanup
+					objectsToDestroy.push(result);
+					//look for individual images
+					if(result instanceof Texture)
+					{
+						globalImages[id] = result;
+						texturesToRemove.push(id);
+					}
+					else if(result instanceof TextureAtlas)
+					{
+						var frames = result.frames;
+						for(var frame in frames)
+						{
+							globalImages[frame] = frames[frame];
+							texturesToRemove.push(frame);
+						}
+					}
+					//otherwise the result is a SpriteSheet
+					else
+					{
+						//TODO: do something with spritesheet
+					}
+				}
+				
+				art._orig_destroy = art.destroy;
+				art.destroy = function()
+				{
+					var i;
+					for(i = objectsToDestroy.length - 1; i >= 0; --i)
+					{
+						if(objectsToDestroy[i].destroy)
+							objectsToDestroy[i].destroy();
+						else
+							objectsToDestroy[i].dispatchEvent("destroy");
+					}
+					for(i = texturesToRemove.length - 1; i >= 0; --i)
+					{
+						delete globalImages[texturesToRemove[i]];
+					}
+					art._orig_destroy();
+				};
+			}
+			
+			callback(art);
+			
+		}.bind(this));
+	};
+
+	// Assign to namespace
+	namespace('pixiflash').FlashArtTask = FlashArtTask;
+
+}());
+/**
+ * @module Pixi Flash
+ * @namespace pixiflash
+ * @requires Core, Pixi Display
+ */
+(function()
+{
+	if(!window.include || !include('springroll')) return;
+	
+	// Include classes
+	var ApplicationPlugin = include('springroll.ApplicationPlugin');
+
+	/**
+	 * @class Application
+	 */
+	var plugin = new ApplicationPlugin();
+
+	plugin.setup = function()
+	{	
+		this.assetManager.register('pixiflash.FlashArtTask', 60);
+	};
+
+}());

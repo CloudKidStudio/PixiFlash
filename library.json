@@ -1,0 +1,17 @@
+{
+	"name": "Pixi Flash",
+	"version": "0.1.0",
+	"description": "A SpringRoll plugin for handling assets exported through Flash's CreateJS publishing.",
+	"url": "https://github.com/SpringRoll/PixiFlash",
+	"output": "pixi-flash",
+	"main": [
+		"src/lead.js",
+		"src/DisplayObjectMixin.js",
+		"src/Container.js",
+		"src/Bitmap.js",
+		"src/MovieClip.js",
+		"src/FlashArt.js",
+		"src/FlashArtTask.js",
+		"src/PixiFlashPlugin.js"
+	]
+}
