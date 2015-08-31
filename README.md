@@ -1,4 +1,4 @@
-# PIXI Flash
+# PIXI Flash [![Build Status](https://travis-ci.org/SpringRoll/PixiFlash.svg)](https://travis-ci.org/SpringRoll/PixiFlash) [![Dependency Status](https://david-dm.org/SpringRoll/PixiFlash.svg)](https://david-dm.org/SpringRoll/PixiFlash)
 
 A library for bridging CreateJS animations from Flash for use in PIXI. Publish Flash content like you normally would for CreateJS, but export for Flash. There can be _no_ vectors used, this publishing process only supports bitmaps, movieclips and timeline animations.
 
