@@ -1,30 +1,56 @@
 /*! Pixi Flash 0.1.0 */
-(function(undefined)
+(function(window)
 {
 	//Set up namespaces, and check that PIXI and CreateJS have been set up
 	//any failures will likely cause other failures in the library set up, but that's okay
-	if(!window.PIXI)
+	if (!window.PIXI)
 	{
-		console.error("Pixi Flash requires PIXI to be loaded before Pixi Flash is loaded!");
-		return;
-	}
-	if(!window.createjs || !createjs.Tween)
-	{
-		console.error("PIXI Flash requires TweenJS to be loaded before Pixi Flash is loaded!");
-		return;
-	}
-	if(!window.pixiflash)
-		window.pixiflash =
+		if (true)
 		{
+			throw "Pixi Flash requires PIXI to be loaded before Pixi Flash is loaded!";
+		}
+		else
+		{
+			throw "Requires PIXI";
+		}
+	}
+
+	// Check for TweenJS
+	if (!window.createjs || !createjs.Tween)
+	{
+		if (true)
+		{
+			throw "PIXI Flash requires TweenJS to be loaded before Pixi Flash is loaded!";
+		}
+		else
+		{
+			throw "Requires TweenJS";
+		}
+	}
+
+	// Add the pixiflash namespace
+	if (!window.pixiflash)
+	{
+		window.pixiflash = {
 			Rectangle: PIXI.Rectangle,
 			Tween: createjs.Tween,
 			Ease: createjs.Ease
 		};
+	}
+
+	// Add namespace for pixiflash symbols from Flash
 	if(!window.pixiflash_lib)
+	{
 		window.pixiflash_lib = {};
+	}
+
+	// Add namespace for pixiflash images from Flash
 	if(!window.pixiflash_images)
+	{
 		window.pixiflash_images = {};
-}());
+	}
+
+}(window));
 /**
  * @module Pixi Flash
  * @namespace pixiflash

@@ -5,7 +5,7 @@
 	"url": "https://github.com/SpringRoll/PixiFlash",
 	"output": "pixi-flash",
 	"main": [
-		"src/lead.js",
+		"src/main.js",
 		"src/DisplayObjectMixin.js",
 		"src/Container.js",
 		"src/Bitmap.js",
