@@ -24,7 +24,7 @@ Install the post-publish tool by running **tools/install.jsfl**. This will allow
 To run content exported with PixiFlash, you must load the JavaScript library within your project. You can install using [Bower](http://bower.io):
 
 ```
-bower install SpringRoll/PixiFlash
+bower install pixi-flash
 ```
 
 ### Dependencies
