@@ -1,13 +1,12 @@
 /**
  * @module Pixi Flash
  * @namespace pixiflash
- * @requires Core, Pixi Display
  */
 (function(undefined)
 {
 	var Point = PIXI.Point;
-	
 	var uniqueId = 0;
+	
 	/**
 	*  Mixins for the display objects used for bridging CreateJS over to PIXI.
 	*  @class Container

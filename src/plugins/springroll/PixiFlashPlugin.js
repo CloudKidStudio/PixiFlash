@@ -1,18 +1,14 @@
 /**
- * @module Pixi Flash
+ * @module SpringRoll Plugin
  * @namespace pixiflash
- * @requires Core, Pixi Display
+ * @requires Pixi Flash
  */
 (function()
-{
-	if(!window.include || !include('springroll')) return;
-	
+{	
 	// Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
 
-	/**
-	 * @class Application
-	 */
+	// Create a new plugin
 	var plugin = new ApplicationPlugin();
 
 	plugin.setup = function()

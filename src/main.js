@@ -1,3 +1,7 @@
+/**
+ * @module Pixi Flash
+ * @namespace pixiflash
+ */
 (function(window)
 {
 	//Set up namespaces, and check that PIXI and CreateJS have been set up

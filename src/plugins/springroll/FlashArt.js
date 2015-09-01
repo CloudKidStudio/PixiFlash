@@ -1,12 +1,10 @@
 /**
- * @module Pixi Flash
+ * @module SpringRoll Plugin
  * @namespace pixiflash
- * @requires Core, Pixi Display
+ * @requires Pixi Flash
  */
 (function(undefined)
-{
-	if(!window.include || !include('springroll')) return;
-	
+{	
 	var Debug;
 
 	/**

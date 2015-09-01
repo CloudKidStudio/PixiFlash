@@ -1,7 +1,6 @@
 /**
  * @module Pixi Flash
  * @namespace pixiflash
- * @requires Core, Pixi Display
  */
 (function(undefined)
 {
@@ -9,6 +8,11 @@
 		DisplayObjectMixin = pixiflash.DisplayObjectMixin,
 		SharedTicker = PIXI.ticker.shared;
 	
+	/**
+	 * The class to emulate createjs.Container
+	 * @class Container
+	 * @extends PIXI.Container
+	 */
 	var Container = function()
 	{
 		PixiContainer.call(this);
@@ -40,7 +44,7 @@
 		}.bind(this));
 	};
 	
-	var p = extend(Container, PixiContainer);
+	var p = Container.prototype = Object.create(PixiContainer.prototype);
 	
 	DisplayObjectMixin.mixin(p);
 	

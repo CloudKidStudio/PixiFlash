@@ -10,8 +10,16 @@
 		"src/Container.js",
 		"src/Bitmap.js",
 		"src/MovieClip.js",
-		"src/FlashArt.js",
-		"src/FlashArtTask.js",
-		"src/PixiFlashPlugin.js"
-	]
+		"src/utils.js"
+	],
+	"modules": {
+		"pluginspringroll": {
+			"output": "plugin-springroll",
+			"main": [
+				"src/plugins/springroll/FlashArt.js",
+				"src/plugins/springroll/FlashArtTask.js",
+				"src/plugins/springroll/PixiFlashPlugin.js"
+			]
+		}
+	}
 }

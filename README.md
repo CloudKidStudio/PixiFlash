@@ -29,4 +29,49 @@ bower install SpringRoll/PixiFlash
 
 ### Dependencies
 
-[TweenJS](http://createjs.com/tweenjs) is a dependency for doing timeline animation. Make sure this is also included in your project.
+* [Pixi.js](http://pixijs.com) is required
+* [TweenJS](http://createjs.com/tweenjs) is a dependency for doing timeline animation
+
+
+### Example
+
+Here's a example using PIXI. 
+
+```js
+var renderer = new PIXI.autoDetectRenderer(800, 500);
+var stage = new PIXI.Container();
+
+// Load the atlas for the character
+var loader = new PIXI.loaders.Loader();
+
+// This atlas is created with TexturePacker from the 
+// output individual images from Flash publishing
+loader.add('CharacterAtlas',"CharacterAtlas.json");
+loader.once('complete',function(loader, resources)
+{
+	// Assign the atlas to global images in pixiflash_images
+	pixiflash.utils.addImages(resources.CharacterAtlas);
+
+	// Create the character, all library symbols live
+	// on the pixiflash_lib window object
+	var character = new pixiflash_lib.Character();
+
+	// Set the framerate to match the FPS in Flash
+	character.framerate = 30;
+
+	// Start playing the character
+	character.play();
+
+	// Add to stage
+	stage.addChild(character);
+});
+loader.load();
+
+// Normal render
+update();
+function update()
+{
+    requestAnimationFrame(update);
+    renderer.render(stage);
+}
+```

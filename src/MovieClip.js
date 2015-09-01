@@ -1,7 +1,6 @@
 /**
  * @module Pixi Flash
  * @namespace pixiflash
- * @requires Core, Pixi Display
  */
 (function(undefined)
 {
@@ -11,6 +10,11 @@
 		Tween = createjs.Tween,
 		SharedTicker = PIXI.ticker.shared;
 	
+	/**
+	 * The class to emulate createjs.MovieClip, requires TweenJS
+	 * @class MovieClip
+	 * @extends PIXI.Container
+	 */
 	var MovieClip = function(mode, startPosition, loop, labels)
 	{
 		Container.call(this);
@@ -217,7 +221,7 @@
 	 **/
 	MovieClip.SYNCHED = "synched";
 	
-	var p = extend(MovieClip, Container);
+	var p = MovieClip.prototype = Object.create(Container.prototype);
 	
 	DisplayObjectMixin.mixin(p);
 	
