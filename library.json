@@ -13,13 +13,10 @@
 		"src/utils.js"
 	],
 	"modules": {
-		"pluginspringroll": {
-			"output": "plugin-springroll",
-			"main": [
-				"src/plugins/springroll/FlashArt.js",
-				"src/plugins/springroll/FlashArtTask.js",
-				"src/plugins/springroll/PixiFlashPlugin.js"
-			]
-		}
+		"springroll": [
+			"src/plugins/springroll/FlashArt.js",
+			"src/plugins/springroll/FlashArtTask.js",
+			"src/plugins/springroll/PixiFlashPlugin.js"
+		]
 	}
 }
