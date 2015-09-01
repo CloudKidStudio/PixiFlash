@@ -3,7 +3,6 @@
 	"version": "0.4.0",
 	"main": "dist/core.min.js",
 	"dependencies": {
-		"springroll": "master",
 		"tweenjs": "https://github.com/SpringRoll/TweenJS.git",
 		"pixi.js": "https://github.com/SpringRoll/pixi.js.git#master"
 	},
