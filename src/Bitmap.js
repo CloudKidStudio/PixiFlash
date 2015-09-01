@@ -5,7 +5,7 @@
 (function(undefined)
 {
 	var Sprite = PIXI.Sprite,
-		DisplayObjectMixin = pixiflash.DisplayObjectMixin;
+		DisplayObject = pixiflash.DisplayObject;
 	
 	/**
 	 * The class to emulate createjs.Bitmap
@@ -15,14 +15,14 @@
 	var Bitmap = function(image)
 	{
 		Sprite.call(this, image);
-		DisplayObjectMixin.call(this);
+		DisplayObject.call(this);
 	};
 	
 	// Extend PIXI.Sprite
 	var p = Bitmap.prototype = Object.create(Sprite.prototype);
 	
 	// Mixin the display object
-	DisplayObjectMixin.mixin(p);
+	DisplayObject.mixin(p);
 	
 	//constructor for backwards compatibility
 	p.initialize = Bitmap;

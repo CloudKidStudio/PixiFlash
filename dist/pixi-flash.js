@@ -66,9 +66,9 @@
 	
 	/**
 	*  Mixins for the display objects used for bridging CreateJS over to PIXI.
-	*  @class Container
+	*  @class DisplayObject
 	*/
-	var DisplayObjectMixin = function()
+	var DisplayObject = function()
 	{
 		this.id = ++uniqueId;
 		
@@ -105,7 +105,7 @@
 		this.tickEnabled = true;
 	};
 
-	var p = DisplayObjectMixin.prototype;
+	var p = DisplayObject.prototype;
 	
 	var DEG_TO_RAD = Math.PI / 180;
 	var RAD_TO_DEG = 180 / Math.PI;
@@ -304,7 +304,7 @@
 		return this;
 	};
 	
-	DisplayObjectMixin.mixin = function(targetPrototype)
+	DisplayObject.mixin = function(targetPrototype)
 	{
 		for(var prop in p)
 		{
@@ -324,7 +324,7 @@
 		}
 	};
 	
-	pixiflash.DisplayObjectMixin = DisplayObjectMixin;
+	pixiflash.DisplayObject = DisplayObject;
 	
 }());
 /**
@@ -334,7 +334,7 @@
 (function(undefined)
 {
 	var PixiContainer = PIXI.Container,
-		DisplayObjectMixin = pixiflash.DisplayObjectMixin,
+		DisplayObject = pixiflash.DisplayObject,
 		SharedTicker = PIXI.ticker.shared;
 	
 	/**
@@ -345,7 +345,7 @@
 	var Container = function()
 	{
 		PixiContainer.call(this);
-		DisplayObjectMixin.call(this);
+		DisplayObject.call(this);
 		
 		/**
 		 * If false, the tick will not be propagated to children of this Container. This can provide some performance benefits.
@@ -375,7 +375,7 @@
 	
 	var p = Container.prototype = Object.create(PixiContainer.prototype);
 	
-	DisplayObjectMixin.mixin(p);
+	DisplayObject.mixin(p);
 	
 	//constructor for backwards compatibility
 	p.initialize = Container;
@@ -428,7 +428,7 @@
 (function(undefined)
 {
 	var Sprite = PIXI.Sprite,
-		DisplayObjectMixin = pixiflash.DisplayObjectMixin;
+		DisplayObject = pixiflash.DisplayObject;
 	
 	/**
 	 * The class to emulate createjs.Bitmap
@@ -438,14 +438,14 @@
 	var Bitmap = function(image)
 	{
 		Sprite.call(this, image);
-		DisplayObjectMixin.call(this);
+		DisplayObject.call(this);
 	};
 	
 	// Extend PIXI.Sprite
 	var p = Bitmap.prototype = Object.create(Sprite.prototype);
 	
 	// Mixin the display object
-	DisplayObjectMixin.mixin(p);
+	DisplayObject.mixin(p);
 	
 	//constructor for backwards compatibility
 	p.initialize = Bitmap;
@@ -461,7 +461,7 @@
 (function(undefined)
 {
 	var Container = PIXI.Container,
-		DisplayObjectMixin = pixiflash.DisplayObjectMixin,
+		DisplayObject = pixiflash.DisplayObject,
 		Timeline = createjs.Timeline,
 		Tween = createjs.Tween,
 		SharedTicker = PIXI.ticker.shared;
@@ -474,7 +474,7 @@
 	var MovieClip = function(mode, startPosition, loop, labels)
 	{
 		Container.call(this);
-		DisplayObjectMixin.call(this);
+		DisplayObject.call(this);
 		
 		this.tickChildren = true;
 		
@@ -679,7 +679,7 @@
 	
 	var p = MovieClip.prototype = Object.create(Container.prototype);
 	
-	DisplayObjectMixin.mixin(p);
+	DisplayObject.mixin(p);
 	
 	//constructor for backwards compatibility
 	p.initialize = MovieClip;

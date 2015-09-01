@@ -6,7 +6,7 @@
 	"output": "pixi-flash",
 	"main": [
 		"src/main.js",
-		"src/DisplayObjectMixin.js",
+		"src/DisplayObject.js",
 		"src/Container.js",
 		"src/Bitmap.js",
 		"src/MovieClip.js",

@@ -9,9 +9,9 @@
 	
 	/**
 	*  Mixins for the display objects used for bridging CreateJS over to PIXI.
-	*  @class Container
+	*  @class DisplayObject
 	*/
-	var DisplayObjectMixin = function()
+	var DisplayObject = function()
 	{
 		this.id = ++uniqueId;
 		
@@ -48,7 +48,7 @@
 		this.tickEnabled = true;
 	};
 
-	var p = DisplayObjectMixin.prototype;
+	var p = DisplayObject.prototype;
 	
 	var DEG_TO_RAD = Math.PI / 180;
 	var RAD_TO_DEG = 180 / Math.PI;
@@ -247,7 +247,7 @@
 		return this;
 	};
 	
-	DisplayObjectMixin.mixin = function(targetPrototype)
+	DisplayObject.mixin = function(targetPrototype)
 	{
 		for(var prop in p)
 		{
@@ -267,6 +267,6 @@
 		}
 	};
 	
-	pixiflash.DisplayObjectMixin = DisplayObjectMixin;
+	pixiflash.DisplayObject = DisplayObject;
 	
 }());

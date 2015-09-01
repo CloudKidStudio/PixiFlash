@@ -5,7 +5,7 @@
 (function(undefined)
 {
 	var PixiContainer = PIXI.Container,
-		DisplayObjectMixin = pixiflash.DisplayObjectMixin,
+		DisplayObject = pixiflash.DisplayObject,
 		SharedTicker = PIXI.ticker.shared;
 	
 	/**
@@ -16,7 +16,7 @@
 	var Container = function()
 	{
 		PixiContainer.call(this);
-		DisplayObjectMixin.call(this);
+		DisplayObject.call(this);
 		
 		/**
 		 * If false, the tick will not be propagated to children of this Container. This can provide some performance benefits.
@@ -46,7 +46,7 @@
 	
 	var p = Container.prototype = Object.create(PixiContainer.prototype);
 	
-	DisplayObjectMixin.mixin(p);
+	DisplayObject.mixin(p);
 	
 	//constructor for backwards compatibility
 	p.initialize = Container;
