@@ -3,6 +3,7 @@ YUI.add("yuidoc-meta", function(Y) {
     "classes": [
         "pixiflash.Bitmap",
         "pixiflash.Container",
+        "pixiflash.DisplayObject",
         "pixiflash.FlashArt",
         "pixiflash.FlashArtTask",
         "pixiflash.MovieClip",

@@ -106,6 +106,9 @@
         <li class='public'>
           <a href='../classes/pixiflash.Container.html'>pixiflash.Container</a>
         </li>
+        <li class='public'>
+          <a href='../classes/pixiflash.DisplayObject.html'>pixiflash.DisplayObject</a>
+        </li>
         <li class='private'>
           <a href='../classes/pixiflash.FlashArt.html'>pixiflash.FlashArt</a>
         </li>
@@ -143,9 +146,13 @@
 <h1>pixiflash.Container Class</h1>
 <div class='box meta'>
 
+<div class='extends'>
+Extends
+PIXI.Container
+</div>
 
 <div class='foundat'>
-Defined in: <a href='../files/src_DisplayObjectMixin.js.html#l10'><code>pixiflash.Container:10</code></a>
+Defined in: <a href='../files/src_Container.js.html#l11'><code>pixiflash.Container:11</code></a>
 </div>
 
 Module:
@@ -155,7 +162,7 @@ Module:
 
 
 <div class='box intro'>
-<p>Mixins for the display objects used for bridging CreateJS over to PIXI.</p>
+<p>The class to emulate createjs.Container</p>
 
 </div>
 
@@ -180,7 +187,7 @@ Module:
 <div class='index-section tab-pane methods'>
 <h3>Methods</h3>
 
-<ul class='list-group row methods'>
+<ul class='list-group row methods extends'>
 <li class='col-xs-6 col-md-4 index-item method protected'>
 <a href='#method__tick'>_tick</a>
 
@@ -191,49 +198,9 @@ Module:
 <div class='index-section tab-pane properties'>
 <h3>Properties</h3>
 
-<ul class='list-group row properties'>
-<li class='col-xs-6 col-md-4 index-item property'>
-<a href='#property_regX'>regX</a>
-
-</li>
-<li class='col-xs-6 col-md-4 index-item property'>
-<a href='#property_regY'>regY</a>
-
-</li>
-<li class='col-xs-6 col-md-4 index-item property'>
-<a href='#property_rotation'>rotation</a>
-
-</li>
-<li class='col-xs-6 col-md-4 index-item property'>
-<a href='#property_rotation'>rotation</a>
-
-</li>
-<li class='col-xs-6 col-md-4 index-item property'>
-<a href='#property_scaleX'>scaleX</a>
-
-</li>
-<li class='col-xs-6 col-md-4 index-item property'>
-<a href='#property_scaleY'>scaleY</a>
-
-</li>
-<li class='col-xs-6 col-md-4 index-item property'>
-<a href='#property_skew'>skew</a>
-
-</li>
-<li class='col-xs-6 col-md-4 index-item property'>
-<a href='#property_skewX'>skewX</a>
-
-</li>
-<li class='col-xs-6 col-md-4 index-item property'>
-<a href='#property_skewY'>skewY</a>
-
-</li>
+<ul class='list-group row properties extends'>
 <li class='col-xs-6 col-md-4 index-item property'>
 <a href='#property_tickChildren'>tickChildren</a>
-
-</li>
-<li class='col-xs-6 col-md-4 index-item property'>
-<a href='#property_tickEnabled'>tickEnabled</a>
 
 </li>
 </ul>
@@ -303,231 +270,7 @@ Defined in
 
 <div role='tabpanel' id='docs-properties' class='tab-pane'>
 
-<div class="property_regX property item">
-<h3 class="name"><a class="deeplink" href="#property_regX"><span class="glyphicon glyphicon-link"></span></a> <code>regX</code></h3>
-<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-
-
-
-
-
-<div class="meta">
-<p>
-Defined in
-<a href="../files/src_DisplayObjectMixin.js.html#l130"><code>regX:130</code></a>
-</p>
-
-
-</div>
-
-<div class="description">
-<p>The x value of the registration, or pivot, point.
-This property provides parity with CreateJS display objects.</p>
-
-</div>
-
-
-
-</div><div class="property_regY property item">
-<h3 class="name"><a class="deeplink" href="#property_regY"><span class="glyphicon glyphicon-link"></span></a> <code>regY</code></h3>
-<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-
-
-
-
-
-<div class="meta">
-<p>
-Defined in
-<a href="../files/src_DisplayObjectMixin.js.html#l144"><code>regY:144</code></a>
-</p>
-
-
-</div>
-
-<div class="description">
-<p>The y value of the registration, or pivot, point.
-This property provides parity with CreateJS display objects.</p>
-
-</div>
-
-
-
-</div><div class="property_rotation property item">
-<h3 class="name"><a class="deeplink" href="#property_rotation"><span class="glyphicon glyphicon-link"></span></a> <code>rotation</code></h3>
-<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-
-
-
-
-
-<div class="meta">
-<p>
-Defined in
-<a href="../files/src_DisplayObjectMixin.js.html#l26"><code>rotation:26</code></a>
-</p>
-
-
-</div>
-
-<div class="description">
-<p>Rotation of the display object, with values in radians.</p>
-
-</div>
-
-
-
-</div><div class="property_rotation property item">
-<h3 class="name"><a class="deeplink" href="#property_rotation"><span class="glyphicon glyphicon-link"></span></a> <code>rotation</code></h3>
-<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-
-
-
-
-
-<div class="meta">
-<p>
-Defined in
-<a href="../files/src_DisplayObjectMixin.js.html#l87"><code>rotation:87</code></a>
-</p>
-
-
-</div>
-
-<div class="description">
-<p>The rotation of the display object, in degrees.
-This overrides the radian degrees of the PIXI display objects so that
-tweening exported from Flash will work correctly.</p>
-
-</div>
-
-
-
-</div><div class="property_scaleX property item">
-<h3 class="name"><a class="deeplink" href="#property_scaleX"><span class="glyphicon glyphicon-link"></span></a> <code>scaleX</code></h3>
-<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-
-
-
-
-
-<div class="meta">
-<p>
-Defined in
-<a href="../files/src_DisplayObjectMixin.js.html#l102"><code>scaleX:102</code></a>
-</p>
-
-
-</div>
-
-<div class="description">
-<p>The x scale value of the display object.
-This property provides parity with CreateJS display objects.</p>
-
-</div>
-
-
-
-</div><div class="property_scaleY property item">
-<h3 class="name"><a class="deeplink" href="#property_scaleY"><span class="glyphicon glyphicon-link"></span></a> <code>scaleY</code></h3>
-<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-
-
-
-
-
-<div class="meta">
-<p>
-Defined in
-<a href="../files/src_DisplayObjectMixin.js.html#l116"><code>scaleY:116</code></a>
-</p>
-
-
-</div>
-
-<div class="description">
-<p>The y scale value of the display object.
-This property provides parity with CreateJS display objects.</p>
-
-</div>
-
-
-
-</div><div class="property_skew property item">
-<h3 class="name"><a class="deeplink" href="#property_skew"><span class="glyphicon glyphicon-link"></span></a> <code>skew</code></h3>
-<span class="type">PIXI.Point</span>
-
-
-
-
-
-<div class="meta">
-<p>
-Defined in
-<a href="../files/src_DisplayObjectMixin.js.html#l20"><code>skew:20</code></a>
-</p>
-
-
-</div>
-
-<div class="description">
-<p>x and y skew of the display object, with values in radians.</p>
-
-</div>
-
-
-
-</div><div class="property_skewX property item">
-<h3 class="name"><a class="deeplink" href="#property_skewX"><span class="glyphicon glyphicon-link"></span></a> <code>skewX</code></h3>
-<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-
-
-
-
-
-<div class="meta">
-<p>
-Defined in
-<a href="../files/src_DisplayObjectMixin.js.html#l59"><code>skewX:59</code></a>
-</p>
-
-
-</div>
-
-<div class="description">
-<p>The x skew value of the display object, in degrees.
-This property provides parity with CreateJS display objects.</p>
-
-</div>
-
-
-
-</div><div class="property_skewY property item">
-<h3 class="name"><a class="deeplink" href="#property_skewY"><span class="glyphicon glyphicon-link"></span></a> <code>skewY</code></h3>
-<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-
-
-
-
-
-<div class="meta">
-<p>
-Defined in
-<a href="../files/src_DisplayObjectMixin.js.html#l73"><code>skewY:73</code></a>
-</p>
-
-
-</div>
-
-<div class="description">
-<p>The y skew value of the display object, in degrees.
-This property provides parity with CreateJS display objects.</p>
-
-</div>
-
-
-
-</div><div class="property_tickChildren property item">
+<div class="property_tickChildren property item">
 <h3 class="name"><a class="deeplink" href="#property_tickChildren"><span class="glyphicon glyphicon-link"></span></a> <code>tickChildren</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
 
@@ -546,33 +289,6 @@ Defined in
 
 <div class="description">
 <p>If false, the tick will not be propagated to children of this Container. This can provide some performance benefits.
-In addition to preventing the "tick" event from being dispatched, it will also prevent tick related updates
-on some display objects (ex. Sprite &amp; MovieClip frame advancing, DOMElement visibility handling).</p>
-
-</div>
-
-<p><strong>Default:</strong> true</p>
-
-
-</div><div class="property_tickEnabled property item">
-<h3 class="name"><a class="deeplink" href="#property_tickEnabled"><span class="glyphicon glyphicon-link"></span></a> <code>tickEnabled</code></h3>
-<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-
-
-
-
-
-<div class="meta">
-<p>
-Defined in
-<a href="../files/src_DisplayObjectMixin.js.html#l40"><code>tickEnabled:40</code></a>
-</p>
-
-
-</div>
-
-<div class="description">
-<p>If false, the tick will not run on this display object (or its children). This can provide some performance benefits.
 In addition to preventing the "tick" event from being dispatched, it will also prevent tick related updates
 on some display objects (ex. Sprite &amp; MovieClip frame advancing, DOMElement visibility handling).</p>
 

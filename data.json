@@ -55,17 +55,19 @@
         "src/Container.js": {
             "name": "src/Container.js",
             "modules": {},
-            "classes": {},
+            "classes": {
+                "pixiflash.Container": 1
+            },
             "fors": {},
             "namespaces": {
                 "pixiflash": 1
             }
         },
-        "src/DisplayObjectMixin.js": {
-            "name": "src/DisplayObjectMixin.js",
+        "src/DisplayObject.js": {
+            "name": "src/DisplayObject.js",
             "modules": {},
             "classes": {
-                "pixiflash.Container": 1
+                "pixiflash.DisplayObject": 1
             },
             "fors": {},
             "namespaces": {
@@ -130,6 +132,7 @@
             "classes": {
                 "pixiflash.Bitmap": 1,
                 "pixiflash.Container": 1,
+                "pixiflash.DisplayObject": 1,
                 "pixiflash.MovieClip": 1,
                 "pixiflash.MovieClipPlugin": 1,
                 "pixiflash.utils": 1
@@ -278,7 +281,22 @@
             "extension_for": [],
             "module": "Pixi Flash",
             "namespace": "pixiflash",
-            "file": "src/DisplayObjectMixin.js",
+            "file": "src/Container.js",
+            "line": 11,
+            "description": "The class to emulate createjs.Container",
+            "extends": "PIXI.Container"
+        },
+        "pixiflash.DisplayObject": {
+            "name": "pixiflash.DisplayObject",
+            "shortname": "DisplayObject",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Pixi Flash",
+            "namespace": "pixiflash",
+            "file": "src/DisplayObject.js",
             "line": 10,
             "description": "Mixins for the display objects used for bridging CreateJS over to PIXI."
         },
@@ -530,113 +548,113 @@
             "namespace": "pixiflash"
         },
         {
-            "file": "src/DisplayObjectMixin.js",
+            "file": "src/DisplayObject.js",
             "line": 20,
             "description": "x and y skew of the display object, with values in radians.",
             "itemtype": "property",
             "name": "skew",
             "type": "PIXI.Point",
-            "class": "pixiflash.Container",
+            "class": "pixiflash.DisplayObject",
             "module": "Pixi Flash",
             "namespace": "pixiflash"
         },
         {
-            "file": "src/DisplayObjectMixin.js",
+            "file": "src/DisplayObject.js",
             "line": 26,
             "description": "Rotation of the display object, with values in radians.",
             "itemtype": "property",
             "name": "rotation",
             "type": "Number",
-            "class": "pixiflash.Container",
+            "class": "pixiflash.DisplayObject",
             "module": "Pixi Flash",
             "namespace": "pixiflash"
         },
         {
-            "file": "src/DisplayObjectMixin.js",
+            "file": "src/DisplayObject.js",
             "line": 40,
             "description": "If false, the tick will not run on this display object (or its children). This can provide some performance benefits.\nIn addition to preventing the \"tick\" event from being dispatched, it will also prevent tick related updates\non some display objects (ex. Sprite & MovieClip frame advancing, DOMElement visibility handling).",
             "itemtype": "property",
             "name": "tickEnabled",
             "type": "Boolean",
             "default": "true",
-            "class": "pixiflash.Container",
+            "class": "pixiflash.DisplayObject",
             "module": "Pixi Flash",
             "namespace": "pixiflash"
         },
         {
-            "file": "src/DisplayObjectMixin.js",
+            "file": "src/DisplayObject.js",
             "line": 59,
             "description": "The x skew value of the display object, in degrees.\nThis property provides parity with CreateJS display objects.",
             "itemtype": "property",
             "name": "skewX",
             "type": "Number",
-            "class": "pixiflash.Container",
+            "class": "pixiflash.DisplayObject",
             "module": "Pixi Flash",
             "namespace": "pixiflash"
         },
         {
-            "file": "src/DisplayObjectMixin.js",
+            "file": "src/DisplayObject.js",
             "line": 73,
             "description": "The y skew value of the display object, in degrees.\nThis property provides parity with CreateJS display objects.",
             "itemtype": "property",
             "name": "skewY",
             "type": "Number",
-            "class": "pixiflash.Container",
+            "class": "pixiflash.DisplayObject",
             "module": "Pixi Flash",
             "namespace": "pixiflash"
         },
         {
-            "file": "src/DisplayObjectMixin.js",
+            "file": "src/DisplayObject.js",
             "line": 87,
             "description": "The rotation of the display object, in degrees.\nThis overrides the radian degrees of the PIXI display objects so that\ntweening exported from Flash will work correctly.",
             "itemtype": "property",
             "name": "rotation",
             "type": "Number",
-            "class": "pixiflash.Container",
+            "class": "pixiflash.DisplayObject",
             "module": "Pixi Flash",
             "namespace": "pixiflash"
         },
         {
-            "file": "src/DisplayObjectMixin.js",
+            "file": "src/DisplayObject.js",
             "line": 102,
             "description": "The x scale value of the display object.\nThis property provides parity with CreateJS display objects.",
             "itemtype": "property",
             "name": "scaleX",
             "type": "Number",
-            "class": "pixiflash.Container",
+            "class": "pixiflash.DisplayObject",
             "module": "Pixi Flash",
             "namespace": "pixiflash"
         },
         {
-            "file": "src/DisplayObjectMixin.js",
+            "file": "src/DisplayObject.js",
             "line": 116,
             "description": "The y scale value of the display object.\nThis property provides parity with CreateJS display objects.",
             "itemtype": "property",
             "name": "scaleY",
             "type": "Number",
-            "class": "pixiflash.Container",
+            "class": "pixiflash.DisplayObject",
             "module": "Pixi Flash",
             "namespace": "pixiflash"
         },
         {
-            "file": "src/DisplayObjectMixin.js",
+            "file": "src/DisplayObject.js",
             "line": 130,
             "description": "The x value of the registration, or pivot, point.\nThis property provides parity with CreateJS display objects.",
             "itemtype": "property",
             "name": "regX",
             "type": "Number",
-            "class": "pixiflash.Container",
+            "class": "pixiflash.DisplayObject",
             "module": "Pixi Flash",
             "namespace": "pixiflash"
         },
         {
-            "file": "src/DisplayObjectMixin.js",
+            "file": "src/DisplayObject.js",
             "line": 144,
             "description": "The y value of the registration, or pivot, point.\nThis property provides parity with CreateJS display objects.",
             "itemtype": "property",
             "name": "regY",
             "type": "Number",
-            "class": "pixiflash.Container",
+            "class": "pixiflash.DisplayObject",
             "module": "Pixi Flash",
             "namespace": "pixiflash"
         },

@@ -106,6 +106,9 @@
         <li class='public'>
           <a href='../classes/pixiflash.Container.html'>pixiflash.Container</a>
         </li>
+        <li class='public'>
+          <a href='../classes/pixiflash.DisplayObject.html'>pixiflash.DisplayObject</a>
+        </li>
         <li class='private'>
           <a href='../classes/pixiflash.FlashArt.html'>pixiflash.FlashArt</a>
         </li>
@@ -149,7 +152,7 @@
 (function(undefined)
 {
 	var Container = PIXI.Container,
-		DisplayObjectMixin = pixiflash.DisplayObjectMixin,
+		DisplayObject = pixiflash.DisplayObject,
 		Timeline = createjs.Timeline,
 		Tween = createjs.Tween,
 		SharedTicker = PIXI.ticker.shared;
@@ -162,7 +165,7 @@
 	var MovieClip = function(mode, startPosition, loop, labels)
 	{
 		Container.call(this);
-		DisplayObjectMixin.call(this);
+		DisplayObject.call(this);
 		
 		this.tickChildren = true;
 		
@@ -367,7 +370,7 @@
 	
 	var p = MovieClip.prototype = Object.create(Container.prototype);
 	
-	DisplayObjectMixin.mixin(p);
+	DisplayObject.mixin(p);
 	
 	//constructor for backwards compatibility
 	p.initialize = MovieClip;

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>Pixi Flash v0.1.0 API Documentation : src/DisplayObjectMixin.js</title>
+	<title>Pixi Flash v0.1.0 API Documentation : src/DisplayObject.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
@@ -106,6 +106,9 @@
         <li class='public'>
           <a href='../classes/pixiflash.Container.html'>pixiflash.Container</a>
         </li>
+        <li class='public'>
+          <a href='../classes/pixiflash.DisplayObject.html'>pixiflash.DisplayObject</a>
+        </li>
         <li class='private'>
           <a href='../classes/pixiflash.FlashArt.html'>pixiflash.FlashArt</a>
         </li>
@@ -139,7 +142,7 @@
 </nav></nav>
 <div class='col-sm-8 col-md-9'>
 <div id='docs-main' class='apidocs'>
-<h1 class="file-heading">File:DisplayObjectMixin.js</h1>
+<h1 class="file-heading">File:DisplayObject.js</h1>
 
 <div class="file">
 <pre class="code prettyprint linenums">/**
@@ -153,9 +156,9 @@
 	
 	/**
 	*  Mixins for the display objects used for bridging CreateJS over to PIXI.
-	*  @class Container
+	*  @class DisplayObject
 	*/
-	var DisplayObjectMixin = function()
+	var DisplayObject = function()
 	{
 		this.id = ++uniqueId;
 		
@@ -192,7 +195,7 @@
 		this.tickEnabled = true;
 	};
 
-	var p = DisplayObjectMixin.prototype;
+	var p = DisplayObject.prototype;
 	
 	var DEG_TO_RAD = Math.PI / 180;
 	var RAD_TO_DEG = 180 / Math.PI;
@@ -391,7 +394,7 @@
 		return this;
 	};
 	
-	DisplayObjectMixin.mixin = function(targetPrototype)
+	DisplayObject.mixin = function(targetPrototype)
 	{
 		for(var prop in p)
 		{
@@ -411,7 +414,7 @@
 		}
 	};
 	
-	pixiflash.DisplayObjectMixin = DisplayObjectMixin;
+	pixiflash.DisplayObject = DisplayObject;
 	
 }());</pre>
 </div></div>
