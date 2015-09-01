@@ -1,0 +1,1267 @@
+{
+    "project": {
+        "name": "Pixi Flash",
+        "description": "A SpringRoll plugin for handling assets exported through Flash's CreateJS publishing.",
+        "version": "0.1.0",
+        "url": "https://github.com/SpringRoll/PixiFlash"
+    },
+    "files": {
+        "src/plugins/springroll/FlashArt.js": {
+            "name": "src/plugins/springroll/FlashArt.js",
+            "modules": {
+                "SpringRoll Plugin": 1
+            },
+            "classes": {
+                "pixiflash.FlashArt": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "pixiflash": 1
+            }
+        },
+        "src/plugins/springroll/FlashArtTask.js": {
+            "name": "src/plugins/springroll/FlashArtTask.js",
+            "modules": {},
+            "classes": {
+                "pixiflash.FlashArtTask": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "pixiflash": 1
+            }
+        },
+        "src/plugins/springroll/PixiFlashPlugin.js": {
+            "name": "src/plugins/springroll/PixiFlashPlugin.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {
+                "pixiflash": 1
+            }
+        },
+        "src/Bitmap.js": {
+            "name": "src/Bitmap.js",
+            "modules": {
+                "Pixi Flash": 1
+            },
+            "classes": {
+                "pixiflash.Bitmap": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "pixiflash": 1
+            }
+        },
+        "src/Container.js": {
+            "name": "src/Container.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {
+                "pixiflash": 1
+            }
+        },
+        "src/DisplayObjectMixin.js": {
+            "name": "src/DisplayObjectMixin.js",
+            "modules": {},
+            "classes": {
+                "pixiflash.Container": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "pixiflash": 1
+            }
+        },
+        "src/MovieClip.js": {
+            "name": "src/MovieClip.js",
+            "modules": {},
+            "classes": {
+                "pixiflash.MovieClip": 1,
+                "pixiflash.MovieClipPlugin": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "pixiflash": 1
+            }
+        },
+        "src/main.js": {
+            "name": "src/main.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {
+                "pixiflash": 1
+            }
+        },
+        "src/utils.js": {
+            "name": "src/utils.js",
+            "modules": {},
+            "classes": {
+                "pixiflash.utils": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "pixiflash": 1
+            }
+        }
+    },
+    "modules": {
+        "SpringRoll Plugin": {
+            "name": "SpringRoll Plugin",
+            "submodules": {},
+            "classes": {
+                "pixiflash.FlashArt": 1,
+                "pixiflash.FlashArtTask": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "pixiflash": 1
+            },
+            "tag": "module",
+            "file": "src/plugins/springroll/FlashArtTask.js",
+            "line": 14,
+            "requires": [
+                "Pixi Flash"
+            ]
+        },
+        "Pixi Flash": {
+            "name": "Pixi Flash",
+            "submodules": {},
+            "classes": {
+                "pixiflash.Bitmap": 1,
+                "pixiflash.Container": 1,
+                "pixiflash.MovieClip": 1,
+                "pixiflash.MovieClipPlugin": 1,
+                "pixiflash.utils": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "pixiflash": 1
+            },
+            "tag": "module",
+            "file": "src/utils.js",
+            "line": 7
+        }
+    },
+    "classes": {
+        "pixiflash.FlashArt": {
+            "name": "pixiflash.FlashArt",
+            "shortname": "FlashArt",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash",
+            "file": "src/plugins/springroll/FlashArt.js",
+            "line": 10,
+            "description": "Handles the Asset loading for Flash Art takes care of unloading",
+            "is_constructor": 1,
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "The asset id",
+                    "type": "String"
+                },
+                {
+                    "name": "dom",
+                    "description": "The `<script>` element added to the document",
+                    "type": "NodeElement"
+                },
+                {
+                    "name": "libName",
+                    "description": "The window parameter name",
+                    "type": "String",
+                    "optional": true,
+                    "optdefault": "'lib'"
+                }
+            ]
+        },
+        "pixiflash.FlashArtTask": {
+            "name": "pixiflash.FlashArtTask",
+            "shortname": "FlashArtTask",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash",
+            "file": "src/plugins/springroll/FlashArtTask.js",
+            "line": 14,
+            "description": "Replaces Bitmaps in the global lib dictionary with a faux Bitmap\nthat pulls the image from a spritesheet.",
+            "extends": "springroll.Task",
+            "is_constructor": 1,
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "asset",
+                    "description": "The data properties",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "type",
+                            "description": "Asset type must be \"pixi\"",
+                            "type": "String"
+                        },
+                        {
+                            "name": "format",
+                            "description": "Asset format must be \"pixiflash.FlashArt\"",
+                            "type": "String"
+                        },
+                        {
+                            "name": "src",
+                            "description": "The source",
+                            "type": "String"
+                        },
+                        {
+                            "name": "images",
+                            "description": "An array of Image, TextureAtlas, or SpriteSheet assets to load",
+                            "type": "Array"
+                        },
+                        {
+                            "name": "cache",
+                            "description": "If we should cache the result",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        },
+                        {
+                            "name": "id",
+                            "description": "Id of asset",
+                            "type": "String",
+                            "optional": true
+                        },
+                        {
+                            "name": "complete",
+                            "description": "The event to call when done",
+                            "type": "Function",
+                            "optional": true
+                        },
+                        {
+                            "name": "sizes",
+                            "description": "Define if certain sizes are not supported",
+                            "type": "Object",
+                            "optional": true,
+                            "optdefault": "null"
+                        }
+                    ]
+                }
+            ]
+        },
+        "pixiflash.Bitmap": {
+            "name": "pixiflash.Bitmap",
+            "shortname": "Bitmap",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Pixi Flash",
+            "namespace": "pixiflash",
+            "file": "src/Bitmap.js",
+            "line": 10,
+            "description": "The class to emulate createjs.Bitmap",
+            "extends": "PIXI.Sprite"
+        },
+        "pixiflash.Container": {
+            "name": "pixiflash.Container",
+            "shortname": "Container",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Pixi Flash",
+            "namespace": "pixiflash",
+            "file": "src/DisplayObjectMixin.js",
+            "line": 10,
+            "description": "Mixins for the display objects used for bridging CreateJS over to PIXI."
+        },
+        "pixiflash.MovieClip": {
+            "name": "pixiflash.MovieClip",
+            "shortname": "MovieClip",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Pixi Flash",
+            "namespace": "pixiflash",
+            "file": "src/MovieClip.js",
+            "line": 13,
+            "description": "The class to emulate createjs.MovieClip, requires TweenJS",
+            "extends": "PIXI.Container"
+        },
+        "pixiflash.MovieClipPlugin": {
+            "name": "pixiflash.MovieClipPlugin",
+            "shortname": "MovieClipPlugin",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Pixi Flash",
+            "namespace": "pixiflash",
+            "file": "src/MovieClip.js",
+            "line": 557,
+            "description": "This plugin works with <a href=\"http://tweenjs.com\" target=\"_blank\">TweenJS</a> to prevent the startPosition\nproperty from tweening.",
+            "access": "private",
+            "tagname": "",
+            "is_constructor": 1
+        },
+        "pixiflash.utils": {
+            "name": "pixiflash.utils",
+            "shortname": "utils",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Pixi Flash",
+            "namespace": "pixiflash",
+            "file": "src/utils.js",
+            "line": 7,
+            "description": "Utilities for converting"
+        }
+    },
+    "classitems": [
+        {
+            "file": "src/plugins/springroll/FlashArt.js",
+            "line": 26,
+            "description": "Reference to the node element",
+            "itemtype": "property",
+            "name": "dom",
+            "type": "NodeElement",
+            "class": "pixiflash.FlashArt",
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/plugins/springroll/FlashArt.js",
+            "line": 32,
+            "description": "The collection of loaded symbols by name",
+            "itemtype": "property",
+            "name": "symbols",
+            "type": "Array",
+            "class": "pixiflash.FlashArt",
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/plugins/springroll/FlashArt.js",
+            "line": 38,
+            "description": "The name of the output lib name",
+            "itemtype": "property",
+            "name": "libName",
+            "type": "String",
+            "default": "'lib'",
+            "class": "pixiflash.FlashArt",
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/plugins/springroll/FlashArt.js",
+            "line": 45,
+            "description": "The name of the output lib name",
+            "itemtype": "property",
+            "name": "id",
+            "type": "String",
+            "class": "pixiflash.FlashArt",
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/plugins/springroll/FlashArt.js",
+            "line": 58,
+            "description": "The collection of all symbols and assets",
+            "itemtype": "property",
+            "name": "globalSymbols",
+            "type": "Object",
+            "static": 1,
+            "access": "private",
+            "tagname": "",
+            "class": "pixiflash.FlashArt",
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/plugins/springroll/FlashArt.js",
+            "line": 66,
+            "description": "Get the name of all the library elements of the dom text",
+            "itemtype": "method",
+            "name": "parseSymbols",
+            "params": [
+                {
+                    "name": "text",
+                    "description": "The DOM text contents",
+                    "type": "String"
+                }
+            ],
+            "class": "pixiflash.FlashArt",
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/plugins/springroll/FlashArt.js",
+            "line": 115,
+            "description": "Cleanup the Flash library that's been loaded",
+            "itemtype": "method",
+            "name": "destroy",
+            "class": "pixiflash.FlashArt",
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/plugins/springroll/FlashArtTask.js",
+            "line": 35,
+            "description": "The path to the flash asset",
+            "itemtype": "property",
+            "name": "src",
+            "type": "String",
+            "class": "pixiflash.FlashArtTask",
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/plugins/springroll/FlashArtTask.js",
+            "line": 41,
+            "description": "Any image, atlas, or SpriteSheet assets that should be loaded along with this piece\nof flash art.",
+            "itemtype": "property",
+            "name": "images",
+            "type": "Array",
+            "class": "pixiflash.FlashArtTask",
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/plugins/springroll/FlashArtTask.js",
+            "line": 48,
+            "description": "The name of the window object library items hang on",
+            "itemtype": "property",
+            "name": "libName",
+            "type": "String",
+            "class": "pixiflash.FlashArtTask",
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/plugins/springroll/FlashArtTask.js",
+            "line": 54,
+            "description": "The name of the window object images hang on",
+            "itemtype": "property",
+            "name": "imagesName",
+            "type": "String",
+            "class": "pixiflash.FlashArtTask",
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/plugins/springroll/FlashArtTask.js",
+            "line": 64,
+            "description": "Test if we should run this task",
+            "itemtype": "method",
+            "name": "test",
+            "static": 1,
+            "params": [
+                {
+                    "name": "asset",
+                    "description": "The asset to check",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "If the asset is compatible with this asset",
+                "type": "Boolean"
+            },
+            "class": "pixiflash.FlashArtTask",
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/plugins/springroll/FlashArtTask.js",
+            "line": 80,
+            "description": "Start the task",
+            "itemtype": "method",
+            "name": "start",
+            "params": [
+                {
+                    "name": "callback",
+                    "description": "Callback when finished",
+                    "type": "Function"
+                }
+            ],
+            "class": "pixiflash.FlashArtTask",
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/Container.js",
+            "line": 21,
+            "description": "If false, the tick will not be propagated to children of this Container. This can provide some performance benefits.\nIn addition to preventing the \"tick\" event from being dispatched, it will also prevent tick related updates\non some display objects (ex. Sprite & MovieClip frame advancing, DOMElement visibility handling).",
+            "itemtype": "property",
+            "name": "tickChildren",
+            "type": "Boolean",
+            "default": "true",
+            "class": "pixiflash.Container",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/Container.js",
+            "line": 74,
+            "itemtype": "method",
+            "name": "_tick",
+            "params": [
+                {
+                    "name": "delta",
+                    "description": "Time elapsed since the previous tick, in milliseconds.",
+                    "type": "Number"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "pixiflash.Container",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/DisplayObjectMixin.js",
+            "line": 20,
+            "description": "x and y skew of the display object, with values in radians.",
+            "itemtype": "property",
+            "name": "skew",
+            "type": "PIXI.Point",
+            "class": "pixiflash.Container",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/DisplayObjectMixin.js",
+            "line": 26,
+            "description": "Rotation of the display object, with values in radians.",
+            "itemtype": "property",
+            "name": "rotation",
+            "type": "Number",
+            "class": "pixiflash.Container",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/DisplayObjectMixin.js",
+            "line": 40,
+            "description": "If false, the tick will not run on this display object (or its children). This can provide some performance benefits.\nIn addition to preventing the \"tick\" event from being dispatched, it will also prevent tick related updates\non some display objects (ex. Sprite & MovieClip frame advancing, DOMElement visibility handling).",
+            "itemtype": "property",
+            "name": "tickEnabled",
+            "type": "Boolean",
+            "default": "true",
+            "class": "pixiflash.Container",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/DisplayObjectMixin.js",
+            "line": 59,
+            "description": "The x skew value of the display object, in degrees.\nThis property provides parity with CreateJS display objects.",
+            "itemtype": "property",
+            "name": "skewX",
+            "type": "Number",
+            "class": "pixiflash.Container",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/DisplayObjectMixin.js",
+            "line": 73,
+            "description": "The y skew value of the display object, in degrees.\nThis property provides parity with CreateJS display objects.",
+            "itemtype": "property",
+            "name": "skewY",
+            "type": "Number",
+            "class": "pixiflash.Container",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/DisplayObjectMixin.js",
+            "line": 87,
+            "description": "The rotation of the display object, in degrees.\nThis overrides the radian degrees of the PIXI display objects so that\ntweening exported from Flash will work correctly.",
+            "itemtype": "property",
+            "name": "rotation",
+            "type": "Number",
+            "class": "pixiflash.Container",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/DisplayObjectMixin.js",
+            "line": 102,
+            "description": "The x scale value of the display object.\nThis property provides parity with CreateJS display objects.",
+            "itemtype": "property",
+            "name": "scaleX",
+            "type": "Number",
+            "class": "pixiflash.Container",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/DisplayObjectMixin.js",
+            "line": 116,
+            "description": "The y scale value of the display object.\nThis property provides parity with CreateJS display objects.",
+            "itemtype": "property",
+            "name": "scaleY",
+            "type": "Number",
+            "class": "pixiflash.Container",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/DisplayObjectMixin.js",
+            "line": 130,
+            "description": "The x value of the registration, or pivot, point.\nThis property provides parity with CreateJS display objects.",
+            "itemtype": "property",
+            "name": "regX",
+            "type": "Number",
+            "class": "pixiflash.Container",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/DisplayObjectMixin.js",
+            "line": 144,
+            "description": "The y value of the registration, or pivot, point.\nThis property provides parity with CreateJS display objects.",
+            "itemtype": "property",
+            "name": "regY",
+            "type": "Number",
+            "class": "pixiflash.Container",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 25,
+            "description": "Controls how this MovieClip advances its time. Must be one of 0 (INDEPENDENT), 1 (SINGLE_FRAME), or 2 (SYNCHED).\nSee each constant for a description of the behaviour.",
+            "itemtype": "property",
+            "name": "mode",
+            "type": "String",
+            "default": "null",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 34,
+            "description": "Specifies what the first frame to play in this movieclip, or the only frame to display if mode is SINGLE_FRAME.",
+            "itemtype": "property",
+            "name": "startPosition",
+            "type": "Number",
+            "default": "0",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 42,
+            "description": "Indicates whether this MovieClip should loop when it reaches the end of its timeline.",
+            "itemtype": "property",
+            "name": "loop",
+            "type": "Boolean",
+            "default": "true",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 50,
+            "description": "The current frame of the movieclip.",
+            "itemtype": "property",
+            "name": "currentFrame",
+            "type": "Number",
+            "default": "0",
+            "readonly": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 59,
+            "description": "The TweenJS Timeline that is associated with this MovieClip. This is created automatically when the MovieClip\ninstance is initialized. Animations are created by adding <a href=\"http://tweenjs.com\">TweenJS</a> Tween\ninstances to the timeline.\n\n<h4>Example</h4>\n\n     var tween = createjs.Tween.get(target).to({x:0}).to({x:100}, 30);\n     var mc = new createjs.MovieClip();\n     mc.timeline.addTween(tween);\n\nElements can be added and removed from the timeline by toggling an \"_off\" property\nusing the <code>tweenInstance.to()</code> method. Note that using <code>Tween.set</code> is not recommended to\ncreate MovieClip animations. The following example will toggle the target off on frame 0, and then back on for\nframe 1. You can use the \"visible\" property to achieve the same effect.\n\n     var tween = createjs.Tween.get(target).to({_off:false})\n         .wait(1).to({_off:true})\n         .wait(1).to({_off:false});",
+            "itemtype": "property",
+            "name": "timeline",
+            "type": "Timeline",
+            "default": "null",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 85,
+            "description": "If true, the MovieClip's position will not advance when ticked.",
+            "itemtype": "property",
+            "name": "paused",
+            "type": "Boolean",
+            "default": "false",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 93,
+            "description": "If true, actions in this MovieClip's tweens will be run when the playhead advances.",
+            "itemtype": "property",
+            "name": "actionsEnabled",
+            "type": "Boolean",
+            "default": "true",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 101,
+            "description": "If true, the MovieClip will automatically be reset to its first frame whenever the timeline adds\nit back onto the display list. This only applies to MovieClip instances with mode=INDEPENDENT.\n<br><br>\nFor example, if you had a character animation with a \"body\" child MovieClip instance\nwith different costumes on each frame, you could set body.autoReset = false, so that\nyou can manually change the frame it is on, without worrying that it will be reset\nautomatically.",
+            "itemtype": "property",
+            "name": "autoReset",
+            "type": "Boolean",
+            "default": "true",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 115,
+            "itemtype": "property",
+            "name": "_synchOffset",
+            "type": "Number",
+            "default": "0",
+            "access": "private",
+            "tagname": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 123,
+            "itemtype": "property",
+            "name": "_prevPos",
+            "type": "Number",
+            "default": "-1",
+            "access": "private",
+            "tagname": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 131,
+            "itemtype": "property",
+            "name": "_prevPosition",
+            "type": "Number",
+            "default": "0",
+            "access": "private",
+            "tagname": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 139,
+            "description": "Note - changed from default: When the MovieClip is framerate independent, this is the time\nelapsed from frame 0 in seconds.",
+            "itemtype": "property",
+            "name": "_t",
+            "type": "Number",
+            "default": "0",
+            "access": "private",
+            "tagname": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 149,
+            "description": "By default MovieClip instances advance one frame per tick. Specifying a framerate for the MovieClip\nwill cause it to advance based on elapsed time between ticks as appropriate to maintain the target\nframerate.",
+            "itemtype": "property",
+            "name": "_framerate",
+            "type": "{Number}",
+            "default": "0",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 159,
+            "description": "When the MovieClip is framerate independent, this is the total time in seconds for the animation.",
+            "itemtype": "property",
+            "name": "_duration",
+            "type": "Number",
+            "default": "0",
+            "access": "private",
+            "tagname": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 168,
+            "description": "List of display objects that are actively being managed by the MovieClip.",
+            "itemtype": "property",
+            "name": "_managed",
+            "type": "Object",
+            "access": "private",
+            "tagname": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 192,
+            "description": "The MovieClip will advance independently of its parent, even if its parent is paused.\nThis is the default mode.",
+            "itemtype": "property",
+            "name": "INDEPENDENT",
+            "static": 1,
+            "type": "String",
+            "default": "\"independent\"",
+            "readonly": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 203,
+            "description": "The MovieClip will only display a single frame (as determined by the startPosition property).",
+            "itemtype": "property",
+            "name": "SINGLE_FRAME",
+            "static": 1,
+            "type": "String",
+            "default": "\"single\"",
+            "readonly": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 213,
+            "description": "The MovieClip will be advanced only when its parent advances and will be synched to the position of\nthe parent MovieClip.",
+            "itemtype": "property",
+            "name": "SYNCHED",
+            "static": 1,
+            "type": "String",
+            "default": "\"synched\"",
+            "readonly": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 251,
+            "description": "Use the {{#crossLink \"MovieClip/labels:property\"}}{{/crossLink}} property instead.",
+            "itemtype": "method",
+            "name": "getLabels",
+            "return": {
+                "description": "",
+                "type": "Array"
+            },
+            "deprecated": true,
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 261,
+            "description": "Use the {{#crossLink \"MovieClip/currentLabel:property\"}}{{/crossLink}} property instead.",
+            "itemtype": "method",
+            "name": "getCurrentLabel",
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "deprecated": true,
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 272,
+            "description": "Returns an array of objects with label and position (aka frame) properties, sorted by position.\nShortcut to TweenJS: Timeline.getLabels();",
+            "itemtype": "property",
+            "name": "labels",
+            "type": "{Array}",
+            "readonly": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 280,
+            "description": "Returns the name of the label on or immediately before the current frame. See TweenJS: Timeline.getCurrentLabel()\nfor more information.",
+            "itemtype": "property",
+            "name": "currentLabel",
+            "type": "{String}",
+            "readonly": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 294,
+            "description": "When the MovieClip is framerate independent, this is the time elapsed from frame 0 in seconds.",
+            "itemtype": "property",
+            "name": "elapsedTime",
+            "type": "Number",
+            "default": "0",
+            "access": "public",
+            "tagname": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 310,
+            "description": "By default MovieClip instances advance one frame per tick. Specifying a framerate for the MovieClip\nwill cause it to advance based on elapsed time between ticks as appropriate to maintain the target\nframerate.\n\nFor example, if a MovieClip with a framerate of 10 is placed on a Stage being updated at 40fps, then the MovieClip will\nadvance roughly one frame every 4 ticks. This will not be exact, because the time between each tick will\nvary slightly between frames.\n\nThis feature is dependent on the tick event object (or an object with an appropriate \"delta\" property) being\npassed into {{#crossLink \"Stage/update\"}}{{/crossLink}}.",
+            "itemtype": "property",
+            "name": "framerate",
+            "type": "{Number}",
+            "default": "0",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 340,
+            "description": "Sets paused to false.",
+            "itemtype": "method",
+            "name": "play",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 348,
+            "description": "Sets paused to true.",
+            "itemtype": "method",
+            "name": "stop",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 356,
+            "description": "Advances this movie clip to the specified position or label and sets paused to false.",
+            "itemtype": "method",
+            "name": "gotoAndPlay",
+            "params": [
+                {
+                    "name": "positionOrLabel",
+                    "description": "The animation name or frame number to go to.",
+                    "type": "String|Number"
+                }
+            ],
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 366,
+            "description": "Advances this movie clip to the specified position or label and sets paused to true.",
+            "itemtype": "method",
+            "name": "gotoAndStop",
+            "params": [
+                {
+                    "name": "positionOrLabel",
+                    "description": "The animation or frame name to go to.",
+                    "type": "String|Number"
+                }
+            ],
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 376,
+            "description": "Advances the playhead. This occurs automatically each tick by default.",
+            "params": [
+                {
+                    "name": "time",
+                    "description": "The amount of time in ms to advance by. Only applicable if framerate is set.",
+                    "type": "Number",
+                    "optional": true
+                }
+            ],
+            "itemtype": "method",
+            "name": "advance",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 414,
+            "itemtype": "method",
+            "name": "_tick",
+            "params": [
+                {
+                    "name": "delta",
+                    "description": "Time elapsed since the previous tick, in milliseconds.\nfunction.",
+                    "type": "Number"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 439,
+            "itemtype": "method",
+            "name": "_goto",
+            "params": [
+                {
+                    "name": "positionOrLabel",
+                    "description": "The animation name or frame number to go to.",
+                    "type": "String|Number"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 458,
+            "itemtype": "method",
+            "name": "_reset",
+            "access": "private",
+            "tagname": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 468,
+            "itemtype": "method",
+            "name": "_updateTimeline",
+            "access": "protected",
+            "tagname": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 518,
+            "itemtype": "method",
+            "name": "_setState",
+            "params": [
+                {
+                    "name": "state",
+                    "description": "",
+                    "type": "Array"
+                },
+                {
+                    "name": "offset",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 535,
+            "description": "Adds a child to the timeline, and sets it up as a managed child.",
+            "itemtype": "method",
+            "name": "_addManagedChild",
+            "params": [
+                {
+                    "name": "child",
+                    "description": "The child MovieClip to manage",
+                    "type": "MovieClip"
+                },
+                {
+                    "name": "offset",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 568,
+            "itemtype": "method",
+            "name": "priority",
+            "access": "private",
+            "tagname": "",
+            "class": "pixiflash.MovieClipPlugin",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 574,
+            "itemtype": "method",
+            "name": "install",
+            "access": "private",
+            "tagname": "",
+            "class": "pixiflash.MovieClipPlugin",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 582,
+            "itemtype": "method",
+            "name": "init",
+            "params": [
+                {
+                    "name": "tween",
+                    "description": "",
+                    "type": "Tween"
+                },
+                {
+                    "name": "prop",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "String|Number|Boolean"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "pixiflash.MovieClipPlugin",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 593,
+            "itemtype": "method",
+            "name": "step",
+            "access": "private",
+            "tagname": "",
+            "class": "pixiflash.MovieClipPlugin",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/MovieClip.js",
+            "line": 601,
+            "itemtype": "method",
+            "name": "tween",
+            "params": [
+                {
+                    "name": "tween",
+                    "description": "",
+                    "type": "Tween"
+                },
+                {
+                    "name": "prop",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "String | Number | Boolean"
+                },
+                {
+                    "name": "startValues",
+                    "description": "",
+                    "type": "Array"
+                },
+                {
+                    "name": "endValues",
+                    "description": "",
+                    "type": "Array"
+                },
+                {
+                    "name": "ratio",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "wait",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "end",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "*"
+            },
+            "class": "pixiflash.MovieClipPlugin",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/utils.js",
+            "line": 13,
+            "description": "Conver the loaded texture atlas to images",
+            "itemtype": "method",
+            "name": "addImages",
+            "static": 1,
+            "params": [
+                {
+                    "name": "atlas",
+                    "description": "The atlas to convert images",
+                    "type": "PIXI.Texture"
+                }
+            ],
+            "class": "pixiflash.utils",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        }
+    ],
+    "warnings": []
+}
