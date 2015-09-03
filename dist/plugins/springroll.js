@@ -147,7 +147,6 @@
 {	
 	var Task = include('springroll.Task'),
 		FlashArt = include('pixiflash.FlashArt'),
-		Application = include('springroll.Application'),
 		TextureAtlas = include('springroll.pixi.TextureAtlas'),
 		Texture = include('PIXI.Texture');
 
@@ -199,7 +198,7 @@
 	};
 
 	// Reference to prototype
-	var p = FlashArtTask.prototype = Object.create(Task.prototype);
+	var p = extend(FlashArtTask, Task);
 
 	/**
 	 * Test if we should run this task
@@ -297,7 +296,7 @@
 			assets._images = {assets:images};
 
 		// Load all the assets
-		Application.instance.load(assets, function(results)
+		this.load(assets, function(results)
 		{
 			var art = new FlashArt(
 				this.id,
@@ -316,8 +315,10 @@
 				for(var id in images)
 				{
 					var result = images[id];
+
 					//save the item for cleanup
 					objectsToDestroy.push(result);
+
 					//look for individual images
 					if(result instanceof Texture)
 					{
@@ -332,11 +333,6 @@
 							globalImages[frame] = frames[frame];
 							texturesToRemove.push(frame);
 						}
-					}
-					//otherwise the result is a SpriteSheet
-					else
-					{
-						//TODO: do something with spritesheet
 					}
 				}
 				
@@ -358,7 +354,6 @@
 					art._orig_destroy();
 				};
 			}
-			
 			callback(art);
 			
 		}.bind(this));
@@ -384,6 +379,99 @@
 	plugin.setup = function()
 	{	
 		this.assetManager.register('pixiflash.FlashArtTask', 60);
+		this.assetManager.register('pixiflash.SpriteSheetTask', 70);
 	};
+
+}());
+(function()
+{
+	var LoadTask = include('springroll.LoadTask'),
+		SpriteSheet = include('pixiflash.SpriteSheet'),
+		TextureAtlas = include('springroll.pixi.TextureAtlas'),
+		Texture = include('PIXI.Texture');
+
+	/**
+	 * Replaces Bitmaps in the global lib dictionary with a faux Bitmap
+	 * that pulls the image from a spritesheet.
+	 * @class FlashArtTask
+	 * @extends springroll.LoadTask
+	 * @constructor
+	 * @private
+	 * @param {Object} asset The data properties
+	 * @param {String} asset.type Asset type must be "pixi"
+	 * @param {String} asset.format Asset format must be "pixiflash.SpriteSheet"
+	 * @param {String} asset.src The source
+	 * @param {Boolean} [asset.cache=false] If we should cache the result
+	 * @param {String} [asset.id] Id of asset
+	 * @param {Function} [asset.complete] The event to call when done
+	 * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
+	 */
+	var SpriteSheetTask = function(asset)
+	{
+		LoadTask.call(this, asset, asset.src);
+	};
+
+	// Reference to prototype
+	var s = LoadTask.prototype;
+	var p = extend(SpriteSheetTask, LoadTask);
+
+	/**
+	 * Test if we should run this task
+	 * @method test
+	 * @static
+	 * @param {Object} asset The asset to check
+	 * @return {Boolean} If the asset is compatible with this asset
+	 */
+	SpriteSheetTask.test = function(asset)
+	{
+		return asset.src &&
+			asset.src.search(/\.json$/i) > -1 &&
+			asset.type == "pixi" &&
+			asset.format == "pixiflash.SpriteSheet";
+	};
+
+	/**
+	 * Start the task
+	 * @method  start
+	 * @param  {Function} callback Callback when finished
+	 */
+	p.start = function(callback)
+	{
+		this.load(this.src, function(data)
+		{
+			var images = [];
+			data.images.forEach(function(image)
+			{
+				// Convert string loads
+				if (typeof image == "string")
+				{
+					image = {
+						image: image,
+						type: 'pixi'
+					};
+				}
+				// Use pixi tasks to load images
+				images.push(image);
+			});
+
+			var id = this.id;
+			this.load(images, function(textures)
+			{
+				data.images.forEach(function(image, i)
+				{
+					// assume the textures are the same order as
+					// the files that were loaded, need to double-check
+					data.images[i] = textures[i].baseTexture;
+				});
+				var spriteSheet = new SpriteSheet(data);
+				spriteSheet.addToGlobal(id);
+				callback(spriteSheet);
+			});
+		}
+		.bind(this));
+	};
+
+	// Assign to namespace
+	namespace('pixiflash').SpriteSheetTask = SpriteSheetTask;
 
 }());

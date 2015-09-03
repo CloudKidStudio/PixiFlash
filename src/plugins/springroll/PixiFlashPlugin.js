@@ -14,6 +14,7 @@
 	plugin.setup = function()
 	{	
 		this.assetManager.register('pixiflash.FlashArtTask', 60);
+		this.assetManager.register('pixiflash.SpriteSheetTask', 70);
 	};
 
 }());

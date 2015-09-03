@@ -18,7 +18,8 @@
 		"springroll": [
 			"src/plugins/springroll/FlashArt.js",
 			"src/plugins/springroll/FlashArtTask.js",
-			"src/plugins/springroll/PixiFlashPlugin.js"
+			"src/plugins/springroll/PixiFlashPlugin.js",
+			"src/plugins/springroll/SpriteSheetTask.js"
 		]
 	}
 }

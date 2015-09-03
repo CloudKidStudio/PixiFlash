@@ -1084,14 +1084,31 @@
 	/**
 	 * SpriteSheet for export from flash
 	 * @class SpriteSheet
+	 * @constructor
+	 * @param {Object} data The spritesheet to load
+	 * @param {Array} data.images The collection of BaseTextures
+	 * @param {Array} data.frames The collection of frames
 	 */
-	var SpriteSheet = function()
+	var SpriteSheet = function(data)
 	{
 		/**
 		 * The collection of frames
 		 * @property {Array} frames
+		 * @private
 		 */
 		this.frames = [];
+
+		/**
+		 * The global id of the spriteshet
+		 * @property {String} _id
+		 * @private
+		 */
+		this._id = null;
+
+		if (data)
+		{
+			this._addFrames(data);
+		}
 	};
 
 	// Reference to prototype
@@ -1099,12 +1116,13 @@
 
 	/**
 	 * Add the frames data
-	 * @method addFrames
+	 * @method _addFrames
+	 * @private
 	 * @param {Object} data The spritesheet to load
 	 * @param {Array} data.images The collection of BaseTextures
 	 * @param {Array} data.frames The collection of frames
 	 */
-	p.addFrames = function(data)
+	p._addFrames = function(data)
 	{
 		// Convert the frame into textures
 		for(var frame, i = 0; i < data.frames.length; i++)
@@ -1133,19 +1151,51 @@
 	};
 
 	/**
+	 * Destroy the spritesheet
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		if (this._id)
+		{
+			delete window.ss[this._id];
+			this._id = null;
+		}
+		if (this.frames)
+		{
+			this.frames.forEach(function(frame)
+			{
+				frame.destroy(true);
+			});
+			this.frames = null;
+		}
+	};
+
+	/**
+	 * Get a frame of the spritesheet
+	 * @method addToGlobal
+	 * @param {String} id The id of the spritesheet
+	 */
+	p.addToGlobal = function(id)
+	{
+		// Make sure the global object is setup
+		window.ss = window.ss || {};
+
+		this._id = id;
+		window.ss[id] = this;
+	};
+
+	/**
 	 * Create a spritesheet
 	 * @method fromData
 	 * @static
-	 * @param {Object} The flash spritesheet data
+	 * @param {Object} input The flash spritesheet data
 	 * @param {function} Callback when complete
 	 */
 	SpriteSheet.fromData = function(input, done)
 	{
 		// Create a new spritesheet object
 		var spriteSheet = new SpriteSheet();
-		
-		// Make sure the global object is setup
-		window.ss = window.ss || {};
 
 		// Clone the data
 		var data = {
@@ -1169,7 +1219,7 @@
 				if (index > -1)
 					id = file.substr(index + 1);
 				id = id.substr(0, id.lastIndexOf('.'));
-				window.ss[id] = spriteSheet;
+				spriteSheet.addToGlobal(id);
 			}
 		}
 
@@ -1182,7 +1232,7 @@
 				var i = data.images.indexOf(name);
 				data.images[i] = resources[name].texture.baseTexture;
 			}
-			spriteSheet.addFrames(data);
+			spriteSheet._addFrames(data);
 			done(spriteSheet);
 		});
 

@@ -7,7 +7,6 @@
 {	
 	var Task = include('springroll.Task'),
 		FlashArt = include('pixiflash.FlashArt'),
-		Application = include('springroll.Application'),
 		TextureAtlas = include('springroll.pixi.TextureAtlas'),
 		Texture = include('PIXI.Texture');
 
@@ -59,7 +58,7 @@
 	};
 
 	// Reference to prototype
-	var p = FlashArtTask.prototype = Object.create(Task.prototype);
+	var p = extend(FlashArtTask, Task);
 
 	/**
 	 * Test if we should run this task
@@ -157,7 +156,7 @@
 			assets._images = {assets:images};
 
 		// Load all the assets
-		Application.instance.load(assets, function(results)
+		this.load(assets, function(results)
 		{
 			var art = new FlashArt(
 				this.id,
@@ -176,8 +175,10 @@
 				for(var id in images)
 				{
 					var result = images[id];
+
 					//save the item for cleanup
 					objectsToDestroy.push(result);
+
 					//look for individual images
 					if(result instanceof Texture)
 					{
@@ -192,11 +193,6 @@
 							globalImages[frame] = frames[frame];
 							texturesToRemove.push(frame);
 						}
-					}
-					//otherwise the result is a SpriteSheet
-					else
-					{
-						//TODO: do something with spritesheet
 					}
 				}
 				
@@ -218,7 +214,6 @@
 					art._orig_destroy();
 				};
 			}
-			
 			callback(art);
 			
 		}.bind(this));
