@@ -10,6 +10,8 @@
 		"src/Container.js",
 		"src/Bitmap.js",
 		"src/MovieClip.js",
+		"src/SpriteSheet.js",
+		"src/Sprite.js",
 		"src/utils.js"
 	],
 	"modules": {
