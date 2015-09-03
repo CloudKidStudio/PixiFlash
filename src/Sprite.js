@@ -40,6 +40,15 @@
 	 */
 	p.gotoAndStop = function(frame)
 	{
+		//Due to the way Flash exports Sprites, we need to initialize each instance on the first
+		//use here.
+		if(!this._initialized)
+		{
+			var spriteSheet = this.spriteSheet;
+			this.initialize();
+			this.spriteSheet = spriteSheet;
+			this._initialized = true;
+		}
 		if (!this.spriteSheet)
 		{
 			throw "Sprite doesn't have a spriteSheet";

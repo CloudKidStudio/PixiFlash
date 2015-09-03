@@ -46,6 +46,10 @@
 		 * @default true
 		 **/
 		this.tickEnabled = true;
+		
+		//remove all lsiteners on this instance, because the CreateJS published files from flash
+		//makes prototypes in a way that breaks normal PIXI listener usage.
+		this.removeAllListeners();
 	};
 
 	var p = DisplayObject.prototype;
