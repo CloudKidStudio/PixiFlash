@@ -3,8 +3,8 @@
 	"version": "0.1.0",
 	"main": "dist/pixi-flash.min.js",
 	"dependencies": {
-		"tweenjs": "https://github.com/SpringRoll/TweenJS.git",
-		"pixi.js": "https://github.com/SpringRoll/pixi.js.git#master"
+		"createjs-tweenjs": "*",
+		"pixi.js": "~3.0.7"
 	},
 	"devDependencies": {
 		"qunit": "*",
