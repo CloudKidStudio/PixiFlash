@@ -122,6 +122,12 @@
           <a href='../classes/pixiflash.MovieClipPlugin.html'>pixiflash.MovieClipPlugin</a>
         </li>
         <li class='public'>
+          <a href='../classes/pixiflash.Sprite.html'>pixiflash.Sprite</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/pixiflash.SpriteSheet.html'>pixiflash.SpriteSheet</a>
+        </li>
+        <li class='public'>
           <a href='../classes/pixiflash.utils.html'>pixiflash.utils</a>
         </li>
     </ul>
@@ -154,7 +160,6 @@
 {	
 	var Task = include(&#x27;springroll.Task&#x27;),
 		FlashArt = include(&#x27;pixiflash.FlashArt&#x27;),
-		Application = include(&#x27;springroll.Application&#x27;),
 		TextureAtlas = include(&#x27;springroll.pixi.TextureAtlas&#x27;),
 		Texture = include(&#x27;PIXI.Texture&#x27;);
 
@@ -206,7 +211,7 @@
 	};
 
 	// Reference to prototype
-	var p = FlashArtTask.prototype = Object.create(Task.prototype);
+	var p = extend(FlashArtTask, Task);
 
 	/**
 	 * Test if we should run this task
@@ -304,7 +309,7 @@
 			assets._images = {assets:images};
 
 		// Load all the assets
-		Application.instance.load(assets, function(results)
+		this.load(assets, function(results)
 		{
 			var art = new FlashArt(
 				this.id,
@@ -323,8 +328,10 @@
 				for(var id in images)
 				{
 					var result = images[id];
+
 					//save the item for cleanup
 					objectsToDestroy.push(result);
+
 					//look for individual images
 					if(result instanceof Texture)
 					{
@@ -339,11 +346,6 @@
 							globalImages[frame] = frames[frame];
 							texturesToRemove.push(frame);
 						}
-					}
-					//otherwise the result is a SpriteSheet
-					else
-					{
-						//TODO: do something with spritesheet
 					}
 				}
 				
@@ -365,7 +367,6 @@
 					art._orig_destroy();
 				};
 			}
-			
 			callback(art);
 			
 		}.bind(this));

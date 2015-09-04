@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>Pixi Flash v0.1.0 API Documentation : src/Container.js</title>
+	<title>Pixi Flash v0.1.0 API Documentation : src/SpriteSheet.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
@@ -148,99 +148,182 @@
 </nav></nav>
 <div class='col-sm-8 col-md-9'>
 <div id='docs-main' class='apidocs'>
-<h1 class="file-heading">File:Container.js</h1>
+<h1 class="file-heading">File:SpriteSheet.js</h1>
 
 <div class="file">
 <pre class="code prettyprint linenums">/**
  * @module Pixi Flash
  * @namespace pixiflash
  */
-(function(undefined)
+(function()
 {
-	var PixiContainer = PIXI.Container,
-		DisplayObject = pixiflash.DisplayObject,
-		SharedTicker = PIXI.ticker.shared;
-	
+	// Impor classes
+	var Rectangle = PIXI.Rectangle;
+	var Texture = PIXI.Texture;
+	var Loader = PIXI.loaders.Loader;
+
 	/**
-	 * The class to emulate createjs.Container
-	 * @class Container
-	 * @extends PIXI.Container
+	 * SpriteSheet for export from flash
+	 * @class SpriteSheet
+	 * @constructor
+	 * @param {Object} data The spritesheet to load
+	 * @param {Array} data.images The collection of BaseTextures
+	 * @param {Array} data.frames The collection of frames
 	 */
-	var Container = function()
+	var SpriteSheet = function(data)
 	{
-		PixiContainer.call(this);
-		DisplayObject.call(this);
-		
 		/**
-		 * If false, the tick will not be propagated to children of this Container. This can provide some performance benefits.
-		 * In addition to preventing the &quot;tick&quot; event from being dispatched, it will also prevent tick related updates
-		 * on some display objects (ex. Sprite &amp; MovieClip frame advancing, DOMElement visibility handling).
-		 * @property tickChildren
-		 * @type Boolean
-		 * @default true
-		 **/
-		this.tickChildren = true;
-		
-		//add a listener for the first time the object is added, to get around
-		//using new instances for prototypes that the CreateJS exporting does.
-		this.once(&quot;added&quot;, function()
+		 * The collection of frames
+		 * @property {Array} frames
+		 * @private
+		 */
+		this.frames = [];
+
+		/**
+		 * The global id of the spriteshet
+		 * @property {String} _id
+		 * @private
+		 */
+		this._id = null;
+
+		if (data)
 		{
-			this._tickListener = this._tickListener.bind(this);
-			this._onAdded();
-			this._onAdded = this._onAdded.bind(this);
-			this._onRemoved = this._onRemoved.bind(this);
-			this.on(&quot;added&quot;, this._onAdded);
-			this.on(&quot;removed&quot;, this._onRemoved);
-		}.bind(this));
-	};
-	
-	var p = Container.prototype = Object.create(PixiContainer.prototype);
-	
-	DisplayObject.mixin(p);
-	
-	//constructor for backwards compatibility
-	p.initialize = Container;
-	
-	p._onAdded = function()
-	{
-		if(!this.parent._isPixiFlash)
-		{
-			SharedTicker.add(this._tickListener);
+			this._addFrames(data);
 		}
 	};
-	
-	p._tickListener = function(tickerDeltaTime)
-	{
-		var ms = tickerDeltaTime / SharedTicker.speed / PIXI.TARGET_FPMS;
-		this._tick(ms);
-	};
-	
-	p._onRemoved = function()
-	{
-		if(this._tickListener)
-			SharedTicker.remove(this._tickListener);
-	};
-	
+
+	// Reference to prototype
+	var p = SpriteSheet.prototype;
+
 	/**
-	 * @method _tick
-	 * @param {Number} delta Time elapsed since the previous tick, in milliseconds.
-	 * @protected
-	 **/
-	p._tick = p.Container__tick = function(delta) {
-		if (this.tickChildren) {
-			for (var i=this.children.length-1; i&gt;=0; i--) {
-				var child = this.children[i];
-				if (child.tickEnabled &amp;&amp; child._tick) { child._tick(delta); }
-				else if(child.tickChildren &amp;&amp; child.Container__tick)
-				{
-					child.Container__tick(delta);
-				}
+	 * Add the frames data
+	 * @method _addFrames
+	 * @private
+	 * @param {Object} data The spritesheet to load
+	 * @param {Array} data.images The collection of BaseTextures
+	 * @param {Array} data.frames The collection of frames
+	 */
+	p._addFrames = function(data)
+	{
+		// Convert the frame into textures
+		for(var frame, i = 0; i &lt; data.frames.length; i++)
+		{
+			frame = data.frames[i];
+			this.frames.push(new Texture(
+				data.images[frame[4] || 0], 
+				new Rectangle(
+					frame[0],
+					frame[1],
+					frame[2],
+					frame[3]
+				)
+			));
+		}
+	};
+
+	/**
+	 * Get a frame of the spritesheet
+	 * @method getFrame
+	 * @param {int} index The index or frame to get
+	 */
+	p.getFrame = function(index)
+	{
+		return this.frames[index] || null;
+	};
+
+	/**
+	 * Destroy the spritesheet
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		if (this._id)
+		{
+			delete window.ss[this._id];
+			this._id = null;
+		}
+		if (this.frames)
+		{
+			this.frames.forEach(function(frame)
+			{
+				frame.destroy(true);
+			});
+			this.frames = null;
+		}
+	};
+
+	/**
+	 * Get a frame of the spritesheet
+	 * @method addToGlobal
+	 * @param {String} id The id of the spritesheet
+	 */
+	p.addToGlobal = function(id)
+	{
+		// Make sure the global object is setup
+		window.ss = window.ss || {};
+
+		this._id = id;
+		window.ss[id] = this;
+	};
+
+	/**
+	 * Create a spritesheet
+	 * @method fromData
+	 * @static
+	 * @param {Object} input The flash spritesheet data
+	 * @param {function} Callback when complete
+	 */
+	SpriteSheet.fromData = function(input, done)
+	{
+		// Create a new spritesheet object
+		var spriteSheet = new SpriteSheet();
+
+		// Clone the data
+		var data = {
+			frames: input.frames.slice(),
+			images: input.images.slice()
+		};
+
+		var id, loader = new Loader();
+
+		// Add the images to the loader
+		for(var file, i = 0; i &lt; data.images.length; i++)
+		{
+			file = data.images[i];
+			loader.add(file, file);
+			
+			// Get the first name and use as the global ID
+			if (!id)
+			{
+				id = file;
+				var index = id.indexOf(&#x27;/&#x27;);
+				if (index &gt; -1)
+					id = file.substr(index + 1);
+				id = id.substr(0, id.lastIndexOf(&#x27;.&#x27;));
+				spriteSheet.addToGlobal(id);
 			}
 		}
+
+		// Load the images
+		loader.once(&#x27;complete&#x27;, function(loader, resources)
+		{
+			// Replace the images paths with base textures
+			for(var name in resources)
+			{
+				var i = data.images.indexOf(name);
+				data.images[i] = resources[name].texture.baseTexture;
+			}
+			spriteSheet._addFrames(data);
+			done(spriteSheet);
+		});
+
+		// Star the load
+		loader.load();
 	};
-	
-	pixiflash.Container = Container;
-	
+
+	// Assign to namespace
+	pixiflash.SpriteSheet = SpriteSheet;
+
 }());</pre>
 </div></div>
 </div>

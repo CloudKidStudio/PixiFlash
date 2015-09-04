@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>Pixi Flash v0.1.0 API Documentation : src/Container.js</title>
+	<title>Pixi Flash v0.1.0 API Documentation : src/plugins/springroll/SpriteSheetTask.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
@@ -148,99 +148,100 @@
 </nav></nav>
 <div class='col-sm-8 col-md-9'>
 <div id='docs-main' class='apidocs'>
-<h1 class="file-heading">File:Container.js</h1>
+<h1 class="file-heading">File:SpriteSheetTask.js</h1>
 
 <div class="file">
-<pre class="code prettyprint linenums">/**
- * @module Pixi Flash
- * @namespace pixiflash
- */
-(function(undefined)
+<pre class="code prettyprint linenums">(function()
 {
-	var PixiContainer = PIXI.Container,
-		DisplayObject = pixiflash.DisplayObject,
-		SharedTicker = PIXI.ticker.shared;
-	
+	var LoadTask = include(&#x27;springroll.LoadTask&#x27;),
+		SpriteSheet = include(&#x27;pixiflash.SpriteSheet&#x27;),
+		TextureAtlas = include(&#x27;springroll.pixi.TextureAtlas&#x27;),
+		Texture = include(&#x27;PIXI.Texture&#x27;);
+
 	/**
-	 * The class to emulate createjs.Container
-	 * @class Container
-	 * @extends PIXI.Container
+	 * Replaces Bitmaps in the global lib dictionary with a faux Bitmap
+	 * that pulls the image from a spritesheet.
+	 * @class FlashArtTask
+	 * @extends springroll.LoadTask
+	 * @constructor
+	 * @private
+	 * @param {Object} asset The data properties
+	 * @param {String} asset.type Asset type must be &quot;pixi&quot;
+	 * @param {String} asset.format Asset format must be &quot;pixiflash.SpriteSheet&quot;
+	 * @param {String} asset.src The source
+	 * @param {Boolean} [asset.cache=false] If we should cache the result
+	 * @param {String} [asset.id] Id of asset
+	 * @param {Function} [asset.complete] The event to call when done
+	 * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
 	 */
-	var Container = function()
+	var SpriteSheetTask = function(asset)
 	{
-		PixiContainer.call(this);
-		DisplayObject.call(this);
-		
-		/**
-		 * If false, the tick will not be propagated to children of this Container. This can provide some performance benefits.
-		 * In addition to preventing the &quot;tick&quot; event from being dispatched, it will also prevent tick related updates
-		 * on some display objects (ex. Sprite &amp; MovieClip frame advancing, DOMElement visibility handling).
-		 * @property tickChildren
-		 * @type Boolean
-		 * @default true
-		 **/
-		this.tickChildren = true;
-		
-		//add a listener for the first time the object is added, to get around
-		//using new instances for prototypes that the CreateJS exporting does.
-		this.once(&quot;added&quot;, function()
-		{
-			this._tickListener = this._tickListener.bind(this);
-			this._onAdded();
-			this._onAdded = this._onAdded.bind(this);
-			this._onRemoved = this._onRemoved.bind(this);
-			this.on(&quot;added&quot;, this._onAdded);
-			this.on(&quot;removed&quot;, this._onRemoved);
-		}.bind(this));
+		LoadTask.call(this, asset, asset.src);
 	};
-	
-	var p = Container.prototype = Object.create(PixiContainer.prototype);
-	
-	DisplayObject.mixin(p);
-	
-	//constructor for backwards compatibility
-	p.initialize = Container;
-	
-	p._onAdded = function()
-	{
-		if(!this.parent._isPixiFlash)
-		{
-			SharedTicker.add(this._tickListener);
-		}
-	};
-	
-	p._tickListener = function(tickerDeltaTime)
-	{
-		var ms = tickerDeltaTime / SharedTicker.speed / PIXI.TARGET_FPMS;
-		this._tick(ms);
-	};
-	
-	p._onRemoved = function()
-	{
-		if(this._tickListener)
-			SharedTicker.remove(this._tickListener);
-	};
-	
+
+	// Reference to prototype
+	var s = LoadTask.prototype;
+	var p = extend(SpriteSheetTask, LoadTask);
+
 	/**
-	 * @method _tick
-	 * @param {Number} delta Time elapsed since the previous tick, in milliseconds.
-	 * @protected
-	 **/
-	p._tick = p.Container__tick = function(delta) {
-		if (this.tickChildren) {
-			for (var i=this.children.length-1; i&gt;=0; i--) {
-				var child = this.children[i];
-				if (child.tickEnabled &amp;&amp; child._tick) { child._tick(delta); }
-				else if(child.tickChildren &amp;&amp; child.Container__tick)
-				{
-					child.Container__tick(delta);
-				}
-			}
-		}
+	 * Test if we should run this task
+	 * @method test
+	 * @static
+	 * @param {Object} asset The asset to check
+	 * @return {Boolean} If the asset is compatible with this asset
+	 */
+	SpriteSheetTask.test = function(asset)
+	{
+		return asset.src &amp;&amp;
+			asset.src.search(/\.json$/i) &gt; -1 &amp;&amp;
+			asset.type == &quot;pixi&quot; &amp;&amp;
+			asset.format == &quot;pixiflash.SpriteSheet&quot;;
 	};
-	
-	pixiflash.Container = Container;
-	
+
+	/**
+	 * Start the task
+	 * @method  start
+	 * @param  {Function} callback Callback when finished
+	 */
+	p.start = function(callback)
+	{
+		this.load(this.src, function(data)
+		{
+			var images = [];
+			data.images.forEach(function(image)
+			{
+				// Convert string loads
+				if (typeof image == &quot;string&quot;)
+				{
+					image = {
+						image: image,
+						type: &#x27;pixi&#x27;
+					};
+				}
+				// Use pixi tasks to load images
+				images.push(image);
+			});
+
+			var id = this.id;
+			this.load(images, function(textures)
+			{
+				data.images.forEach(function(image, i)
+				{
+					// assume the textures are the same order as
+					// the files that were loaded, need to double-check
+					data.images[i] = textures[i].baseTexture;
+				});
+				var spriteSheet = new SpriteSheet(data);
+				spriteSheet.addToGlobal(id);
+				callback(spriteSheet);
+			});
+		}
+		.bind(this));
+	};
+
+	// Assign to namespace
+	namespace(&#x27;pixiflash&#x27;).SpriteSheetTask = SpriteSheetTask;
+
 }());</pre>
 </div></div>
 </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>Pixi Flash v0.1.0 API Documentation : src/Container.js</title>
+	<title>Pixi Flash v0.1.0 API Documentation : src/Sprite.js</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
@@ -148,7 +148,7 @@
 </nav></nav>
 <div class='col-sm-8 col-md-9'>
 <div id='docs-main' class='apidocs'>
-<h1 class="file-heading">File:Container.js</h1>
+<h1 class="file-heading">File:Sprite.js</h1>
 
 <div class="file">
 <pre class="code prettyprint linenums">/**
@@ -157,89 +157,60 @@
  */
 (function(undefined)
 {
-	var PixiContainer = PIXI.Container,
-		DisplayObject = pixiflash.DisplayObject,
-		SharedTicker = PIXI.ticker.shared;
+	var PixiSprite = PIXI.Sprite,
+		DisplayObject = pixiflash.DisplayObject;
 	
 	/**
-	 * The class to emulate createjs.Container
-	 * @class Container
-	 * @extends PIXI.Container
+	 * The class to emulate createjs.Bitmap
+	 * @class Sprite
+	 * @extends PIXI.Sprite
 	 */
-	var Container = function()
+	var Sprite = function()
 	{
-		PixiContainer.call(this);
+		PixiSprite.call(this);
 		DisplayObject.call(this);
-		
+
 		/**
-		 * If false, the tick will not be propagated to children of this Container. This can provide some performance benefits.
-		 * In addition to preventing the &quot;tick&quot; event from being dispatched, it will also prevent tick related updates
-		 * on some display objects (ex. Sprite &amp; MovieClip frame advancing, DOMElement visibility handling).
-		 * @property tickChildren
-		 * @type Boolean
-		 * @default true
-		 **/
-		this.tickChildren = true;
-		
-		//add a listener for the first time the object is added, to get around
-		//using new instances for prototypes that the CreateJS exporting does.
-		this.once(&quot;added&quot;, function()
-		{
-			this._tickListener = this._tickListener.bind(this);
-			this._onAdded();
-			this._onAdded = this._onAdded.bind(this);
-			this._onRemoved = this._onRemoved.bind(this);
-			this.on(&quot;added&quot;, this._onAdded);
-			this.on(&quot;removed&quot;, this._onRemoved);
-		}.bind(this));
+		 * The spritesheet to use
+		 * @property {pixiflash.SpriteSheet} spriteSheet
+		 */
+		this.spriteSheet = null;
 	};
 	
-	var p = Container.prototype = Object.create(PixiContainer.prototype);
+	// Extend PIXI.Sprite
+	var p = Sprite.prototype = Object.create(PixiSprite.prototype);
 	
+	// Mixin the display object
 	DisplayObject.mixin(p);
 	
 	//constructor for backwards compatibility
-	p.initialize = Container;
-	
-	p._onAdded = function()
-	{
-		if(!this.parent._isPixiFlash)
-		{
-			SharedTicker.add(this._tickListener);
-		}
-	};
-	
-	p._tickListener = function(tickerDeltaTime)
-	{
-		var ms = tickerDeltaTime / SharedTicker.speed / PIXI.TARGET_FPMS;
-		this._tick(ms);
-	};
-	
-	p._onRemoved = function()
-	{
-		if(this._tickListener)
-			SharedTicker.remove(this._tickListener);
-	};
-	
+	p.initialize = Sprite;
+
 	/**
-	 * @method _tick
-	 * @param {Number} delta Time elapsed since the previous tick, in milliseconds.
-	 * @protected
-	 **/
-	p._tick = p.Container__tick = function(delta) {
-		if (this.tickChildren) {
-			for (var i=this.children.length-1; i&gt;=0; i--) {
-				var child = this.children[i];
-				if (child.tickEnabled &amp;&amp; child._tick) { child._tick(delta); }
-				else if(child.tickChildren &amp;&amp; child.Container__tick)
-				{
-					child.Container__tick(delta);
-				}
-			}
+	 * Goto and stop on a frame
+	 * @method gotoAndStop
+	 * @param {int} frame The frame index
+	 */
+	p.gotoAndStop = function(frame)
+	{
+		//Due to the way Flash exports Sprites, we need to initialize each instance on the first
+		//use here.
+		if(!this._initialized)
+		{
+			var spriteSheet = this.spriteSheet;
+			this.initialize();
+			this.spriteSheet = spriteSheet;
+			this._initialized = true;
 		}
+		if (!this.spriteSheet)
+		{
+			throw &quot;Sprite doesn&#x27;t have a spriteSheet&quot;;
+		}
+		this.texture = this.spriteSheet.getFrame(frame);
 	};
 	
-	pixiflash.Container = Container;
+	// Assign to namespace
+	pixiflash.Sprite = Sprite;
 	
 }());</pre>
 </div></div>

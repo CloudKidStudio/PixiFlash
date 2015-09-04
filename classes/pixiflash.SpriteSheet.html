@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>Pixi Flash v0.1.0 API Documentation : pixiflash.MovieClipPlugin</title>
+	<title>Pixi Flash v0.1.0 API Documentation : pixiflash.SpriteSheet</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
@@ -149,12 +149,12 @@
 <div class='col-sm-8 col-md-9'>
 <div id='docs-main' class='apidocs'>
 
-<h1>pixiflash.MovieClipPlugin Class</h1>
+<h1>pixiflash.SpriteSheet Class</h1>
 <div class='box meta'>
 
 
 <div class='foundat'>
-Defined in: <a href='../files/src_MovieClip.js.html#l554'><code>pixiflash.MovieClipPlugin:554</code></a>
+Defined in: <a href='../files/src_SpriteSheet.js.html#l12'><code>pixiflash.SpriteSheet:12</code></a>
 </div>
 
 Module:
@@ -164,21 +164,26 @@ Module:
 
 
 <div class='box intro'>
-<p>This plugin works with <a href="http://tweenjs.com" target="_blank">TweenJS</a> to prevent the startPosition
-property from tweening.</p>
+<p>SpriteSheet for export from flash</p>
 
 </div>
 
 <div class='constructor'>
-<h2>Constructor</h2> <div class='method_pixiflash.MovieClipPlugin method item private'>
-<h3 class='name'><a class="deeplink" href="#method_pixiflash.MovieClipPlugin"><span class="glyphicon glyphicon-link"></span></a> <code>pixiflash.MovieClipPlugin</code></h3>
+<h2>Constructor</h2> <div class='method_pixiflash.SpriteSheet method item'>
+<h3 class='name'><a class="deeplink" href="#method_pixiflash.SpriteSheet"><span class="glyphicon glyphicon-link"></span></a> <code>pixiflash.SpriteSheet</code></h3>
 
-<span class='paren'>()</span>
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>data</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
 
 
 <div class='flags'>
 
-<span class='flag private'>private</span>
 
 
 
@@ -188,7 +193,7 @@ property from tweening.</p>
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_MovieClip.js.html#l554'><code>pixiflash.MovieClipPlugin:554</code></a>
+<a href='../files/src_SpriteSheet.js.html#l12'><code>pixiflash.SpriteSheet:12</code></a>
 </p>
 
 
@@ -199,6 +204,45 @@ Defined in
 
 </div>
 
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>data</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<div class='param-description'>
+<p>The spritesheet to load</p>
+
+</div>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>images</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+<div class='param-description'>
+<p>The collection of BaseTextures</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>frames</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+<div class='param-description'>
+<p>The collection of frames</p>
+
+</div>
+
+</li>
+</ul>
+</li>
+</ul>
+</div>
 
 
 </div>
@@ -213,6 +257,9 @@ Defined in
 <li id='tab-methods' class='docs-toggle'>
 <a data-toggle='tab' href='#docs-methods'>Methods</a>
 </li>
+<li id='tab-properties' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-properties'>Properties</a>
+</li>
 </ul>
 
 <div class='tab-content'>
@@ -223,48 +270,57 @@ Defined in
 
 <ul class='list-group row methods'>
 <li class='col-xs-6 col-md-4 index-item method private'>
-<a href='#method_init'>init</a>
-
-</li>
-<li class='col-xs-6 col-md-4 index-item method private'>
-<a href='#method_install'>install</a>
-
-</li>
-<li class='col-xs-6 col-md-4 index-item method private'>
-<a href='#method_priority'>priority</a>
-
-</li>
-<li class='col-xs-6 col-md-4 index-item method private'>
-<a href='#method_step'>step</a>
+<a href='#method__addFrames'>_addFrames</a>
 
 </li>
 <li class='col-xs-6 col-md-4 index-item method'>
-<a href='#method_tween'>tween</a>
+<a href='#method_addToGlobal'>addToGlobal</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_destroy'>destroy</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_fromData'>fromData</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_getFrame'>getFrame</a>
 
 </li>
 </ul>
 </div>
 
+<div class='index-section tab-pane properties'>
+<h3>Properties</h3>
+
+<ul class='list-group row properties'>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__id'>_id</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property_frames'>frames</a>
+
+</li>
+</ul>
+</div>
 
 
 </div>
 
 <div role='tabpanel' id='docs-methods' class='tab-pane'>
 
-<div class='method_init method item private'>
-<h3 class='name'><a class="deeplink" href="#method_init"><span class="glyphicon glyphicon-link"></span></a> <code>init</code></h3>
+<div class='method__addFrames method item private'>
+<h3 class='name'><a class="deeplink" href="#method__addFrames"><span class="glyphicon glyphicon-link"></span></a> <code>_addFrames</code></h3>
 
 <div class='args'>
 <span class='paren'>(</span>
 <ul class='args-list inline commas'>
 <li class='arg'>
-<code>tween</code>
-</li>
-<li class='arg'>
-<code>prop</code>
-</li>
-<li class='arg'>
-<code>value</code>
+<code>data</code>
 </li>
 </ul><span class='paren'>)</span>
 </div>
@@ -282,7 +338,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_MovieClip.js.html#l579'><code>init:579</code></a>
+<a href='../files/src_SpriteSheet.js.html#l45'><code>_addFrames:45</code></a>
 </p>
 
 
@@ -290,6 +346,7 @@ Defined in
 </div>
 
 <div class='description'>
+<p>Add the frames data</p>
 
 </div>
 
@@ -298,168 +355,54 @@ Defined in
 
 <ul class='params-list'>
 <li class='param'>
-<code class='param-name'>tween</code>
-<span class='type'>Tween</span>
+<code class='param-name'>data</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
 
 
 <div class='param-description'>
- 
+<p>The spritesheet to load</p>
+
+</div>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>images</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+<div class='param-description'>
+<p>The collection of BaseTextures</p>
+
 </div>
 
 </li>
 <li class='param'>
-<code class='param-name'>prop</code>
-<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
+<code class='param-name'>frames</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
 
 <div class='param-description'>
- 
+<p>The collection of frames</p>
+
 </div>
 
 </li>
-<li class='param'>
-<code class='param-name'>value</code>
-<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-
-
-<div class='param-description'>
- 
-</div>
-
+</ul>
 </li>
 </ul>
 </div>
 
 
-</div><div class='method_install method item private'>
-<h3 class='name'><a class="deeplink" href="#method_install"><span class="glyphicon glyphicon-link"></span></a> <code>install</code></h3>
-
-<span class='paren'>()</span>
-
-
-<div class='flags'>
-
-<span class='flag private'>private</span>
-
-
-
-
-</div> 
-
-<div class='meta'>
-<p>
-Defined in
-<a href='../files/src_MovieClip.js.html#l571'><code>install:571</code></a>
-</p>
-
-
-
-</div>
-
-<div class='description'>
-
-</div>
-
-
-
-</div><div class='method_priority method item private'>
-<h3 class='name'><a class="deeplink" href="#method_priority"><span class="glyphicon glyphicon-link"></span></a> <code>priority</code></h3>
-
-<span class='paren'>()</span>
-
-
-<div class='flags'>
-
-<span class='flag private'>private</span>
-
-
-
-
-</div> 
-
-<div class='meta'>
-<p>
-Defined in
-<a href='../files/src_MovieClip.js.html#l565'><code>priority:565</code></a>
-</p>
-
-
-
-</div>
-
-<div class='description'>
-
-</div>
-
-
-
-</div><div class='method_step method item private'>
-<h3 class='name'><a class="deeplink" href="#method_step"><span class="glyphicon glyphicon-link"></span></a> <code>step</code></h3>
-
-<span class='paren'>()</span>
-
-
-<div class='flags'>
-
-<span class='flag private'>private</span>
-
-
-
-
-</div> 
-
-<div class='meta'>
-<p>
-Defined in
-<a href='../files/src_MovieClip.js.html#l590'><code>step:590</code></a>
-</p>
-
-
-
-</div>
-
-<div class='description'>
-
-</div>
-
-
-
-</div><div class='method_tween method item'>
-<h3 class='name'><a class="deeplink" href="#method_tween"><span class="glyphicon glyphicon-link"></span></a> <code>tween</code></h3>
+</div><div class='method_addToGlobal method item'>
+<h3 class='name'><a class="deeplink" href="#method_addToGlobal"><span class="glyphicon glyphicon-link"></span></a> <code>addToGlobal</code></h3>
 
 <div class='args'>
 <span class='paren'>(</span>
 <ul class='args-list inline commas'>
 <li class='arg'>
-<code>tween</code>
-</li>
-<li class='arg'>
-<code>prop</code>
-</li>
-<li class='arg'>
-<code>value</code>
-</li>
-<li class='arg'>
-<code>startValues</code>
-</li>
-<li class='arg'>
-<code>endValues</code>
-</li>
-<li class='arg'>
-<code>ratio</code>
-</li>
-<li class='arg'>
-<code>wait</code>
-</li>
-<li class='arg'>
-<code>end</code>
+<code>id</code>
 </li>
 </ul><span class='paren'>)</span>
 </div>
 
-<span class='returns-inline'>
-<span class='type'></span>
-</span>
 
 <div class='flags'>
 
@@ -472,7 +415,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_MovieClip.js.html#l598'><code>tween:598</code></a>
+<a href='../files/src_SpriteSheet.js.html#l102'><code>addToGlobal:102</code></a>
 </p>
 
 
@@ -480,6 +423,7 @@ Defined in
 </div>
 
 <div class='description'>
+<p>Get a frame of the spritesheet</p>
 
 </div>
 
@@ -488,98 +432,231 @@ Defined in
 
 <ul class='params-list'>
 <li class='param'>
-<code class='param-name'>tween</code>
-<span class='type'>Tween</span>
-
-
-<div class='param-description'>
- 
-</div>
-
-</li>
-<li class='param'>
-<code class='param-name'>prop</code>
+<code class='param-name'>id</code>
 <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
 
 <div class='param-description'>
- 
-</div>
+<p>The id of the spritesheet</p>
 
-</li>
-<li class='param'>
-<code class='param-name'>value</code>
-<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-
-
-<div class='param-description'>
- 
-</div>
-
-</li>
-<li class='param'>
-<code class='param-name'>startValues</code>
-<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
-
-
-<div class='param-description'>
- 
-</div>
-
-</li>
-<li class='param'>
-<code class='param-name'>endValues</code>
-<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
-
-
-<div class='param-description'>
- 
-</div>
-
-</li>
-<li class='param'>
-<code class='param-name'>ratio</code>
-<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-
-
-<div class='param-description'>
- 
-</div>
-
-</li>
-<li class='param'>
-<code class='param-name'>wait</code>
-<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-
-
-<div class='param-description'>
- 
-</div>
-
-</li>
-<li class='param'>
-<code class='param-name'>end</code>
-<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-
-
-<div class='param-description'>
- 
 </div>
 
 </li>
 </ul>
 </div>
 
-<div class='returns'>
-<h4>Returns:</h4>
 
-<div class='returns-description'>
-<span class='type'></span>:
+</div><div class='method_destroy method item'>
+<h3 class='name'><a class="deeplink" href="#method_destroy"><span class="glyphicon glyphicon-link"></span></a> <code>destroy</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_SpriteSheet.js.html#l81'><code>destroy:81</code></a>
+</p>
+
+
+
 </div>
+
+<div class='description'>
+<p>Destroy the spritesheet</p>
+
 </div>
+
+
+
+</div><div class='method_fromData method item'>
+<h3 class='name'><a class="deeplink" href="#method_fromData"><span class="glyphicon glyphicon-link"></span></a> <code>fromData</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>input</code>
+</li>
+<li class='arg'>
+<code>Callback</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_SpriteSheet.js.html#l116'><code>fromData:116</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Create a spritesheet</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>input</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<div class='param-description'>
+<p>The flash spritesheet data</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>Callback</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+
+<div class='param-description'>
+<p>when complete</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_getFrame method item'>
+<h3 class='name'><a class="deeplink" href="#method_getFrame"><span class="glyphicon glyphicon-link"></span></a> <code>getFrame</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>index</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_SpriteSheet.js.html#l71'><code>getFrame:71</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Get a frame of the spritesheet</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>index</code>
+<span class='type'>Int</span>
+
+
+<div class='param-description'>
+<p>The index or frame to get</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
 
 </div></div>
 
+<div role='tabpanel' id='docs-properties' class='tab-pane'>
+
+<div class="property__id property item private">
+<h3 class="name"><a class="deeplink" href="#property__id"><span class="glyphicon glyphicon-link"></span></a> <code>_id</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_SpriteSheet.js.html#l29"><code>_id:29</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The global id of the spriteshet</p>
+
+</div>
+
+
+
+</div><div class="property_frames property item private">
+<h3 class="name"><a class="deeplink" href="#property_frames"><span class="glyphicon glyphicon-link"></span></a> <code>frames</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_SpriteSheet.js.html#l22"><code>frames:22</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The collection of frames</p>
+
+</div>
+
+
+
+</div></div>
 
 
 </div>
