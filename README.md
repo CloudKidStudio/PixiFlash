@@ -35,7 +35,7 @@ bower install pixi-flash
 
 ### Example
 
-Here's a example using PIXI. 
+Here's a example using PIXI where the images were assembled using TexturePacker. See the **example** folder for an example which uses the Flash SpriteSheet exporting.
 
 ```js
 var renderer = new PIXI.autoDetectRenderer(800, 500);
@@ -55,11 +55,7 @@ loader.once('complete',function(loader, resources)
 	// Create the character, all library symbols live
 	// on the pixiflash_lib window object
 	var character = new pixiflash_lib.Character();
-
-	// Set the framerate to match the FPS in Flash
 	character.framerate = 30;
-
-	// Start playing the character
 	character.play();
 
 	// Add to stage
@@ -75,3 +71,9 @@ function update()
     renderer.render(stage);
 }
 ```
+
+##License
+
+Copyright (c) 2015 [CloudKid](http://github.com/cloudkidstudio)
+
+Released under the MIT License.
