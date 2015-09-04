@@ -1,0 +1,89 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="FIZ34_Skate1_ArmStrapR 2" itemID="4d0bab55-00015e0d" symbolType="graphic" lastModified="1441401458">
+  <timeline>
+    <DOMTimeline name="FIZ34_Skate1_ArmStrapR 2">
+      <layers>
+        <DOMLayer name="vectors" color="#9933CC" locked="true" autoNamed="false" visible="false" layerType="folder"/>
+        <DOMLayer name="Layer 1" color="#4FFF4F" parentLayerIndex="0" locked="true" visible="false" layerType="guide">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMShape>
+                  <fills>
+                    <FillStyle index="1">
+                      <SolidColor/>
+                    </FillStyle>
+                    <FillStyle index="2">
+                      <SolidColor color="#FF7C66"/>
+                    </FillStyle>
+                  </fills>
+                  <edges>
+                    <Edge fillStyle0="1" fillStyle1="2" edges="!-69 -124[#FFFFBD.5A #FFFF84.F9 -65.5 -120.5!-65.5 -120.5|-66 -121!-66 -121[#FFFFCD.F7 #FFFFA2.E6 -18 -24!-18 -24[#11.E7 #22.16 83 62!83 62|83.5 62.5!83.5 62.5[#55.29 #3F.4D 86 65!86 65[#57.1E #42.A3 87 68.5!87 68.5|87 69!87 69[#4F.2E
+ #76.19 48 131!48 131|48 130.5!48 130.5[#2E.4A #83.A1 44.5 131!44.5 131|45 131!45 131[#0.E4 #77.9A -33 99!-33 99[-57.953125 #53.B4 -93 26!-93 26[#FFFF94.4D #1.6C -114 -49!-114 -49[#FFFF8B.F6 -66.4375 -120 -80!-120 -80|-120 -80.5!-120
+ -80.5[#FFFF87.B7 #FFFFAE.41 -120 -83!-120 -83[#FFFF88.29 #FFFFAB.9E -119 -85.5!-119 -85.5|-119 -85!-119 -85[#FFFF98.AA #FFFF94.D3 -74 -123!-74 -123[#FFFFB8.2A #FFFF83.AB -69.5 -124!-69.5 -124|-69 -124"/>
+                    <Edge fillStyle1="1" edges="
+!-31 -168[-15 -110 15 -55!15 -55[#22.84 #FFFFEB.26 114 24!114 24[#7A.EF #2E.2E 140 73!140 73|140.5 74!140.5 74[#66.6B #99.F1 70.5 165.5!70.5 165.5[#21.3E #B2.F7 -30.5 158.5!-30.5 158.5[#FFFFAA.AF #8C.F7 -150 -12.5!-150 -12.5[-152.84375
+ #FFFFDD.D9 -154.5 -50!-154.5 -50[#FFFF66.F7 #FFFFC3.36 -150 -80!-150 -80[#FFFF6B.E5 -92.3125 -147 -101.5!-147 -101.5[-130.53125 -130.40625 -109 -149!-109 -149[#FFFFB7.EE #FFFF4B.13 -51 -175!-51 -175[-45 -173 -31 -168"/>
+                    <Edge cubics="!-51 -175(;-47,-174 -40,-171 -31,-168q-51 -175Q-45 -173q-31 -168);"/>
+                    <Edge cubics="!15 -55(;28,-32 62,-6 114,24q15 -55Q35 -21q114 24);"/>
+                    <Edge cubics="!114 24(;129,31 141,38 154,45q114 24 154 45);"/>
+                    <Edge cubics="!-31 -168(-31,-168;-20,-129 -5,-92 15,-55q-31 -168Q-15 -110q15 -55);"/>
+                    <Edge cubics="!-120 -80(;-120,-81 -120,-82 -120,-83q-120 -80Q-120 -82q-120 -83);"/>
+                    <Edge cubics="!-120 -83(;-120,-84 -120,-84 -119,-85q-120 -83Q-120 -84q-119 -85);"/>
+                    <Edge cubics="!-114 -49(-114,-49;-115,-60 -117,-71 -120,-80q-114 -49Q-116 -66q-120 -80);"/>
+                    <Edge cubics="!-66 -121(-66,-121;-55,-102 -39,-70 -18,-24q-66 -121Q-50 -93q-18 -24);"/>
+                    <Edge cubics="!-65 -120(;-65,-120 -66,-121 -66,-121q-65 -120 -66 -121)-66,-121;"/>
+                    <Edge cubics="!-74 -123(;-73,-124 -71,-124 -69,-124q-74 -123Q-72 -124q-69 -124);"/>
+                    <Edge cubics="!-119 -85(;-108,-100 -93,-112 -74,-123q-119 -85Q-103 -107q-74 -123);"/>
+                    <Edge cubics="!-69 -124(;-68,-123 -66,-122 -65,-120q-69 -124Q-67 -123q-65 -120);"/>
+                    <Edge cubics="!-33 99(;-50,89 -70,65 -93,26q-33 99Q-58 84q-93 26);"/>
+                    <Edge cubics="!86 65(;87,66 87,68 87,69q86 65Q87 67q87 69);"/>
+                    <Edge cubics="!83 62(;83,62 84,63 84,63q83 62 84 63);"/>
+                    <Edge cubics="!84 63(84,63;85,63 85,64 86,65q84 63Q85 63q86 65);"/>
+                    <Edge cubics="!48 131(;47,132 46,132 45,131q48 131Q46 132q45 131);"/>
+                    <Edge cubics="!87 69(;82,102 69,122 48,131q87 69Q79 118q48 131);"/>
+                    <Edge cubics="!-18 -24(;6,15 40,43 83,62q-18 -24Q18 34q83 62);"/>
+                    <Edge cubics="!45 131(;16,124 -10,113 -33,99q45 131Q1 120q-33 99);"/>
+                    <Edge cubics="!-93 26(-93,26;-103,9 -110,-16 -114,-49q-93 26Q-108 1q-114 -49)-114,-49;"/>
+                    <Edge cubics="!154 45(154,45;149,56 144,66 141,74q154 45 141 74);"/>
+                    <Edge cubics="!141 74(;115,128 92,158 71,166q141 74Q102 154q71 166);"/>
+                    <Edge cubics="!71 166(;46,175 12,172 -30,159q71 166Q33 179q-30 159);"/>
+                    <Edge cubics="!-30 159(-30,159;-65,148 -104,96 -150,-12q-30 159Q-85 141q-150 -12)-150,-12;"/>
+                    <Edge cubics="!-147 -101(;-136,-120 -124,-136 -109,-149q-147 -101Q-131 -130q-109 -149);"/>
+                    <Edge cubics="!-109 -149(-109,-149;-84,-170 -65,-179 -51,-175q-109 -149Q-72 -181q-51 -175);"/>
+                    <Edge cubics="!-154 -50(;-153,-36 -152,-24 -150,-12q-154 -50 -150 -12);"/>
+                    <Edge cubics="!-147 -101(;-150,-82 -154,-60 -154,-50q-147 -101 -150 -80 -154 -50)-154,-50;"/>
+                    <Edge cubics="!105 -18(105,-18;105,-4 109,11 114,24q105 -18 114 24);"/>
+                    <Edge cubics="!114 24(;122,44 132,61 141,74q114 24 140 73 141 74);"/>
+                    <Edge cubics="!141 74(141,74;160,105 177,124 183,124q141 74Q171 124q183 124)183,124;"/>
+                    <Edge cubics="!183 124(;198,124 226,110 226,60q183 124Q198 124q210 111Q226 93q226 60);"/>
+                    <Edge cubics="!226 60(;226,-8 157,-69 145,-69q226 60Q226 16q190 -30Q159 -69q145 -69)145,-69;"/>
+                    <Edge cubics="!145 -69(;123,-69 105,-45 105,-18q145 -69Q129 -69q117 -54Q105 -38q105 -18)105,-18;"/>
+                  </edges>
+                </DOMShape>
+              </elements>
+            </DOMFrame>
+            <DOMFrame index="1" keyMode="9728">
+              <elements/>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+        <DOMLayer name="bitmap" color="#FF800A" current="true" isSelected="true" autoNamed="false">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMBitmapInstance selected="true" libraryItemName="Bitmaps/ArmStrapR21">
+                  <matrix>
+                    <Matrix tx="-7.7" ty="-8.8"/>
+                  </matrix>
+                </DOMBitmapInstance>
+              </elements>
+            </DOMFrame>
+            <DOMFrame index="1" keyMode="9728">
+              <elements/>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

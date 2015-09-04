@@ -1,0 +1,63 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="FIZ34_Skate1_Nose" itemID="4cf3d9a2-00004efa" symbolType="graphic" lastModified="1441401577">
+  <timeline>
+    <DOMTimeline name="FIZ34_Skate1_Nose">
+      <layers>
+        <DOMLayer name="vectors" color="#9933CC" locked="true" autoNamed="false" visible="false" layerType="folder"/>
+        <DOMLayer name="Layer 1" color="#4FFF4F" parentLayerIndex="0" locked="true" visible="false" layerType="guide">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMShape>
+                  <fills>
+                    <FillStyle index="1">
+                      <SolidColor color="#C09B79"/>
+                    </FillStyle>
+                    <FillStyle index="2">
+                      <SolidColor/>
+                    </FillStyle>
+                  </fills>
+                  <edges>
+                    <Edge fillStyle1="2" edges="!17 647.5[#16.29 #280.1F 26 635!26 635[31 627 47 608!47 608|47 609!47 609[108 530 147 471!147 471[294 245 322 4!322 4[322 3 323 2!323 2|324 2!324 2|327 1!327 1[328 0 328 1!328 1|329 1!329 1|330 2!330 2[344 60 325 165!325 165[304 276 220
+ 439!220 439[135 601 87 646!87 646[85 647 84 650!84 650[84 652 85 654!85 654[85 655 87 655!87 655|233 676!233 676|234 676!234 676[317 675 447 628!447 628[514 603 604 566!604 566[605 566 606 566!606 566[612 568 618 569!618 569|619 569
+!619 569[619 570 620 571!620 571[620 573 619 583!619 583[#268.C7 #251.D4 605 606"/>
+                    <Edge fillStyle1="1" edges="
+!6 663[#6.1C #295.FE 6 661!6 661[8 654 11 651!11 651[#C.79 #288.8B 17 647.5"/>
+                    <Edge fillStyle0="1" fillStyle1="2" edges="
+!6 663[#8.4A #293.87 11 656!11 656[#E.3D #28B.53 17 647.5!605 606[#23E.5A #27E.1B 479 680!479 680[344 739 233 730!233 730[143 723 97 714!97 714|96 714!96 714[#27.47 #2BE.6C 16 693"/>
+                    <Edge fillStyle1="2" edges="
+!16 693[-0.84375 #2AE.7A 0 681!0 681[#0.BB #2A0.41 6 663"/>
+                    <Edge fillStyle1="1" edges="
+!605 606[#25C.A9 #29C.79 567 721!567 721[503 810 355 810!355 810[186 810 89 758!89 758[#23.5F #2D8.BF 16 693"/>
+                    <Edge cubics="!595 586(;601,595 605,580 605,605q595 586Q596 588q602 590Q605 590q605 605);"/>
+                    <Edge cubics="!605 605(;605,605 605,605 605,606q605 605 605 606);"/>
+                    <Edge cubics="!605 606(;605,642 586,810 355,810q605 606Q605 668q567 721Q503 810q355 810);"/>
+                    <Edge cubics="!355 810(355,810;155,810 55,752 16,693q355 810Q186 810q89 758Q35 729q16 693);"/>
+                    <Edge cubics="!16 693(;12,685 8,674 6,663q16 693 6 663);"/>
+                    <Edge cubics="!6 663(;6,665 6,663 6,661q6 663 6 661);"/>
+                    <Edge cubics="!6 661(;10,657 8,650 17,648q6 661 11 651 17 648);"/>
+                    <Edge cubics="!17 648(;20,647 24,646 30,646q17 648 30 646);"/>
+                    <Edge cubics="!30 646(;91,646 22,691 421,691q30 646Q61 646q99 669Q179 691q421 691);"/>
+                    <Edge cubics="!421 691(;423,691 425,691 425,691q421 691 425 691);"/>
+                    <Edge cubics="!504 655(;506,653 508,651 511,649q504 655Q507 652q511 649);"/>
+                    <Edge cubics="!477 666(;486,662 495,658 504,655q477 666Q491 660q504 655);"/>
+                    <Edge cubics="!425 691(;439,683 456,675 477,666q425 691Q446 679q477 666);"/>
+                    <Edge cubics="!511 649(;560,610 588,589 595,586q511 649Q585 591q595 586);"/>
+                  </edges>
+                </DOMShape>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+        <DOMLayer name="bitmap" color="#FF800A" current="true" isSelected="true" autoNamed="false">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMBitmapInstance libraryItemName="Bitmaps/Nose"/>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

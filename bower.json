@@ -14,7 +14,7 @@
 	"ignore": [
 		"Gruntfile.js",
 		"tasks",
-		"examples",
+		"example",
 		"docs",
 		"src",
 		"test",

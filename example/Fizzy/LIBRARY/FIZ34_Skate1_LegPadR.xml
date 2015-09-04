@@ -1,0 +1,80 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="FIZ34_Skate1_LegPadR" itemID="4d079728-00009fa0" symbolType="graphic" lastModified="1441401572">
+  <timeline>
+    <DOMTimeline name="FIZ34_Skate1_LegPadR">
+      <layers>
+        <DOMLayer name="vectors" color="#9933CC" locked="true" autoNamed="false" visible="false" layerType="folder"/>
+        <DOMLayer name="Layer 1" color="#4FFF4F" parentLayerIndex="0" locked="true" visible="false" layerType="guide">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMShape isFloating="true">
+                  <matrix>
+                    <Matrix tx="-10.65" ty="-38.65"/>
+                  </matrix>
+                  <fills>
+                    <FillStyle index="1">
+                      <SolidColor/>
+                    </FillStyle>
+                    <FillStyle index="2">
+                      <SolidColor color="#FF7C66"/>
+                    </FillStyle>
+                  </fills>
+                  <edges>
+                    <Edge fillStyle0="2" fillStyle1="1" edges="!239 601[#E3.C5 580 188.5 580!188.5 580[#95.12 580 125 587!125 587[#65.F #254.3 79 640!79 640[#37.D8 #2AB.96 53 758.5!53 758.5[#32.5E #341.9D 67.5 882!67.5 882[#54.82 #3A2.55 103.5 949.5!103.5 949.5[#7C.0A #3BA.43 169 957!169 957[#D5.CE
+ #3BF.C8 259 934!259 934[#116.3B #383.F3 276.5 818!276.5 818[#112.EB #2DF.FA 262.5 682!262.5 682[#FA.04 #274.2C 239 601!302.5 679[#12F.46 #2AC.4E 304 690!304 690[#136.BA #2E4.14 313 791.5!313 791.5[#150.BF #30E.81 380 778!380 778[373
+ 717 366 684!366 684[#143.08 #2A9.9D 302.5 679"/>
+                    <Edge fillStyle1="1" edges="
+!370 642[393 642 405 708!405 708[#19B.1E #2E5.F3 412.5 779!412.5 779[#19D.A6 #330.27 314 836!314 836[313 922 273 977!273 977[229 1003 173 1003!173 1003[114 1003 88 997!88 997[#1B.06 #3A2.15 17 833!17 833[#6.FE #2DF.F8 25 677!25 677[48
+ 603 90 559!90 559[#75.67 #225.CB 177 544!177 544[#EC.A #21A.24 262 564!262 564[#11F.3B #24E.0A 298 651!298 651[#162.CE 642 370 642"/>
+                    <Edge cubics="!263 682(;254,646 246,619 239,601q263 682Q250 628q239 601);"/>
+                    <Edge cubics="!366 684(366,684;337,683 316,681 303,679q366 684Q323 682q303 679)303,679;"/>
+                    <Edge cubics="!303 679(;303,682 303,686 304,690q303 679Q303 684q304 690);"/>
+                    <Edge cubics="!298 651(;336,645 360,642 370,642q298 651Q355 642q370 642);"/>
+                    <Edge cubics="!262 564(;279,581 291,610 298,651q262 564Q287 590q298 651);"/>
+                    <Edge cubics="!189 580(;162,580 141,582 125,587q189 580Q149 580q125 587);"/>
+                    <Edge cubics="!125 587(;110,593 94,611 79,640q125 587Q102 596q79 640);"/>
+                    <Edge cubics="!25 677(;40,628 62,588 90,559q25 677Q48 603q90 559);"/>
+                    <Edge cubics="!90 559(;108,553 137,548 177,544q90 559Q117 550q177 544);"/>
+                    <Edge cubics="!53 759(;51,809 56,850 68,882q53 759Q50 834q68 882);"/>
+                    <Edge cubics="!68 882(;79,914 91,937 104,950q68 882Q85 930q104 950);"/>
+                    <Edge cubics="!104 950(;117,953 139,955 169,957q104 950Q124 954q169 957);"/>
+                    <Edge cubics="!259 934(;272,911 278,873 277,818q259 934Q278 900q277 818);"/>
+                    <Edge cubics="!313 792(;329,786 351,781 380,778q313 792Q337 783q380 778);"/>
+                    <Edge cubics="!314 836(;313,893 300,940 273,977q314 836Q313 922q273 977);"/>
+                    <Edge cubics="!239 601(;232,587 215,580 189,580q239 601Q228 580q189 580);"/>
+                    <Edge cubics="!79 640(;64,669 55,709 53,759q79 640Q56 684q53 759);"/>
+                    <Edge cubics="!169 957(;199,959 229,951 259,934q169 957Q214 960q259 934)259,934;"/>
+                    <Edge cubics="!277 818(277,818;276,763 271,718 263,682q277 818Q275 736q263 682);"/>
+                    <Edge cubics="!304 690(;309,723 312,757 313,792q304 690Q311 740q313 792);"/>
+                    <Edge cubics="!380 778(380,778;375,737 371,706 366,684q380 778Q373 717q366 684);"/>
+                    <Edge cubics="!17 833(17,833;10,768 13,716 25,677q17 833Q7 736q25 677);"/>
+                    <Edge cubics="!177 544(;217,540 245,547 262,564q177 544Q237 538q262 564);"/>
+                    <Edge cubics="!405 708(;409,731 412,754 413,779q405 708Q411 742q413 779);"/>
+                    <Edge cubics="!370 642(;385,642 397,664 405,708q370 642Q393 642q405 708);"/>
+                    <Edge cubics="!413 779(;414,804 381,823 314,836q413 779Q414 816q314 836);"/>
+                    <Edge cubics="!173 1003(;134,1003 105,1001 88,997q173 1003Q114 1003q88 997);"/>
+                    <Edge cubics="!273 977(;244,994 210,1003 173,1003q273 977Q229 1003q173 1003);"/>
+                    <Edge cubics="!88 997(;47,952 24,898 17,833q88 997Q27 930q17 833);"/>
+                  </edges>
+                </DOMShape>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+        <DOMLayer name="bitmap" color="#FF800A" current="true" isSelected="true" autoNamed="false">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMBitmapInstance selected="true" libraryItemName="Bitmaps/LegPadR">
+                  <matrix>
+                    <Matrix tx="-10" ty="-11.5"/>
+                  </matrix>
+                </DOMBitmapInstance>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

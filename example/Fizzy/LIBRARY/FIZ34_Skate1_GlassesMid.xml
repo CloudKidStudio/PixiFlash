@@ -1,0 +1,85 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="FIZ34_Skate1_GlassesMid" itemID="4cf3e070-00005c82" symbolType="graphic" lastModified="1441401487">
+  <timeline>
+    <DOMTimeline name="FIZ34_Skate1_GlassesMid">
+      <layers>
+        <DOMLayer name="vectors" color="#9933CC" locked="true" autoNamed="false" visible="false" layerType="folder"/>
+        <DOMLayer name="Layer 1" color="#4FFF4F" parentLayerIndex="0" locked="true" visible="false" layerType="guide">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMGroup>
+                  <members>
+                    <DOMShape>
+                      <fills>
+                        <FillStyle index="1">
+                          <SolidColor color="#8089DD"/>
+                        </FillStyle>
+                        <FillStyle index="2">
+                          <SolidColor/>
+                        </FillStyle>
+                      </fills>
+                      <edges>
+                        <Edge fillStyle0="1" fillStyle1="2" edges="!1262 105[1260 123 1241 123!1241 123|1240 123!1240 123[1122 96 1056 87!1056 87[806 47 658 48!658 48[495 49 299 66!299 66[130 83 106 83!106 83[91 83 83 73!83 73[78 66 78 61!78 61[77 51 102 43"/>
+                        <Edge fillStyle1="2" edges="!102 43[128 34 182 26!182 26[322 2 584 0!584 0[708 0 941 23!941 23[1260 54 1262 104!1262 104|1262 105!1242 225[1235 228 1225 228!1225 228[1173 209 1084 192!1084 192[1005 176 910 167!910 167[785 155 632 155!632 155[441 155 296 179!296
+ 179[290 180 286 181!286 181[136 206 111 207!111 207[78 206 79 187!79 187[78 180 94 173"/>
+                        <Edge fillStyle0="1" fillStyle1="2" edges="
+!94 173[134 153 284 132!284 132[482 104 632 105!632 105|664 105!664 105[910 112 1080 140!1080 140[1252 168 1252 206!1252 206[1252 220 1242 225"/>
+                        <Edge fillStyle0="1" edges="
+!1242 225[1266 234 1285 242!1285 242|1285 115!1285 115[1274 110 1262 105!102 43[86 46 73 50!73 50[0 71 0 116!0 116[0 149 27 161!27 161[46 169 94 173"/>
+                        <Edge cubics="!1285 115(;1278,112 1270,108 1262,105q1285 115Q1274 110q1262 105);"/>
+                        <Edge cubics="!1262 104(;1262,104 1262,105 1262,105q1262 104 1262 105);"/>
+                        <Edge cubics="!1262 105(;1261,117 1254,123 1241,123q1262 105Q1260 123q1241 123);"/>
+                        <Edge cubics="!1285 242(;1285,242 1285,115 1285,115q1285 242 1285 115);"/>
+                        <Edge cubics="!1242 225(;1237,227 1232,228 1225,228q1242 225Q1235 228q1225 228);"/>
+                        <Edge cubics="!1252 206(;1252,215 1249,222 1242,225q1252 206Q1252 220q1242 225);"/>
+                        <Edge cubics="!1242 225(;1258,231 1272,237 1285,242q1242 225Q1266 234q1285 242);"/>
+                        <Edge cubics="!1241 123(;1241,123 1240,123 1240,123q1241 123 1240 123);"/>
+                        <Edge cubics="!1084 192(;1031,181 973,173 910,167q1084 192Q1005 176q910 167);"/>
+                        <Edge cubics="!1080 140(;1195,159 1252,181 1252,206q1080 140Q1252 168q1252 206);"/>
+                        <Edge cubics="!941 23(;1154,44 1261,71 1262,104q941 23Q1260 54q1262 104);"/>
+                        <Edge cubics="!1240 123(;1161,105 1100,93 1056,87q1240 123Q1122 96q1056 87);"/>
+                        <Edge cubics="!1225 228(;1190,215 1143,203 1084,192q1225 228Q1173 209q1084 192);"/>
+                        <Edge cubics="!632 105(;632,105 664,105 664,105q632 105 664 105);"/>
+                        <Edge cubics="!296 179(;292,180 289,180 286,181q296 179Q290 180q286 181);"/>
+                        <Edge cubics="!102 43(;119,37 146,31 182,26q102 43Q128 34q182 26);"/>
+                        <Edge cubics="!73 50(;24,64 0,86 0,116q73 50Q0 71q0 116);"/>
+                        <Edge cubics="!83 73(;80,68 78,64 78,61q83 73Q78 66q78 61);"/>
+                        <Edge cubics="!79 187(;78,182 83,178 94,173q79 187Q78 180q94 173);"/>
+                        <Edge cubics="!27 161(;40,166 62,170 94,173q27 161Q46 169q94 173);"/>
+                        <Edge cubics="!106 83(;96,83 88,80 83,73q106 83Q91 83q83 73);"/>
+                        <Edge cubics="!102 43(;91,45 82,47 73,50q102 43Q86 46q73 50);"/>
+                        <Edge cubics="!78 61(;77,54 85,48 102,43q78 61Q77 51q102 43);"/>
+                        <Edge cubics="!0 116(;0,138 9,153 27,161q0 116Q0 149q27 161);"/>
+                        <Edge cubics="!111 207(;89,206 78,200 79,187q111 207Q78 206q79 187);"/>
+                        <Edge cubics="!299 66(;186,77 122,83 106,83q299 66Q130 83q106 83);"/>
+                        <Edge cubics="!286 181(;186,198 128,206 111,207q286 181Q136 206q111 207);"/>
+                        <Edge cubics="!94 173(;121,160 184,146 284,132q94 173Q134 153q284 132);"/>
+                        <Edge cubics="!284 132(;416,113 532,104 632,105q284 132Q482 104q632 105);"/>
+                        <Edge cubics="!658 48(;549,49 430,55 299,66q658 48Q495 49q299 66);"/>
+                        <Edge cubics="!632 155(;505,155 393,163 296,179q632 155Q441 155q296 179);"/>
+                        <Edge cubics="!182 26(;275,10 409,1 584,0q182 26Q322 2q584 0);"/>
+                        <Edge cubics="!584 0(;667,0 786,8 941,23q584 0Q708 0q941 23);"/>
+                        <Edge cubics="!1056 87(;889,60 757,47 658,48q1056 87Q806 47q658 48);"/>
+                        <Edge cubics="!910 167(;827,159 734,155 632,155q910 167Q785 155q632 155);"/>
+                        <Edge cubics="!664 105(;828,110 967,121 1080,140q664 105Q910 112q1080 140);"/>
+                      </edges>
+                    </DOMShape>
+                  </members>
+                </DOMGroup>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+        <DOMLayer name="bitmap" color="#FF800A" current="true" isSelected="true" autoNamed="false">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMBitmapInstance libraryItemName="Bitmaps/GlassesMid"/>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

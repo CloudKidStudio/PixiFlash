@@ -1,0 +1,71 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="FIZ34_Skate1_ArmPadL" itemID="4d079719-00009f82" symbolType="graphic" lastModified="1441401384">
+  <timeline>
+    <DOMTimeline name="FIZ34_Skate1_ArmPadL">
+      <layers>
+        <DOMLayer name="vectors" color="#9933CC" locked="true" autoNamed="false" visible="false" layerType="folder"/>
+        <DOMLayer name="Layer 1" color="#4FFF4F" parentLayerIndex="0" locked="true" visible="false" layerType="guide">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMShape isFloating="true">
+                  <matrix>
+                    <Matrix tx="-37.15" ty="-39.85"/>
+                  </matrix>
+                  <fills>
+                    <FillStyle index="1">
+                      <SolidColor/>
+                    </FillStyle>
+                    <FillStyle index="2">
+                      <SolidColor color="#FF7C66"/>
+                    </FillStyle>
+                  </fills>
+                  <edges>
+                    <Edge fillStyle0="2" fillStyle1="1" edges="!958 689[862 513 678 495!678 495[648 492 642 495!642 495|641 495!641 495[590 518 543 582!543 582[489 656 471 711!471 711[470 711 470 712!470 712[471 842 572 943!572 943[702 1071 824 1083!824 1083[825 1083 827 1083!827 1083[860 1064 916
+ 1016!916 1016[987 950 1017 870!1017 870[1017 869 1017 868!1017 868[1005 775 958 689"/>
+                    <Edge fillStyle1="1" edges="
+!1058 870[1050 949 998 1014!998 1014[937 1096 811 1143!811 1143[690 1119 541 973!541 973[435 871 428 710!428 710[445 639 489 572!489 572[531 505 604 454!604 454[646 445 723 463!723 463[833 491 918 571!918 571[1037 682 1058 870"/>
+                    <Edge cubics="!918 571(;997,645 1044,745 1058,870q918 571Q1037 682q1058 870);"/>
+                    <Edge cubics="!1017 870(;1017,869 1017,869 1017,868q1017 870Q1017 869q1017 868);"/>
+                    <Edge cubics="!1017 868(1017,868;1009,806 989,746 958,689q1017 868Q1005 775q958 689);"/>
+                    <Edge cubics="!604 454(604,454;632,448 672,451 723,463q604 454Q646 445q723 463)723,463;"/>
+                    <Edge cubics="!678 495(678,495;658,493 646,493 642,495q678 495Q648 492q642 495);"/>
+                    <Edge cubics="!642 495(;642,495 641,495 641,495q642 495 641 495);"/>
+                    <Edge cubics="!543 582(;507,631 483,674 471,711q543 582Q489 656q471 711);"/>
+                    <Edge cubics="!471 711(471,711;470,711 470,711 470,712q471 711Q470 711q470 712)470,712;"/>
+                    <Edge cubics="!428 710(;439,663 460,617 489,572q428 710Q445 639q489 572);"/>
+                    <Edge cubics="!641 495(;607,510 574,539 543,582q641 495Q590 518q543 582)543,582;"/>
+                    <Edge cubics="!470 712(470,712;471,799 505,876 572,943q470 712Q471 842q572 943)572,943;"/>
+                    <Edge cubics="!489 572(;517,527 555,488 604,454q489 572Q531 505q604 454);"/>
+                    <Edge cubics="!998 1014(998,1014;957,1069 895,1112 811,1143q998 1014Q937 1096q811 1143);"/>
+                    <Edge cubics="!827 1083(827,1083;849,1070 879,1048 916,1016q827 1083Q860 1064q916 1016);"/>
+                    <Edge cubics="!824 1083(;825,1083 826,1083 827,1083q824 1083Q825 1083q827 1083);"/>
+                    <Edge cubics="!723 463(;796,482 861,518 918,571q723 463Q833 491q918 571);"/>
+                    <Edge cubics="!541 973(;470,905 433,817 428,710q541 973Q435 871q428 710);"/>
+                    <Edge cubics="!811 1143(811,1143;730,1127 640,1070 541,973q811 1143Q690 1119q541 973);"/>
+                    <Edge cubics="!1058 870(;1053,923 1033,971 998,1014q1058 870Q1050 949q998 1014);"/>
+                    <Edge cubics="!916 1016(;963,972 997,923 1017,870q916 1016Q987 950q1017 870);"/>
+                    <Edge cubics="!572 943(;659,1028 743,1075 824,1083q572 943Q702 1071q824 1083);"/>
+                    <Edge cubics="!958 689(;894,572 801,507 678,495q958 689Q862 513q678 495);"/>
+                  </edges>
+                </DOMShape>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+        <DOMLayer name="bitmap" color="#FF800A" current="true" isSelected="true" autoNamed="false">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMBitmapInstance selected="true" libraryItemName="Bitmaps/ArmPadL">
+                  <matrix>
+                    <Matrix tx="-15.75" ty="-17.3"/>
+                  </matrix>
+                </DOMBitmapInstance>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>
