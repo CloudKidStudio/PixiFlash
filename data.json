@@ -22,7 +22,9 @@
         "src/plugins/springroll/FlashArtTask.js": {
             "name": "src/plugins/springroll/FlashArtTask.js",
             "modules": {},
-            "classes": {},
+            "classes": {
+                "pixiflash.FlashArtTask": 1
+            },
             "fors": {},
             "namespaces": {
                 "pixiflash": 1
@@ -41,7 +43,7 @@
             "name": "src/plugins/springroll/SpriteSheetTask.js",
             "modules": {},
             "classes": {
-                "pixiflash.FlashArtTask": 1
+                "pixiflash.SpriteSheetTask": 1
             },
             "fors": {},
             "namespaces": {}
@@ -142,7 +144,8 @@
             "submodules": {},
             "classes": {
                 "pixiflash.FlashArt": 1,
-                "pixiflash.FlashArtTask": 1
+                "pixiflash.FlashArtTask": 1,
+                "pixiflash.SpriteSheetTask": 1
             },
             "fors": {},
             "namespaces": {
@@ -224,9 +227,82 @@
             "extension_for": [],
             "module": "SpringRoll Plugin",
             "namespace": "pixiflash",
+            "file": "src/plugins/springroll/FlashArtTask.js",
+            "line": 13,
+            "description": "Replaces Bitmaps in the global lib dictionary with a faux Bitmap\nthat pulls the image from a spritesheet.",
+            "extends": "springroll.Task",
+            "is_constructor": 1,
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "asset",
+                    "description": "The data properties",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "type",
+                            "description": "Asset type must be \"pixi\"",
+                            "type": "String"
+                        },
+                        {
+                            "name": "format",
+                            "description": "Asset format must be \"pixiflash.FlashArt\"",
+                            "type": "String"
+                        },
+                        {
+                            "name": "src",
+                            "description": "The source",
+                            "type": "String"
+                        },
+                        {
+                            "name": "images",
+                            "description": "An array of Image, TextureAtlas, or SpriteSheet assets to load",
+                            "type": "Array"
+                        },
+                        {
+                            "name": "cache",
+                            "description": "If we should cache the result",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        },
+                        {
+                            "name": "id",
+                            "description": "Id of asset",
+                            "type": "String",
+                            "optional": true
+                        },
+                        {
+                            "name": "complete",
+                            "description": "The event to call when done",
+                            "type": "Function",
+                            "optional": true
+                        },
+                        {
+                            "name": "sizes",
+                            "description": "Define if certain sizes are not supported",
+                            "type": "Object",
+                            "optional": true,
+                            "optdefault": "null"
+                        }
+                    ]
+                }
+            ]
+        },
+        "pixiflash.SpriteSheetTask": {
+            "name": "pixiflash.SpriteSheetTask",
+            "shortname": "SpriteSheetTask",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash",
             "file": "src/plugins/springroll/SpriteSheetTask.js",
             "line": 8,
-            "description": "Replaces Bitmaps in the global lib dictionary with a faux Bitmap\nthat pulls the image from a spritesheet.",
+            "description": "Load a spritesheet generated from Flash and adds it to the global ss namespace.",
             "extends": "springroll.LoadTask",
             "is_constructor": 1,
             "access": "private",
@@ -594,7 +670,7 @@
         },
         {
             "file": "src/plugins/springroll/SpriteSheetTask.js",
-            "line": 33,
+            "line": 32,
             "description": "Test if we should run this task",
             "itemtype": "method",
             "name": "test",
@@ -610,13 +686,13 @@
                 "description": "If the asset is compatible with this asset",
                 "type": "Boolean"
             },
-            "class": "pixiflash.FlashArtTask",
+            "class": "pixiflash.SpriteSheetTask",
             "module": "SpringRoll Plugin",
             "namespace": "pixiflash"
         },
         {
             "file": "src/plugins/springroll/SpriteSheetTask.js",
-            "line": 48,
+            "line": 47,
             "description": "Start the task",
             "itemtype": "method",
             "name": "start",
@@ -627,7 +703,7 @@
                     "type": "Function"
                 }
             ],
-            "class": "pixiflash.FlashArtTask",
+            "class": "pixiflash.SpriteSheetTask",
             "module": "SpringRoll Plugin",
             "namespace": "pixiflash"
         },

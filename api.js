@@ -10,6 +10,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "pixiflash.MovieClipPlugin",
         "pixiflash.Sprite",
         "pixiflash.SpriteSheet",
+        "pixiflash.SpriteSheetTask",
         "pixiflash.utils"
     ],
     "modules": [

@@ -127,6 +127,9 @@
         <li class='public'>
           <a href='../classes/pixiflash.SpriteSheet.html'>pixiflash.SpriteSheet</a>
         </li>
+        <li class='private'>
+          <a href='../classes/pixiflash.SpriteSheetTask.html'>pixiflash.SpriteSheetTask</a>
+        </li>
         <li class='public'>
           <a href='../classes/pixiflash.utils.html'>pixiflash.utils</a>
         </li>
@@ -159,9 +162,8 @@
 		Texture = include(&#x27;PIXI.Texture&#x27;);
 
 	/**
-	 * Replaces Bitmaps in the global lib dictionary with a faux Bitmap
-	 * that pulls the image from a spritesheet.
-	 * @class FlashArtTask
+	 * Load a spritesheet generated from Flash and adds it to the global ss namespace.
+	 * @class SpriteSheetTask
 	 * @extends springroll.LoadTask
 	 * @constructor
 	 * @private
