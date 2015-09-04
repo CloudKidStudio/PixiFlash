@@ -391,9 +391,8 @@
 		Texture = include('PIXI.Texture');
 
 	/**
-	 * Replaces Bitmaps in the global lib dictionary with a faux Bitmap
-	 * that pulls the image from a spritesheet.
-	 * @class FlashArtTask
+	 * Load a spritesheet generated from Flash and adds it to the global ss namespace.
+	 * @class SpriteSheetTask
 	 * @extends springroll.LoadTask
 	 * @constructor
 	 * @private
