@@ -926,7 +926,7 @@
 	p._updateTimeline = function() {
 		var tl = this.timeline;
 		var synched = this.mode != MovieClip.INDEPENDENT;
-		tl.loop = (!this.loop) ? true : this.loop;
+		tl.loop = (this.loop==null) ? true : this.loop; // jshint ignore:line
 
 		// update timeline position, ignoring actions if this is a graphic.
 		if (synched) {
