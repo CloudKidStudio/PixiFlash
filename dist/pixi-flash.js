@@ -1322,39 +1322,55 @@
  */
 (function(undefined)
 {
+	var PixiGraphics = PIXI.Graphics,
+		Graphics = pixiflash.Graphics,
+		DisplayObject = pixiflash.DisplayObject;
+	
 	/**
-	 * The class to emulate createjs.Graphics
-	 * @class Graphics
+	 * The class to emulate createjs.Shape
+	 * @class Shape
+	 * @extends PIXI.Graphics
 	 */
-	var Graphics = function(shape)
+	var Shape = function()
 	{
-		/**
-		 * Reference to the parent shape
-		 * @property {pixiflash.Shape} _shape
-		 * @private
-		 * @final
-		 */
-		this._shape = shape;
+		PixiGraphics.call(this);
+		DisplayObject.call(this);
 
 		/**
-		 * The fill color
-		 * @private {int} _fillColor
-		 * @private
+		 * The drawing graphics, these are necessary
+		 * for the compability with EaselJS Flash exports.
+		 * @property {pixiflash.Graphics} graphics
+		 * @readOnly
 		 */
-		this._fillColor = 0x0;
-
-		/**
-		 * The fill alpha
-		 * @private {int} _fillAlpha
-		 * @private
-		 */
-		this._fillAlpha = 1;
+		this.graphics = {
+			f: beginFill.bind(this),
+			s: beginStroke.bind(this),
+			p: decodePath.bind(this),
+			mt: this.moveTo.bind(this),
+			lt: this.lineTo.bind(this),
+			qt: quadraticCurveTo.bind(this),
+			bt: this.bezierCurveTo.bind(this),
+			cp: closePath.bind(this)
+		};
 	};
 
-	// Reference to prototype
-	var p = Graphics.prototype;
+	// Extend PIXI.Sprite
+	var p = Shape.prototype = Object.create(PixiGraphics.prototype);
+	
+	// Mixin the display object
+	DisplayObject.mixin(p);
+	
+	//constructor for backwards compatibility
+	p.initialize = Shape;
+
+	// Assign to namespace
+	pixiflash.Shape = Shape;
 
 	/**
+	 * Wrapper for the graphics
+	 * @class pixiflash.Graphics
+	 */
+	 /**
 	 * Map of Base64 characters to values. Used by {{#crossLink "Graphics/decodePath"}}{{/crossLink}}.
 	 * @property BASE_64
 	 * @static
@@ -1362,7 +1378,8 @@
 	 * @readonly
 	 * @type {Object}
 	 **/
-	Graphics.BASE_64 = {"A":0,"B":1,"C":2,"D":3,"E":4,"F":5,"G":6,"H":7,"I":8,
+	var BASE_64 = {
+		"A":0,"B":1,"C":2,"D":3,"E":4,"F":5,"G":6,"H":7,"I":8,
 		"J":9,"K":10,"L":11,"M":12,"N":13,"O":14,"P":15,"Q":16,"R":17,"S":18,
 		"T":19,"U":20,"V":21,"W":22,"X":23,"Y":24,"Z":25,"a":26,"b":27,"c":28,
 		"d":29,"e":30,"f":31,"g":32,"h":33,"i":34,"j":35,"k":36,"l":37,"m":38,
@@ -1372,75 +1389,9 @@
 	};
 
 	/**
-	 * Shortcut to moveTo.
-	 * @method mt
-	 * @param {Number} x The x coordinate the drawing point should move to.
-	 * @param {Number} y The y coordinate the drawing point should move to.
-	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls).
-	 * @chainable
-	 * @protected
-	 **/
-	p.moveTo = p.mt = function(x, y)
-	{
-		this._shape.moveTo(x, y);
-		return this;
-	};
-
-	/**
-	 * Shortcut to lineTo.
-	 * @method lt
-	 * @param {Number} x The x coordinate the drawing point should draw to.
-	 * @param {Number} y The y coordinate the drawing point should draw to.
-	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
-	 * @chainable
-	 * @protected
-	 **/
-	p.lineTo = p.lt = function(x, y)
-	{
-		this._shape.lineTo(x, y);
-		return this;
-	};
-
-	/**
-	 * Shortcut to arcTo.
-	 * @method at
-	 * @param {Number} x1
-	 * @param {Number} y1
-	 * @param {Number} x2
-	 * @param {Number} y2
-	 * @param {Number} radius
-	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
-	 * @chainable
-	 * @protected
-	 **/
-	p.arcTo = p.at = function(x1, y1, x2, y2, radius)
-	{
-		this._shape.arcTo(x1, y1, x2, y2, radius);
-		return this;
-	};
-
-	/**
-	 * Shortcut to bezierCurveTo.
-	 * @method bt
-	 * @param {Number} cp1x
-	 * @param {Number} cp1y
-	 * @param {Number} cp2x
-	 * @param {Number} cp2y
-	 * @param {Number} x
-	 * @param {Number} y
-	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
-	 * @chainable
-	 * @protected
-	 **/
-	p.bezierCurveTo = p.bt = function(cp1x, cp1y, cp2x, cp2y, x, y)
-	{
-		this._shape.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y);
-		return this;
-	};
-
-	/**
 	 * Shortcut to quadraticCurveTo / curveTo.
-	 * @method qt
+	 * @method quadraticCurveTo
+	 * @private
 	 * @param {Number} cpx
 	 * @param {Number} cpy
 	 * @param {Number} x
@@ -1448,180 +1399,61 @@
 	 * @protected
 	 * @chainable
 	 **/
-	p.quadraticCurveTo = p.curveTo = p.qt = function(cpx, cpy, x, y)
+	var quadraticCurveTo = function(cpx, cpy, x, y)
 	{
 		// Ensure that the draw shape is not closed
-		var currentPath = this._shape.currentPath;
+		var currentPath = this.currentPath;
 		if (currentPath && currentPath.shape)
 		{
 			currentPath.shape.closed = false;
 		}
-		this._shape.quadraticCurveTo(cpx, cpy, x, y);
-		return this;
-	};
-
-	/**
-	 * Shortcut to arc.
-	 * @method a
-	 * @param {Number} x
-	 * @param {Number} y
-	 * @param {Number} radius
-	 * @param {Number} startAngle Measured in radians.
-	 * @param {Number} endAngle Measured in radians.
-	 * @param {Boolean} anticlockwise
-	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
-	 * @protected
-	 * @chainable
-	 **/
-	p.arc = p.a = function(x, y, radius, startAngle, endAngle, anticlockwise)
-	{
-		this._shape.arc(x, y, radius, startAngle, endAngle, anticlockwise);
-		return this;
+		this.quadraticCurveTo(cpx, cpy, x, y);
+		return this.graphics;
 	};
 
 	/**
 	 * Shortcut to closePath.
-	 * @method cp
+	 * @method closePath
+	 * @private
 	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 * @chainable
 	 * @protected
 	 **/
-	p.cp = function()
+	var closePath = function()
 	{
-		var currentPath = this._shape.currentPath;
+		var currentPath = this.currentPath;
 		if (currentPath && currentPath.shape)
 		{
 			currentPath.shape.closed = true;
 		}
-		return this;
-	};
-
-	/**
-	 * Shortcut to clear.
-	 * @method c
-	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
-	 * @chainable
-	 * @protected
-	 **/
-	p.clear = p.c = function()
-	{
-		this._shape.clear();
-		return this;
+		return this.graphics;
 	};
 
 	/**
 	 * Shortcut to beginFill.
-	 * @method f
+	 * @method beginFill
+	 * @private
 	 * @param {String} color A CSS compatible color value (ex. "red", "#FF0000", or "rgba(255,0,0,0.5)"). Setting to
 	 * null will result in no fill.
 	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 * @chainable
 	 * @protected
 	 **/
-	p.beginFill = p.f = function(color)
+	var beginFill = function(color)
 	{
 		if (color)
 		{
-			var rgb = this._fillColor = colorToHex(color);
-			var a = this._fillAlpha = alphaFromColor(color);
-			this._shape.beginFill(rgb, a);
+			var rgb = colorToHex(color);
+			var a = alphaFromColor(color);
+			this.beginFill(rgb, a);
 		}
-		return this;
-	};
-
-	/**
-	 * Shortcut to beginLinearGradientFill.
-	 * @method lf
-	 * @param {Array} colors An array of CSS compatible color values. For example, ["#F00","#00F"] would define a gradient
-	 * drawing from red to blue.
-	 * @param {Array} ratios An array of gradient positions which correspond to the colors. For example, [0.1, 0.9] would draw
-	 * the first color to 10% then interpolating to the second color at 90%.
-	 * @param {Number} x0 The position of the first point defining the line that defines the gradient direction and size.
-	 * @param {Number} y0 The position of the first point defining the line that defines the gradient direction and size.
-	 * @param {Number} x1 The position of the second point defining the line that defines the gradient direction and size.
-	 * @param {Number} y1 The position of the second point defining the line that defines the gradient direction and size.
-	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
-	 * @chainable
-	 * @protected
-	 **/
-	p.beginLinearGradientFill = p.lf = function(colors, ratios, x0, y0, x1, y1)
-	{
-		if (true)
-		{
-			console.warn("pixiflash.Graphics: beginLinearGradientFill not supported");
-		}
-		return this;
-	};
-
-	/**
-	 * Shortcut to beginRadialGradientFill.
-	 * @method rf
-	 * @param {Array} colors An array of CSS compatible color values. For example, ["#F00","#00F"] would define
-	 * a gradient drawing from red to blue.
-	 * @param {Array} ratios An array of gradient positions which correspond to the colors. For example, [0.1,
-	 * 0.9] would draw the first color to 10% then interpolating to the second color at 90%.
-	 * @param {Number} x0 Center position of the inner circle that defines the gradient.
-	 * @param {Number} y0 Center position of the inner circle that defines the gradient.
-	 * @param {Number} r0 Radius of the inner circle that defines the gradient.
-	 * @param {Number} x1 Center position of the outer circle that defines the gradient.
-	 * @param {Number} y1 Center position of the outer circle that defines the gradient.
-	 * @param {Number} r1 Radius of the outer circle that defines the gradient.
-	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
-	 * @chainable
-	 * @protected
-	 **/
-	p.beginRadialGradientFill = p.rf = function(colors, ratios, x0, y0, r0, x1, y1, r1)
-	{
-		if (true)
-		{
-			console.warn("pixiflash.Graphics: beginRadialGradientFill not supported");
-		}
-		return this;
-	};
-
-	/**
-	 * Shortcut to beginBitmapFill.
-	 * @method bf
-	 * @param {HTMLImageElement | HTMLCanvasElement | HTMLVideoElement} image The Image, Canvas, or Video object to use
-	 * as the pattern.
-	 * @param {String} repetition Optional. Indicates whether to repeat the image in the fill area. One of "repeat",
-	 * "repeat-x", "repeat-y", or "no-repeat". Defaults to "repeat". Note that Firefox does not support "repeat-x" or
-	 * "repeat-y" (latest tests were in FF 20.0), and will default to "repeat".
-	 * @param {Matrix2D} matrix Optional. Specifies a transformation matrix for the bitmap fill. This transformation
-	 * will be applied relative to the parent transform.
-	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
-	 * @chainable
-	 * @protected
-	 **/
-	p.beginBitmapFill = p.bf = function(image, repetition, matrix)
-	{
-		if (true)
-		{
-			console.warn("pixiflash.Graphics: beginBitmapFill not supported");
-		}
-		return this;
-	};
-
-	/**
-	 * Shortcut to endFill.
-	 * @method ef
-	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
-	 * @chainable
-	 * @protected
-	 **/
-	p.endFill = p.ef = function()
-	{
-		this._shape.endFill();
-		if (this._fillColor)
-		{
-			this._shape.beginFill(this._fillColor, this._fillAlpha);
-		}
-		return this;
+		return this.graphics;
 	};
 
 	/**
 	 * Shortcut to setStrokeStyle.
-	 * @method ss
+	 * @method setStrokeStyle
+	 * @private
 	 * @param {Number} thickness The width of the stroke.
 	 * @param {String | Number} [caps=0] Indicates the type of caps to use at the end of lines. One of butt,
 	 * round, or square. Defaults to "butt". Also accepts the values 0 (butt), 1 (round), and 2 (square) for use with
@@ -1637,270 +1469,59 @@
 	 * @chainable
 	 * @protected
 	 **/
-	p.setStrokeStyle = p.ss = function(thickness, caps, joints, miterLimit, ignoreScale)
+	var setStrokeStyle = function(thickness, caps, joints, miterLimit, ignoreScale)
 	{
-		this._shape.lineWidth = thickness;
-		return this;
-	};
-	
-	/**
-	 * Shortcut to setStrokeDash.
-	 * @method sd
-	 * @param {Array} [segments] An array specifying the dash pattern, alternating between line and gap.
-	 * For example, [20,10] would create a pattern of 20 pixel lines with 10 pixel gaps between them.
-	 * Passing null or an empty array will clear any existing dash.
-	 * @param {Number} [offset=0] The offset of the dash pattern. For example, you could increment this value to create a "marching ants" effect.
-	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
-	 * @chainable
-	 * @protected
-	 **/
-	p.setStrokeDash = p.sd = function(segments, offset)
-	{
-		if (true)
-		{
-			console.warn("pixiflash.Graphics: setStrokeDash not supported");
-		}
-		return this;
+		this.lineWidth = thickness;
+		return this.graphics;
 	};
 
 	/**
 	 * Shortcut to beginStroke.
-	 * @method s
+	 * @method beginStroke
+	 * @private
 	 * @param {String} color A CSS compatible color value (ex. "#FF0000", "red", or "rgba(255,0,0,0.5)"). Setting to
 	 * null will result in no stroke.
 	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 * @chainable
 	 * @protected
 	 **/
-	p.beginStroke = p.s = function(color)
+	var beginStroke = function(color)
 	{
 		if (color)
 		{
-			this._shape.lineColor = colorToHex(color);
-			this._shape.lineAlpha = 1;
+			this.lineColor = colorToHex(color);
+			this.lineAlpha = 1;
 		}
-		return this;
-	};
-
-	/**
-	 * Shortcut to beginLinearGradientStroke.
-	 * @method ls
-	 * @param {Array} colors An array of CSS compatible color values. For example, ["#F00","#00F"] would define
-	 * a gradient drawing from red to blue.
-	 * @param {Array} ratios An array of gradient positions which correspond to the colors. For example, [0.1,
-	 * 0.9] would draw the first color to 10% then interpolating to the second color at 90%.
-	 * @param {Number} x0 The position of the first point defining the line that defines the gradient direction and size.
-	 * @param {Number} y0 The position of the first point defining the line that defines the gradient direction and size.
-	 * @param {Number} x1 The position of the second point defining the line that defines the gradient direction and size.
-	 * @param {Number} y1 The position of the second point defining the line that defines the gradient direction and size.
-	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
-	 * @chainable
-	 * @protected
-	 **/
-	p.beginLinearGradientStroke = p.ls = function(colors, ratios, x0, y0, x1, y1)
-	{
-		if (true)
-		{
-			console.warn("pixiflash.Graphics: beginLinearGradientStroke not supported");
-		}
-		return this;
-	};
-
-	/**
-	 * Shortcut to beginRadialGradientStroke.
-	 * @method rs
-	 * @param {Array} colors An array of CSS compatible color values. For example, ["#F00","#00F"] would define
-	 * a gradient drawing from red to blue.
-	 * @param {Array} ratios An array of gradient positions which correspond to the colors. For example, [0.1,
-	 * 0.9] would draw the first color to 10% then interpolating to the second color at 90%, then draw the second color
-	 * to 100%.
-	 * @param {Number} x0 Center position of the inner circle that defines the gradient.
-	 * @param {Number} y0 Center position of the inner circle that defines the gradient.
-	 * @param {Number} r0 Radius of the inner circle that defines the gradient.
-	 * @param {Number} x1 Center position of the outer circle that defines the gradient.
-	 * @param {Number} y1 Center position of the outer circle that defines the gradient.
-	 * @param {Number} r1 Radius of the outer circle that defines the gradient.
-	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
-	 * @chainable
-	 * @protected
-	 **/
-	p.beginRadialGradientStroke = p.rs = function(colors, ratios, x0, y0, r0, x1, y1, r1)
-	{
-		if (true)
-		{
-			console.warn("pixiflash.Graphics: beginRadialGradientStroke not supported");
-		}
-		return this;
-	};
-
-	/**
-	 * Shortcut to beginBitmapStroke.
-	 * @method bs
-	 * @param {HTMLImageElement | HTMLCanvasElement | HTMLVideoElement} image The Image, Canvas, or Video object to use
-	 * as the pattern.
-	 * @param {String} [repetition=repeat] Optional. Indicates whether to repeat the image in the fill area. One of
-	 * "repeat", "repeat-x", "repeat-y", or "no-repeat". Defaults to "repeat".
-	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
-	 * @chainable
-	 * @protected
-	 **/
-	p.beginBitmapStroke = p.bs = function(image, repetition)
-	{
-		if (true)
-		{
-			console.warn("pixiflash.Graphics: beginBitmapStroke not supported");
-		}
-		return this;
-	};
-
-	/**
-	 * Shortcut to endStroke.
-	 * @method es
-	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
-	 * @chainable
-	 * @protected
-	 **/
-	p.endStroke = p.es = function()
-	{
-		this.ef();
-		return this;
-	};
-
-	/**
-	 * Shortcut to drawRect.
-	 * @method dr
-	 * @param {Number} x
-	 * @param {Number} y
-	 * @param {Number} w Width of the rectangle
-	 * @param {Number} h Height of the rectangle
-	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
-	 * @chainable
-	 * @protected
-	 **/
-	p.drawRect = p.dr = p.r = function(x, y, w, h)
-	{
-		this._shape.drawRect(x, y, w, h);
-		return this;
-	};
-
-	/**
-	 * Shortcut to drawRoundRect.
-	 * @method rr
-	 * @param {Number} x
-	 * @param {Number} y
-	 * @param {Number} w
-	 * @param {Number} h
-	 * @param {Number} radius Corner radius.
-	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
-	 * @chainable
-	 * @protected
-	 **/
-	p.drawRoundRect = p.rr = function(x, y, w, h, radius)
-	{
-		this._shape.drawRoundedRect(x, y, w, h, radius);
-		return this;
-	};
-
-	/**
-	 * Shortcut to drawRoundRectComplex.
-	 * @method rc
-	 * @param {Number} x The horizontal coordinate to draw the round rect.
-	 * @param {Number} y The vertical coordinate to draw the round rect.
-	 * @param {Number} w The width of the round rect.
-	 * @param {Number} h The height of the round rect.
-	 * @param {Number} radiusTL Top left corner radius.
-	 * @param {Number} radiusTR Top right corner radius.
-	 * @param {Number} radiusBR Bottom right corner radius.
-	 * @param {Number} radiusBL Bottom left corner radius.
-	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
-	 * @chainable
-	 * @protected
-	 **/
-	p.drawRoundRectComplex = p.rc = function(x, y, w, h, radiusTL, radiusTR, radiusBR, radiusBL)
-	{
-		// TODO: this is incomplete, and only does rounded rect with even corners
-		this._shape.drawRoundedRect(x, y, w, h, radiusTL);
-		return this;
-	};
-
-	/**
-	 * Shortcut to drawCircle.
-	 * @method dc
-	 * @param {Number} x x coordinate center point of circle.
-	 * @param {Number} y y coordinate center point of circle.
-	 * @param {Number} radius Radius of circle.
-	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
-	 * @chainable
-	 * @protected
-	 **/
-	p.drawCircle = p.dc = function(x, y, radius)
-	{
-		this._shape.drawCircle(x, y, radius);
-		return this;
-	};
-
-	/**
-	 * Shortcut to drawEllipse.
-	 * @method de
-	 * @param {Number} x The left coordinate point of the ellipse. Note that this is different from {{#crossLink "Graphics/drawCircle"}}{{/crossLink}}
-	 * which draws from center.
-	 * @param {Number} y The top coordinate point of the ellipse. Note that this is different from {{#crossLink "Graphics/drawCircle"}}{{/crossLink}}
-	 * which draws from the center.
-	 * @param {Number} w The height (horizontal diameter) of the ellipse. The horizontal radius will be half of this
-	 * number.
-	 * @param {Number} h The width (vertical diameter) of the ellipse. The vertical radius will be half of this number.
-	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
-	 * @chainable
-	 * @protected
-	 **/
-	p.drawEllipse = p.de = function(x, y, w, h)
-	{
-		this._shape.drawEllipse(x, y, w, h);
-		return this;
-	};
-
-	/**
-	 * Shortcut to drawPolyStar.
-	 * @method dp
-	 * @param {Number} x Position of the center of the shape.
-	 * @param {Number} y Position of the center of the shape.
-	 * @param {Number} radius The outer radius of the shape.
-	 * @param {Number} sides The number of points on the star or sides on the polygon.
-	 * @param {Number} pointSize The depth or "pointy-ness" of the star points. A pointSize of 0 will draw a regular
-	 * polygon (no points), a pointSize of 1 will draw nothing because the points are infinitely pointy.
-	 * @param {Number} angle The angle of the first point / corner. For example a value of 0 will draw the first point
-	 * directly to the right of the center.
-	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
-	 * @chainable
-	 * @protected
-	 **/
-	p.drawPolyStar = p.dp =function(x, y, radius, sides, pointSize, angle)
-	{
-		if (true)
-		{
-			console.warn("pixiflash.Graphics: drawPolyStar not supported");
-		}
-		return this;
+		return this.graphics;
 	};
 
 	/**
 	 * Shortcut to decodePath.
-	 * @method p
+	 * @method decodePath
+	 * @private
 	 * @param {String} str The path string to decode.
 	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 * @chainable
 	 * @protected
 	 **/
-	p.decodePath = p.p = function(str)
+	var decodePath = function(str)
 	{
-		var instructions = [this.mt, this.lt, this.qt, this.bt, this.cp];
+		var graphics = this.graphics;
+		var instructions = [
+			graphics.mt,
+			graphics.lt, 
+			graphics.qt, 
+			graphics.bt, 
+			graphics.cp
+		];
 		var paramCount = [2, 2, 4, 6, 0];
 		var i=0, l=str.length;
 		var params = [];
 		var x=0, y=0;
-		var base64 = Graphics.BASE_64;
+		var base64 = BASE_64;
 
-		while (i<l) {
+		while (i<l)
+		{
 			var c = str.charAt(i);
 			var n = base64[c];
 			var fi = n>>3; // highest order bits 1-3 code for operation.
@@ -1912,7 +1533,8 @@
 			params.length = 0;
 			i++;
 			var charCount = (n>>2&1)+2;  // 4th header bit indicates number size for this operation.
-			for (var p=0; p<pl; p++) {
+			for (var p=0; p<pl; p++) 
+			{
 				var num = base64[str.charAt(i)];
 				var sign = (num>>5) ? -1 : 1;
 				num = ((num&31)<<6)|(base64[str.charAt(i+1)]);
@@ -1925,7 +1547,7 @@
 			}
 			f.apply(this,params);
 		}
-		return this;
+		return this.graphics;
 	};
 
 	/** 
@@ -1969,49 +1591,6 @@
 		}
 		return 1;
 	};
-
-	// Assign to namespace
-	pixiflash.Graphics = Graphics;
-
-}());
-/**
- * @module Pixi Flash
- * @namespace pixiflash
- */
-(function(undefined)
-{
-	var PixiGraphics = PIXI.Graphics,
-		Graphics = pixiflash.Graphics,
-		DisplayObject = pixiflash.DisplayObject;
-	
-	/**
-	 * The class to emulate createjs.Shape
-	 * @class Shape
-	 * @extends PIXI.Graphics
-	 */
-	var Shape = function()
-	{
-		PixiGraphics.call(this);
-		DisplayObject.call(this);
-
-		/**
-		 * The drawing graphics
-		 * @property {pixiflash.Graphics} graphics
-		 */
-		this.graphics = new Graphics(this);
-	};
-
-	// Extend PIXI.Sprite
-	var p = Shape.prototype = Object.create(PixiGraphics.prototype);
-	
-	// Mixin the display object
-	DisplayObject.mixin(p);
-	
-	//constructor for backwards compatibility
-	p.initialize = Shape;
-
-	// Assign to namespace
-	pixiflash.Shape = Shape;
 
 }());
 /**
