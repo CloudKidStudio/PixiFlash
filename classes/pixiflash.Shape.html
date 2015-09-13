@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-	<title>Pixi Flash v0.1.0 API Documentation : src/utils.js</title>
+	<title>Pixi Flash v0.1.0 API Documentation : pixiflash.Shape</title>
 	<meta charset='utf-8'>
 	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
@@ -157,45 +157,92 @@
 </nav></nav>
 <div class='col-sm-8 col-md-9'>
 <div id='docs-main' class='apidocs'>
-<h1 class="file-heading">File:utils.js</h1>
 
-<div class="file">
-<pre class="code prettyprint linenums">/**
- * @module Pixi Flash
- * @namespace pixiflash
- */
-(function(window)
-{
-	/**
-	 * Utilities for converting 
-	 * @class utils
-	 */
-	var utils = {};
+<h1>pixiflash.Shape Class</h1>
+<div class='box meta'>
 
-	/**
-	 * Conver the loaded texture atlas to images
-	 * @method addImages
-	 * @static
-	 * @param {PIXI.Texture} atlas The atlas to convert images
-	 */
-	utils.addImages = function(atlas)
-	{
-		var id;
+<div class='extends'>
+Extends
+PIXI.Graphics
+</div>
 
-		// This needs to happen before we create the character
-		// so that the textures exist for the movieclip
-		for(var frame in atlas.textures)
-		{
-			// Remove the file extension from the image name
-			id = frame.replace(&#x27;.png&#x27;, &#x27;&#x27;);
-			window.pixiflash_images[id] = atlas.textures[frame];
-		}
-	};
+<div class='foundat'>
+Defined in: <a href='../files/src_Shape.js.html#l11'><code>pixiflash.Shape:11</code></a>
+</div>
 
-	// Assign to namespace
-	pixiflash.utils = utils;
+Module:
+<a href="../modules/Pixi Flash.html">Pixi Flash</a>
 
-}(window));</pre>
+</div>
+
+
+<div class='box intro'>
+<p>The class to emulate createjs.Shape</p>
+
+</div>
+
+
+<div id='classdocs' class='tabview'>
+<span id='docs-highlight'></span>
+<ul class='nav nav-tabs'>
+<li id='tab-index' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-index'>Index</a>
+</li>
+<li id='tab-properties' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-properties'>Properties</a>
+</li>
+</ul>
+
+<div class='tab-content'>
+
+<div role='tabpanel' id='docs-index' class='tab-pane'>
+
+<div class='index-section tab-pane properties'>
+<h3>Properties</h3>
+
+<ul class='list-group row properties extends'>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_graphics'>graphics</a>
+
+</li>
+</ul>
+</div>
+
+
+</div>
+
+
+<div role='tabpanel' id='docs-properties' class='tab-pane'>
+
+<div class="property_graphics property item">
+<h3 class="name"><a class="deeplink" href="#property_graphics"><span class="glyphicon glyphicon-link"></span></a> <code>graphics</code></h3>
+<span class="type"><a href="../classes/pixiflash.Graphics.html" class="crosslink">pixiflash.Graphics</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_Shape.js.html#l21"><code>graphics:21</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The drawing graphics, these are necessary
+for the compability with EaselJS Flash exports.</p>
+
+</div>
+
+
+
+</div></div>
+
+
+</div>
 </div></div>
 </div>
 </div>

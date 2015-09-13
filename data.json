@@ -95,6 +95,18 @@
                 "pixiflash": 1
             }
         },
+        "src/Shape.js": {
+            "name": "src/Shape.js",
+            "modules": {},
+            "classes": {
+                "pixiflash.Shape": 1,
+                "pixiflash.Graphics": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "pixiflash": 1
+            }
+        },
         "src/Sprite.js": {
             "name": "src/Sprite.js",
             "modules": {},
@@ -167,6 +179,8 @@
                 "pixiflash.DisplayObject": 1,
                 "pixiflash.MovieClip": 1,
                 "pixiflash.MovieClipPlugin": 1,
+                "pixiflash.Shape": 1,
+                "pixiflash.Graphics": 1,
                 "pixiflash.Sprite": 1,
                 "pixiflash.SpriteSheet": 1,
                 "pixiflash.utils": 1
@@ -433,6 +447,35 @@
             "access": "private",
             "tagname": "",
             "is_constructor": 1
+        },
+        "pixiflash.Shape": {
+            "name": "pixiflash.Shape",
+            "shortname": "Shape",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Pixi Flash",
+            "namespace": "pixiflash",
+            "file": "src/Shape.js",
+            "line": 11,
+            "description": "The class to emulate createjs.Shape",
+            "extends": "PIXI.Graphics"
+        },
+        "pixiflash.Graphics": {
+            "name": "pixiflash.Graphics",
+            "shortname": "pixiflash.Graphics",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Pixi Flash",
+            "namespace": "pixiflash",
+            "file": "src/Shape.js",
+            "line": 51,
+            "description": "Wrapper for the graphics"
         },
         "pixiflash.Sprite": {
             "name": "pixiflash.Sprite",
@@ -721,7 +764,7 @@
         },
         {
             "file": "src/Container.js",
-            "line": 71,
+            "line": 81,
             "itemtype": "method",
             "name": "_tick",
             "params": [
@@ -1449,6 +1492,250 @@
                 "type": "*"
             },
             "class": "pixiflash.MovieClipPlugin",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/Shape.js",
+            "line": 21,
+            "description": "The drawing graphics, these are necessary\nfor the compability with EaselJS Flash exports.",
+            "itemtype": "property",
+            "name": "graphics",
+            "type": "pixiflash.Graphics",
+            "readonly": "",
+            "class": "pixiflash.Shape",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/Shape.js",
+            "line": 55,
+            "description": "Map of Base64 characters to values. Used by {{#crossLink \"Graphics/decodePath\"}}{{/crossLink}}.",
+            "itemtype": "property",
+            "name": "BASE_64",
+            "static": 1,
+            "final": 1,
+            "readonly": "",
+            "type": "{Object}",
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/Shape.js",
+            "line": 73,
+            "description": "Shortcut to quadraticCurveTo / curveTo.",
+            "itemtype": "method",
+            "name": "quadraticCurveTo",
+            "access": "protected",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "cpx",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "cpy",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "chainable": 1,
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/Shape.js",
+            "line": 96,
+            "description": "Shortcut to closePath.",
+            "itemtype": "method",
+            "name": "closePath",
+            "access": "protected",
+            "tagname": "",
+            "return": {
+                "description": "The Graphics instance the method is called on (useful for chaining calls.)",
+                "type": "Graphics"
+            },
+            "chainable": 1,
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/Shape.js",
+            "line": 114,
+            "description": "Shortcut to beginFill.",
+            "itemtype": "method",
+            "name": "beginFill",
+            "access": "protected",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "color",
+                    "description": "A CSS compatible color value (ex. \"red\", \"#FF0000\", or \"rgba(255,0,0,0.5)\"). Setting to\nnull will result in no fill.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "The Graphics instance the method is called on (useful for chaining calls.)",
+                "type": "Graphics"
+            },
+            "chainable": 1,
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/Shape.js",
+            "line": 135,
+            "description": "Shortcut to setStrokeStyle.",
+            "itemtype": "method",
+            "name": "setStrokeStyle",
+            "access": "protected",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "thickness",
+                    "description": "The width of the stroke.",
+                    "type": "Number"
+                },
+                {
+                    "name": "caps",
+                    "description": "Indicates the type of caps to use at the end of lines. One of butt,\nround, or square. Defaults to \"butt\". Also accepts the values 0 (butt), 1 (round), and 2 (square) for use with\nthe tiny API.",
+                    "type": "String | Number",
+                    "optional": true,
+                    "optdefault": "0"
+                },
+                {
+                    "name": "joints",
+                    "description": "Specifies the type of joints that should be used where two lines meet.\nOne of bevel, round, or miter. Defaults to \"miter\". Also accepts the values 0 (miter), 1 (round), and 2 (bevel)\nfor use with the tiny API.",
+                    "type": "String | Number",
+                    "optional": true,
+                    "optdefault": "0"
+                },
+                {
+                    "name": "miterLimit",
+                    "description": "If joints is set to \"miter\", then you can specify a miter limit ratio which\ncontrols at what point a mitered joint will be clipped.",
+                    "type": "Number",
+                    "optional": true,
+                    "optdefault": "10"
+                },
+                {
+                    "name": "ignoreScale",
+                    "description": "If true, the stroke will be drawn at the specified thickness regardless\nof active transformations.",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "return": {
+                "description": "The Graphics instance the method is called on (useful for chaining calls.)",
+                "type": "Graphics"
+            },
+            "chainable": 1,
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/Shape.js",
+            "line": 160,
+            "description": "Shortcut to beginStroke.",
+            "itemtype": "method",
+            "name": "beginStroke",
+            "access": "protected",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "color",
+                    "description": "A CSS compatible color value (ex. \"#FF0000\", \"red\", or \"rgba(255,0,0,0.5)\"). Setting to\nnull will result in no stroke.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "The Graphics instance the method is called on (useful for chaining calls.)",
+                "type": "Graphics"
+            },
+            "chainable": 1,
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/Shape.js",
+            "line": 180,
+            "description": "Shortcut to decodePath.",
+            "itemtype": "method",
+            "name": "decodePath",
+            "access": "protected",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "str",
+                    "description": "The path string to decode.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "The Graphics instance the method is called on (useful for chaining calls.)",
+                "type": "Graphics"
+            },
+            "chainable": 1,
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/Shape.js",
+            "line": 235,
+            "description": "Convert a string color \"#ffffff\" to int 0xffffff",
+            "itemtype": "method",
+            "name": "colorToHex",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "color",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "The hex color",
+                "type": "Int"
+            },
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src/Shape.js",
+            "line": 259,
+            "description": "Get the alpha color from color string",
+            "itemtype": "method",
+            "name": "alphaFromColor",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "color",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "pixiflash.Graphics",
             "module": "Pixi Flash",
             "namespace": "pixiflash"
         },

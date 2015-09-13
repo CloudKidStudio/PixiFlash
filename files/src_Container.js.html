@@ -116,10 +116,16 @@
           <a href='../classes/pixiflash.FlashArtTask.html'>pixiflash.FlashArtTask</a>
         </li>
         <li class='public'>
+          <a href='../classes/pixiflash.Graphics.html'>pixiflash.Graphics</a>
+        </li>
+        <li class='public'>
           <a href='../classes/pixiflash.MovieClip.html'>pixiflash.MovieClip</a>
         </li>
         <li class='private'>
           <a href='../classes/pixiflash.MovieClipPlugin.html'>pixiflash.MovieClipPlugin</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/pixiflash.Shape.html'>pixiflash.Shape</a>
         </li>
         <li class='public'>
           <a href='../classes/pixiflash.Sprite.html'>pixiflash.Sprite</a>
@@ -197,13 +203,23 @@
 		}.bind(this));
 	};
 	
-	var p = Container.prototype = Object.create(PixiContainer.prototype);
+	var s = PixiContainer.prototype;
+	var p = Container.prototype = Object.create(s);
 	
 	DisplayObject.mixin(p);
 	
 	//constructor for backwards compatibility
 	p.initialize = Container;
-	
+
+	p.addChild = function(child)
+	{
+		var addChild = s.addChild.bind(this);
+		for(var i = 0; i &lt; arguments.length; i++)
+		{
+			addChild(arguments[i]);
+		}
+	};
+
 	p._onAdded = function()
 	{
 		if(!this.parent._isPixiFlash)

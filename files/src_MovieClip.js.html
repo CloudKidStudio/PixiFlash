@@ -116,10 +116,16 @@
           <a href='../classes/pixiflash.FlashArtTask.html'>pixiflash.FlashArtTask</a>
         </li>
         <li class='public'>
+          <a href='../classes/pixiflash.Graphics.html'>pixiflash.Graphics</a>
+        </li>
+        <li class='public'>
           <a href='../classes/pixiflash.MovieClip.html'>pixiflash.MovieClip</a>
         </li>
         <li class='private'>
           <a href='../classes/pixiflash.MovieClipPlugin.html'>pixiflash.MovieClipPlugin</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/pixiflash.Shape.html'>pixiflash.Shape</a>
         </li>
         <li class='public'>
           <a href='../classes/pixiflash.Sprite.html'>pixiflash.Sprite</a>
@@ -625,7 +631,7 @@
 	p._updateTimeline = function() {
 		var tl = this.timeline;
 		var synched = this.mode != MovieClip.INDEPENDENT;
-		tl.loop = (!this.loop) ? true : this.loop;
+		tl.loop = (this.loop==null) ? true : this.loop; // jshint ignore:line
 
 		// update timeline position, ignoring actions if this is a graphic.
 		if (synched) {

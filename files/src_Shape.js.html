@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<title>Pixi Flash v0.1.0 API Documentation : src/Shape.js</title>
+	<meta charset='utf-8'>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.1.0'>
+	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.1.0'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.1.0'>
+</head>
+<body>
+<header>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class='container'>
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#docs-navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href='https://github.com/SpringRoll/PixiFlash'>
+						<img src='../assets/images/logo.png?v=0.1.0' class="logo">
+					<span class='project-name'>Pixi Flash</span>
+					<span class="sr-only">API Documentation for:</span>
+					<span class='version hidden-xs'>v0.1.0</span>
+				</a>
+			</div>
+			<div class="collapse navbar-collapse" id="docs-navbar">
+	      <ul class="scope-toggles text-center nav navbar-nav navbar-right">
+					<li><input class='scope-toggle' 
+						id='toggle-inherited' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Inherited' 
+						data-off='Inherited' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-protected' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Protected' 
+						data-off='Protected' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-private' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Private' 
+						data-off='Private' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-deprecated' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Deprecated' 
+						data-off='Deprecated' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>
+<div class='container'>
+<div class='row'>
+<nav id='sidebar' class='col-sm-4 col-md-3'>
+<h2>APIs</h2>
+<div class='input-group'>
+  <div class='input-group-addon'>
+    <span class='glyphicon glyphicon-search'></span>
+  </div>
+  <input type='search' class='form-control' id='api-filter' placeholder='Type to filter APIs'>
+  <span class='collapsed btn-close glyphicon glyphicon-remove-sign hidden'></span>
+</div>
+<nav class='navbar navbar-default'>
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="btn-group" role="group" aria-label="...">
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-classes' data-target='#classes-collapse'>
+      Classes
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-modules' data-target='#modules-collapse'>
+      Modules
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='classes-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class='public'>
+          <a href='../classes/pixiflash.Bitmap.html'>pixiflash.Bitmap</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/pixiflash.Container.html'>pixiflash.Container</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/pixiflash.DisplayObject.html'>pixiflash.DisplayObject</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/pixiflash.FlashArt.html'>pixiflash.FlashArt</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/pixiflash.FlashArtTask.html'>pixiflash.FlashArtTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/pixiflash.Graphics.html'>pixiflash.Graphics</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/pixiflash.MovieClip.html'>pixiflash.MovieClip</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/pixiflash.MovieClipPlugin.html'>pixiflash.MovieClipPlugin</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/pixiflash.Shape.html'>pixiflash.Shape</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/pixiflash.Sprite.html'>pixiflash.Sprite</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/pixiflash.SpriteSheet.html'>pixiflash.SpriteSheet</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/pixiflash.SpriteSheetTask.html'>pixiflash.SpriteSheetTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/pixiflash.utils.html'>pixiflash.utils</a>
+        </li>
+    </ul>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='modules-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class=''>
+          <a href='../modules/Pixi Flash.html'>Pixi Flash</a>
+        </li>
+        <li class=''>
+          <a href='../modules/SpringRoll Plugin.html'>SpringRoll Plugin</a>
+        </li>
+    </ul>
+  </div>
+  <!-- /.container-fluid -->
+</nav></nav>
+<div class='col-sm-8 col-md-9'>
+<div id='docs-main' class='apidocs'>
+<h1 class="file-heading">File:Shape.js</h1>
+
+<div class="file">
+<pre class="code prettyprint linenums">/**
+ * @module Pixi Flash
+ * @namespace pixiflash
+ */
+(function(undefined)
+{
+	var PixiGraphics = PIXI.Graphics,
+		Graphics = pixiflash.Graphics,
+		DisplayObject = pixiflash.DisplayObject;
+	
+	/**
+	 * The class to emulate createjs.Shape
+	 * @class Shape
+	 * @extends PIXI.Graphics
+	 */
+	var Shape = function()
+	{
+		PixiGraphics.call(this);
+		DisplayObject.call(this);
+
+		/**
+		 * The drawing graphics, these are necessary
+		 * for the compability with EaselJS Flash exports.
+		 * @property {pixiflash.Graphics} graphics
+		 * @readOnly
+		 */
+		this.graphics = {
+			f: beginFill.bind(this),
+			s: beginStroke.bind(this),
+			p: decodePath.bind(this),
+			mt: this.moveTo.bind(this),
+			lt: this.lineTo.bind(this),
+			qt: quadraticCurveTo.bind(this),
+			bt: this.bezierCurveTo.bind(this),
+			cp: closePath.bind(this)
+		};
+	};
+
+	// Extend PIXI.Sprite
+	var p = Shape.prototype = Object.create(PixiGraphics.prototype);
+	
+	// Mixin the display object
+	DisplayObject.mixin(p);
+	
+	//constructor for backwards compatibility
+	p.initialize = Shape;
+
+	// Assign to namespace
+	pixiflash.Shape = Shape;
+
+	/**
+	 * Wrapper for the graphics
+	 * @class pixiflash.Graphics
+	 */
+	 /**
+	 * Map of Base64 characters to values. Used by {{#crossLink &quot;Graphics/decodePath&quot;}}{{/crossLink}}.
+	 * @property BASE_64
+	 * @static
+	 * @final
+	 * @readonly
+	 * @type {Object}
+	 **/
+	var BASE_64 = {
+		&quot;A&quot;:0,&quot;B&quot;:1,&quot;C&quot;:2,&quot;D&quot;:3,&quot;E&quot;:4,&quot;F&quot;:5,&quot;G&quot;:6,&quot;H&quot;:7,&quot;I&quot;:8,
+		&quot;J&quot;:9,&quot;K&quot;:10,&quot;L&quot;:11,&quot;M&quot;:12,&quot;N&quot;:13,&quot;O&quot;:14,&quot;P&quot;:15,&quot;Q&quot;:16,&quot;R&quot;:17,&quot;S&quot;:18,
+		&quot;T&quot;:19,&quot;U&quot;:20,&quot;V&quot;:21,&quot;W&quot;:22,&quot;X&quot;:23,&quot;Y&quot;:24,&quot;Z&quot;:25,&quot;a&quot;:26,&quot;b&quot;:27,&quot;c&quot;:28,
+		&quot;d&quot;:29,&quot;e&quot;:30,&quot;f&quot;:31,&quot;g&quot;:32,&quot;h&quot;:33,&quot;i&quot;:34,&quot;j&quot;:35,&quot;k&quot;:36,&quot;l&quot;:37,&quot;m&quot;:38,
+		&quot;n&quot;:39,&quot;o&quot;:40,&quot;p&quot;:41,&quot;q&quot;:42,&quot;r&quot;:43,&quot;s&quot;:44,&quot;t&quot;:45,&quot;u&quot;:46,&quot;v&quot;:47,&quot;w&quot;:48,
+		&quot;x&quot;:49,&quot;y&quot;:50,&quot;z&quot;:51,&quot;0&quot;:52,&quot;1&quot;:53,&quot;2&quot;:54,&quot;3&quot;:55,&quot;4&quot;:56,&quot;5&quot;:57,&quot;6&quot;:58,
+		&quot;7&quot;:59,&quot;8&quot;:60,&quot;9&quot;:61,&quot;+&quot;:62,&quot;/&quot;:63
+	};
+
+	/**
+	 * Shortcut to quadraticCurveTo / curveTo.
+	 * @method quadraticCurveTo
+	 * @private
+	 * @param {Number} cpx
+	 * @param {Number} cpy
+	 * @param {Number} x
+	 * @param {Number} y
+	 * @protected
+	 * @chainable
+	 **/
+	var quadraticCurveTo = function(cpx, cpy, x, y)
+	{
+		// Ensure that the draw shape is not closed
+		var currentPath = this.currentPath;
+		if (currentPath &amp;&amp; currentPath.shape)
+		{
+			currentPath.shape.closed = false;
+		}
+		this.quadraticCurveTo(cpx, cpy, x, y);
+		return this.graphics;
+	};
+
+	/**
+	 * Shortcut to closePath.
+	 * @method closePath
+	 * @private
+	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 * @chainable
+	 * @protected
+	 **/
+	var closePath = function()
+	{
+		var currentPath = this.currentPath;
+		if (currentPath &amp;&amp; currentPath.shape)
+		{
+			currentPath.shape.closed = true;
+		}
+		return this.graphics;
+	};
+
+	/**
+	 * Shortcut to beginFill.
+	 * @method beginFill
+	 * @private
+	 * @param {String} color A CSS compatible color value (ex. &quot;red&quot;, &quot;#FF0000&quot;, or &quot;rgba(255,0,0,0.5)&quot;). Setting to
+	 * null will result in no fill.
+	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 * @chainable
+	 * @protected
+	 **/
+	var beginFill = function(color)
+	{
+		if (color)
+		{
+			var rgb = colorToHex(color);
+			var a = alphaFromColor(color);
+			this.beginFill(rgb, a);
+		}
+		return this.graphics;
+	};
+
+	/**
+	 * Shortcut to setStrokeStyle.
+	 * @method setStrokeStyle
+	 * @private
+	 * @param {Number} thickness The width of the stroke.
+	 * @param {String | Number} [caps=0] Indicates the type of caps to use at the end of lines. One of butt,
+	 * round, or square. Defaults to &quot;butt&quot;. Also accepts the values 0 (butt), 1 (round), and 2 (square) for use with
+	 * the tiny API.
+	 * @param {String | Number} [joints=0] Specifies the type of joints that should be used where two lines meet.
+	 * One of bevel, round, or miter. Defaults to &quot;miter&quot;. Also accepts the values 0 (miter), 1 (round), and 2 (bevel)
+	 * for use with the tiny API.
+	 * @param {Number} [miterLimit=10] If joints is set to &quot;miter&quot;, then you can specify a miter limit ratio which
+	 * controls at what point a mitered joint will be clipped.
+	 * @param {Boolean} [ignoreScale=false] If true, the stroke will be drawn at the specified thickness regardless
+	 * of active transformations.
+	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 * @chainable
+	 * @protected
+	 **/
+	var setStrokeStyle = function(thickness, caps, joints, miterLimit, ignoreScale)
+	{
+		this.lineWidth = thickness;
+		return this.graphics;
+	};
+
+	/**
+	 * Shortcut to beginStroke.
+	 * @method beginStroke
+	 * @private
+	 * @param {String} color A CSS compatible color value (ex. &quot;#FF0000&quot;, &quot;red&quot;, or &quot;rgba(255,0,0,0.5)&quot;). Setting to
+	 * null will result in no stroke.
+	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 * @chainable
+	 * @protected
+	 **/
+	var beginStroke = function(color)
+	{
+		if (color)
+		{
+			this.lineColor = colorToHex(color);
+			this.lineAlpha = 1;
+		}
+		return this.graphics;
+	};
+
+	/**
+	 * Shortcut to decodePath.
+	 * @method decodePath
+	 * @private
+	 * @param {String} str The path string to decode.
+	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 * @chainable
+	 * @protected
+	 **/
+	var decodePath = function(str)
+	{
+		var graphics = this.graphics;
+		var instructions = [
+			graphics.mt,
+			graphics.lt, 
+			graphics.qt, 
+			graphics.bt, 
+			graphics.cp
+		];
+		var paramCount = [2, 2, 4, 6, 0];
+		var i=0, l=str.length;
+		var params = [];
+		var x=0, y=0;
+		var base64 = BASE_64;
+
+		while (i&lt;l)
+		{
+			var c = str.charAt(i);
+			var n = base64[c];
+			var fi = n&gt;&gt;3; // highest order bits 1-3 code for operation.
+			var f = instructions[fi];
+			// check that we have a valid instruction &amp; that the unused bits are empty:
+			if (!f || (n&amp;3)) { throw(&quot;bad path data (@&quot;+i+&quot;): &quot;+c); }
+			var pl = paramCount[fi];
+			if (!fi) { x=y=0; } // move operations reset the position.
+			params.length = 0;
+			i++;
+			var charCount = (n&gt;&gt;2&amp;1)+2;  // 4th header bit indicates number size for this operation.
+			for (var p=0; p&lt;pl; p++) 
+			{
+				var num = base64[str.charAt(i)];
+				var sign = (num&gt;&gt;5) ? -1 : 1;
+				num = ((num&amp;31)&lt;&lt;6)|(base64[str.charAt(i+1)]);
+				if (charCount == 3) { num = (num&lt;&lt;6)|(base64[str.charAt(i+2)]); }
+				num = sign*num/10;
+				if (p%2) { x = (num += x); }
+				else { y = (num += y); }
+				params[p] = num;
+				i += charCount;
+			}
+			f.apply(this,params);
+		}
+		return this.graphics;
+	};
+
+	/** 
+	 * Convert a string color &quot;#ffffff&quot; to int 0xffffff
+	 * @method colorToHex
+	 * @private
+	 * @param {String} color 
+	 * @return {int} The hex color
+	 */
+	var colorToHex = function(color)
+	{
+		if (/^rgba\(/.test(color))
+		{
+			// Remove &quot;rgba(&quot; and &quot;)&quot; and turn into array
+			color = color.substring(5, color.length - 1).split(&#x27;,&#x27;);
+			color = 65536 * parseInt(color[0]) + 
+				256 * parseInt(color[1]) + 
+				parseInt(color[2]); 
+		}
+		else
+		{
+			color = parseInt(color.replace(/^#/, &#x27;&#x27;), 16);
+		}
+		return color;
+	};
+
+	/**
+	 * Get the alpha color from color string
+	 * @method alphaFromColor
+	 * @private
+	 * @param {String} color
+	 */
+	var alphaFromColor = function(color)
+	{
+		if (/^rgba\(/.test(color))
+		{
+			return parseFloat(color.substring(
+				color.lastIndexOf(&#x27;,&#x27;) + 1,
+				color.lastIndexOf(&#x27;)&#x27;)
+			));
+		}
+		return 1;
+	};
+
+}());</pre>
+</div></div>
+</div>
+</div>
+</div>
+<script src='../assets/js/libraries.js?v=0.1.0'></script>
+<script src='../assets/js/main.js?v=0.1.0'></script>
+</body>
+</html>
