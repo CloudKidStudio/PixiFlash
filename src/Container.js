@@ -41,13 +41,23 @@
 		}.bind(this));
 	};
 	
-	var p = Container.prototype = Object.create(PixiContainer.prototype);
+	var s = PixiContainer.prototype;
+	var p = Container.prototype = Object.create(s);
 	
 	DisplayObject.mixin(p);
 	
 	//constructor for backwards compatibility
 	p.initialize = Container;
-	
+
+	p.addChild = function(child)
+	{
+		var addChild = s.addChild.bind(this);
+		for(var i = 0; i < arguments.length; i++)
+		{
+			addChild(arguments[i]);
+		}
+	};
+
 	p._onAdded = function()
 	{
 		if(!this.parent._isPixiFlash)

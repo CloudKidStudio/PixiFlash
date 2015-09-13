@@ -72,10 +72,6 @@
 			{
 				fl.trace("Error: pixiflash documents must use 'pixiflash_images' for the Images namespace.");
 			}
-			if(content.indexOf("new Shape(") > -1 || content.indexOf("new cjs.Shape("))
-			{
-				fl.trace("Error: pixiflash documents can't contain Shapes");
-			}
 		}
 	}
 	
