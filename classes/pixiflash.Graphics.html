@@ -203,32 +203,44 @@ Module:
 <a href='#method_alphaFromColor'>alphaFromColor</a>
 
 </li>
-<li class='col-xs-6 col-md-4 index-item method protected'>
-<a href='#method_beginFill'>beginFill</a>
-
-</li>
-<li class='col-xs-6 col-md-4 index-item method protected'>
-<a href='#method_beginStroke'>beginStroke</a>
-
-</li>
-<li class='col-xs-6 col-md-4 index-item method protected'>
-<a href='#method_closePath'>closePath</a>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_bt'>bt</a>
 
 </li>
 <li class='col-xs-6 col-md-4 index-item method private'>
 <a href='#method_colorToHex'>colorToHex</a>
 
 </li>
-<li class='col-xs-6 col-md-4 index-item method protected'>
-<a href='#method_decodePath'>decodePath</a>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_cp'>cp</a>
 
 </li>
-<li class='col-xs-6 col-md-4 index-item method protected'>
-<a href='#method_quadraticCurveTo'>quadraticCurveTo</a>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_f'>f</a>
 
 </li>
-<li class='col-xs-6 col-md-4 index-item method protected'>
-<a href='#method_setStrokeStyle'>setStrokeStyle</a>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_lt'>lt</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_mt'>mt</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_p'>p</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_qt'>qt</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_s'>s</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_ss'>ss</a>
 
 </li>
 </ul>
@@ -238,7 +250,7 @@ Module:
 <h3>Properties</h3>
 
 <ul class='list-group row properties'>
-<li class='col-xs-6 col-md-4 index-item property'>
+<li class='col-xs-6 col-md-4 index-item property private'>
 <a href='#property_BASE_64'>BASE_64</a>
 
 <span class='flag static'>static</span>
@@ -276,7 +288,7 @@ Module:
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_Shape.js.html#l259'><code>alphaFromColor:259</code></a>
+<a href='../files/src_Shape.js.html#l315'><code>alphaFromColor:315</code></a>
 </p>
 
 
@@ -306,36 +318,49 @@ Defined in
 </div>
 
 
-</div><div class='method_beginFill method item protected'>
-<h3 class='name'><a class="deeplink" href="#method_beginFill"><span class="glyphicon glyphicon-link"></span></a> <code>beginFill</code></h3>
+</div><div class='method_bt method item'>
+<h3 class='name'><a class="deeplink" href="#method_bt"><span class="glyphicon glyphicon-link"></span></a> <code>bt</code></h3>
 
 <div class='args'>
 <span class='paren'>(</span>
 <ul class='args-list inline commas'>
 <li class='arg'>
-<code>color</code>
+<code>cp1x</code>
+</li>
+<li class='arg'>
+<code>cp1y</code>
+</li>
+<li class='arg'>
+<code>cp2x</code>
+</li>
+<li class='arg'>
+<code>cp2y</code>
+</li>
+<li class='arg'>
+<code>x</code>
+</li>
+<li class='arg'>
+<code>y</code>
 </li>
 </ul><span class='paren'>)</span>
 </div>
 
 <span class='returns-inline'>
-<span class='type'>Graphics</span>
+<span class='type'><a href="../classes/pixiflash.Graphics.html" class="crosslink">pixiflash.Graphics</a></span>
 </span>
 
 <div class='flags'>
 
-<span class='flag protected'>protected</span>
 
 
 
-<span class='flag chainable'>chainable</span>
 
 </div> 
 
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_Shape.js.html#l114'><code>beginFill:114</code></a>
+<a href='../files/src_Shape.js.html#l94'><code>bt:94</code></a>
 </p>
 
 
@@ -343,7 +368,10 @@ Defined in
 </div>
 
 <div class='description'>
-<p>Shortcut to beginFill.</p>
+<p>Draws a bezier curve from the current drawing point to (x, y) using the control points (cp1x, cp1y) and (cp2x,
+cp2y). For detailed information, read the
+<a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#dom-context-2d-beziercurveto">
+whatwg spec</a>. A tiny API method "bt" also exists.</p>
 
 </div>
 
@@ -352,14 +380,62 @@ Defined in
 
 <ul class='params-list'>
 <li class='param'>
-<code class='param-name'>color</code>
-<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+<code class='param-name'>cp1x</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
 
 
 <div class='param-description'>
-<p>A CSS compatible color value (ex. "red", "#FF0000", or "rgba(255,0,0,0.5)"). Setting to
-null will result in no fill.</p>
+ 
+</div>
 
+</li>
+<li class='param'>
+<code class='param-name'>cp1y</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<div class='param-description'>
+ 
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>cp2x</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<div class='param-description'>
+ 
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>cp2y</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<div class='param-description'>
+ 
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>x</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<div class='param-description'>
+ 
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>y</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<div class='param-description'>
+ 
 </div>
 
 </li>
@@ -370,122 +446,7 @@ null will result in no fill.</p>
 <h4>Returns:</h4>
 
 <div class='returns-description'>
-<span class='type'>Graphics</span>:
-<p>The Graphics instance the method is called on (useful for chaining calls.)</p>
-
-</div>
-</div>
-
-</div><div class='method_beginStroke method item protected'>
-<h3 class='name'><a class="deeplink" href="#method_beginStroke"><span class="glyphicon glyphicon-link"></span></a> <code>beginStroke</code></h3>
-
-<div class='args'>
-<span class='paren'>(</span>
-<ul class='args-list inline commas'>
-<li class='arg'>
-<code>color</code>
-</li>
-</ul><span class='paren'>)</span>
-</div>
-
-<span class='returns-inline'>
-<span class='type'>Graphics</span>
-</span>
-
-<div class='flags'>
-
-<span class='flag protected'>protected</span>
-
-
-
-<span class='flag chainable'>chainable</span>
-
-</div> 
-
-<div class='meta'>
-<p>
-Defined in
-<a href='../files/src_Shape.js.html#l160'><code>beginStroke:160</code></a>
-</p>
-
-
-
-</div>
-
-<div class='description'>
-<p>Shortcut to beginStroke.</p>
-
-</div>
-
-<div class='params'>
-<h4>Parameters:</h4>
-
-<ul class='params-list'>
-<li class='param'>
-<code class='param-name'>color</code>
-<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-
-<div class='param-description'>
-<p>A CSS compatible color value (ex. "#FF0000", "red", or "rgba(255,0,0,0.5)"). Setting to
-null will result in no stroke.</p>
-
-</div>
-
-</li>
-</ul>
-</div>
-
-<div class='returns'>
-<h4>Returns:</h4>
-
-<div class='returns-description'>
-<span class='type'>Graphics</span>:
-<p>The Graphics instance the method is called on (useful for chaining calls.)</p>
-
-</div>
-</div>
-
-</div><div class='method_closePath method item protected'>
-<h3 class='name'><a class="deeplink" href="#method_closePath"><span class="glyphicon glyphicon-link"></span></a> <code>closePath</code></h3>
-
-<span class='paren'>()</span>
-
-<span class='returns-inline'>
-<span class='type'>Graphics</span>
-</span>
-
-<div class='flags'>
-
-<span class='flag protected'>protected</span>
-
-
-
-<span class='flag chainable'>chainable</span>
-
-</div> 
-
-<div class='meta'>
-<p>
-Defined in
-<a href='../files/src_Shape.js.html#l96'><code>closePath:96</code></a>
-</p>
-
-
-
-</div>
-
-<div class='description'>
-<p>Shortcut to closePath.</p>
-
-</div>
-
-
-<div class='returns'>
-<h4>Returns:</h4>
-
-<div class='returns-description'>
-<span class='type'>Graphics</span>:
+<span class='type'><a href="../classes/pixiflash.Graphics.html" class="crosslink">pixiflash.Graphics</a></span>:
 <p>The Graphics instance the method is called on (useful for chaining calls.)</p>
 
 </div>
@@ -519,7 +480,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_Shape.js.html#l235'><code>colorToHex:235</code></a>
+<a href='../files/src_Shape.js.html#l291'><code>colorToHex:291</code></a>
 </p>
 
 
@@ -558,8 +519,286 @@ Defined in
 </div>
 </div>
 
-</div><div class='method_decodePath method item protected'>
-<h3 class='name'><a class="deeplink" href="#method_decodePath"><span class="glyphicon glyphicon-link"></span></a> <code>decodePath</code></h3>
+</div><div class='method_cp method item'>
+<h3 class='name'><a class="deeplink" href="#method_cp"><span class="glyphicon glyphicon-link"></span></a> <code>cp</code></h3>
+
+<span class='paren'>()</span>
+
+<span class='returns-inline'>
+<span class='type'><a href="../classes/pixiflash.Graphics.html" class="crosslink">pixiflash.Graphics</a></span>
+</span>
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_Shape.js.html#l132'><code>cp:132</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Closes the current path, effectively drawing a line from the current drawing point to the first drawing point specified
+since the fill or stroke was last set. A tiny API method "cp" also exists.</p>
+
+</div>
+
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="../classes/pixiflash.Graphics.html" class="crosslink">pixiflash.Graphics</a></span>:
+<p>The Graphics instance the method is called on (useful for chaining calls.)</p>
+
+</div>
+</div>
+
+</div><div class='method_f method item'>
+<h3 class='name'><a class="deeplink" href="#method_f"><span class="glyphicon glyphicon-link"></span></a> <code>f</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>color</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'><a href="../classes/pixiflash.Graphics.html" class="crosslink">pixiflash.Graphics</a></span>
+</span>
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_Shape.js.html#l148'><code>f:148</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Begins a fill with the specified color. This ends the current sub-path. A tiny API method "f" also exists.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>color</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>A CSS compatible color value (ex. "red", "#FF0000", or "rgba(255,0,0,0.5)"). Setting to
+null will result in no fill.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="../classes/pixiflash.Graphics.html" class="crosslink">pixiflash.Graphics</a></span>:
+<p>The Graphics instance the method is called on (useful for chaining calls.)</p>
+
+</div>
+</div>
+
+</div><div class='method_lt method item'>
+<h3 class='name'><a class="deeplink" href="#method_lt"><span class="glyphicon glyphicon-link"></span></a> <code>lt</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>x</code>
+</li>
+<li class='arg'>
+<code>y</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'><a href="../classes/pixiflash.Graphics.html" class="crosslink">pixiflash.Graphics</a></span>
+</span>
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_Shape.js.html#l73'><code>lt:73</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Draws a line from the current drawing point to the specified position, which become the new current drawing
+point. A tiny API method "lt" also exists.</p>
+<p>For detailed information, read the
+<a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#complex-shapes-(paths)">
+whatwg spec</a>.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>x</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<div class='param-description'>
+<p>The x coordinate the drawing point should draw to.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>y</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<div class='param-description'>
+<p>The y coordinate the drawing point should draw to.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="../classes/pixiflash.Graphics.html" class="crosslink">pixiflash.Graphics</a></span>:
+<p>The Graphics instance the method is called on (useful for chaining calls.)</p>
+
+</div>
+</div>
+
+</div><div class='method_mt method item'>
+<h3 class='name'><a class="deeplink" href="#method_mt"><span class="glyphicon glyphicon-link"></span></a> <code>mt</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>x</code>
+</li>
+<li class='arg'>
+<code>y</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'><a href="../classes/pixiflash.Graphics.html" class="crosslink">pixiflash.Graphics</a></span>
+</span>
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_Shape.js.html#l86'><code>mt:86</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Moves the drawing point to the specified position. A tiny API method "mt" also exists.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>x</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<div class='param-description'>
+<p>The x coordinate the drawing point should move to.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>y</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<div class='param-description'>
+<p>The y coordinate the drawing point should move to.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="../classes/pixiflash.Graphics.html" class="crosslink">pixiflash.Graphics</a></span>:
+<p>The Graphics instance the method is called on (useful for chaining calls).</p>
+
+</div>
+</div>
+
+</div><div class='method_p method item'>
+<h3 class='name'><a class="deeplink" href="#method_p"><span class="glyphicon glyphicon-link"></span></a> <code>p</code></h3>
 
 <div class='args'>
 <span class='paren'>(</span>
@@ -571,23 +810,21 @@ Defined in
 </div>
 
 <span class='returns-inline'>
-<span class='type'>Graphics</span>
+<span class='type'><a href="../classes/pixiflash.Graphics.html" class="crosslink">pixiflash.Graphics</a></span>
 </span>
 
 <div class='flags'>
 
-<span class='flag protected'>protected</span>
 
 
 
-<span class='flag chainable'>chainable</span>
 
 </div> 
 
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_Shape.js.html#l180'><code>decodePath:180</code></a>
+<a href='../files/src_Shape.js.html#l210'><code>p:210</code></a>
 </p>
 
 
@@ -595,7 +832,32 @@ Defined in
 </div>
 
 <div class='description'>
-<p>Shortcut to decodePath.</p>
+<p>Decodes a compact encoded path string into a series of draw instructions.
+This format is not intended to be human readable, and is meant for use by authoring tools.
+The format uses a base64 character set, with each character representing 6 bits, to define a series of draw
+commands.</p>
+<p>Each command is comprised of a single "header" character followed by a variable number of alternating x and y
+position values. Reading the header bits from left to right (most to least significant): bits 1 to 3 specify the
+type of operation (0-moveTo, 1-lineTo, 2-quadraticCurveTo, 3-bezierCurveTo, 4-closePath, 5-7 unused). Bit 4
+indicates whether position values use 12 bits (2 characters) or 18 bits (3 characters), with a one indicating the
+latter. Bits 5 and 6 are currently unused.</p>
+<p>Following the header is a series of 0 (closePath), 2 (moveTo, lineTo), 4 (quadraticCurveTo), or 6 (bezierCurveTo)
+parameters. These parameters are alternating x/y positions represented by 2 or 3 characters (as indicated by the
+4th bit in the command char). These characters consist of a 1 bit sign (1 is negative, 0 is positive), followed
+by an 11 (2 char) or 17 (3 char) bit integer value. All position values are in tenths of a pixel. Except in the
+case of move operations which are absolute, this value is a delta from the previous x or y position (as
+appropriate).</p>
+<p>For example, the string "A3cAAMAu4AAA" represents a line starting at -150,0 and ending at 150,0.
+<br />A - bits 000000. First 3 bits (000) indicate a moveTo operation. 4th bit (0) indicates 2 chars per
+parameter.
+<br />n0 - 110111011100. Absolute x position of -150.0px. First bit indicates a negative value, remaining bits
+indicate 1500 tenths of a pixel.
+<br />AA - 000000000000. Absolute y position of 0.
+<br />I - 001100. First 3 bits (001) indicate a lineTo operation. 4th bit (1) indicates 3 chars per parameter.
+<br />Au4 - 000000101110111000. An x delta of 300.0px, which is added to the previous x value of -150.0px to
+provide an absolute position of +150.0px.
+<br />AAA - 000000000000000000. A y delta value of 0.</p>
+<p>A tiny API method "p" also exists.</p>
 
 </div>
 
@@ -621,14 +883,14 @@ Defined in
 <h4>Returns:</h4>
 
 <div class='returns-description'>
-<span class='type'>Graphics</span>:
+<span class='type'><a href="../classes/pixiflash.Graphics.html" class="crosslink">pixiflash.Graphics</a></span>:
 <p>The Graphics instance the method is called on (useful for chaining calls.)</p>
 
 </div>
 </div>
 
-</div><div class='method_quadraticCurveTo method item protected'>
-<h3 class='name'><a class="deeplink" href="#method_quadraticCurveTo"><span class="glyphicon glyphicon-link"></span></a> <code>quadraticCurveTo</code></h3>
+</div><div class='method_qt method item'>
+<h3 class='name'><a class="deeplink" href="#method_qt"><span class="glyphicon glyphicon-link"></span></a> <code>qt</code></h3>
 
 <div class='args'>
 <span class='paren'>(</span>
@@ -648,21 +910,22 @@ Defined in
 </ul><span class='paren'>)</span>
 </div>
 
+<span class='returns-inline'>
+<span class='type'><a href="../classes/pixiflash.Graphics.html" class="crosslink">pixiflash.Graphics</a></span>
+</span>
 
 <div class='flags'>
 
-<span class='flag protected'>protected</span>
 
 
 
-<span class='flag chainable'>chainable</span>
 
 </div> 
 
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_Shape.js.html#l73'><code>quadraticCurveTo:73</code></a>
+<a href='../files/src_Shape.js.html#l109'><code>qt:109</code></a>
 </p>
 
 
@@ -670,7 +933,9 @@ Defined in
 </div>
 
 <div class='description'>
-<p>Shortcut to quadraticCurveTo / curveTo.</p>
+<p>Draws a quadratic curve from the current drawing point to (x, y) using the control point (cpx, cpy). For detailed
+information, read the <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#dom-context-2d-quadraticcurveto">
+whatwg spec</a>. A tiny API method "qt" also exists.</p>
 
 </div>
 
@@ -721,9 +986,86 @@ Defined in
 </ul>
 </div>
 
+<div class='returns'>
+<h4>Returns:</h4>
 
-</div><div class='method_setStrokeStyle method item protected'>
-<h3 class='name'><a class="deeplink" href="#method_setStrokeStyle"><span class="glyphicon glyphicon-link"></span></a> <code>setStrokeStyle</code></h3>
+<div class='returns-description'>
+<span class='type'><a href="../classes/pixiflash.Graphics.html" class="crosslink">pixiflash.Graphics</a></span>:
+<p>The Graphics instance the method is called on (useful for chaining calls.)</p>
+
+</div>
+</div>
+
+</div><div class='method_s method item'>
+<h3 class='name'><a class="deeplink" href="#method_s"><span class="glyphicon glyphicon-link"></span></a> <code>s</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>color</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'><a href="../classes/pixiflash.Graphics.html" class="crosslink">pixiflash.Graphics</a></span>
+</span>
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_Shape.js.html#l193'><code>s:193</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Begins a stroke with the specified color. This ends the current sub-path. A tiny API method "s" also exists.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>color</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>A CSS compatible color value (ex. "#FF0000", "red", or "rgba(255,0,0,0.5)"). Setting to
+null will result in no stroke.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="../classes/pixiflash.Graphics.html" class="crosslink">pixiflash.Graphics</a></span>:
+<p>The Graphics instance the method is called on (useful for chaining calls.)</p>
+
+</div>
+</div>
+
+</div><div class='method_ss method item'>
+<h3 class='name'><a class="deeplink" href="#method_ss"><span class="glyphicon glyphicon-link"></span></a> <code>ss</code></h3>
 
 <div class='args'>
 <span class='paren'>(</span>
@@ -747,23 +1089,21 @@ Defined in
 </div>
 
 <span class='returns-inline'>
-<span class='type'>Graphics</span>
+<span class='type'><a href="../classes/pixiflash.Graphics.html" class="crosslink">pixiflash.Graphics</a></span>
 </span>
 
 <div class='flags'>
 
-<span class='flag protected'>protected</span>
 
 
 
-<span class='flag chainable'>chainable</span>
 
 </div> 
 
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_Shape.js.html#l135'><code>setStrokeStyle:135</code></a>
+<a href='../files/src_Shape.js.html#l166'><code>ss:166</code></a>
 </p>
 
 
@@ -771,7 +1111,11 @@ Defined in
 </div>
 
 <div class='description'>
-<p>Shortcut to setStrokeStyle.</p>
+<p>Sets the stroke style. Like all drawing methods, this can be chained, so you can define
+the stroke style and color in a single line of code like so:</p>
+<pre class="code prettyprint"><code>myGraphics.setStrokeStyle(8,"round").beginStroke("#F00");
+</code></pre>
+<p>A tiny API method "ss" also exists.</p>
 
 </div>
 
@@ -851,7 +1195,7 @@ of active transformations.</p>
 <h4>Returns:</h4>
 
 <div class='returns-description'>
-<span class='type'>Graphics</span>:
+<span class='type'><a href="../classes/pixiflash.Graphics.html" class="crosslink">pixiflash.Graphics</a></span>:
 <p>The Graphics instance the method is called on (useful for chaining calls.)</p>
 
 </div>
@@ -861,11 +1205,12 @@ of active transformations.</p>
 
 <div role='tabpanel' id='docs-properties' class='tab-pane'>
 
-<div class="property_BASE_64 property item">
+<div class="property_BASE_64 property item private">
 <h3 class="name"><a class="deeplink" href="#property_BASE_64"><span class="glyphicon glyphicon-link"></span></a> <code>BASE_64</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
 
 
+<span class="flag private">private</span>
 
 <span class="flag final">final</span>
 
