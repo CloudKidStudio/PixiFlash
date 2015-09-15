@@ -32,7 +32,8 @@
 			lt: this.lineTo.bind(this),
 			qt: quadraticCurveTo.bind(this),
 			bt: this.bezierCurveTo.bind(this),
-			cp: closePath.bind(this)
+			cp: closePath.bind(this),
+			ss: setStrokeStyle.bind(this)
 		};
 	};
 

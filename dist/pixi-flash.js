@@ -1350,7 +1350,8 @@
 			lt: this.lineTo.bind(this),
 			qt: quadraticCurveTo.bind(this),
 			bt: this.bezierCurveTo.bind(this),
-			cp: closePath.bind(this)
+			cp: closePath.bind(this),
+			ss: setStrokeStyle.bind(this)
 		};
 	};
 
@@ -1372,11 +1373,11 @@
 	 */
 	 /**
 	 * Map of Base64 characters to values. Used by {{#crossLink "Graphics/decodePath"}}{{/crossLink}}.
-	 * @property BASE_64
+	 * @property {Object} BASE_64
 	 * @static
 	 * @final
+	 * @private
 	 * @readonly
-	 * @type {Object}
 	 **/
 	var BASE_64 = {
 		"A":0,"B":1,"C":2,"D":3,"E":4,"F":5,"G":6,"H":7,"I":8,
@@ -1389,15 +1390,51 @@
 	};
 
 	/**
-	 * Shortcut to quadraticCurveTo / curveTo.
-	 * @method quadraticCurveTo
-	 * @private
+	 * Draws a line from the current drawing point to the specified position, which become the new current drawing
+	 * point. A tiny API method "lt" also exists.
+	 *
+	 * For detailed information, read the
+	 * <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#complex-shapes-(paths)">
+	 * whatwg spec</a>.
+	 * @method lt
+	 * @param {Number} x The x coordinate the drawing point should draw to.
+	 * @param {Number} y The y coordinate the drawing point should draw to.
+	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 **/
+
+	/**
+	 * Moves the drawing point to the specified position. A tiny API method "mt" also exists.
+	 * @method mt
+	 * @param {Number} x The x coordinate the drawing point should move to.
+	 * @param {Number} y The y coordinate the drawing point should move to.
+	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls).
+	 **/
+
+	/**
+	 * Draws a bezier curve from the current drawing point to (x, y) using the control points (cp1x, cp1y) and (cp2x,
+	 * cp2y). For detailed information, read the
+	 * <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#dom-context-2d-beziercurveto">
+	 * whatwg spec</a>. A tiny API method "bt" also exists.
+	 * @method bt
+	 * @param {Number} cp1x
+	 * @param {Number} cp1y
+	 * @param {Number} cp2x
+	 * @param {Number} cp2y
+	 * @param {Number} x
+	 * @param {Number} y
+	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 **/
+
+	/**
+	 * Draws a quadratic curve from the current drawing point to (x, y) using the control point (cpx, cpy). For detailed
+	 * information, read the <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#dom-context-2d-quadraticcurveto">
+	 * whatwg spec</a>. A tiny API method "qt" also exists.
+	 * @method qt
 	 * @param {Number} cpx
 	 * @param {Number} cpy
 	 * @param {Number} x
 	 * @param {Number} y
-	 * @protected
-	 * @chainable
+	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
 	var quadraticCurveTo = function(cpx, cpy, x, y)
 	{
@@ -1412,12 +1449,10 @@
 	};
 
 	/**
-	 * Shortcut to closePath.
-	 * @method closePath
-	 * @private
-	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
-	 * @chainable
-	 * @protected
+	 * Closes the current path, effectively drawing a line from the current drawing point to the first drawing point specified
+	 * since the fill or stroke was last set. A tiny API method "cp" also exists.
+	 * @method cp
+	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
 	var closePath = function()
 	{
@@ -1430,14 +1465,11 @@
 	};
 
 	/**
-	 * Shortcut to beginFill.
-	 * @method beginFill
-	 * @private
+	 * Begins a fill with the specified color. This ends the current sub-path. A tiny API method "f" also exists.
+	 * @method f
 	 * @param {String} color A CSS compatible color value (ex. "red", "#FF0000", or "rgba(255,0,0,0.5)"). Setting to
 	 * null will result in no fill.
-	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
-	 * @chainable
-	 * @protected
+	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
 	var beginFill = function(color)
 	{
@@ -1451,9 +1483,13 @@
 	};
 
 	/**
-	 * Shortcut to setStrokeStyle.
-	 * @method setStrokeStyle
-	 * @private
+	 * Sets the stroke style. Like all drawing methods, this can be chained, so you can define
+	 * the stroke style and color in a single line of code like so:
+	 *
+	 * 	myGraphics.setStrokeStyle(8,"round").beginStroke("#F00");
+	 *
+	 * A tiny API method "ss" also exists.
+	 * @method ss
 	 * @param {Number} thickness The width of the stroke.
 	 * @param {String | Number} [caps=0] Indicates the type of caps to use at the end of lines. One of butt,
 	 * round, or square. Defaults to "butt". Also accepts the values 0 (butt), 1 (round), and 2 (square) for use with
@@ -1465,9 +1501,7 @@
 	 * controls at what point a mitered joint will be clipped.
 	 * @param {Boolean} [ignoreScale=false] If true, the stroke will be drawn at the specified thickness regardless
 	 * of active transformations.
-	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
-	 * @chainable
-	 * @protected
+	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
 	var setStrokeStyle = function(thickness, caps, joints, miterLimit, ignoreScale)
 	{
@@ -1476,14 +1510,11 @@
 	};
 
 	/**
-	 * Shortcut to beginStroke.
-	 * @method beginStroke
-	 * @private
+	 * Begins a stroke with the specified color. This ends the current sub-path. A tiny API method "s" also exists.
+	 * @method s
 	 * @param {String} color A CSS compatible color value (ex. "#FF0000", "red", or "rgba(255,0,0,0.5)"). Setting to
 	 * null will result in no stroke.
-	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
-	 * @chainable
-	 * @protected
+	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
 	var beginStroke = function(color)
 	{
@@ -1496,13 +1527,39 @@
 	};
 
 	/**
-	 * Shortcut to decodePath.
-	 * @method decodePath
-	 * @private
+	 * Decodes a compact encoded path string into a series of draw instructions.
+	 * This format is not intended to be human readable, and is meant for use by authoring tools.
+	 * The format uses a base64 character set, with each character representing 6 bits, to define a series of draw
+	 * commands.
+	 *
+	 * Each command is comprised of a single "header" character followed by a variable number of alternating x and y
+	 * position values. Reading the header bits from left to right (most to least significant): bits 1 to 3 specify the
+	 * type of operation (0-moveTo, 1-lineTo, 2-quadraticCurveTo, 3-bezierCurveTo, 4-closePath, 5-7 unused). Bit 4
+	 * indicates whether position values use 12 bits (2 characters) or 18 bits (3 characters), with a one indicating the
+	 * latter. Bits 5 and 6 are currently unused.
+	 *
+	 * Following the header is a series of 0 (closePath), 2 (moveTo, lineTo), 4 (quadraticCurveTo), or 6 (bezierCurveTo)
+	 * parameters. These parameters are alternating x/y positions represented by 2 or 3 characters (as indicated by the
+	 * 4th bit in the command char). These characters consist of a 1 bit sign (1 is negative, 0 is positive), followed
+	 * by an 11 (2 char) or 17 (3 char) bit integer value. All position values are in tenths of a pixel. Except in the
+	 * case of move operations which are absolute, this value is a delta from the previous x or y position (as
+	 * appropriate).
+	 *
+	 * For example, the string "A3cAAMAu4AAA" represents a line starting at -150,0 and ending at 150,0.
+	 * <br />A - bits 000000. First 3 bits (000) indicate a moveTo operation. 4th bit (0) indicates 2 chars per
+	 * parameter.
+	 * <br />n0 - 110111011100. Absolute x position of -150.0px. First bit indicates a negative value, remaining bits
+	 * indicate 1500 tenths of a pixel.
+	 * <br />AA - 000000000000. Absolute y position of 0.
+	 * <br />I - 001100. First 3 bits (001) indicate a lineTo operation. 4th bit (1) indicates 3 chars per parameter.
+	 * <br />Au4 - 000000101110111000. An x delta of 300.0px, which is added to the previous x value of -150.0px to
+	 * provide an absolute position of +150.0px.
+	 * <br />AAA - 000000000000000000. A y delta value of 0.
+	 *
+	 * A tiny API method "p" also exists.
+	 * @method p
 	 * @param {String} str The path string to decode.
-	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
-	 * @chainable
-	 * @protected
+	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
 	var decodePath = function(str)
 	{
