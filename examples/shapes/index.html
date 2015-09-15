@@ -18,7 +18,7 @@
 		<script src="../../dist/pixi-flash.js"></script>
 		
 		<!-- The Flash exported animation -->
-		<script src="Shapes.js"></script>
+		<script src="Fizzy.js"></script>
 
 	</head>
 	<body>
@@ -36,10 +36,12 @@ var renderer = new PIXI.autoDetectRenderer(800, 500, {
 var stage = new PIXI.Container();
 
 // Create the character
-var shapes = new pixiflash_lib.Shapes();
+var fizzy = new pixiflash_lib.Fizzy();
+
+fizzy.framerate = 30;
 
 // Add to stage
-stage.addChild(shapes);
+stage.addChild(fizzy);
 
 update();
 function update()
