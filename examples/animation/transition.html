@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Pixi Flash Example</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width">
+
+		<!-- Example (not required) dependencies -->
+		<script src="../libs/jquery.min.js"></script>
+
+		<!-- Required dependencies -->
+		<script src="../libs/tweenjs-NEXT.min.js"></script>
+		<script src="../libs/pixi.min.js"></script>
+
+		<!-- PIXI Flash dependencies -->
+		<script src="../../dist/pixi-flash.js"></script>
+		
+		<!-- The Flash exported animation -->
+		<script src="Transition.js"></script>
+
+	</head>
+	<body>
+		<div id="content" class="canvas">
+			<canvas id="stage" width="800" height="500"></canvas>
+<script>
+
+var renderer = new PIXI.autoDetectRenderer(800, 500, {
+	view: document.getElementById("stage"),
+	backgroundColor: 0xffffff
+});
+
+// Root display object
+var stage = new PIXI.Container();
+
+// Load the spritesheet data
+PIXI.loader.add("Transition", "Transition.json");
+PIXI.loader.once("complete", function(data)
+{
+	var frames = data.resources["Transition"].data.frames;
+	for(var frame in frames)
+	{
+		pixiflash_images[frame.substring(0, frame.indexOf("."))] = PIXI.Texture.fromFrame(frame);
+	}
+	// Create the anim
+	var anim = window.anim = new pixiflash_lib.Transition();
+	anim.framerate = 30;
+	anim.play();
+	anim.loop = true;
+
+	// Add to stage
+	stage.addChild(anim);
+});
+PIXI.loader.load();
+
+update();
+function update()
+{
+	requestAnimationFrame(update);
+	renderer.render(stage);
+}
+
+</script>
+		</div>
+	</body>
+</html>

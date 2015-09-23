@@ -1,0 +1,33 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="vinny" itemID="56001c2a-0000011a" symbolType="graphic" lastModified="1442945052">
+  <timeline>
+    <DOMTimeline name="vinny">
+      <layers>
+        <DOMLayer name="Layer 1" color="#4F80FF" current="true" isSelected="true">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMShape>
+                  <fills>
+                    <FillStyle index="1">
+                      <RadialGradient>
+                        <matrix>
+                          <Matrix a="0.8323974609375" d="0.430999755859375" tx="146.05" ty="-0.9"/>
+                        </matrix>
+                        <GradientEntry color="#FFFFFF" alpha="0" ratio="0"/>
+                        <GradientEntry color="#FCFCFC" alpha="0.129411764705882" ratio="0.498039215686275"/>
+                        <GradientEntry color="#B9E6F7" alpha="0.301960784313725" ratio="1"/>
+                      </RadialGradient>
+                    </FillStyle>
+                  </fills>
+                  <edges>
+                    <Edge fillStyle0="1" edges="!15000 -6000|-8999 -6000!-8999 -6000|-9000 6000!-9000 6000|15000 6000!15000 6000|15000 -6000"/>
+                  </edges>
+                </DOMShape>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

@@ -1,0 +1,39 @@
+{"frames": {
+
+"Bitmap1.png":
+{
+	"frame": {"x":301,"y":110,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"Transition1.png":
+{
+	"frame": {"x":2,"y":110,"w":297,"h":16},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":0,"w":297,"h":16},
+	"sourceSize": {"w":300,"h":16},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"TransitionLoading.png":
+{
+	"frame": {"x":2,"y":2,"w":355,"h":106},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":355,"h":106},
+	"sourceSize": {"w":355,"h":106},
+	"pivot": {"x":0.5,"y":0.5}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "Transition.png",
+	"format": "RGBA8888",
+	"size": {"w":359,"h":359},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:4bac82c9f8649c56d609e14c6e6e8017:36719a1410d7a415daada9e6d5c62f80:9f103c4e46c8144f212be167d941436c$"
+}
+}
