@@ -404,7 +404,9 @@
 			}
 			else
 				this._prevPosition = (this._prevPos < 0) ? 0 : this._prevPosition+1;
-			this._updateTimeline();
+			//Timeline is always updated in the tick function for PixiFlash MovieClips,
+			//to replace EaselJS's timeline updating in draw().
+			//this._updateTimeline();
 		}
 	};
 	
@@ -417,6 +419,7 @@
 	p._tick = function(delta) {
 		if(this.tickEnabled)
 			this.advance(delta);
+		this._updateTimeline();
 		this.Container__tick(delta);
 	};
 	
