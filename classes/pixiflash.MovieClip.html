@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<title>Pixi Flash v0.1.0 API Documentation : pixiflash.MovieClip</title>
+	<meta charset='utf-8'>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+	<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+	<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.1.0'>
+	<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.1.0'>
+	<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.1.0'>
+</head>
+<body>
+<header>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class='container'>
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#docs-navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href='https://github.com/SpringRoll/PixiFlash'>
+						<img src='../assets/images/logo.png?v=0.1.0' class="logo">
+					<span class='project-name'>Pixi Flash</span>
+					<span class="sr-only">API Documentation for:</span>
+					<span class='version hidden-xs'>v0.1.0</span>
+				</a>
+			</div>
+			<div class="collapse navbar-collapse" id="docs-navbar">
+	      <ul class="scope-toggles text-center nav navbar-nav navbar-right">
+					<li><input class='scope-toggle' 
+						id='toggle-inherited' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Inherited' 
+						data-off='Inherited' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-protected' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Protected' 
+						data-off='Protected' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-private' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Private' 
+						data-off='Private' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+					<li><input class='scope-toggle' 
+						id='toggle-deprecated' 
+						type='checkbox' 
+						data-toggle='toggle' 
+						data-on='Deprecated' 
+						data-off='Deprecated' 
+						data-size='mini'
+						data-width='80'>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>
+<div class='container'>
+<div class='row'>
+<nav id='sidebar' class='col-sm-4 col-md-3'>
+<h2>APIs</h2>
+<div class='input-group'>
+  <div class='input-group-addon'>
+    <span class='glyphicon glyphicon-search'></span>
+  </div>
+  <input type='search' class='form-control' id='api-filter' placeholder='Type to filter APIs'>
+  <span class='collapsed btn-close glyphicon glyphicon-remove-sign hidden'></span>
+</div>
+<nav class='navbar navbar-default'>
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="btn-group" role="group" aria-label="...">
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-classes' data-target='#classes-collapse'>
+      Classes
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-modules' data-target='#modules-collapse'>
+      Modules
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='classes-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class='public'>
+          <a href='../classes/pixiflash.Bitmap.html'>pixiflash.Bitmap</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/pixiflash.Container.html'>pixiflash.Container</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/pixiflash.DisplayObject.html'>pixiflash.DisplayObject</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/pixiflash.FlashArt.html'>pixiflash.FlashArt</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/pixiflash.FlashArtTask.html'>pixiflash.FlashArtTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/pixiflash.Graphics.html'>pixiflash.Graphics</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/pixiflash.MovieClip.html'>pixiflash.MovieClip</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/pixiflash.MovieClipPlugin.html'>pixiflash.MovieClipPlugin</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/pixiflash.Shape.html'>pixiflash.Shape</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/pixiflash.Sprite.html'>pixiflash.Sprite</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/pixiflash.SpriteSheet.html'>pixiflash.SpriteSheet</a>
+        </li>
+        <li class='private'>
+          <a href='../classes/pixiflash.SpriteSheetTask.html'>pixiflash.SpriteSheetTask</a>
+        </li>
+        <li class='public'>
+          <a href='../classes/pixiflash.utils.html'>pixiflash.utils</a>
+        </li>
+    </ul>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='modules-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class=''>
+          <a href='../modules/Pixi Flash.html'>Pixi Flash</a>
+        </li>
+        <li class=''>
+          <a href='../modules/SpringRoll Plugin.html'>SpringRoll Plugin</a>
+        </li>
+    </ul>
+  </div>
+  <!-- /.container-fluid -->
+</nav></nav>
+<div class='col-sm-8 col-md-9'>
+<div id='docs-main' class='apidocs'>
+
+<h1>pixiflash.MovieClip Class</h1>
+<div class='box meta'>
+
+<div class='extends'>
+Extends
+PIXI.Container
+</div>
+
+<div class='foundat'>
+Defined in: <a href='../files/src_MovieClip.js.html#l13'><code>pixiflash.MovieClip:13</code></a>
+</div>
+
+Module:
+<a href="../modules/Pixi Flash.html">Pixi Flash</a>
+
+</div>
+
+
+<div class='box intro'>
+<p>The class to emulate createjs.MovieClip, requires TweenJS</p>
+
+</div>
+
+
+<div id='classdocs' class='tabview'>
+<span id='docs-highlight'></span>
+<ul class='nav nav-tabs'>
+<li id='tab-index' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-index'>Index</a>
+</li>
+<li id='tab-methods' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-methods'>Methods</a>
+</li>
+<li id='tab-properties' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-properties'>Properties</a>
+</li>
+</ul>
+
+<div class='tab-content'>
+
+<div role='tabpanel' id='docs-index' class='tab-pane'>
+<div class='index-section tab-pane methods'>
+<h3>Methods</h3>
+
+<ul class='list-group row methods extends'>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__addManagedChild'>_addManagedChild</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method protected'>
+<a href='#method__goto'>_goto</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__reset'>_reset</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method protected'>
+<a href='#method__setState'>_setState</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method protected'>
+<a href='#method__tick'>_tick</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method protected'>
+<a href='#method__updateTimeline'>_updateTimeline</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_advance'>advance</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method deprecated'>
+<a href='#method_getCurrentLabel'>getCurrentLabel</a>
+
+<span class='flag deprecated'>deprecated</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method deprecated'>
+<a href='#method_getLabels'>getLabels</a>
+
+<span class='flag deprecated'>deprecated</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_gotoAndPlay'>gotoAndPlay</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_gotoAndStop'>gotoAndStop</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_play'>play</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_stop'>stop</a>
+
+</li>
+</ul>
+</div>
+
+<div class='index-section tab-pane properties'>
+<h3>Properties</h3>
+
+<ul class='list-group row properties extends'>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__duration'>_duration</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property__framerate'>_framerate</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__managed'>_managed</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__prevPos'>_prevPos</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__prevPosition'>_prevPosition</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__synchOffset'>_synchOffset</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__t'>_t</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_actionsEnabled'>actionsEnabled</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_autoReset'>autoReset</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_currentFrame'>currentFrame</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_currentLabel'>currentLabel</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property public'>
+<a href='#property_elapsedTime'>elapsedTime</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_framerate'>framerate</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_INDEPENDENT'>INDEPENDENT</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_labels'>labels</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_loop'>loop</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_mode'>mode</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_paused'>paused</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_SINGLE_FRAME'>SINGLE_FRAME</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_startPosition'>startPosition</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_SYNCHED'>SYNCHED</a>
+
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_timeline'>timeline</a>
+
+</li>
+</ul>
+</div>
+
+
+</div>
+
+<div role='tabpanel' id='docs-methods' class='tab-pane'>
+
+<div class='method__addManagedChild method item private'>
+<h3 class='name'><a class="deeplink" href="#method__addManagedChild"><span class="glyphicon glyphicon-link"></span></a> <code>_addManagedChild</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>child</code>
+</li>
+<li class='arg'>
+<code>offset</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_MovieClip.js.html#l535'><code>_addManagedChild:535</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Adds a child to the timeline, and sets it up as a managed child.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>child</code>
+<span class='type'>MovieClip</span>
+
+
+<div class='param-description'>
+<p>The child MovieClip to manage</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>offset</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<div class='param-description'>
+ 
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method__goto method item protected'>
+<h3 class='name'><a class="deeplink" href="#method__goto"><span class="glyphicon glyphicon-link"></span></a> <code>_goto</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>positionOrLabel</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag protected'>protected</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_MovieClip.js.html#l439'><code>_goto:439</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>positionOrLabel</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<div class='param-description'>
+<p>The animation name or frame number to go to.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method__reset method item private'>
+<h3 class='name'><a class="deeplink" href="#method__reset"><span class="glyphicon glyphicon-link"></span></a> <code>_reset</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_MovieClip.js.html#l458'><code>_reset:458</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+
+</div>
+
+
+
+</div><div class='method__setState method item protected'>
+<h3 class='name'><a class="deeplink" href="#method__setState"><span class="glyphicon glyphicon-link"></span></a> <code>_setState</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>state</code>
+</li>
+<li class='arg'>
+<code>offset</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag protected'>protected</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_MovieClip.js.html#l518'><code>_setState:518</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>state</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+<div class='param-description'>
+ 
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>offset</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<div class='param-description'>
+ 
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method__tick method item protected'>
+<h3 class='name'><a class="deeplink" href="#method__tick"><span class="glyphicon glyphicon-link"></span></a> <code>_tick</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>delta</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag protected'>protected</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_MovieClip.js.html#l413'><code>_tick:413</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>delta</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<div class='param-description'>
+<p>Time elapsed since the previous tick, in milliseconds.
+function.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method__updateTimeline method item protected'>
+<h3 class='name'><a class="deeplink" href="#method__updateTimeline"><span class="glyphicon glyphicon-link"></span></a> <code>_updateTimeline</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag protected'>protected</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_MovieClip.js.html#l468'><code>_updateTimeline:468</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+
+</div>
+
+
+
+</div><div class='method_advance method item'>
+<h3 class='name'><a class="deeplink" href="#method_advance"><span class="glyphicon glyphicon-link"></span></a> <code>advance</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code class='optional'>[time]</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_MovieClip.js.html#l373'><code>advance:373</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Advances the playhead. This occurs automatically each tick by default.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name optional'>[time]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>The amount of time in ms to advance by. Only applicable if framerate is set.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_getCurrentLabel method item deprecated'>
+<h3 class='name'><a class="deeplink" href="#method_getCurrentLabel"><span class="glyphicon glyphicon-link"></span></a> <code>getCurrentLabel</code></h3>
+
+<span class='paren'>()</span>
+
+<span class='returns-inline'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+</span>
+
+<div class='flags'>
+<span class='flag deprecated' >deprecated</span>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_MovieClip.js.html#l258'><code>getCurrentLabel:258</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Use the MovieClip/currentLabel:property property instead.</p>
+
+</div>
+
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
+</div>
+</div>
+
+</div><div class='method_getLabels method item deprecated'>
+<h3 class='name'><a class="deeplink" href="#method_getLabels"><span class="glyphicon glyphicon-link"></span></a> <code>getLabels</code></h3>
+
+<span class='paren'>()</span>
+
+<span class='returns-inline'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+</span>
+
+<div class='flags'>
+<span class='flag deprecated' >deprecated</span>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_MovieClip.js.html#l248'><code>getLabels:248</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Use the MovieClip/labels:property property instead.</p>
+
+</div>
+
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>:
+</div>
+</div>
+
+</div><div class='method_gotoAndPlay method item'>
+<h3 class='name'><a class="deeplink" href="#method_gotoAndPlay"><span class="glyphicon glyphicon-link"></span></a> <code>gotoAndPlay</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>positionOrLabel</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_MovieClip.js.html#l353'><code>gotoAndPlay:353</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Advances this movie clip to the specified position or label and sets paused to false.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>positionOrLabel</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<div class='param-description'>
+<p>The animation name or frame number to go to.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_gotoAndStop method item'>
+<h3 class='name'><a class="deeplink" href="#method_gotoAndStop"><span class="glyphicon glyphicon-link"></span></a> <code>gotoAndStop</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>positionOrLabel</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_MovieClip.js.html#l363'><code>gotoAndStop:363</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Advances this movie clip to the specified position or label and sets paused to true.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>positionOrLabel</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<div class='param-description'>
+<p>The animation or frame name to go to.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div class='method_play method item'>
+<h3 class='name'><a class="deeplink" href="#method_play"><span class="glyphicon glyphicon-link"></span></a> <code>play</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_MovieClip.js.html#l337'><code>play:337</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Sets paused to false.</p>
+
+</div>
+
+
+
+</div><div class='method_stop method item'>
+<h3 class='name'><a class="deeplink" href="#method_stop"><span class="glyphicon glyphicon-link"></span></a> <code>stop</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_MovieClip.js.html#l345'><code>stop:345</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Sets paused to true.</p>
+
+</div>
+
+
+
+</div></div>
+
+<div role='tabpanel' id='docs-properties' class='tab-pane'>
+
+<div class="property__duration property item private">
+<h3 class="name"><a class="deeplink" href="#property__duration"><span class="glyphicon glyphicon-link"></span></a> <code>_duration</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_MovieClip.js.html#l159"><code>_duration:159</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>When the MovieClip is framerate independent, this is the total time in seconds for the animation.</p>
+
+</div>
+
+<p><strong>Default:</strong> 0</p>
+
+
+</div><div class="property__framerate property item">
+<h3 class="name"><a class="deeplink" href="#property__framerate"><span class="glyphicon glyphicon-link"></span></a> <code>_framerate</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_MovieClip.js.html#l149"><code>_framerate:149</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>By default MovieClip instances advance one frame per tick. Specifying a framerate for the MovieClip
+will cause it to advance based on elapsed time between ticks as appropriate to maintain the target
+framerate.</p>
+
+</div>
+
+<p><strong>Default:</strong> 0</p>
+
+
+</div><div class="property__managed property item private">
+<h3 class="name"><a class="deeplink" href="#property__managed"><span class="glyphicon glyphicon-link"></span></a> <code>_managed</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_MovieClip.js.html#l168"><code>_managed:168</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>List of display objects that are actively being managed by the MovieClip.</p>
+
+</div>
+
+
+
+</div><div class="property__prevPos property item private">
+<h3 class="name"><a class="deeplink" href="#property__prevPos"><span class="glyphicon glyphicon-link"></span></a> <code>_prevPos</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_MovieClip.js.html#l123"><code>_prevPos:123</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+
+</div>
+
+<p><strong>Default:</strong> -1</p>
+
+
+</div><div class="property__prevPosition property item private">
+<h3 class="name"><a class="deeplink" href="#property__prevPosition"><span class="glyphicon glyphicon-link"></span></a> <code>_prevPosition</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_MovieClip.js.html#l131"><code>_prevPosition:131</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+
+</div>
+
+<p><strong>Default:</strong> 0</p>
+
+
+</div><div class="property__synchOffset property item private">
+<h3 class="name"><a class="deeplink" href="#property__synchOffset"><span class="glyphicon glyphicon-link"></span></a> <code>_synchOffset</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_MovieClip.js.html#l115"><code>_synchOffset:115</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+
+</div>
+
+<p><strong>Default:</strong> 0</p>
+
+
+</div><div class="property__t property item private">
+<h3 class="name"><a class="deeplink" href="#property__t"><span class="glyphicon glyphicon-link"></span></a> <code>_t</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_MovieClip.js.html#l139"><code>_t:139</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Note - changed from default: When the MovieClip is framerate independent, this is the time
+elapsed from frame 0 in seconds.</p>
+
+</div>
+
+<p><strong>Default:</strong> 0</p>
+
+
+</div><div class="property_actionsEnabled property item">
+<h3 class="name"><a class="deeplink" href="#property_actionsEnabled"><span class="glyphicon glyphicon-link"></span></a> <code>actionsEnabled</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_MovieClip.js.html#l93"><code>actionsEnabled:93</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>If true, actions in this MovieClip's tweens will be run when the playhead advances.</p>
+
+</div>
+
+<p><strong>Default:</strong> true</p>
+
+
+</div><div class="property_autoReset property item">
+<h3 class="name"><a class="deeplink" href="#property_autoReset"><span class="glyphicon glyphicon-link"></span></a> <code>autoReset</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_MovieClip.js.html#l101"><code>autoReset:101</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>If true, the MovieClip will automatically be reset to its first frame whenever the timeline adds
+it back onto the display list. This only applies to MovieClip instances with mode=INDEPENDENT.
+<br><br>
+For example, if you had a character animation with a "body" child MovieClip instance
+with different costumes on each frame, you could set body.autoReset = false, so that
+you can manually change the frame it is on, without worrying that it will be reset
+automatically.</p>
+
+</div>
+
+<p><strong>Default:</strong> true</p>
+
+
+</div><div class="property_currentFrame property item">
+<h3 class="name"><a class="deeplink" href="#property_currentFrame"><span class="glyphicon glyphicon-link"></span></a> <code>currentFrame</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_MovieClip.js.html#l50"><code>currentFrame:50</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The current frame of the movieclip.</p>
+
+</div>
+
+<p><strong>Default:</strong> 0</p>
+
+
+</div><div class="property_currentLabel property item">
+<h3 class="name"><a class="deeplink" href="#property_currentLabel"><span class="glyphicon glyphicon-link"></span></a> <code>currentLabel</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_MovieClip.js.html#l277"><code>currentLabel:277</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Returns the name of the label on or immediately before the current frame. See TweenJS: Timeline.getCurrentLabel()
+for more information.</p>
+
+</div>
+
+
+
+</div><div class="property_elapsedTime property item public">
+<h3 class="name"><a class="deeplink" href="#property_elapsedTime"><span class="glyphicon glyphicon-link"></span></a> <code>elapsedTime</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<span class="flag public">public</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_MovieClip.js.html#l291"><code>elapsedTime:291</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>When the MovieClip is framerate independent, this is the time elapsed from frame 0 in seconds.</p>
+
+</div>
+
+<p><strong>Default:</strong> 0</p>
+
+
+</div><div class="property_framerate property item">
+<h3 class="name"><a class="deeplink" href="#property_framerate"><span class="glyphicon glyphicon-link"></span></a> <code>framerate</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_MovieClip.js.html#l307"><code>framerate:307</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>By default MovieClip instances advance one frame per tick. Specifying a framerate for the MovieClip
+will cause it to advance based on elapsed time between ticks as appropriate to maintain the target
+framerate.</p>
+<p>For example, if a MovieClip with a framerate of 10 is placed on a Stage being updated at 40fps, then the MovieClip will
+advance roughly one frame every 4 ticks. This will not be exact, because the time between each tick will
+vary slightly between frames.</p>
+<p>This feature is dependent on the tick event object (or an object with an appropriate "delta" property) being
+passed into Stage/update.</p>
+
+</div>
+
+<p><strong>Default:</strong> 0</p>
+
+
+</div><div class="property_INDEPENDENT property item">
+<h3 class="name"><a class="deeplink" href="#property_INDEPENDENT"><span class="glyphicon glyphicon-link"></span></a> <code>INDEPENDENT</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+<span class="flag static">static</span>
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_MovieClip.js.html#l189"><code>INDEPENDENT:189</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The MovieClip will advance independently of its parent, even if its parent is paused.
+This is the default mode.</p>
+
+</div>
+
+<p><strong>Default:</strong> &quot;independent&quot;</p>
+
+
+</div><div class="property_labels property item">
+<h3 class="name"><a class="deeplink" href="#property_labels"><span class="glyphicon glyphicon-link"></span></a> <code>labels</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_MovieClip.js.html#l269"><code>labels:269</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Returns an array of objects with label and position (aka frame) properties, sorted by position.
+Shortcut to TweenJS: Timeline.getLabels();</p>
+
+</div>
+
+
+
+</div><div class="property_loop property item">
+<h3 class="name"><a class="deeplink" href="#property_loop"><span class="glyphicon glyphicon-link"></span></a> <code>loop</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_MovieClip.js.html#l42"><code>loop:42</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Indicates whether this MovieClip should loop when it reaches the end of its timeline.</p>
+
+</div>
+
+<p><strong>Default:</strong> true</p>
+
+
+</div><div class="property_mode property item">
+<h3 class="name"><a class="deeplink" href="#property_mode"><span class="glyphicon glyphicon-link"></span></a> <code>mode</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_MovieClip.js.html#l25"><code>mode:25</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Controls how this MovieClip advances its time. Must be one of 0 (INDEPENDENT), 1 (SINGLE_FRAME), or 2 (SYNCHED).
+See each constant for a description of the behaviour.</p>
+
+</div>
+
+<p><strong>Default:</strong> null</p>
+
+
+</div><div class="property_paused property item">
+<h3 class="name"><a class="deeplink" href="#property_paused"><span class="glyphicon glyphicon-link"></span></a> <code>paused</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_MovieClip.js.html#l85"><code>paused:85</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>If true, the MovieClip's position will not advance when ticked.</p>
+
+</div>
+
+<p><strong>Default:</strong> false</p>
+
+
+</div><div class="property_SINGLE_FRAME property item">
+<h3 class="name"><a class="deeplink" href="#property_SINGLE_FRAME"><span class="glyphicon glyphicon-link"></span></a> <code>SINGLE_FRAME</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+<span class="flag static">static</span>
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_MovieClip.js.html#l200"><code>SINGLE_FRAME:200</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The MovieClip will only display a single frame (as determined by the startPosition property).</p>
+
+</div>
+
+<p><strong>Default:</strong> &quot;single&quot;</p>
+
+
+</div><div class="property_startPosition property item">
+<h3 class="name"><a class="deeplink" href="#property_startPosition"><span class="glyphicon glyphicon-link"></span></a> <code>startPosition</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_MovieClip.js.html#l34"><code>startPosition:34</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Specifies what the first frame to play in this movieclip, or the only frame to display if mode is SINGLE_FRAME.</p>
+
+</div>
+
+<p><strong>Default:</strong> 0</p>
+
+
+</div><div class="property_SYNCHED property item">
+<h3 class="name"><a class="deeplink" href="#property_SYNCHED"><span class="glyphicon glyphicon-link"></span></a> <code>SYNCHED</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+<span class="flag static">static</span>
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_MovieClip.js.html#l210"><code>SYNCHED:210</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The MovieClip will be advanced only when its parent advances and will be synched to the position of
+the parent MovieClip.</p>
+
+</div>
+
+<p><strong>Default:</strong> &quot;synched&quot;</p>
+
+
+</div><div class="property_timeline property item">
+<h3 class="name"><a class="deeplink" href="#property_timeline"><span class="glyphicon glyphicon-link"></span></a> <code>timeline</code></h3>
+<span class="type">Timeline</span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_MovieClip.js.html#l59"><code>timeline:59</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The TweenJS Timeline that is associated with this MovieClip. This is created automatically when the MovieClip
+instance is initialized. Animations are created by adding <a href="http://tweenjs.com">TweenJS</a> Tween
+instances to the timeline.</p>
+<p><h4>Example</h4></p>
+<pre class="code prettyprint"><code> var tween = createjs.Tween.get(target).to({x:0}).to({x:100}, 30);
+ var mc = new createjs.MovieClip();
+ mc.timeline.addTween(tween);
+</code></pre>
+<p>Elements can be added and removed from the timeline by toggling an "_off" property
+using the <code><a href="http://tweenInstance.to">tweenInstance.to</a>()</code> method. Note that using <code>Tween.set</code> is not recommended to
+create MovieClip animations. The following example will toggle the target off on frame 0, and then back on for
+frame 1. You can use the "visible" property to achieve the same effect.</p>
+<pre class="code prettyprint"><code> var tween = createjs.Tween.get(target).to({_off:false})
+     .wait(1).to({_off:true})
+     .wait(1).to({_off:false});</code></pre>
+
+</div>
+
+<p><strong>Default:</strong> null</p>
+
+
+</div></div>
+
+
+</div>
+</div></div>
+</div>
+</div>
+</div>
+<script src='../assets/js/libraries.js?v=0.1.0'></script>
+<script src='../assets/js/main.js?v=0.1.0'></script>
+</body>
+</html>
