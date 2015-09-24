@@ -33,7 +33,7 @@ bower install pixi-flash
 * [TweenJS](http://createjs.com/tweenjs) is a dependency for doing timeline animation
 
 
-### Example
+### Usage
 
 Here's a example using PIXI where the images were assembled using TexturePacker. See the **example** folder for an example which uses the Flash SpriteSheet exporting.
 
@@ -71,6 +71,13 @@ function update()
     renderer.render(stage);
 }
 ```
+
+## Examples
+
+* Animation example [using all bitmaps](http://springroll.github.io/PixiFlash/examples/animation/)
+* Animation example [using only vector shapes](http://springroll.github.io/PixiFlash/examples/shapes/)
+
+_Examples are from [Fizzy's Lunch Lab](http://pbskids.org/lunchlab/) and used with permission from Lunch Lab, LLC_
 
 ##Known Issues
 
