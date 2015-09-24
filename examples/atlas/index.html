@@ -23,10 +23,10 @@
 	</head>
 	<body>
 		<div id="content" class="canvas">
-			<canvas id="stage" width="800" height="500"></canvas>
+			<canvas id="stage" width="1200" height="600" style="width:100%"></canvas>
 <script>
 
-var renderer = new PIXI.autoDetectRenderer(800, 500, {
+var renderer = new PIXI.autoDetectRenderer(1200, 600, {
 	view: document.getElementById("stage"),
 	backgroundColor: 0xffffff
 });
@@ -36,13 +36,11 @@ var stage = new PIXI.Container();
 
 // Load the spritesheet data
 PIXI.loader.add("Transition", "Transition.json");
-PIXI.loader.once("complete", function(data)
+PIXI.loader.once("complete", function(loader, resources)
 {
-	var frames = data.resources["Transition"].data.frames;
-	for(var frame in frames)
-	{
-		pixiflash_images[frame.substring(0, frame.indexOf("."))] = PIXI.Texture.fromFrame(frame);
-	}
+	// Add the images from the TextureAtlas
+	pixiflash.utils.addImages(resources.Transition);
+
 	// Create the anim
 	var anim = window.anim = new pixiflash_lib.Transition();
 	anim.framerate = 30;
