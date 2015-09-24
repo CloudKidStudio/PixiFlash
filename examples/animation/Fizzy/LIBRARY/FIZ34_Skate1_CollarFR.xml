@@ -1,0 +1,47 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="FIZ34_Skate1_CollarFR" itemID="4cf3d9ba-00004f15" symbolType="graphic" lastModified="1441401475">
+  <timeline>
+    <DOMTimeline name="FIZ34_Skate1_CollarFR">
+      <layers>
+        <DOMLayer name="vectors" color="#9933CC" locked="true" autoNamed="false" visible="false" layerType="folder"/>
+        <DOMLayer name="Layer 1" color="#4FFF4F" parentLayerIndex="0" locked="true" visible="false" layerType="guide">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMShape>
+                  <fills>
+                    <FillStyle index="1">
+                      <SolidColor/>
+                    </FillStyle>
+                    <FillStyle index="2">
+                      <SolidColor color="#F0FF7A"/>
+                    </FillStyle>
+                  </fills>
+                  <edges>
+                    <Edge fillStyle1="1" edges="!624 0[623 8 622 16!622 16[616 74 519 273!519 273[421 472 373 557!373 557[324 641 310 685!310 685[296 725 195 806!195 806|195 728!195 728|218 702!218 702[215 657 224 577!224 577[233 495 231 458!231 458[228 420 222 388!222 388[215 355
+ 201 323!201 323[186 290 134 230!134 230|1 83!1 83|1 82!1 82[0 81 1 80!1 80|2 80!2 80[7 76 15 76!15 76[40 76 105 85!105 85|106 85!106 85[212 92 398 64!398 64[537 43 564 0!564 0|624 0"/>
+                    <Edge fillStyle0="2" fillStyle1="1" edges="
+!283 636[312 585 339 528!339 528[372 457 424 358!424 358[475 259 503 183!503 183[527 117 534 98!534 98[442 138 251 138!251 138[198 138 121 134!121 134[142 153 187 202!187 202[236 256 261 321!261 321[284 386 282 428!282 428[280 470 280
+ 541!280 541[280 611 277 633"/>
+                    <Edge fillStyle1="1" edges="
+!277 633[276 638 274 652!274 652[278 644 283 636"/>
+                    <Edge fillStyle0="2" edges="
+!277 633|283 636"/>
+                  </edges>
+                </DOMShape>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+        <DOMLayer name="bitmap" color="#FF800A" current="true" isSelected="true" autoNamed="false">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMBitmapInstance libraryItemName="Bitmaps/CollarFR"/>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

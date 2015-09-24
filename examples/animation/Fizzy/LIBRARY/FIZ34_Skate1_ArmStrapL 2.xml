@@ -1,0 +1,62 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="FIZ34_Skate1_ArmStrapL 2" itemID="4d0bcffd-0002748d" symbolType="graphic" lastModified="1441401435">
+  <timeline>
+    <DOMTimeline name="FIZ34_Skate1_ArmStrapL 2">
+      <layers>
+        <DOMLayer name="vectors" color="#9933CC" locked="true" autoNamed="false" visible="false" layerType="folder"/>
+        <DOMLayer name="Layer 1" color="#4FFF4F" parentLayerIndex="0" locked="true" visible="false" layerType="guide">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMShape isFloating="true">
+                  <matrix>
+                    <Matrix tx="-37.5" ty="-39.15"/>
+                  </matrix>
+                  <fills>
+                    <FillStyle index="1">
+                      <SolidColor color="#FF7C66"/>
+                    </FillStyle>
+                    <FillStyle index="2">
+                      <SolidColor/>
+                    </FillStyle>
+                  </fills>
+                  <edges>
+                    <Edge fillStyle0="1" fillStyle1="2" edges="!815 649[737 636 671 719!671 719[604 804 606 855!606 855[607 893 635 912!635 912[652 863 728 803!728 803[798 747 892 737!892 737[884 661 815 649"/>
+                    <Edge fillStyle1="2" edges="!927 659[948 711 935 780!935 780[805 788 751 836!751 836[682 896 658 968!658 968[606 973 570 905!570 905[548 862 579 781!579 781[590 752 655 671!655 671[718 593 818 598!818 598[856 600 889 621!889 621[920 639 927 659"/>
+                    <Edge cubics="!892 737(892,737;887,686 861,657 815,649q892 737Q884 661q815 649)815,649;"/>
+                    <Edge cubics="!889 621(;910,633 922,646 927,659q889 621Q920 639q927 659);"/>
+                    <Edge cubics="!818 598(;843,599 867,607 889,621q818 598Q856 600q889 621);"/>
+                    <Edge cubics="!927 659(;941,694 944,734 935,780q927 659Q948 711q935 780);"/>
+                    <Edge cubics="!635 912(;646,879 677,843 728,803q635 912Q652 863q728 803);"/>
+                    <Edge cubics="!606 855(;607,880 616,899 635,912q606 855Q607 893q635 912)635,912;"/>
+                    <Edge cubics="!671 719(;626,776 605,821 606,855q671 719Q604 804q606 855);"/>
+                    <Edge cubics="!579 781(;586,762 612,725 655,671q579 781Q590 752q655 671);"/>
+                    <Edge cubics="!570 905(;555,876 558,835 579,781q570 905Q548 862q579 781);"/>
+                    <Edge cubics="!728 803(;775,766 829,744 892,737q728 803Q798 747q892 737);"/>
+                    <Edge cubics="!815 649(;763,640 715,664 671,719q815 649Q737 636q671 719);"/>
+                    <Edge cubics="!655 671(;697,619 751,595 818,598q655 671Q718 593q818 598);"/>
+                    <Edge cubics="!658 968(;623,971 594,950 570,905q658 968Q606 973q570 905)570,905;"/>
+                    <Edge cubics="!751 836(;705,876 674,920 658,968q751 836Q682 896q658 968);"/>
+                    <Edge cubics="!935 780(;848,785 787,804 751,836q935 780Q805 788q751 836);"/>
+                  </edges>
+                </DOMShape>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+        <DOMLayer name="bitmap" color="#FF800A" current="true" isSelected="true" autoNamed="false">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMBitmapInstance selected="true" libraryItemName="Bitmaps/ArmStrapL2">
+                  <matrix>
+                    <Matrix tx="-9.45" ty="-9.25"/>
+                  </matrix>
+                </DOMBitmapInstance>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

@@ -1,0 +1,83 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="cuff 2" itemID="4b799231-000108fa" symbolType="graphic" lastModified="1441401290">
+  <timeline>
+    <DOMTimeline name="cuff 2">
+      <layers>
+        <DOMLayer name="vectors" color="#9933CC" locked="true" autoNamed="false" visible="false" layerType="folder"/>
+        <DOMLayer name="Layer 1" color="#4FFF4F" parentLayerIndex="0" locked="true" visible="false" layerType="guide">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMShape>
+                  <fills>
+                    <FillStyle index="1">
+                      <SolidColor color="#8089DD"/>
+                    </FillStyle>
+                    <FillStyle index="2">
+                      <SolidColor/>
+                    </FillStyle>
+                  </fills>
+                  <edges>
+                    <Edge fillStyle0="2" edges="!237 -74S1[230 -86 221 -95!221 -95[215 -102 207 -105!207 -105[196 -112 185 -117!185 -117[-15 -188 -203 -108!-203 -108[-206 -108 -207 -106!-207 -106|-226 58!-226 58|-239 104!-239 104[-48 115 151 137!151 137[176 143 202 150!202 150|229
+ 135!229 135|209 66!209 66|243 -62!243 -62[240 -68 237 -74"/>
+                    <Edge fillStyle0="2" fillStyle1="1" edges="
+!204 -53S3|175 47!175 47|179 95!179 95[-9 57 -200 74!-200 74|-182 -100!-182 -100[0 -129 170 -69!170 -69|204 -53"/>
+                    <Edge cubics="!170 -69(;170,-69 170,-69 167,-70q170 -69 167 -70);"/>
+                    <Edge cubics="!167 -70(;169,-70 168,-70 167,-70q167 -70)167,-70;"/>
+                    <Edge cubics="!167 -70(167,-70;167,-70 168,-70 168,-70q167 -70 168 -70)168,-70;"/>
+                    <Edge cubics="!175 47(175,47;175,46 175,46 176,46q175 47Q175 46q176 46)176,46;"/>
+                    <Edge cubics="!238 -74(;239,-71 239,-68 239,-66q238 -74Q239 -69q239 -66);"/>
+                    <Edge cubics="!239 -66(;240,-65 242,-63 243,-62q239 -66Q241 -64q243 -62);"/>
+                    <Edge cubics="!243 -62(;243,-61 243,-61 243,-60q243 -62Q243 -61q243 -60);"/>
+                    <Edge cubics="!211 -51(;202,-54 189,-60 170,-69q211 -51Q198 -56q170 -69);"/>
+                    <Edge cubics="!176 46(;194,2 206,-30 211,-51q176 46Q203 -20q211 -51);"/>
+                    <Edge cubics="!185 -117(;218,-105 235,-91 238,-74q185 -117Q234 -99q238 -74);"/>
+                    <Edge cubics="!212 55(;211,58 210,61 209,66q212 55Q211 59q209 66);"/>
+                    <Edge cubics="!227 108(;227,110 227,112 228,113q227 108Q227 111q228 113);"/>
+                    <Edge cubics="!228 113(;229,114 229,116 230,118q228 113Q229 115q230 118);"/>
+                    <Edge cubics="!230 118(230,118;233,135 223,146 202,150q230 118Q234 144q202 150)202,150;"/>
+                    <Edge cubics="!202 150(;202,150 201,150 201,150q202 150 201 150);"/>
+                    <Edge cubics="!209 66(209,66;210,75 216,89 227,108q209 66Q211 79q227 108)227,108;"/>
+                    <Edge cubics="!179 95(;177,80 176,67 177,58q179 95Q176 72q177 58);"/>
+                    <Edge cubics="!177 58(;177,58 175,47 175,47q177 58 175 47);"/>
+                    <Edge cubics="!243 -60(;235,0 225,38 212,55q243 -60Q231 30q212 55);"/>
+                    <Edge cubics="!-143 -106(;-158,-104 -171,-102 -182,-100q-143 -106Q-166 -103q-182 -100);"/>
+                    <Edge cubics="!-208 -103(;-210,-113 -190,-124 -149,-136q-208 -103Q-211 -118q-149 -136)-149,-136;"/>
+                    <Edge cubics="!-205 -95(-205,-95;-206,-96 -207,-99 -208,-103q-205 -95Q-207 -97q-208 -103);"/>
+                    <Edge cubics="!-219 -40(;-215,-64 -210,-82 -205,-95q-219 -40Q-213 -76q-205 -95);"/>
+                    <Edge cubics="!-200 74(;-193,73 -184,71 -174,70q-200 74Q-189 72q-174 70);"/>
+                    <Edge cubics="!-174 121(;-203,123 -222,120 -233,111q-174 121Q-217 124q-233 111);"/>
+                    <Edge cubics="!-233 111(;-238,106 -241,101 -242,95q-233 111Q-241 104q-242 95);"/>
+                    <Edge cubics="!-242 95(-242,95;-245,79 -240,67 -226,58q-242 95Q-247 71q-226 58);"/>
+                    <Edge cubics="!-24 -108(;-64,-109 -104,-109 -143,-106q-24 -108Q-84 -110q-143 -106);"/>
+                    <Edge cubics="!-174 70(;-129,65 -60,66 35,75q-174 70Q-107 62q35 75);"/>
+                    <Edge cubics="!-182 -100(;-182,-100 -200,74 -200,74q-182 -100 -200 74);"/>
+                    <Edge cubics="!-149 -136(;-90,-149 -31,-153 29,-148q-149 -136Q-61 -156q29 -148);"/>
+                    <Edge cubics="!19 115(;-19,114 -83,116 -174,121q19 115Q-38 113q-174 121);"/>
+                    <Edge cubics="!-226 58(;-229,39 -226,6 -219,-40q-226 58Q-230 29q-219 -40);"/>
+                    <Edge cubics="!168 -70(;107,-94 43,-107 -24,-108q168 -70Q76 -106q-24 -108);"/>
+                    <Edge cubics="!35 75(;99,80 147,87 179,95q35 75Q131 83q179 95);"/>
+                    <Edge cubics="!201 150(;130,130 70,118 19,115q201 150Q95 120q19 115);"/>
+                    <Edge cubics="!29 -148(;83,-144 135,-134 185,-117q29 -148Q110 -142q185 -117);"/>
+                  </edges>
+                </DOMShape>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+        <DOMLayer name="bitmap" color="#FF800A" current="true" isSelected="true" autoNamed="false">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMBitmapInstance selected="true" libraryItemName="Bitmaps/CuffSmall">
+                  <matrix>
+                    <Matrix tx="-11.95" ty="-7.5"/>
+                  </matrix>
+                </DOMBitmapInstance>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

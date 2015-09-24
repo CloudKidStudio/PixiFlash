@@ -1,0 +1,36 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="FIZ34_Skate1_PupilL" itemID="4cf3e097-00005c9e" symbolType="graphic" lastModified="1441401578">
+  <timeline>
+    <DOMTimeline name="FIZ34_Skate1_PupilL">
+      <layers>
+        <DOMLayer name="vectors" color="#9933CC" locked="true" autoNamed="false" visible="false" layerType="folder"/>
+        <DOMLayer name="Layer 1" color="#4FFF4F" parentLayerIndex="0" locked="true" visible="false" layerType="guide">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMShape>
+                  <fills>
+                    <FillStyle index="1">
+                      <SolidColor/>
+                    </FillStyle>
+                  </fills>
+                  <edges>
+                    <Edge fillStyle1="1" edges="!80 182[31 192 12 162!12 162[2 131 2 129!2 129[-3 104 4 69!4 69[16 11 62 2!62 2[122 -10 136 74!136 74[143 105 128 139!128 139[111 175 80 182"/>
+                  </edges>
+                </DOMShape>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+        <DOMLayer name="bitmap" color="#FF800A" current="true" isSelected="true" autoNamed="false">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMBitmapInstance libraryItemName="Bitmaps/PupilL"/>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

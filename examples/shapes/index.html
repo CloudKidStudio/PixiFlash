@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Pixi Flash Example</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width">
+
+		<!-- Example (not required) dependencies -->
+		<script src="../libs/jquery.min.js"></script>
+
+		<!-- Required dependencies -->
+		<script src="../libs/tweenjs-NEXT.min.js"></script>
+		<script src="../libs/pixi.min.js"></script>
+
+		<!-- PIXI Flash dependencies -->
+		<script src="../../dist/pixi-flash.js"></script>
+		
+		<!-- The Flash exported animation -->
+		<script src="Fizzy.js"></script>
+
+	</head>
+	<body>
+		<div id="content" class="canvas">
+			<canvas id="stage" width="800" height="500"></canvas>
+<script>
+
+var renderer = new PIXI.autoDetectRenderer(800, 500, {
+	view: document.getElementById("stage"),
+	backgroundColor: 0xffffff,
+	antialias: true
+});
+
+// Root display object
+var stage = new PIXI.Container();
+
+// Create the character
+var fizzy = new pixiflash_lib.Fizzy();
+
+fizzy.framerate = 30;
+
+// Add to stage
+stage.addChild(fizzy);
+
+update();
+function update()
+{
+    requestAnimationFrame(update);
+    renderer.render(stage);
+}
+
+</script>
+		</div>
+	</body>
+</html>

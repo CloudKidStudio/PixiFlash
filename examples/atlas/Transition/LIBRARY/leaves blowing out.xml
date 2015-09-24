@@ -1,0 +1,199 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="leaves blowing out" itemID="56002710-000002b0" symbolType="graphic" lastModified="1442945418">
+  <timeline>
+    <DOMTimeline name="leaves blowing out" currentFrame="17">
+      <layers>
+        <DOMLayer name="Guide: Layer 2" color="#669900" autoNamed="false" layerType="guide">
+          <frames>
+            <DOMFrame index="0" duration="20" keyMode="9728">
+              <elements>
+                <DOMShape>
+                  <strokes>
+                    <StrokeStyle index="1">
+                      <SolidStroke scaleMode="normal" weight="6">
+                        <fill>
+                          <SolidColor color="#FF0000"/>
+                        </fill>
+                      </SolidStroke>
+                    </StrokeStyle>
+                  </strokes>
+                  <edges>
+                    <Edge strokeStyle="1" edges="!-15278 -906[-14846 -1006 -14586 -1065!-14586 -1065[-14106 -1174 -13631 -1242!-13631 -1242[-12223 -1445 -9917 -1445!-9917 -1445[-7389 -1445 -4581 -766!-4581 -766[-3429 -487 -2122 -69!-2122 -69[-1141 244 206 729!206 729[961 1001 2411 1527
+!2411 1527[3640 1965 4498 2224!4498 2224[6753 2903 8347 2903!8347 2903[9066 2903 9733 2805"/>
+                    <Edge cubics="!-15278 -906(-15278,-906;-14418,-1084 -13532,-1445 -9917,-1445q-15278 -906Q-14846 -1006q-14586 -1065Q-14106 -1174q-13631 -1242Q-12223 -1445q-9917 -1445);"/>
+                    <Edge cubics="!-9917 -1445(;-2414,-1445 3486,2903 8347,2903q-9917 -1445Q-7389 -1445q-4581 -766Q-3429 -487q-2122 -69Q-1141 244q206 729Q961 1001q2411 1527Q3640 1965q4498 2224Q6753 2903q8347 2903);"/>
+                    <Edge cubics="!8347 2903(;8475,2903 9066,2903 9733,2805q8347 2903Q9066 2903q9733 2805)9733,2805;"/>
+                  </edges>
+                </DOMShape>
+              </elements>
+            </DOMFrame>
+            <DOMFrame index="20" duration="5" keyMode="9728">
+              <elements/>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+        <DOMLayer name="Layer 2" color="#9933CC" parentLayerIndex="0">
+          <frames>
+            <DOMFrame index="0" duration="19" tweenType="motion" motionTweenRotate="clockwise" motionTweenRotateTimes="1" motionTweenSnap="true" keyMode="22017">
+              <elements>
+                <DOMSymbolInstance libraryItemName="leaf" symbolType="graphic" firstFrame="1" loop="single frame">
+                  <matrix>
+                    <Matrix a="0.843902587890625" b="-0.0666046142578125" c="-0.0666046142578125" d="-0.843902587890625" tx="-751.75" ty="-48.1"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+            <DOMFrame index="19" keyMode="9728">
+              <elements>
+                <DOMSymbolInstance libraryItemName="leaf" symbolType="graphic" firstFrame="1" centerPoint3DX="486.8" centerPoint3DY="140.75" loop="single frame">
+                  <matrix>
+                    <Matrix a="-0.8016357421875" b="0.269332885742188" c="0.269332885742188" d="0.8016357421875" tx="485.8" ty="139.8"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+            <DOMFrame index="20" duration="5" keyMode="9728">
+              <elements/>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+        <DOMLayer name="Guide: Layer 3" color="#808080" autoNamed="false" layerType="guide">
+          <frames>
+            <DOMFrame index="0" duration="2" keyMode="9728">
+              <elements/>
+            </DOMFrame>
+            <DOMFrame index="2" duration="23" keyMode="9728">
+              <elements>
+                <DOMShape>
+                  <strokes>
+                    <StrokeStyle index="1">
+                      <SolidStroke scaleMode="normal" weight="6">
+                        <fill>
+                          <SolidColor color="#FF0000"/>
+                        </fill>
+                      </SolidStroke>
+                    </StrokeStyle>
+                  </strokes>
+                  <edges>
+                    <Edge strokeStyle="1" edges="
+!-15364 -3600[-14515 -2365 -13020 -1491!-13020 -1491[-10524 -33 -6865 -33!-6865 -33[-5453 -33 -3423 -534!-3423 -534[-2942 -653 -1788 -968!-1788 -968[-802 -1238 -289 -1353!-289 -1353[1897 -1843 3784 -2014!3784 -2014[5097 -2133 6964 -2133
+!6964 -2133[7071 -2133 8401 -2011!8401 -2011[9843 -1880 10194 -1818"/>
+                    <Edge cubics="!-15364 -3600(;-14768,-2733 -12543,-33 -6865,-33q-15364 -3600Q-14515 -2365q-13020 -1491Q-10524 -33q-6865 -33)-6865,-33;"/>
+                    <Edge cubics="!-6865 -33(-6865,-33;-4570,-33 -2172,-930 -289,-1353q-6865 -33Q-5453 -33q-3423 -534Q-2942 -653q-1788 -968Q-802 -1238q-289 -1353);"/>
+                    <Edge cubics="!-289 -1353(;2934,-2076 4930,-2133 6964,-2133q-289 -1353Q1897 -1843q3784 -2014Q5097 -2133q6964 -2133)6964,-2133;"/>
+                    <Edge cubics="!6964 -2133(;7035,-2133 9648,-1914 10194,-1818q6964 -2133Q7071 -2133q8401 -2011Q9843 -1880q10194 -1818);"/>
+                  </edges>
+                </DOMShape>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+        <DOMLayer name="Layer 3" color="#FF800A" parentLayerIndex="2" current="true" isSelected="true">
+          <frames>
+            <DOMFrame index="0" duration="2" keyMode="9728">
+              <elements/>
+            </DOMFrame>
+            <DOMFrame index="2" duration="22" tweenType="motion" motionTweenRotate="clockwise" motionTweenRotateTimes="1" motionTweenSnap="true" keyMode="22017">
+              <elements>
+                <DOMSymbolInstance libraryItemName="leaf" selected="true" symbolType="graphic" firstFrame="2" loop="single frame">
+                  <matrix>
+                    <Matrix a="-1" tx="-756.35" ty="-163.9"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+            <DOMFrame index="24" keyMode="9728">
+              <elements>
+                <DOMSymbolInstance libraryItemName="leaf" selected="true" symbolType="graphic" firstFrame="2" centerPoint3DX="495.35" centerPoint3DY="-101.55" loop="single frame">
+                  <matrix>
+                    <Matrix a="0.456954956054688" b="-0.88946533203125" c="-0.88946533203125" d="-0.456954956054688" tx="501.35" ty="-93"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+        <DOMLayer name="Guide: Layer 1" color="#009999" outline="true" useOutlineView="true" autoNamed="false" layerType="guide">
+          <frames>
+            <DOMFrame index="0" duration="21" keyMode="9728">
+              <elements>
+                <DOMShape>
+                  <strokes>
+                    <StrokeStyle index="1">
+                      <SolidStroke scaleMode="normal" weight="6">
+                        <fill>
+                          <SolidColor color="#FF0000"/>
+                        </fill>
+                      </SolidStroke>
+                    </StrokeStyle>
+                  </strokes>
+                  <edges>
+                    <Edge strokeStyle="1" edges="
+!-15016 477[-14824 435 -14233 225!-14233 225[-13582 -7 -13061 -142!-13061 -142[-11232 -618 -8662 -618!-8662 -618[-7621 -618 -5349 -443!-5349 -443[-4115 -347 -845 -57!-845 -57[2231 216 3760 329!3760 329[6145 504 7379 504!7379 504[7488
+ 504 8173 470!8173 470[9017 427 9563 381"/>
+                    <Edge cubics="!-15016 477(;-14134,285 -12802,-618 -8662,-618q-15016 477Q-14824 435q-14233 225Q-13582 -7q-13061 -142Q-11232 -618q-8662 -618);"/>
+                    <Edge cubics="!-8662 -618(;-5521,-618 3695,504 7379,504q-8662 -618Q-7621 -618q-5349 -443Q-4115 -347q-845 -57Q2231 216q3760 329Q6145 504q7379 504)7379,504;"/>
+                    <Edge cubics="!7379 504(7379,504;7439,504 8708,453 9563,381q7379 504Q7488 504q8173 470Q9017 427q9563 381)9563,381;"/>
+                  </edges>
+                </DOMShape>
+              </elements>
+            </DOMFrame>
+            <DOMFrame index="21" duration="4" keyMode="9728">
+              <elements/>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+        <DOMLayer name="Layer 1" color="#4F80FF" parentLayerIndex="4">
+          <frames>
+            <DOMFrame index="0" duration="20" tweenType="motion" motionTweenRotate="clockwise" motionTweenRotateTimes="1" motionTweenSnap="true" hasCustomEase="true" keyMode="22017">
+              <tweens>
+                <CustomEase target="all">
+                  <Point/>
+                  <Point x="0.3333" y="0.3333"/>
+                  <Point x="0.6667" y="0.6667"/>
+                  <Point x="1" y="1"/>
+                </CustomEase>
+              </tweens>
+              <elements>
+                <DOMSymbolInstance libraryItemName="leaf" selected="true" symbolType="graphic" loop="single frame">
+                  <matrix>
+                    <Matrix a="-1" tx="-741.8" ty="21.4"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+            <DOMFrame index="20" keyMode="9728">
+              <elements>
+                <DOMSymbolInstance libraryItemName="leaf" symbolType="graphic" centerPoint3DX="474.2" centerPoint3DY="18.25" loop="single frame">
+                  <matrix>
+                    <Matrix a="0.215057373046875" b="0.976593017578125" c="0.976593017578125" d="-0.215057373046875" tx="473.2" ty="17.8"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+            <DOMFrame index="21" duration="4" keyMode="9728">
+              <elements/>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>
