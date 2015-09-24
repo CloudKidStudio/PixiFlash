@@ -4,7 +4,7 @@
  * @requires Pixi Flash
  */
 (function()
-{	
+{
 	// Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
 
@@ -12,9 +12,10 @@
 	var plugin = new ApplicationPlugin();
 
 	plugin.setup = function()
-	{	
+	{
 		this.assetManager.register('pixiflash.FlashArtTask', 60);
 		this.assetManager.register('pixiflash.SpriteSheetTask', 70);
+		this.animator.register('pixiflash.MovieClipInstance', 10);
 	};
 
 }());
