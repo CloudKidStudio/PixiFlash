@@ -42,13 +42,13 @@
 		};
 	}
 
-	// Add namespace for pixiflash symbols from Flash
+	// Add namespace for symbols from Flash
 	if(!window.pixiflash_lib)
 	{
 		window.pixiflash_lib = {};
 	}
 
-	// Add namespace for pixiflash images from Flash
+	// Add namespace for images from Flash
 	if(!window.pixiflash_images)
 	{
 		window.pixiflash_images = {};
@@ -104,7 +104,7 @@
 		 **/
 		this.tickEnabled = true;
 		
-		//remove all lsiteners on this instance, because the CreateJS published files from flash
+		//remove all listeners on this instance, because the CreateJS published files from flash
 		//makes prototypes in a way that breaks normal PIXI listener usage.
 		this.removeAllListeners();
 	};
@@ -379,7 +379,7 @@
 	
 	DisplayObject.mixin(p);
 	
-	//constructor for backwards compatibility
+	//constructor for backwards/Flash exporting compatibility
 	p.initialize = Container;
 
 	p.addChild = function(child)
@@ -429,6 +429,18 @@
 		}
 	};
 	
+	p.__Container_destroy = p.destroy;
+	p.destroy = function(destroyChildren)
+	{
+		if(this._tickListener)
+		{
+			SharedTicker.remove(this._tickListener);
+			this._tickListener = null;
+		}
+		
+		this.__Container_destroy(destroyChildren);
+	};
+	
 	pixiflash.Container = Container;
 	
 }());
@@ -458,7 +470,7 @@
 	// Mixin the display object
 	DisplayObject.mixin(p);
 	
-	//constructor for backwards compatibility
+	//constructor for backwards/Flash exporting compatibility
 	p.initialize = Bitmap;
 	
 	// Assign to namespace
@@ -689,7 +701,7 @@
 	
 	DisplayObject.mixin(p);
 	
-	//constructor for backwards compatibility
+	//constructor for backwards/Flash exporting compatibility
 	p.initialize = MovieClip;
 	
 	p._onAdded = function()
@@ -1019,6 +1031,18 @@
 		this._managed[child.id] = 2;
 	};
 	
+	p.__Container_destroy = p.destroy;
+	p.destroy = function(destroyChildren)
+	{
+		if(this._tickListener)
+		{
+			SharedTicker.remove(this._tickListener);
+			this._tickListener = null;
+		}
+		
+		this.__Container_destroy(destroyChildren);
+	};
+	
 	pixiflash.MovieClip = MovieClip;
 	
 	/**
@@ -1142,7 +1166,7 @@
 		{
 			frame = data.frames[i];
 			this.frames.push(new Texture(
-				data.images[frame[4] || 0], 
+				data.images[frame[4] || 0],
 				new Rectangle(
 					frame[0],
 					frame[1],
@@ -1267,7 +1291,7 @@
 		DisplayObject = pixiflash.DisplayObject;
 	
 	/**
-	 * The class to emulate createjs.Bitmap
+	 * The class to emulate createjs.Sprite
 	 * @class Sprite
 	 * @extends PIXI.Sprite
 	 */
@@ -1289,7 +1313,7 @@
 	// Mixin the display object
 	DisplayObject.mixin(p);
 	
-	//constructor for backwards compatibility
+	//constructor for backwards/Flash exporting compatibility
 	p.initialize = Sprite;
 
 	/**
@@ -1364,7 +1388,7 @@
 	// Mixin the display object
 	DisplayObject.mixin(p);
 	
-	//constructor for backwards compatibility
+	//constructor for backwards/Flash exporting compatibility
 	p.initialize = Shape;
 
 	// Assign to namespace
@@ -1569,9 +1593,9 @@
 		var graphics = this.graphics;
 		var instructions = [
 			graphics.mt,
-			graphics.lt, 
-			graphics.qt, 
-			graphics.bt, 
+			graphics.lt,
+			graphics.qt,
+			graphics.bt,
 			graphics.cp
 		];
 		var paramCount = [2, 2, 4, 6, 0];
@@ -1593,7 +1617,7 @@
 			params.length = 0;
 			i++;
 			var charCount = (n>>2&1)+2;  // 4th header bit indicates number size for this operation.
-			for (var p=0; p<pl; p++) 
+			for (var p=0; p<pl; p++)
 			{
 				var num = base64[str.charAt(i)];
 				var sign = (num>>5) ? -1 : 1;
@@ -1610,11 +1634,11 @@
 		return this.graphics;
 	};
 
-	/** 
+	/**
 	 * Convert a string color "#ffffff" to int 0xffffff
 	 * @method colorToHex
 	 * @private
-	 * @param {String} color 
+	 * @param {String} color
 	 * @return {int} The hex color
 	 */
 	var colorToHex = function(color)
@@ -1623,9 +1647,9 @@
 		{
 			// Remove "rgba(" and ")" and turn into array
 			color = color.substring(5, color.length - 1).split(',');
-			color = 65536 * parseInt(color[0]) + 
-				256 * parseInt(color[1]) + 
-				parseInt(color[2]); 
+			color = 65536 * parseInt(color[0]) +
+				256 * parseInt(color[1]) +
+				parseInt(color[2]);
 		}
 		else
 		{
@@ -1650,6 +1674,14 @@
 			));
 		}
 		return 1;
+	};
+	
+	p.__Shape_destroy = p.destroy;
+	p.destroy = function()
+	{
+		this.__Shape_destroy();
+		
+		this.graphics = null;
 	};
 
 }());

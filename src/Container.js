@@ -46,7 +46,7 @@
 	
 	DisplayObject.mixin(p);
 	
-	//constructor for backwards compatibility
+	//constructor for backwards/Flash exporting compatibility
 	p.initialize = Container;
 
 	p.addChild = function(child)
@@ -94,6 +94,18 @@
 				}
 			}
 		}
+	};
+	
+	p.__Container_destroy = p.destroy;
+	p.destroy = function(destroyChildren)
+	{
+		if(this._tickListener)
+		{
+			SharedTicker.remove(this._tickListener);
+			this._tickListener = null;
+		}
+		
+		this.__Container_destroy(destroyChildren);
 	};
 	
 	pixiflash.Container = Container;

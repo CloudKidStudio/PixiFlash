@@ -4,15 +4,14 @@
  * @requires Pixi Flash
  */
 (function()
-{	
+{
 	var Task = include('springroll.Task'),
 		FlashArt = include('pixiflash.FlashArt'),
 		TextureAtlas = include('springroll.pixi.TextureAtlas'),
 		Texture = include('PIXI.Texture');
 
 	/**
-	 * Replaces Bitmaps in the global lib dictionary with a faux Bitmap
-	 * that pulls the image from a spritesheet.
+	 * Loads a FlashArt, making it easier to load and unload PixiFlash art.
 	 * @class FlashArtTask
 	 * @extends springroll.Task
 	 * @constructor

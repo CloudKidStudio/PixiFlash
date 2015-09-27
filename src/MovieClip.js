@@ -222,7 +222,7 @@
 	
 	DisplayObject.mixin(p);
 	
-	//constructor for backwards compatibility
+	//constructor for backwards/Flash exporting compatibility
 	p.initialize = MovieClip;
 	
 	p._onAdded = function()
@@ -550,6 +550,18 @@
 			if (child.mode == MovieClip.INDEPENDENT && child.autoReset && !this._managed[child.id]) { child._reset(); }
 		}
 		this._managed[child.id] = 2;
+	};
+	
+	p.__Container_destroy = p.destroy;
+	p.destroy = function(destroyChildren)
+	{
+		if(this._tickListener)
+		{
+			SharedTicker.remove(this._tickListener);
+			this._tickListener = null;
+		}
+		
+		this.__Container_destroy(destroyChildren);
 	};
 	
 	pixiflash.MovieClip = MovieClip;

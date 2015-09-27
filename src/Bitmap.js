@@ -24,7 +24,7 @@
 	// Mixin the display object
 	DisplayObject.mixin(p);
 	
-	//constructor for backwards compatibility
+	//constructor for backwards/Flash exporting compatibility
 	p.initialize = Bitmap;
 	
 	// Assign to namespace

@@ -57,7 +57,7 @@
 		{
 			frame = data.frames[i];
 			this.frames.push(new Texture(
-				data.images[frame[4] || 0], 
+				data.images[frame[4] || 0],
 				new Rectangle(
 					frame[0],
 					frame[1],

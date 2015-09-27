@@ -41,13 +41,13 @@
 		};
 	}
 
-	// Add namespace for pixiflash symbols from Flash
+	// Add namespace for symbols from Flash
 	if(!window.pixiflash_lib)
 	{
 		window.pixiflash_lib = {};
 	}
 
-	// Add namespace for pixiflash images from Flash
+	// Add namespace for images from Flash
 	if(!window.pixiflash_images)
 	{
 		window.pixiflash_images = {};

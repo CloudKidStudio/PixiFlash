@@ -4,7 +4,7 @@
  * @requires Pixi Flash
  */
 (function(undefined)
-{	
+{
 	var Debug;
 
 	/**

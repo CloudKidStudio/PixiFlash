@@ -7,6 +7,9 @@
 
 	/**
 	 * Load a spritesheet generated from Flash and adds it to the global ss namespace.
+	 * This namespace is shared with regular CreateJS art, as it can't be changed in Flash's
+	 * publishing settings. As such, don't name spritesheets for CreateJS and PixiFlash the same
+	 * thing if both spritesheets are being used by art published from Flash.
 	 * @class SpriteSheetTask
 	 * @extends springroll.LoadTask
 	 * @constructor
