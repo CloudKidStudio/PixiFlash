@@ -83,6 +83,7 @@ _Examples are from [Fizzy's Lunch Lab](http://pbskids.org/lunchlab/) and used wi
 
 * Abutting vector shapes create a small seams which make it possible to see the color underneath (similar to EaselJS)
 * Complex shapes with a negative shape inside of it only render the outer-most shape. For example, a donut shape would only render the outer circle and not the hole.
+* Timeline masking doesn't work
 
 ##License
 
