@@ -24,7 +24,8 @@
 		 * @property {pixiflash.Graphics} graphics
 		 * @readOnly
 		 */
-		this.graphics = {
+		this._graphics = {
+			__graphics_owner:this,//reference to this for masking
 			f: beginFill.bind(this),
 			s: beginStroke.bind(this),
 			p: decodePath.bind(this),
@@ -35,6 +36,10 @@
 			cp: closePath.bind(this),
 			ss: setStrokeStyle.bind(this)
 		};
+		
+		//Set up the 'p' function on the instance as well so that if a 'Graphics' object is
+		//instantiated for a mask that it will still function
+		this.p = decodePath;
 	};
 
 	// Extend PIXI.Sprite
@@ -45,9 +50,46 @@
 	
 	//constructor for backwards/Flash exporting compatibility
 	p.initialize = Shape;
+	
+	Object.defineProperty(p, "graphics", {
+		get: function() { return this._graphics; },
+		set: function(value)
+		{
+			this.dirty = true;
+			this.glDirty = true;
+			this.boundsDirty = true;
+			
+			if(!value)
+			{
+				this.clear();
+				this.currentPath = null;
+				
+				return;
+			}
+			
+			if(value.__graphics_owner)
+				value = value.__graphics_owner;
+			
+			//copy graphics data from the value
+			this.fillAlpha     = value.fillAlpha;
+			this.lineWidth     = value.lineWidth;
+			this.lineColor     = value.lineColor;
+			this.boundsPadding = value.boundsPadding;
+			//this.cachedSpriteDirty = value.cachedSpriteDirty;
+			// copy graphics data
+			this.graphicsData.length = 0;
+			for (var i = 0; i < value.graphicsData.length; ++i)
+			{
+				this.graphicsData.push(value.graphicsData[i]);
+			}
+			this.currentPath = this.graphicsData[this.graphicsData.length - 1];
+			this.updateLocalBounds();
+		}
+	});
 
 	// Assign to namespace
 	pixiflash.Shape = Shape;
+	pixiflash.Graphics = Shape;
 
 	/**
 	 * Wrapper for the graphics
@@ -245,7 +287,7 @@
 	 **/
 	var decodePath = function(str)
 	{
-		var graphics = this.graphics;
+		var graphics = this._graphics;
 		var instructions = [
 			graphics.mt,
 			graphics.lt,
@@ -286,7 +328,7 @@
 			}
 			f.apply(this,params);
 		}
-		return this.graphics;
+		return this._graphics;
 	};
 
 	/**
@@ -336,7 +378,7 @@
 	{
 		this.__Shape_destroy();
 		
-		this.graphics = null;
+		this._graphics = null;
 	};
 
 }());
