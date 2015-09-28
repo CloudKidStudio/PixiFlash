@@ -33,7 +33,12 @@
 			qt: quadraticCurveTo.bind(this),
 			bt: this.bezierCurveTo.bind(this),
 			cp: closePath.bind(this),
-			ss: setStrokeStyle.bind(this)
+			ss: setStrokeStyle.bind(this),
+			dr: this.drawRect.bind(this),
+			dc: this.drawCircle.bind(this),
+			de: this.drawEllipse.bind(this),
+			a: this.arc.bind(this),
+			at: this.arcTo.bind(this)
 		};
 	};
 
@@ -45,6 +50,12 @@
 	
 	//constructor for backwards/Flash exporting compatibility
 	p.initialize = Shape;
+	
+	p.__Shape_drawEllipse = p.drawEllipse;
+	p.drawEllipse = function(x, y, width, height)
+	{
+		this.__Shape_drawEllipse(x - width / 2, y - height / 2, width, height);
+	};
 
 	// Assign to namespace
 	pixiflash.Shape = Shape;
