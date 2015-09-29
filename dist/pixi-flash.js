@@ -1,4 +1,4 @@
-/*! Pixi Flash 0.1.0 */
+/*! Pixi Flash 0.1.2 */
 /**
  * @module Pixi Flash
  * @namespace pixiflash
@@ -42,13 +42,13 @@
 		};
 	}
 
-	// Add namespace for pixiflash symbols from Flash
+	// Add namespace for symbols from Flash
 	if(!window.pixiflash_lib)
 	{
 		window.pixiflash_lib = {};
 	}
 
-	// Add namespace for pixiflash images from Flash
+	// Add namespace for images from Flash
 	if(!window.pixiflash_images)
 	{
 		window.pixiflash_images = {};
@@ -104,7 +104,7 @@
 		 **/
 		this.tickEnabled = true;
 		
-		//remove all lsiteners on this instance, because the CreateJS published files from flash
+		//remove all listeners on this instance, because the CreateJS published files from flash
 		//makes prototypes in a way that breaks normal PIXI listener usage.
 		this.removeAllListeners();
 	};
@@ -379,7 +379,7 @@
 	
 	DisplayObject.mixin(p);
 	
-	//constructor for backwards compatibility
+	//constructor for backwards/Flash exporting compatibility
 	p.initialize = Container;
 
 	p.addChild = function(child)
@@ -429,6 +429,18 @@
 		}
 	};
 	
+	p.__Container_destroy = p.destroy;
+	p.destroy = function(destroyChildren)
+	{
+		if(this._tickListener)
+		{
+			SharedTicker.remove(this._tickListener);
+			this._tickListener = null;
+		}
+		
+		this.__Container_destroy(destroyChildren);
+	};
+	
 	pixiflash.Container = Container;
 	
 }());
@@ -458,7 +470,7 @@
 	// Mixin the display object
 	DisplayObject.mixin(p);
 	
-	//constructor for backwards compatibility
+	//constructor for backwards/Flash exporting compatibility
 	p.initialize = Bitmap;
 	
 	// Assign to namespace
@@ -476,6 +488,36 @@
 		Timeline = createjs.Timeline,
 		Tween = createjs.Tween,
 		SharedTicker = PIXI.ticker.shared;
+	
+	//*** Note: the vast majority of the code here is from EaselJS's MovieClip class.
+	
+	/*
+	* MovieClip
+	* Visit http://createjs.com/ for documentation, updates and examples.
+	*
+	* Copyright (c) 2010 gskinner.com, inc.
+	*
+	* Permission is hereby granted, free of charge, to any person
+	* obtaining a copy of this software and associated documentation
+	* files (the "Software"), to deal in the Software without
+	* restriction, including without limitation the rights to use,
+	* copy, modify, merge, publish, distribute, sublicense, and/or sell
+	* copies of the Software, and to permit persons to whom the
+	* Software is furnished to do so, subject to the following
+	* conditions:
+	*
+	* The above copyright notice and this permission notice shall be
+	* included in all copies or substantial portions of the Software.
+	*
+	* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+	* EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+	* OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+	* NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+	* HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+	* WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+	* FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+	* OTHER DEALINGS IN THE SOFTWARE.
+	*/
 	
 	/**
 	 * The class to emulate createjs.MovieClip, requires TweenJS
@@ -689,7 +731,7 @@
 	
 	DisplayObject.mixin(p);
 	
-	//constructor for backwards compatibility
+	//constructor for backwards/Flash exporting compatibility
 	p.initialize = MovieClip;
 	
 	p._onAdded = function()
@@ -1019,6 +1061,18 @@
 		this._managed[child.id] = 2;
 	};
 	
+	p.__Container_destroy = p.destroy;
+	p.destroy = function(destroyChildren)
+	{
+		if(this._tickListener)
+		{
+			SharedTicker.remove(this._tickListener);
+			this._tickListener = null;
+		}
+		
+		this.__Container_destroy(destroyChildren);
+	};
+	
 	pixiflash.MovieClip = MovieClip;
 	
 	/**
@@ -1142,7 +1196,7 @@
 		{
 			frame = data.frames[i];
 			this.frames.push(new Texture(
-				data.images[frame[4] || 0], 
+				data.images[frame[4] || 0],
 				new Rectangle(
 					frame[0],
 					frame[1],
@@ -1267,7 +1321,7 @@
 		DisplayObject = pixiflash.DisplayObject;
 	
 	/**
-	 * The class to emulate createjs.Bitmap
+	 * The class to emulate createjs.Sprite
 	 * @class Sprite
 	 * @extends PIXI.Sprite
 	 */
@@ -1289,7 +1343,7 @@
 	// Mixin the display object
 	DisplayObject.mixin(p);
 	
-	//constructor for backwards compatibility
+	//constructor for backwards/Flash exporting compatibility
 	p.initialize = Sprite;
 
 	/**
@@ -1354,7 +1408,12 @@
 			qt: quadraticCurveTo.bind(this),
 			bt: this.bezierCurveTo.bind(this),
 			cp: closePath.bind(this),
-			ss: setStrokeStyle.bind(this)
+			ss: setStrokeStyle.bind(this),
+			dr: this.drawRect.bind(this),
+			dc: this.drawCircle.bind(this),
+			de: this.drawEllipse.bind(this),
+			a: this.arc.bind(this),
+			at: this.arcTo.bind(this)
 		};
 	};
 
@@ -1364,8 +1423,14 @@
 	// Mixin the display object
 	DisplayObject.mixin(p);
 	
-	//constructor for backwards compatibility
+	//constructor for backwards/Flash exporting compatibility
 	p.initialize = Shape;
+	
+	p.__Shape_drawEllipse = p.drawEllipse;
+	p.drawEllipse = function(x, y, width, height)
+	{
+		this.__Shape_drawEllipse(x - width / 2, y - height / 2, width, height);
+	};
 
 	// Assign to namespace
 	pixiflash.Shape = Shape;
@@ -1569,9 +1634,9 @@
 		var graphics = this.graphics;
 		var instructions = [
 			graphics.mt,
-			graphics.lt, 
-			graphics.qt, 
-			graphics.bt, 
+			graphics.lt,
+			graphics.qt,
+			graphics.bt,
 			graphics.cp
 		];
 		var paramCount = [2, 2, 4, 6, 0];
@@ -1593,7 +1658,7 @@
 			params.length = 0;
 			i++;
 			var charCount = (n>>2&1)+2;  // 4th header bit indicates number size for this operation.
-			for (var p=0; p<pl; p++) 
+			for (var p=0; p<pl; p++)
 			{
 				var num = base64[str.charAt(i)];
 				var sign = (num>>5) ? -1 : 1;
@@ -1610,11 +1675,11 @@
 		return this.graphics;
 	};
 
-	/** 
+	/**
 	 * Convert a string color "#ffffff" to int 0xffffff
 	 * @method colorToHex
 	 * @private
-	 * @param {String} color 
+	 * @param {String} color
 	 * @return {int} The hex color
 	 */
 	var colorToHex = function(color)
@@ -1623,9 +1688,9 @@
 		{
 			// Remove "rgba(" and ")" and turn into array
 			color = color.substring(5, color.length - 1).split(',');
-			color = 65536 * parseInt(color[0]) + 
-				256 * parseInt(color[1]) + 
-				parseInt(color[2]); 
+			color = 65536 * parseInt(color[0]) +
+				256 * parseInt(color[1]) +
+				parseInt(color[2]);
 		}
 		else
 		{
@@ -1650,6 +1715,14 @@
 			));
 		}
 		return 1;
+	};
+	
+	p.__Shape_destroy = p.destroy;
+	p.destroy = function()
+	{
+		this.__Shape_destroy();
+		
+		this.graphics = null;
 	};
 
 }());

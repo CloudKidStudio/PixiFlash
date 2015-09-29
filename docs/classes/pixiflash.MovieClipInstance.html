@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>Pixi Flash v0.1.2 API Documentation : src/Sprite.js</title>  
+	<title>Pixi Flash v0.1.2 API Documentation : pixiflash.MovieClipInstance</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -86,76 +86,129 @@
                 </div>            <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<script>
-	var name = src/Sprite.js      
-</script>
-<h1 class="file-heading">File:Sprite.js</h1>
+<h1>pixiflash.MovieClipInstance Class</h1>
+<div class="box meta">
 
-<div class="file">
-    <pre class="code prettyprint linenums">
-/**
- * @module Pixi Flash
- * @namespace pixiflash
- */
-(function(undefined)
-{
-	var PixiSprite = PIXI.Sprite,
-		DisplayObject = pixiflash.DisplayObject;
-	
-	/**
-	 * The class to emulate createjs.Sprite
-	 * @class Sprite
-	 * @extends PIXI.Sprite
-	 */
-	var Sprite = function()
-	{
-		PixiSprite.call(this);
-		DisplayObject.call(this);
+        <div class="extends">
+            Extends springroll.GenericMovieClipInstance
+        </div>
 
-		/**
-		 * The spritesheet to use
-		 * @property {pixiflash.SpriteSheet} spriteSheet
-		 */
-		this.spriteSheet = null;
-	};
-	
-	// Extend PIXI.Sprite
-	var p = Sprite.prototype = Object.create(PixiSprite.prototype);
-	
-	// Mixin the display object
-	DisplayObject.mixin(p);
-	
-	//constructor for backwards/Flash exporting compatibility
-	p.initialize = Sprite;
+        <div class="foundat">
+            Defined in: <a href="../files/src_plugins_springroll_MovieClipInstance.js.html#l12"><code>pixiflash.MovieClipInstance:12</code></a>
+        </div>
 
-	/**
-	 * Goto and stop on a frame
-	 * @method gotoAndStop
-	 * @param {int} frame The frame index
-	 */
-	p.gotoAndStop = function(frame)
-	{
-		//Due to the way Flash exports Sprites, we need to initialize each instance on the first
-		//use here.
-		if(!this._initialized)
-		{
-			var spriteSheet = this.spriteSheet;
-			this.initialize();
-			this.spriteSheet = spriteSheet;
-			this._initialized = true;
-		}
-		if (!this.spriteSheet)
-		{
-			throw &quot;Sprite doesn&#x27;t have a spriteSheet&quot;;
-		}
-		this.texture = this.spriteSheet.getFrame(frame);
-	};
-	
-	// Assign to namespace
-	pixiflash.Sprite = Sprite;
-	
-}());
-    </pre>
+            Module: <a href="../modules/SpringRoll Plugin.html">SpringRoll Plugin</a>
+
+</div>
+
+
+<div class="box intro">
+    <p>The plugin for working with movieclip and animator</p>
+
+</div>
+
+
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
+
+            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
+    </ul>
+
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
+
+                <div class="index-section methods">
+                    <h3>Methods</h3>
+
+                    <ul class="index-list methods extends">
+                            <li class="index-item method">
+                                <a href="#method_test">test</a>
+
+                                    <span class="flag static">static</span>
+                            </li>
+                    </ul>
+                </div>
+
+
+
+        </div>
+
+            <div id="methods" class="api-class-tabpanel">
+                <h2 class="off-left">Methods</h2>
+
+                    <div id="method_test" class="method item">
+                        <h3 class="name"><code>test</code></h3>
+                    
+                            <div class="args">
+                                <span class="paren">(</span><ul class="args-list inline commas">
+                                    <li class="arg">
+                                            <code>clip</code>
+                                    </li>
+                                </ul><span class="paren">)</span>
+                            </div>
+                    
+                            <span class="returns-inline">
+                                <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                            </span>
+                    
+                    
+                    
+                    
+                            <span class="flag static">static</span>
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_plugins_springroll_MovieClipInstance.js.html#l23"><code>test:23</code></a>
+                            </p>
+                    
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>Required to test clip</p>
+                    
+                        </div>
+                    
+                            <div class="params">
+                                <h4>Parameters:</h4>
+                    
+                                <ul class="params-list">
+                                    <li class="param">
+                                            <code class="param-name">clip</code>
+                                            <span class="type"></span>
+                    
+                    
+                                        <div class="param-description">
+                                            <p>The object to test</p>
+                    
+                                        </div>
+                    
+                                    </li>
+                                </ul>
+                            </div>
+                    
+                            <div class="returns">
+                                <h4>Returns:</h4>
+                    
+                                <div class="returns-description">
+                                            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
+                                        <p>If the clip is compatible with this plugin</p>
+                    
+                                </div>
+                            </div>
+                    
+                    </div>
+            </div>
+
+
+
+    </div>
 </div>
                     </div>
                 </div>

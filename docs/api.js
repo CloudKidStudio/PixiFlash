@@ -8,6 +8,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "pixiflash.FlashArtTask",
         "pixiflash.Graphics",
         "pixiflash.MovieClip",
+        "pixiflash.MovieClipInstance",
         "pixiflash.MovieClipPlugin",
         "pixiflash.Shape",
         "pixiflash.Sprite",

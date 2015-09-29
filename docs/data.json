@@ -1,9 +1,9 @@
 {
     "project": {
         "name": "Pixi Flash",
-        "description": "A SpringRoll plugin for handling assets exported through Flash's CreateJS publishing.",
-        "version": "0.1.0",
-        "url": "https://github.com/SpringRoll/PixiFlash"
+        "description": "Runtime library to play HTML5 Canvas content from Flash with Pixi.js",
+        "version": "0.1.2",
+        "url": "https://github.com/CloudKidStudio/PixiFlash"
     },
     "files": {
         "src/plugins/springroll/FlashArt.js": {
@@ -24,6 +24,17 @@
             "modules": {},
             "classes": {
                 "pixiflash.FlashArtTask": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "pixiflash": 1
+            }
+        },
+        "src/plugins/springroll/MovieClipInstance.js": {
+            "name": "src/plugins/springroll/MovieClipInstance.js",
+            "modules": {},
+            "classes": {
+                "pixiflash.MovieClipInstance": 1
             },
             "fors": {},
             "namespaces": {
@@ -157,6 +168,7 @@
             "classes": {
                 "pixiflash.FlashArt": 1,
                 "pixiflash.FlashArtTask": 1,
+                "pixiflash.MovieClipInstance": 1,
                 "pixiflash.SpriteSheetTask": 1
             },
             "fors": {},
@@ -243,7 +255,7 @@
             "namespace": "pixiflash",
             "file": "src/plugins/springroll/FlashArtTask.js",
             "line": 13,
-            "description": "Replaces Bitmaps in the global lib dictionary with a faux Bitmap\nthat pulls the image from a spritesheet.",
+            "description": "Loads a FlashArt, making it easier to load and unload PixiFlash art.",
             "extends": "springroll.Task",
             "is_constructor": 1,
             "access": "private",
@@ -304,6 +316,23 @@
                 }
             ]
         },
+        "pixiflash.MovieClipInstance": {
+            "name": "pixiflash.MovieClipInstance",
+            "shortname": "MovieClipInstance",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash",
+            "file": "src/plugins/springroll/MovieClipInstance.js",
+            "line": 12,
+            "description": "The plugin for working with movieclip and animator",
+            "extends": "springroll.GenericMovieClipInstance",
+            "access": "private",
+            "tagname": ""
+        },
         "pixiflash.SpriteSheetTask": {
             "name": "pixiflash.SpriteSheetTask",
             "shortname": "SpriteSheetTask",
@@ -316,7 +345,7 @@
             "namespace": "pixiflash",
             "file": "src/plugins/springroll/SpriteSheetTask.js",
             "line": 8,
-            "description": "Load a spritesheet generated from Flash and adds it to the global ss namespace.",
+            "description": "Load a spritesheet generated from Flash and adds it to the global ss namespace.\nThis namespace is shared with regular CreateJS art, as it can't be changed in Flash's\npublishing settings. As such, don't name spritesheets for CreateJS and PixiFlash the same\nthing if both spritesheets are being used by art published from Flash.",
             "extends": "springroll.LoadTask",
             "is_constructor": 1,
             "access": "private",
@@ -427,7 +456,7 @@
             "module": "Pixi Flash",
             "namespace": "pixiflash",
             "file": "src/MovieClip.js",
-            "line": 13,
+            "line": 43,
             "description": "The class to emulate createjs.MovieClip, requires TweenJS",
             "extends": "PIXI.Container"
         },
@@ -442,7 +471,7 @@
             "module": "Pixi Flash",
             "namespace": "pixiflash",
             "file": "src/MovieClip.js",
-            "line": 557,
+            "line": 599,
             "description": "This plugin works with <a href=\"http://tweenjs.com\" target=\"_blank\">TweenJS</a> to prevent the startPosition\nproperty from tweening.",
             "access": "private",
             "tagname": "",
@@ -474,7 +503,7 @@
             "module": "Pixi Flash",
             "namespace": "pixiflash",
             "file": "src/Shape.js",
-            "line": 52,
+            "line": 63,
             "description": "Wrapper for the graphics"
         },
         "pixiflash.Sprite": {
@@ -489,7 +518,7 @@
             "namespace": "pixiflash",
             "file": "src/Sprite.js",
             "line": 10,
-            "description": "The class to emulate createjs.Bitmap",
+            "description": "The class to emulate createjs.Sprite",
             "extends": "PIXI.Sprite"
         },
         "pixiflash.SpriteSheet": {
@@ -630,7 +659,7 @@
         },
         {
             "file": "src/plugins/springroll/FlashArtTask.js",
-            "line": 34,
+            "line": 33,
             "description": "The path to the flash asset",
             "itemtype": "property",
             "name": "src",
@@ -641,7 +670,7 @@
         },
         {
             "file": "src/plugins/springroll/FlashArtTask.js",
-            "line": 40,
+            "line": 39,
             "description": "Any image, atlas, or SpriteSheet assets that should be loaded along with this piece\nof flash art.",
             "itemtype": "property",
             "name": "images",
@@ -652,7 +681,7 @@
         },
         {
             "file": "src/plugins/springroll/FlashArtTask.js",
-            "line": 47,
+            "line": 46,
             "description": "The name of the window object library items hang on",
             "itemtype": "property",
             "name": "libName",
@@ -663,7 +692,7 @@
         },
         {
             "file": "src/plugins/springroll/FlashArtTask.js",
-            "line": 53,
+            "line": 52,
             "description": "The name of the window object images hang on",
             "itemtype": "property",
             "name": "imagesName",
@@ -674,7 +703,7 @@
         },
         {
             "file": "src/plugins/springroll/FlashArtTask.js",
-            "line": 63,
+            "line": 62,
             "description": "Test if we should run this task",
             "itemtype": "method",
             "name": "test",
@@ -696,7 +725,7 @@
         },
         {
             "file": "src/plugins/springroll/FlashArtTask.js",
-            "line": 79,
+            "line": 78,
             "description": "Start the task",
             "itemtype": "method",
             "name": "start",
@@ -712,8 +741,30 @@
             "namespace": "pixiflash"
         },
         {
+            "file": "src/plugins/springroll/MovieClipInstance.js",
+            "line": 23,
+            "description": "Required to test clip",
+            "itemtype": "method",
+            "name": "test",
+            "static": 1,
+            "params": [
+                {
+                    "name": "clip",
+                    "description": "The object to test",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "If the clip is compatible with this plugin",
+                "type": "Boolean"
+            },
+            "class": "pixiflash.MovieClipInstance",
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash"
+        },
+        {
             "file": "src/plugins/springroll/SpriteSheetTask.js",
-            "line": 32,
+            "line": 35,
             "description": "Test if we should run this task",
             "itemtype": "method",
             "name": "test",
@@ -735,7 +786,7 @@
         },
         {
             "file": "src/plugins/springroll/SpriteSheetTask.js",
-            "line": 47,
+            "line": 50,
             "description": "Start the task",
             "itemtype": "method",
             "name": "start",
@@ -893,7 +944,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 25,
+            "line": 55,
             "description": "Controls how this MovieClip advances its time. Must be one of 0 (INDEPENDENT), 1 (SINGLE_FRAME), or 2 (SYNCHED).\nSee each constant for a description of the behaviour.",
             "itemtype": "property",
             "name": "mode",
@@ -905,7 +956,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 34,
+            "line": 64,
             "description": "Specifies what the first frame to play in this movieclip, or the only frame to display if mode is SINGLE_FRAME.",
             "itemtype": "property",
             "name": "startPosition",
@@ -917,7 +968,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 42,
+            "line": 72,
             "description": "Indicates whether this MovieClip should loop when it reaches the end of its timeline.",
             "itemtype": "property",
             "name": "loop",
@@ -929,7 +980,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 50,
+            "line": 80,
             "description": "The current frame of the movieclip.",
             "itemtype": "property",
             "name": "currentFrame",
@@ -942,7 +993,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 59,
+            "line": 89,
             "description": "The TweenJS Timeline that is associated with this MovieClip. This is created automatically when the MovieClip\ninstance is initialized. Animations are created by adding <a href=\"http://tweenjs.com\">TweenJS</a> Tween\ninstances to the timeline.\n\n<h4>Example</h4>\n\n     var tween = createjs.Tween.get(target).to({x:0}).to({x:100}, 30);\n     var mc = new createjs.MovieClip();\n     mc.timeline.addTween(tween);\n\nElements can be added and removed from the timeline by toggling an \"_off\" property\nusing the <code>tweenInstance.to()</code> method. Note that using <code>Tween.set</code> is not recommended to\ncreate MovieClip animations. The following example will toggle the target off on frame 0, and then back on for\nframe 1. You can use the \"visible\" property to achieve the same effect.\n\n     var tween = createjs.Tween.get(target).to({_off:false})\n         .wait(1).to({_off:true})\n         .wait(1).to({_off:false});",
             "itemtype": "property",
             "name": "timeline",
@@ -954,7 +1005,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 85,
+            "line": 115,
             "description": "If true, the MovieClip's position will not advance when ticked.",
             "itemtype": "property",
             "name": "paused",
@@ -966,7 +1017,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 93,
+            "line": 123,
             "description": "If true, actions in this MovieClip's tweens will be run when the playhead advances.",
             "itemtype": "property",
             "name": "actionsEnabled",
@@ -978,7 +1029,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 101,
+            "line": 131,
             "description": "If true, the MovieClip will automatically be reset to its first frame whenever the timeline adds\nit back onto the display list. This only applies to MovieClip instances with mode=INDEPENDENT.\n<br><br>\nFor example, if you had a character animation with a \"body\" child MovieClip instance\nwith different costumes on each frame, you could set body.autoReset = false, so that\nyou can manually change the frame it is on, without worrying that it will be reset\nautomatically.",
             "itemtype": "property",
             "name": "autoReset",
@@ -990,7 +1041,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 115,
+            "line": 145,
             "itemtype": "property",
             "name": "_synchOffset",
             "type": "Number",
@@ -1003,7 +1054,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 123,
+            "line": 153,
             "itemtype": "property",
             "name": "_prevPos",
             "type": "Number",
@@ -1016,7 +1067,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 131,
+            "line": 161,
             "itemtype": "property",
             "name": "_prevPosition",
             "type": "Number",
@@ -1029,7 +1080,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 139,
+            "line": 169,
             "description": "Note - changed from default: When the MovieClip is framerate independent, this is the time\nelapsed from frame 0 in seconds.",
             "itemtype": "property",
             "name": "_t",
@@ -1043,7 +1094,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 149,
+            "line": 179,
             "description": "By default MovieClip instances advance one frame per tick. Specifying a framerate for the MovieClip\nwill cause it to advance based on elapsed time between ticks as appropriate to maintain the target\nframerate.",
             "itemtype": "property",
             "name": "_framerate",
@@ -1055,7 +1106,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 159,
+            "line": 189,
             "description": "When the MovieClip is framerate independent, this is the total time in seconds for the animation.",
             "itemtype": "property",
             "name": "_duration",
@@ -1069,7 +1120,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 168,
+            "line": 198,
             "description": "List of display objects that are actively being managed by the MovieClip.",
             "itemtype": "property",
             "name": "_managed",
@@ -1082,7 +1133,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 189,
+            "line": 219,
             "description": "The MovieClip will advance independently of its parent, even if its parent is paused.\nThis is the default mode.",
             "itemtype": "property",
             "name": "INDEPENDENT",
@@ -1096,7 +1147,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 200,
+            "line": 230,
             "description": "The MovieClip will only display a single frame (as determined by the startPosition property).",
             "itemtype": "property",
             "name": "SINGLE_FRAME",
@@ -1110,7 +1161,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 210,
+            "line": 240,
             "description": "The MovieClip will be advanced only when its parent advances and will be synched to the position of\nthe parent MovieClip.",
             "itemtype": "property",
             "name": "SYNCHED",
@@ -1124,7 +1175,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 248,
+            "line": 278,
             "description": "Use the {{#crossLink \"MovieClip/labels:property\"}}{{/crossLink}} property instead.",
             "itemtype": "method",
             "name": "getLabels",
@@ -1139,7 +1190,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 258,
+            "line": 288,
             "description": "Use the {{#crossLink \"MovieClip/currentLabel:property\"}}{{/crossLink}} property instead.",
             "itemtype": "method",
             "name": "getCurrentLabel",
@@ -1154,7 +1205,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 269,
+            "line": 299,
             "description": "Returns an array of objects with label and position (aka frame) properties, sorted by position.\nShortcut to TweenJS: Timeline.getLabels();",
             "itemtype": "property",
             "name": "labels",
@@ -1166,7 +1217,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 277,
+            "line": 307,
             "description": "Returns the name of the label on or immediately before the current frame. See TweenJS: Timeline.getCurrentLabel()\nfor more information.",
             "itemtype": "property",
             "name": "currentLabel",
@@ -1178,7 +1229,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 291,
+            "line": 321,
             "description": "When the MovieClip is framerate independent, this is the time elapsed from frame 0 in seconds.",
             "itemtype": "property",
             "name": "elapsedTime",
@@ -1192,7 +1243,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 307,
+            "line": 337,
             "description": "By default MovieClip instances advance one frame per tick. Specifying a framerate for the MovieClip\nwill cause it to advance based on elapsed time between ticks as appropriate to maintain the target\nframerate.\n\nFor example, if a MovieClip with a framerate of 10 is placed on a Stage being updated at 40fps, then the MovieClip will\nadvance roughly one frame every 4 ticks. This will not be exact, because the time between each tick will\nvary slightly between frames.\n\nThis feature is dependent on the tick event object (or an object with an appropriate \"delta\" property) being\npassed into {{#crossLink \"Stage/update\"}}{{/crossLink}}.",
             "itemtype": "property",
             "name": "framerate",
@@ -1204,7 +1255,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 337,
+            "line": 367,
             "description": "Sets paused to false.",
             "itemtype": "method",
             "name": "play",
@@ -1214,7 +1265,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 345,
+            "line": 375,
             "description": "Sets paused to true.",
             "itemtype": "method",
             "name": "stop",
@@ -1224,7 +1275,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 353,
+            "line": 383,
             "description": "Advances this movie clip to the specified position or label and sets paused to false.",
             "itemtype": "method",
             "name": "gotoAndPlay",
@@ -1241,7 +1292,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 363,
+            "line": 393,
             "description": "Advances this movie clip to the specified position or label and sets paused to true.",
             "itemtype": "method",
             "name": "gotoAndStop",
@@ -1258,7 +1309,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 373,
+            "line": 403,
             "description": "Advances the playhead. This occurs automatically each tick by default.",
             "params": [
                 {
@@ -1276,7 +1327,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 413,
+            "line": 443,
             "itemtype": "method",
             "name": "_tick",
             "params": [
@@ -1294,7 +1345,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 439,
+            "line": 469,
             "itemtype": "method",
             "name": "_goto",
             "params": [
@@ -1312,7 +1363,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 458,
+            "line": 488,
             "itemtype": "method",
             "name": "_reset",
             "access": "private",
@@ -1323,7 +1374,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 468,
+            "line": 498,
             "itemtype": "method",
             "name": "_updateTimeline",
             "access": "protected",
@@ -1334,7 +1385,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 518,
+            "line": 548,
             "itemtype": "method",
             "name": "_setState",
             "params": [
@@ -1357,7 +1408,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 535,
+            "line": 565,
             "description": "Adds a child to the timeline, and sets it up as a managed child.",
             "itemtype": "method",
             "name": "_addManagedChild",
@@ -1381,7 +1432,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 568,
+            "line": 610,
             "itemtype": "method",
             "name": "priority",
             "access": "private",
@@ -1392,7 +1443,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 574,
+            "line": 616,
             "itemtype": "method",
             "name": "install",
             "access": "private",
@@ -1403,7 +1454,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 582,
+            "line": 624,
             "itemtype": "method",
             "name": "init",
             "params": [
@@ -1431,7 +1482,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 593,
+            "line": 635,
             "itemtype": "method",
             "name": "step",
             "access": "private",
@@ -1442,7 +1493,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 601,
+            "line": 643,
             "itemtype": "method",
             "name": "tween",
             "params": [
@@ -1509,7 +1560,7 @@
         },
         {
             "file": "src/Shape.js",
-            "line": 56,
+            "line": 67,
             "description": "Map of Base64 characters to values. Used by {{#crossLink \"Graphics/decodePath\"}}{{/crossLink}}.",
             "itemtype": "property",
             "name": "BASE_64",
@@ -1525,7 +1576,7 @@
         },
         {
             "file": "src/Shape.js",
-            "line": 74,
+            "line": 85,
             "description": "Draws a line from the current drawing point to the specified position, which become the new current drawing\npoint. A tiny API method \"lt\" also exists.\n\nFor detailed information, read the\n<a href=\"http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#complex-shapes-(paths)\">\nwhatwg spec</a>.",
             "itemtype": "method",
             "name": "lt",
@@ -1551,7 +1602,7 @@
         },
         {
             "file": "src/Shape.js",
-            "line": 87,
+            "line": 98,
             "description": "Moves the drawing point to the specified position. A tiny API method \"mt\" also exists.",
             "itemtype": "method",
             "name": "mt",
@@ -1577,7 +1628,7 @@
         },
         {
             "file": "src/Shape.js",
-            "line": 95,
+            "line": 106,
             "description": "Draws a bezier curve from the current drawing point to (x, y) using the control points (cp1x, cp1y) and (cp2x,\ncp2y). For detailed information, read the\n<a href=\"http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#dom-context-2d-beziercurveto\">\nwhatwg spec</a>. A tiny API method \"bt\" also exists.",
             "itemtype": "method",
             "name": "bt",
@@ -1623,7 +1674,7 @@
         },
         {
             "file": "src/Shape.js",
-            "line": 110,
+            "line": 121,
             "description": "Draws a quadratic curve from the current drawing point to (x, y) using the control point (cpx, cpy). For detailed\ninformation, read the <a href=\"http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#dom-context-2d-quadraticcurveto\">\nwhatwg spec</a>. A tiny API method \"qt\" also exists.",
             "itemtype": "method",
             "name": "qt",
@@ -1659,7 +1710,7 @@
         },
         {
             "file": "src/Shape.js",
-            "line": 133,
+            "line": 144,
             "description": "Closes the current path, effectively drawing a line from the current drawing point to the first drawing point specified\nsince the fill or stroke was last set. A tiny API method \"cp\" also exists.",
             "itemtype": "method",
             "name": "cp",
@@ -1673,7 +1724,7 @@
         },
         {
             "file": "src/Shape.js",
-            "line": 149,
+            "line": 160,
             "description": "Begins a fill with the specified color. This ends the current sub-path. A tiny API method \"f\" also exists.",
             "itemtype": "method",
             "name": "f",
@@ -1694,7 +1745,7 @@
         },
         {
             "file": "src/Shape.js",
-            "line": 167,
+            "line": 178,
             "description": "Sets the stroke style. Like all drawing methods, this can be chained, so you can define\nthe stroke style and color in a single line of code like so:\n\n\tmyGraphics.setStrokeStyle(8,\"round\").beginStroke(\"#F00\");\n\nA tiny API method \"ss\" also exists.",
             "itemtype": "method",
             "name": "ss",
@@ -1743,7 +1794,7 @@
         },
         {
             "file": "src/Shape.js",
-            "line": 194,
+            "line": 205,
             "description": "Begins a stroke with the specified color. This ends the current sub-path. A tiny API method \"s\" also exists.",
             "itemtype": "method",
             "name": "s",
@@ -1764,7 +1815,7 @@
         },
         {
             "file": "src/Shape.js",
-            "line": 211,
+            "line": 222,
             "description": "Decodes a compact encoded path string into a series of draw instructions.\nThis format is not intended to be human readable, and is meant for use by authoring tools.\nThe format uses a base64 character set, with each character representing 6 bits, to define a series of draw\ncommands.\n\nEach command is comprised of a single \"header\" character followed by a variable number of alternating x and y\nposition values. Reading the header bits from left to right (most to least significant): bits 1 to 3 specify the\ntype of operation (0-moveTo, 1-lineTo, 2-quadraticCurveTo, 3-bezierCurveTo, 4-closePath, 5-7 unused). Bit 4\nindicates whether position values use 12 bits (2 characters) or 18 bits (3 characters), with a one indicating the\nlatter. Bits 5 and 6 are currently unused.\n\nFollowing the header is a series of 0 (closePath), 2 (moveTo, lineTo), 4 (quadraticCurveTo), or 6 (bezierCurveTo)\nparameters. These parameters are alternating x/y positions represented by 2 or 3 characters (as indicated by the\n4th bit in the command char). These characters consist of a 1 bit sign (1 is negative, 0 is positive), followed\nby an 11 (2 char) or 17 (3 char) bit integer value. All position values are in tenths of a pixel. Except in the\ncase of move operations which are absolute, this value is a delta from the previous x or y position (as\nappropriate).\n\nFor example, the string \"A3cAAMAu4AAA\" represents a line starting at -150,0 and ending at 150,0.\n<br />A - bits 000000. First 3 bits (000) indicate a moveTo operation. 4th bit (0) indicates 2 chars per\nparameter.\n<br />n0 - 110111011100. Absolute x position of -150.0px. First bit indicates a negative value, remaining bits\nindicate 1500 tenths of a pixel.\n<br />AA - 000000000000. Absolute y position of 0.\n<br />I - 001100. First 3 bits (001) indicate a lineTo operation. 4th bit (1) indicates 3 chars per parameter.\n<br />Au4 - 000000101110111000. An x delta of 300.0px, which is added to the previous x value of -150.0px to\nprovide an absolute position of +150.0px.\n<br />AAA - 000000000000000000. A y delta value of 0.\n\nA tiny API method \"p\" also exists.",
             "itemtype": "method",
             "name": "p",
@@ -1785,7 +1836,7 @@
         },
         {
             "file": "src/Shape.js",
-            "line": 292,
+            "line": 303,
             "description": "Convert a string color \"#ffffff\" to int 0xffffff",
             "itemtype": "method",
             "name": "colorToHex",
@@ -1808,7 +1859,7 @@
         },
         {
             "file": "src/Shape.js",
-            "line": 316,
+            "line": 327,
             "description": "Get the alpha color from color string",
             "itemtype": "method",
             "name": "alphaFromColor",

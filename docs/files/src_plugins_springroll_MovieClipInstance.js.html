@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>Pixi Flash v0.1.2 API Documentation : src/Sprite.js</title>  
+	<title>Pixi Flash v0.1.2 API Documentation : src/plugins/springroll/MovieClipInstance.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -87,73 +87,67 @@
                 <div id="docs-main">
                     <div class="content">
 <script>
-	var name = src/Sprite.js      
+	var name = src/plugins/springroll/MovieClipInstance.js      
 </script>
-<h1 class="file-heading">File:Sprite.js</h1>
+<h1 class="file-heading">File:MovieClipInstance.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
 /**
- * @module Pixi Flash
+ * @module SpringRoll Plugin
  * @namespace pixiflash
+ * @requires Pixi Flash
  */
 (function(undefined)
 {
-	var PixiSprite = PIXI.Sprite,
-		DisplayObject = pixiflash.DisplayObject;
-	
-	/**
-	 * The class to emulate createjs.Sprite
-	 * @class Sprite
-	 * @extends PIXI.Sprite
-	 */
-	var Sprite = function()
-	{
-		PixiSprite.call(this);
-		DisplayObject.call(this);
-
-		/**
-		 * The spritesheet to use
-		 * @property {pixiflash.SpriteSheet} spriteSheet
-		 */
-		this.spriteSheet = null;
-	};
-	
-	// Extend PIXI.Sprite
-	var p = Sprite.prototype = Object.create(PixiSprite.prototype);
-	
-	// Mixin the display object
-	DisplayObject.mixin(p);
-	
-	//constructor for backwards/Flash exporting compatibility
-	p.initialize = Sprite;
+	var MovieClip = include(&#x27;pixiflash.MovieClip&#x27;);
+	var AnimatorInstance = include(&#x27;springroll.AnimatorInstance&#x27;);
+	var GenericMovieClipInstance = include(&#x27;springroll.GenericMovieClipInstance&#x27;);
 
 	/**
-	 * Goto and stop on a frame
-	 * @method gotoAndStop
-	 * @param {int} frame The frame index
+	 * The plugin for working with movieclip and animator
+	 * @class MovieClipInstance
+	 * @extends springroll.GenericMovieClipInstance
+	 * @private
 	 */
-	p.gotoAndStop = function(frame)
+	var MovieClipInstance = function()
 	{
-		//Due to the way Flash exports Sprites, we need to initialize each instance on the first
-		//use here.
-		if(!this._initialized)
-		{
-			var spriteSheet = this.spriteSheet;
-			this.initialize();
-			this.spriteSheet = spriteSheet;
-			this._initialized = true;
-		}
-		if (!this.spriteSheet)
-		{
-			throw &quot;Sprite doesn&#x27;t have a spriteSheet&quot;;
-		}
-		this.texture = this.spriteSheet.getFrame(frame);
+		GenericMovieClipInstance.call(this);
+	};
+
+	/**
+	 * Required to test clip
+	 * @method test
+	 * @static
+	 * @param {*} clip The object to test
+	 * @return {Boolean} If the clip is compatible with this plugin
+	 */
+	MovieClipInstance.test = function(clip)
+	{
+		return clip instanceof MovieClip;
 	};
 	
+	MovieClipInstance.hasAnimation = GenericMovieClipInstance.hasAnimation;
+	MovieClipInstance.getDuration = GenericMovieClipInstance.getDuration;
+
+	// Inherit the AnimatorInstance
+	var s = GenericMovieClipInstance.prototype;
+	var p = AnimatorInstance.extend(MovieClipInstance, GenericMovieClipInstance);
+	
+	p._Generic_beginAnim = p.beginAnim;
+	
+	p.beginAnim = function(animObj, isRepeat)
+	{
+		this._Generic_beginAnim(animObj, isRepeat);
+		
+		//because pixiflash.MovieClip no longer updates the timeline in advance(), we need
+		//to make sure the timeline is updated immediately in this case
+		this.clip._updateTimeline();
+	};
+
 	// Assign to namespace
-	pixiflash.Sprite = Sprite;
-	
+	namespace(&#x27;pixiflash&#x27;).MovieClipInstance = MovieClipInstance;
+
 }());
     </pre>
 </div>
