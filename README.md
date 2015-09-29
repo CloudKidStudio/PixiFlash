@@ -21,10 +21,15 @@ Install the post-publish tool by running **tools/install.jsfl**. This will allow
 
 ### Installing Library
 
-To run content exported with PixiFlash, you must load the JavaScript library within your project. You can install using [Bower](http://bower.io):
+To run content exported with PixiFlash, you must load the JavaScript library within your project. You can install using [Bower](http://bower.io) or [NPM](http://www.npmjs.org):
 
+#### Bower
 ```
 bower install pixi-flash
+```
+#### NPM
+```
+npm install pixi-flash
 ```
 
 ### Dependencies
