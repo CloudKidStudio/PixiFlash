@@ -1,4 +1,4 @@
-# PIXI Flash [![Build Status](https://travis-ci.org/SpringRoll/PixiFlash.svg)](https://travis-ci.org/SpringRoll/PixiFlash) [![Dependency Status](https://david-dm.org/SpringRoll/PixiFlash.svg)](https://david-dm.org/SpringRoll/PixiFlash)  [![GitHub version](https://badge.fury.io/gh/SpringRoll%2FPixiFlash.svg)](https://github.com/SpringRoll/PixiFlash/releases/latest)
+# PIXI Flash [![Build Status](https://travis-ci.org/CloudKidStudio/PixiFlash.svg)](https://travis-ci.org/CloudKidStudio/PixiFlash) [![Dependency Status](https://david-dm.org/CloudKidStudio/PixiFlash.svg)](https://david-dm.org/CloudKidStudio/PixiFlash)  [![GitHub version](https://badge.fury.io/gh/CloudKidStudio%2FPixiFlash.svg)](https://github.com/CloudKidStudio/PixiFlash/releases/latest)
 
 A library for bridging CreateJS animations from Flash for use in PIXI. Publish Flash content like you normally would for CreateJS, but export for Flash. There can be _no_ vectors used, this publishing process only supports bitmaps, movieclips and timeline animations.
 
@@ -74,8 +74,8 @@ function update()
 
 ## Examples
 
-* Animation example [using all bitmaps](http://springroll.github.io/PixiFlash/examples/animation/)
-* Animation example [using only vector shapes](http://springroll.github.io/PixiFlash/examples/shapes/)
+* Animation example [using all bitmaps](http://cloudkidstudio.github.io/PixiFlash/examples/animation/)
+* Animation example [using only vector shapes](http://cloudkidstudio.github.io/PixiFlash/examples/shapes/)
 
 _Examples are from [Fizzy's Lunch Lab](http://pbskids.org/lunchlab/) and used with permission from Lunch Lab, LLC_
 
