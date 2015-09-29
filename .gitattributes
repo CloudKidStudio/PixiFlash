@@ -3,3 +3,4 @@
 .bowerrc export-ignore
 .editorconfig export-ignore
 .travis.yml export-ignore
+.npmignore export-ignore
