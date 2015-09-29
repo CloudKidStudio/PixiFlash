@@ -1,4 +1,5 @@
 .gitignore
+.gitattributes
 .editorconfig
 .bowerrc
 .travis.yml
@@ -9,3 +10,4 @@ Gruntfile.js
 examples
 docs
 src
+tools
