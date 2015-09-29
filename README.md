@@ -2,6 +2,13 @@
 
 A library for bridging CreateJS animations from Flash for use in Pixi.js. Publish Flash content like you normally would for CreateJS (with an HTML5 Canvas document), but export for Pixi.js instead. While there are some [known issues](https://github.com/CloudKidStudio/PixiFlash#known-issues) with this approach, it produces fast animation playback for WebGL and is superior to using Flash's WebGL document.
 
+## Examples
+
+* Animation [using all bitmaps](http://cloudkidstudio.github.io/PixiFlash/examples/animation/)
+* Animation [using only vector shapes](http://cloudkidstudio.github.io/PixiFlash/examples/shapes/)
+
+_Examples are from [Fizzy's Lunch Lab](http://pbskids.org/lunchlab/) and used with permission from Lunch Lab, LLC_
+
 ## Flash Publishing 
 
 ### Install Publishing Helper (optional)
@@ -76,13 +83,6 @@ function update()
     renderer.render(stage);
 }
 ```
-
-## Examples
-
-* Animation example [using all bitmaps](http://cloudkidstudio.github.io/PixiFlash/examples/animation/)
-* Animation example [using only vector shapes](http://cloudkidstudio.github.io/PixiFlash/examples/shapes/)
-
-_Examples are from [Fizzy's Lunch Lab](http://pbskids.org/lunchlab/) and used with permission from Lunch Lab, LLC_
 
 ##Known Issues
 
