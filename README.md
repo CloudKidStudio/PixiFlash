@@ -1,6 +1,6 @@
 # PIXI Flash [![Build Status](https://travis-ci.org/CloudKidStudio/PixiFlash.svg)](https://travis-ci.org/CloudKidStudio/PixiFlash) [![Dependency Status](https://david-dm.org/CloudKidStudio/PixiFlash.svg)](https://david-dm.org/CloudKidStudio/PixiFlash)  [![GitHub version](https://badge.fury.io/gh/CloudKidStudio%2FPixiFlash.svg)](https://github.com/CloudKidStudio/PixiFlash/releases/latest)
 
-A library for bridging CreateJS animations from Flash for use in Pixi.js. Publish Flash content like you normally would for CreateJS (with an HTML5 Canvas document), but export for Pixi.js instead. While there are some [known issues](/CloudKidStudio/PixiFlash#known-issues) with this approach, it produces fast animation playback for WebGL and is superior to using Flash's WebGL document.
+A library for bridging CreateJS animations from Flash for use in Pixi.js. Publish Flash content like you normally would for CreateJS (with an HTML5 Canvas document), but export for Pixi.js instead. While there are some [known issues](https://github.com/CloudKidStudio/PixiFlash#known-issues) with this approach, it produces fast animation playback for WebGL and is superior to using Flash's WebGL document.
 
 ## Flash Publishing 
 
