@@ -1,6 +1,6 @@
 # PIXI Flash [![Build Status](https://travis-ci.org/CloudKidStudio/PixiFlash.svg)](https://travis-ci.org/CloudKidStudio/PixiFlash) [![Dependency Status](https://david-dm.org/CloudKidStudio/PixiFlash.svg)](https://david-dm.org/CloudKidStudio/PixiFlash)  [![GitHub version](https://badge.fury.io/gh/CloudKidStudio%2FPixiFlash.svg)](https://github.com/CloudKidStudio/PixiFlash/releases/latest)
 
-A library for bridging CreateJS animations from Flash for use in PIXI. Publish Flash content like you normally would for CreateJS, but export for Flash. There can be _no_ vectors used, this publishing process only supports bitmaps, movieclips and timeline animations.
+A library for bridging CreateJS animations from Flash for use in Pixi.js. Publish Flash content like you normally would for CreateJS (with an HTML5 Canvas document), but export for Pixi.js instead. While there are some [known issues](/CloudKidStudio/PixiFlash#known-issues) with this approach, it produces fast animation playback for WebGL and is superior to using Flash's WebGL document.
 
 ## Flash Publishing 
 
@@ -89,6 +89,7 @@ _Examples are from [Fizzy's Lunch Lab](http://pbskids.org/lunchlab/) and used wi
 * Abutting vector shapes create a small seams which make it possible to see the color underneath (similar to EaselJS)
 * Complex shapes with a negative shape inside of it only render the outer-most shape. For example, a donut shape would only render the outer circle and not the hole.
 * Timeline masking doesn't work
+* Cannot "Test Movie" in side of Flash to preview the animation
 
 ##License
 
