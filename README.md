@@ -4,18 +4,18 @@ A library for bridging CreateJS animations from Flash for use in PIXI. Publish F
 
 ## Flash Publishing 
 
-### Installing
+### Install Publishing Helper (optional)
 
-Install the post-publish tool by running **tools/install.jsfl**. This will allow for some error checking when publishing for PIXI Flash.
+Install the post-publish tool by running **tools/install.jsfl**. This provides some error checking when publishing for PIXI Flash, including error checking images and symbol namespaces.
 
 ### Flash Setup
 
-* Make sure you use a Flash "HTML5 Canvas" document type 
-* Change the publishing settings under JavaScript Namespaces
+1. Make sure you use a Flash "HTML5 Canvas" document type 
+2. Change the publishing settings under JavaScript Namespaces
  * Symbols: **pixiflash_lib**
  * Images: **pixiflash_images**
  * CreateJS: **pixiflash**
-* Publishing document
+3. Publishing document
 
 ## Running Content
 
