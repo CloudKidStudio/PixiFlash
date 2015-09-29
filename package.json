@@ -1,11 +1,33 @@
 {
-	"private": true,
-	"version": "0.1.0",
+	"name": "pixi-flash",
+	"version": "0.1.1",
+	"main": "dist/pixi-flash.min.js",
+	"author": "CloudKid <tools@cloudkid.com>",
 	"dependencies": {
+		"pixi.js": "*",
+		"createjs-tweenjs": "*"
+	},
+  	"devDependencies": {
 		"grunt": "~0.4.5",
-		"library-grunt": "~0.6.0"
+	  	"library-grunt": "~0.6.0"
+  	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/CloudKidStudio/PixiFlash"
+	},
+	"bugs": {
+		"url": "https://github.com/CloudKidStudio/PixiFlash/issues"
 	},
 	"scripts": {
 		"test": "grunt default --verbose"
-	}
+	},
+	"keywords": [
+		"webgl",
+		"pixi",
+		"pixi.js",
+		"Flash",
+		"animation",
+		"tween"
+	],
+	"license": "MIT"
 }
