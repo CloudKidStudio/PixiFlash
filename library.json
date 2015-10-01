@@ -1,8 +1,8 @@
 {
 	"name": "Pixi Flash",
 	"version": "0.1.2",
-	"description": "A SpringRoll plugin for handling assets exported through Flash's CreateJS publishing.",
-	"url": "https://github.com/SpringRoll/PixiFlash",
+	"description": "Runtime library to play HTML5 Canvas content from Flash with Pixi.js",
+	"url": "https://github.com/CloudKidStudio/PixiFlash",
 	"output": "pixi-flash",
 	"main": [
 		"src/main.js",

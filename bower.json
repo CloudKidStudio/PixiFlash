@@ -21,6 +21,7 @@
 		"tools",
 		".bowerrc",
 		".editorconfig",
+		".npmignore",
 		".travis.yml",
 		".gitattributes",
 		"library.json",

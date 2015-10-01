@@ -1,30 +1,43 @@
-# PIXI Flash [![Build Status](https://travis-ci.org/SpringRoll/PixiFlash.svg)](https://travis-ci.org/SpringRoll/PixiFlash) [![Dependency Status](https://david-dm.org/SpringRoll/PixiFlash.svg)](https://david-dm.org/SpringRoll/PixiFlash)
+# PIXI Flash [![Build Status](https://travis-ci.org/CloudKidStudio/PixiFlash.svg)](https://travis-ci.org/CloudKidStudio/PixiFlash) [![Dependency Status](https://david-dm.org/CloudKidStudio/PixiFlash.svg)](https://david-dm.org/CloudKidStudio/PixiFlash)  [![GitHub version](https://badge.fury.io/gh/CloudKidStudio%2FPixiFlash.svg)](https://github.com/CloudKidStudio/PixiFlash/releases/latest)
 
-A library for bridging CreateJS animations from Flash for use in PIXI. Publish Flash content like you normally would for CreateJS, but export for Flash. There can be _no_ vectors used, this publishing process only supports bitmaps, movieclips and timeline animations.
+A library for bridging CreateJS animations from Flash for use in Pixi.js. Publish Flash content like you normally would for CreateJS (with an HTML5 Canvas document), but export for Pixi.js instead. While there are some [known issues](https://github.com/CloudKidStudio/PixiFlash#known-issues) with this approach, it produces fast animation playback for WebGL and is superior to using Flash's WebGL document.
+
+## Examples
+
+* [Animation using all bitmaps](http://springroll.github.io/PixiFlash/examples/animation/)
+* [Animation using all vectors](http://springroll.github.io/PixiFlash/examples/shapes/)
+* [Masking](http://springroll.github.io/PixiFlash/examples/masking/)
+
+_Examples are from [Fizzy's Lunch Lab](http://pbskids.org/lunchlab/) and used with permission from Lunch Lab, LLC_
 
 ## Flash Publishing 
 
-### Installing
+### Install Publishing Helper (optional)
 
-Install the post-publish tool by running **tools/install.jsfl**. This will allow for some error checking when publishing for PIXI Flash.
+Install the post-publish tool by running **tools/install.jsfl**. This provides some error checking when publishing for PIXI Flash, including error checking images and symbol namespaces.
 
 ### Flash Setup
 
-* Make sure you use a Flash "HTML5 Canvas" document type 
-* Change the publishing settings under JavaScript Namespaces
+1. Make sure you use a Flash "HTML5 Canvas" document type 
+2. Change the publishing settings under JavaScript Namespaces
  * Symbols: **pixiflash_lib**
  * Images: **pixiflash_images**
  * CreateJS: **pixiflash**
-* Publishing document
+3. Publishing document
 
 ## Running Content
 
 ### Installing Library
 
-To run content exported with PixiFlash, you must load the JavaScript library within your project. You can install using [Bower](http://bower.io):
+To run content exported with PixiFlash, you must load the JavaScript library within your project. You can install using [Bower](http://bower.io) or [NPM](http://www.npmjs.org):
 
+#### Bower
 ```
 bower install pixi-flash
+```
+#### NPM
+```
+npm install pixi-flash
 ```
 
 ### Dependencies
@@ -72,18 +85,12 @@ function update()
 }
 ```
 
-## Examples
-
-* [Animation using all bitmaps](http://springroll.github.io/PixiFlash/examples/animation/)
-* [Animation using all vectors](http://springroll.github.io/PixiFlash/examples/shapes/)
-* [Masking](http://springroll.github.io/PixiFlash/examples/masking/)
-
-_Examples are from [Fizzy's Lunch Lab](http://pbskids.org/lunchlab/) and used with permission from Lunch Lab, LLC_
-
 ##Known Issues
 
 * Abutting vector shapes create a small seams which make it possible to see the color underneath (similar to EaselJS)
 * Complex shapes with a negative shape inside of it only render the outer-most shape. For example, a donut shape would only render the outer circle and not the hole.
+* Timeline masking doesn't work
+* Cannot "Test Movie" in side of Flash to preview the animation
 
 ##License
 
