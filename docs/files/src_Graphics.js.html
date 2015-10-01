@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://yui-s.yahooapis.com/3.8.0/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
+    <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
+	<title>Pixi Flash v0.2.0 API Documentation : src/Graphics.js</title>  
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><a href="https://github.com/CloudKidStudio/PixiFlash"><img src="../assets/css/logo.png" title="Pixi Flash"></a></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Documentation for: 0.2.0</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                		<ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                			<li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/pixiflash.Bitmap.html">pixiflash.Bitmap</a></li>
+                                <li><a href="../classes/pixiflash.Container.html">pixiflash.Container</a></li>
+                                <li><a href="../classes/pixiflash.DisplayObject.html">pixiflash.DisplayObject</a></li>
+                                <li><a href="../classes/pixiflash.FlashArt.html">pixiflash.FlashArt</a></li>
+                                <li><a href="../classes/pixiflash.FlashArtTask.html">pixiflash.FlashArtTask</a></li>
+                                <li><a href="../classes/pixiflash.Graphics.html">pixiflash.Graphics</a></li>
+                                <li><a href="../classes/pixiflash.MovieClip.html">pixiflash.MovieClip</a></li>
+                                <li><a href="../classes/pixiflash.MovieClipInstance.html">pixiflash.MovieClipInstance</a></li>
+                                <li><a href="../classes/pixiflash.MovieClipPlugin.html">pixiflash.MovieClipPlugin</a></li>
+                                <li><a href="../classes/pixiflash.Shape.html">pixiflash.Shape</a></li>
+                                <li><a href="../classes/pixiflash.Sprite.html">pixiflash.Sprite</a></li>
+                                <li><a href="../classes/pixiflash.SpriteSheet.html">pixiflash.SpriteSheet</a></li>
+                                <li><a href="../classes/pixiflash.SpriteSheetTask.html">pixiflash.SpriteSheetTask</a></li>
+                                <li><a href="../classes/pixiflash.utils.html">pixiflash.utils</a></li>
+                            </ul>
+                
+                            <ul id="api-modules" class="apis modules">
+                                <li><a href="../modules/Pixi Flash.html">Pixi Flash</a></li>
+                                <li><a href="../modules/SpringRoll Plugin.html">SpringRoll Plugin</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+            <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<script>
+	var name = src/Graphics.js      
+</script>
+<h1 class="file-heading">File:Graphics.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+ * @module Pixi Flash
+ * @namespace pixiflash
+ */
+(function(undefined)
+{
+	var PixiGraphics = PIXI.Graphics,
+		DisplayObject = pixiflash.DisplayObject;
+	
+	/**
+	 * The class to emulate createjs.Graphics
+	 * @class Graphics
+	 * @extends PIXI.Graphics
+	 * @constructor
+	 */
+	var Graphics = function()
+	{
+		PixiGraphics.call(this);
+		//DisplayObject.call(this);
+	};
+
+	// Extend PIXI.Sprite
+	var s = PixiGraphics.prototype;
+	var p = Graphics.prototype = Object.create(s);
+	
+	// Mixin the display object
+	//DisplayObject.mixin(p);
+	
+	//constructor for backwards/Flash exporting compatibility
+	p.initialize = Graphics;
+
+	// Assign to namespace
+	pixiflash.Graphics = Graphics;
+	
+	 /**
+	 * Map of Base64 characters to values. Used by {{#crossLink &quot;Graphics/decodePath&quot;}}{{/crossLink}}.
+	 * @property {Object} BASE_64
+	 * @static
+	 * @final
+	 * @private
+	 * @readonly
+	 **/
+	var BASE_64 = {
+		&quot;A&quot;:0,&quot;B&quot;:1,&quot;C&quot;:2,&quot;D&quot;:3,&quot;E&quot;:4,&quot;F&quot;:5,&quot;G&quot;:6,&quot;H&quot;:7,&quot;I&quot;:8,
+		&quot;J&quot;:9,&quot;K&quot;:10,&quot;L&quot;:11,&quot;M&quot;:12,&quot;N&quot;:13,&quot;O&quot;:14,&quot;P&quot;:15,&quot;Q&quot;:16,&quot;R&quot;:17,&quot;S&quot;:18,
+		&quot;T&quot;:19,&quot;U&quot;:20,&quot;V&quot;:21,&quot;W&quot;:22,&quot;X&quot;:23,&quot;Y&quot;:24,&quot;Z&quot;:25,&quot;a&quot;:26,&quot;b&quot;:27,&quot;c&quot;:28,
+		&quot;d&quot;:29,&quot;e&quot;:30,&quot;f&quot;:31,&quot;g&quot;:32,&quot;h&quot;:33,&quot;i&quot;:34,&quot;j&quot;:35,&quot;k&quot;:36,&quot;l&quot;:37,&quot;m&quot;:38,
+		&quot;n&quot;:39,&quot;o&quot;:40,&quot;p&quot;:41,&quot;q&quot;:42,&quot;r&quot;:43,&quot;s&quot;:44,&quot;t&quot;:45,&quot;u&quot;:46,&quot;v&quot;:47,&quot;w&quot;:48,
+		&quot;x&quot;:49,&quot;y&quot;:50,&quot;z&quot;:51,&quot;0&quot;:52,&quot;1&quot;:53,&quot;2&quot;:54,&quot;3&quot;:55,&quot;4&quot;:56,&quot;5&quot;:57,&quot;6&quot;:58,
+		&quot;7&quot;:59,&quot;8&quot;:60,&quot;9&quot;:61,&quot;+&quot;:62,&quot;/&quot;:63
+	};
+
+	/**
+	 * Moves the drawing point to the specified position. A tiny API method &quot;mt&quot; also exists.
+	 * @method mt
+	 * @param {Number} x The x coordinate the drawing point should move to.
+	 * @param {Number} y The y coordinate the drawing point should move to.
+	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls).
+	 **/
+	p.mt = p.moveTo;
+
+	/**
+	 * Draws a line from the current drawing point to the specified position, which become the new current drawing
+	 * point. A tiny API method &quot;lt&quot; also exists.
+	 *
+	 * For detailed information, read the
+	 * &lt;a href=&quot;http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#complex-shapes-(paths)&quot;&gt;
+	 * whatwg spec&lt;/a&gt;.
+	 * @method lt
+	 * @param {Number} x The x coordinate the drawing point should draw to.
+	 * @param {Number} y The y coordinate the drawing point should draw to.
+	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 **/
+	p.lt = p.lineTo;
+
+	/**
+	 * Draws a bezier curve from the current drawing point to (x, y) using the control points (cp1x, cp1y) and (cp2x,
+	 * cp2y). For detailed information, read the
+	 * &lt;a href=&quot;http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#dom-context-2d-beziercurveto&quot;&gt;
+	 * whatwg spec&lt;/a&gt;. A tiny API method &quot;bt&quot; also exists.
+	 * @method bt
+	 * @param {Number} cp1x
+	 * @param {Number} cp1y
+	 * @param {Number} cp2x
+	 * @param {Number} cp2y
+	 * @param {Number} x
+	 * @param {Number} y
+	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 **/
+	p.bt = p.bezierCurveTo;
+
+	/**
+	 * Shortcut to drawRect.
+	 * @method dr
+	 * @param {Number} x
+	 * @param {Number} y
+	 * @param {Number} w Width of the rectangle
+	 * @param {Number} h Height of the rectangle
+	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 * @chainable
+	 * @protected
+	 **/
+	p.dr = p.drawRect;
+
+	/**
+	 * Shortcut to drawCircle.
+	 * @method dc
+	 * @param {Number} x x coordinate center point of circle.
+	 * @param {Number} y y coordinate center point of circle.
+	 * @param {Number} radius Radius of circle.
+	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 * @chainable
+	 * @protected
+	 **/
+	p.dc = p.drawCircle;
+
+	/**
+	 * Shortcut to arc.
+	 * @method a
+	 * @param {Number} x
+	 * @param {Number} y
+	 * @param {Number} radius
+	 * @param {Number} startAngle Measured in radians.
+	 * @param {Number} endAngle Measured in radians.
+	 * @param {Boolean} anticlockwise
+	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 * @protected
+	 * @chainable
+	 **/
+	p.a = p.arc;
+
+	/**
+	 * Shortcut to arcTo.
+	 * @method at
+	 * @param {Number} x1
+	 * @param {Number} y1
+	 * @param {Number} x2
+	 * @param {Number} y2
+	 * @param {Number} radius
+	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 * @chainable
+	 * @protected
+	 **/
+	p.at = p.arcTo;
+
+	/**
+	 * Override the draw ellipse method
+	 * @method  de
+	 * @param  {Number} x      [description]
+	 * @param  {Number} y      [description]
+	 * @param  {Number} width  [description]
+	 * @param  {Number} height [description]
+	 */
+	p.de = function(x, y, width, height)
+	{
+		// Math conversion
+		return this.drawEllipse(x + width / 2, y + height / 2, width / 2, height / 2);
+	};
+
+	/**
+	 * Draws a quadratic curve from the current drawing point to (x, y) using the control point (cpx, cpy). For detailed
+	 * information, read the &lt;a href=&quot;http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#dom-context-2d-quadraticcurveto&quot;&gt;
+	 * whatwg spec&lt;/a&gt;. A tiny API method &quot;qt&quot; also exists.
+	 * @method qt
+	 * @param {Number} cpx
+	 * @param {Number} cpy
+	 * @param {Number} x
+	 * @param {Number} y
+	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 **/
+	p.qt = function(cpx, cpy, x, y)
+	{
+		// Ensure that the draw shape is not closed
+		var currentPath = this.currentPath;
+		if (currentPath &amp;&amp; currentPath.shape)
+		{
+			currentPath.shape.closed = false;
+		}
+		return this.quadraticCurveTo(cpx, cpy, x, y);
+	};
+
+	/**
+	 * Closes the current path, effectively drawing a line from the current drawing point to the first drawing point specified
+	 * since the fill or stroke was last set. A tiny API method &quot;cp&quot; also exists.
+	 * @method cp
+	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 **/
+	p.cp = function()
+	{
+		var currentPath = this.currentPath;
+		if (currentPath &amp;&amp; currentPath.shape)
+		{
+			currentPath.shape.closed = true;
+		}
+		return this;
+	};
+
+	/**
+	 * Begins a fill with the specified color. This ends the current sub-path. A tiny API method &quot;f&quot; also exists.
+	 * @method f
+	 * @param {String} color A CSS compatible color value (ex. &quot;red&quot;, &quot;#FF0000&quot;, or &quot;rgba(255,0,0,0.5)&quot;). Setting to
+	 * null will result in no fill.
+	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 **/
+	p.f = function(color)
+	{
+		if (color)
+		{
+			var rgb = colorToHex(color);
+			var a = alphaFromColor(color);
+			this.beginFill(rgb, a);
+		}
+		return this;
+	};
+
+	/**
+	 * Sets the stroke style. Like all drawing methods, this can be chained, so you can define
+	 * the stroke style and color in a single line of code like so:
+	 *
+	 * 	myGraphics.setStrokeStyle(8,&quot;round&quot;).beginStroke(&quot;#F00&quot;);
+	 *
+	 * A tiny API method &quot;ss&quot; also exists.
+	 * @method ss
+	 * @param {Number} thickness The width of the stroke.
+	 * @param {String | Number} [caps=0] Indicates the type of caps to use at the end of lines. One of butt,
+	 * round, or square. Defaults to &quot;butt&quot;. Also accepts the values 0 (butt), 1 (round), and 2 (square) for use with
+	 * the tiny API.
+	 * @param {String | Number} [joints=0] Specifies the type of joints that should be used where two lines meet.
+	 * One of bevel, round, or miter. Defaults to &quot;miter&quot;. Also accepts the values 0 (miter), 1 (round), and 2 (bevel)
+	 * for use with the tiny API.
+	 * @param {Number} [miterLimit=10] If joints is set to &quot;miter&quot;, then you can specify a miter limit ratio which
+	 * controls at what point a mitered joint will be clipped.
+	 * @param {Boolean} [ignoreScale=false] If true, the stroke will be drawn at the specified thickness regardless
+	 * of active transformations.
+	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 **/
+	p.ss = function(thickness, caps, joints, miterLimit, ignoreScale)
+	{
+		this.lineWidth = thickness;
+		return this;
+	};
+
+	/**
+	 * Begins a stroke with the specified color. This ends the current sub-path. A tiny API method &quot;s&quot; also exists.
+	 * @method s
+	 * @param {String} color A CSS compatible color value (ex. &quot;#FF0000&quot;, &quot;red&quot;, or &quot;rgba(255,0,0,0.5)&quot;). Setting to
+	 * null will result in no stroke.
+	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 **/
+	p.s = function(color)
+	{
+		if (color)
+		{
+			this.lineColor = colorToHex(color);
+			this.lineAlpha = 1;
+		}
+		return this;
+	};
+
+	/**
+	 * Decodes a compact encoded path string into a series of draw instructions.
+	 * This format is not intended to be human readable, and is meant for use by authoring tools.
+	 * The format uses a base64 character set, with each character representing 6 bits, to define a series of draw
+	 * commands.
+	 *
+	 * Each command is comprised of a single &quot;header&quot; character followed by a variable number of alternating x and y
+	 * position values. Reading the header bits from left to right (most to least significant): bits 1 to 3 specify the
+	 * type of operation (0-moveTo, 1-lineTo, 2-quadraticCurveTo, 3-bezierCurveTo, 4-closePath, 5-7 unused). Bit 4
+	 * indicates whether position values use 12 bits (2 characters) or 18 bits (3 characters), with a one indicating the
+	 * latter. Bits 5 and 6 are currently unused.
+	 *
+	 * Following the header is a series of 0 (closePath), 2 (moveTo, lineTo), 4 (quadraticCurveTo), or 6 (bezierCurveTo)
+	 * parameters. These parameters are alternating x/y positions represented by 2 or 3 characters (as indicated by the
+	 * 4th bit in the command char). These characters consist of a 1 bit sign (1 is negative, 0 is positive), followed
+	 * by an 11 (2 char) or 17 (3 char) bit integer value. All position values are in tenths of a pixel. Except in the
+	 * case of move operations which are absolute, this value is a delta from the previous x or y position (as
+	 * appropriate).
+	 *
+	 * For example, the string &quot;A3cAAMAu4AAA&quot; represents a line starting at -150,0 and ending at 150,0.
+	 * &lt;br /&gt;A - bits 000000. First 3 bits (000) indicate a moveTo operation. 4th bit (0) indicates 2 chars per
+	 * parameter.
+	 * &lt;br /&gt;n0 - 110111011100. Absolute x position of -150.0px. First bit indicates a negative value, remaining bits
+	 * indicate 1500 tenths of a pixel.
+	 * &lt;br /&gt;AA - 000000000000. Absolute y position of 0.
+	 * &lt;br /&gt;I - 001100. First 3 bits (001) indicate a lineTo operation. 4th bit (1) indicates 3 chars per parameter.
+	 * &lt;br /&gt;Au4 - 000000101110111000. An x delta of 300.0px, which is added to the previous x value of -150.0px to
+	 * provide an absolute position of +150.0px.
+	 * &lt;br /&gt;AAA - 000000000000000000. A y delta value of 0.
+	 *
+	 * A tiny API method &quot;p&quot; also exists.
+	 * @method p
+	 * @param {String} str The path string to decode.
+	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 **/
+	p.p = function(str)
+	{
+		// Masking implentation doesn&#x27;t call f(), must beginFill
+		if (!this.filling)
+		{
+			this.beginFill();
+		}
+		var instructions = [
+			this.mt,
+			this.lt,
+			this.qt,
+			this.bt,
+			this.cp
+		];
+		var paramCount = [2, 2, 4, 6, 0];
+		var i=0, l=str.length;
+		var params = [];
+		var x=0, y=0;
+		var base64 = BASE_64;
+
+		while (i&lt;l)
+		{
+			var c = str.charAt(i);
+			var n = base64[c];
+			var fi = n&gt;&gt;3; // highest order bits 1-3 code for operation.
+			var f = instructions[fi];
+			// check that we have a valid instruction &amp; that the unused bits are empty:
+			if (!f || (n&amp;3)) { throw(&quot;bad path data (@&quot;+i+&quot;): &quot;+c); }
+			var pl = paramCount[fi];
+			if (!fi) { x=y=0; } // move operations reset the position.
+			params.length = 0;
+			i++;
+			var charCount = (n&gt;&gt;2&amp;1)+2;  // 4th header bit indicates number size for this operation.
+			for (var p=0; p&lt;pl; p++)
+			{
+				var num = base64[str.charAt(i)];
+				var sign = (num&gt;&gt;5) ? -1 : 1;
+				num = ((num&amp;31)&lt;&lt;6)|(base64[str.charAt(i+1)]);
+				if (charCount == 3) { num = (num&lt;&lt;6)|(base64[str.charAt(i+2)]); }
+				num = sign*num/10;
+				if (p%2) { x = (num += x); }
+				else { y = (num += y); }
+				params[p] = num;
+				i += charCount;
+			}
+			f.apply(this,params);
+		}
+		return this;
+	};
+
+	/**
+	 * Convert a string color &quot;#ffffff&quot; to int 0xffffff
+	 * @method colorToHex
+	 * @private
+	 * @param {String} color
+	 * @return {int} The hex color
+	 */
+	var colorToHex = function(color)
+	{
+		if (/^rgba\(/.test(color))
+		{
+			// Remove &quot;rgba(&quot; and &quot;)&quot; and turn into array
+			color = color.substring(5, color.length - 1).split(&#x27;,&#x27;);
+			color = 65536 * parseInt(color[0]) +
+				256 * parseInt(color[1]) +
+				parseInt(color[2]);
+		}
+		else
+		{
+			color = parseInt(color.replace(/^#/, &#x27;&#x27;), 16);
+		}
+		return color;
+	};
+
+	/**
+	 * Get the alpha color from color string
+	 * @method alphaFromColor
+	 * @private
+	 * @param {String} color
+	 */
+	var alphaFromColor = function(color)
+	{
+		if (/^rgba\(/.test(color))
+		{
+			return parseFloat(color.substring(
+				color.lastIndexOf(&#x27;,&#x27;) + 1,
+				color.lastIndexOf(&#x27;)&#x27;)
+			));
+		}
+		return 1;
+	};
+
+}());
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

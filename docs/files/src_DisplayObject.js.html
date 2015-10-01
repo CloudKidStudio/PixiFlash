@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>Pixi Flash v0.1.2 API Documentation : src/DisplayObject.js</title>  
+	<title>Pixi Flash v0.2.0 API Documentation : src/DisplayObject.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -17,7 +17,7 @@
                 <h1><a href="https://github.com/CloudKidStudio/PixiFlash"><img src="../assets/css/logo.png" title="Pixi Flash"></a></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.1.2</em>
+            <em>API Documentation for: 0.2.0</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -145,6 +145,9 @@
 		//remove all listeners on this instance, because the CreateJS published files from flash
 		//makes prototypes in a way that breaks normal PIXI listener usage.
 		this.removeAllListeners();
+
+		// Bound functions
+		this.onShapeChanged = this.onShapeChanged.bind(this);
 	};
 
 	var p = DisplayObject.prototype;
@@ -253,8 +256,77 @@
 			{
 				this.pivot.y = value;
 			}
+		},
+
+		/**
+		 * The drawing graphics, these are necessary
+		 * for the compability with EaselJS Flash exports.
+		 * @property {pixiflash.Shape|pixiflash.Sprite} mask
+		 */
+		mask: {
+			enumerable: true,
+			get: function()
+			{
+				return this._mask;
+			},
+			set: function (mask)
+			{
+				if (this._mask)
+				{
+					// Remove the old mask if we&#x27;re a shape 
+					if (this._mask.__parentShape)
+					{
+						var parentShape = this._mask.__parentShape;
+						if (parentShape.parent)
+							parentShape.parent.removeChild(parentShape);
+						parentShape.off(&#x27;graphicsChanged&#x27;, this.onShapeChanged);
+						delete this._mask.__parentShape;
+					}
+					this._mask.renderable = true;
+				}
+				// If the mask is a shape apply the graphics as the shape
+				if (mask &amp;&amp; mask instanceof pixiflash.Shape)
+				{
+					this._mask = mask.graphics;
+					this._mask.__parentShape = mask;
+					mask.once(&#x27;graphicsChanged&#x27;, this.onShapeChanged);
+				}
+				else
+				{
+					this._mask = mask;
+				}
+				if (this._mask)
+				{
+					// Wait until we&#x27;re add and then add the mask
+					// on the same container as this display object
+					if (!this.parent)
+					{
+						this.once(&quot;added&quot;, function()
+						{
+							this.parent.addChild(this._mask.__parentShape || this._mask);
+						});
+					}
+					else
+					{
+						this.parent.addChild(this._mask.__parentShape || this._mask);
+					}
+					this._mask.renderable = false;
+				}
+			}
 		}
 	});
+
+	/**
+	 * Graphics object was updated on the shape dynamically, update the mask
+	 * @method onShapeChanged
+	 * @private
+	 * @param {pixiflash.Shape} shape
+	 */
+	p.onShapeChanged = function(shape)
+	{
+		// reset the shape mask
+		this.mask = shape;
+	};
 	
 	p.displayObjectUpdateTransform = function()
 	{

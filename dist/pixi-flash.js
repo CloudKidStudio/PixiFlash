@@ -1,4 +1,4 @@
-/*! Pixi Flash 0.1.2 */
+/*! Pixi Flash 0.2.0 */
 /**
  * @module Pixi Flash
  * @namespace pixiflash
@@ -107,6 +107,9 @@
 		//remove all listeners on this instance, because the CreateJS published files from flash
 		//makes prototypes in a way that breaks normal PIXI listener usage.
 		this.removeAllListeners();
+
+		// Bound functions
+		this.onShapeChanged = this.onShapeChanged.bind(this);
 	};
 
 	var p = DisplayObject.prototype;
@@ -215,8 +218,77 @@
 			{
 				this.pivot.y = value;
 			}
+		},
+
+		/**
+		 * The drawing graphics, these are necessary
+		 * for the compability with EaselJS Flash exports.
+		 * @property {pixiflash.Shape|pixiflash.Sprite} mask
+		 */
+		mask: {
+			enumerable: true,
+			get: function()
+			{
+				return this._mask;
+			},
+			set: function (mask)
+			{
+				if (this._mask)
+				{
+					// Remove the old mask if we're a shape 
+					if (this._mask.__parentShape)
+					{
+						var parentShape = this._mask.__parentShape;
+						if (parentShape.parent)
+							parentShape.parent.removeChild(parentShape);
+						parentShape.off('graphicsChanged', this.onShapeChanged);
+						delete this._mask.__parentShape;
+					}
+					this._mask.renderable = true;
+				}
+				// If the mask is a shape apply the graphics as the shape
+				if (mask && mask instanceof pixiflash.Shape)
+				{
+					this._mask = mask.graphics;
+					this._mask.__parentShape = mask;
+					mask.once('graphicsChanged', this.onShapeChanged);
+				}
+				else
+				{
+					this._mask = mask;
+				}
+				if (this._mask)
+				{
+					// Wait until we're add and then add the mask
+					// on the same container as this display object
+					if (!this.parent)
+					{
+						this.once("added", function()
+						{
+							this.parent.addChild(this._mask.__parentShape || this._mask);
+						});
+					}
+					else
+					{
+						this.parent.addChild(this._mask.__parentShape || this._mask);
+					}
+					this._mask.renderable = false;
+				}
+			}
 		}
 	});
+
+	/**
+	 * Graphics object was updated on the shape dynamically, update the mask
+	 * @method onShapeChanged
+	 * @private
+	 * @param {pixiflash.Shape} shape
+	 */
+	p.onShapeChanged = function(shape)
+	{
+		// reset the shape mask
+		this.mask = shape;
+	};
 	
 	p.displayObjectUpdateTransform = function()
 	{
@@ -1380,65 +1452,33 @@
 (function(undefined)
 {
 	var PixiGraphics = PIXI.Graphics,
-		Graphics = pixiflash.Graphics,
 		DisplayObject = pixiflash.DisplayObject;
 	
 	/**
-	 * The class to emulate createjs.Shape
-	 * @class Shape
+	 * The class to emulate createjs.Graphics
+	 * @class Graphics
 	 * @extends PIXI.Graphics
+	 * @constructor
 	 */
-	var Shape = function()
+	var Graphics = function()
 	{
 		PixiGraphics.call(this);
-		DisplayObject.call(this);
-
-		/**
-		 * The drawing graphics, these are necessary
-		 * for the compability with EaselJS Flash exports.
-		 * @property {pixiflash.Graphics} graphics
-		 * @readOnly
-		 */
-		this.graphics = {
-			f: beginFill.bind(this),
-			s: beginStroke.bind(this),
-			p: decodePath.bind(this),
-			mt: this.moveTo.bind(this),
-			lt: this.lineTo.bind(this),
-			qt: quadraticCurveTo.bind(this),
-			bt: this.bezierCurveTo.bind(this),
-			cp: closePath.bind(this),
-			ss: setStrokeStyle.bind(this),
-			dr: this.drawRect.bind(this),
-			dc: this.drawCircle.bind(this),
-			de: this.drawEllipse.bind(this),
-			a: this.arc.bind(this),
-			at: this.arcTo.bind(this)
-		};
+		//DisplayObject.call(this);
 	};
 
 	// Extend PIXI.Sprite
-	var p = Shape.prototype = Object.create(PixiGraphics.prototype);
+	var s = PixiGraphics.prototype;
+	var p = Graphics.prototype = Object.create(s);
 	
 	// Mixin the display object
-	DisplayObject.mixin(p);
+	//DisplayObject.mixin(p);
 	
 	//constructor for backwards/Flash exporting compatibility
-	p.initialize = Shape;
-	
-	p.__Shape_drawEllipse = p.drawEllipse;
-	p.drawEllipse = function(x, y, width, height)
-	{
-		this.__Shape_drawEllipse(x - width / 2, y - height / 2, width, height);
-	};
+	p.initialize = Graphics;
 
 	// Assign to namespace
-	pixiflash.Shape = Shape;
-
-	/**
-	 * Wrapper for the graphics
-	 * @class pixiflash.Graphics
-	 */
+	pixiflash.Graphics = Graphics;
+	
 	 /**
 	 * Map of Base64 characters to values. Used by {{#crossLink "Graphics/decodePath"}}{{/crossLink}}.
 	 * @property {Object} BASE_64
@@ -1458,6 +1498,15 @@
 	};
 
 	/**
+	 * Moves the drawing point to the specified position. A tiny API method "mt" also exists.
+	 * @method mt
+	 * @param {Number} x The x coordinate the drawing point should move to.
+	 * @param {Number} y The y coordinate the drawing point should move to.
+	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls).
+	 **/
+	p.mt = p.moveTo;
+
+	/**
 	 * Draws a line from the current drawing point to the specified position, which become the new current drawing
 	 * point. A tiny API method "lt" also exists.
 	 *
@@ -1469,14 +1518,7 @@
 	 * @param {Number} y The y coordinate the drawing point should draw to.
 	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
-
-	/**
-	 * Moves the drawing point to the specified position. A tiny API method "mt" also exists.
-	 * @method mt
-	 * @param {Number} x The x coordinate the drawing point should move to.
-	 * @param {Number} y The y coordinate the drawing point should move to.
-	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls).
-	 **/
+	p.lt = p.lineTo;
 
 	/**
 	 * Draws a bezier curve from the current drawing point to (x, y) using the control points (cp1x, cp1y) and (cp2x,
@@ -1492,6 +1534,75 @@
 	 * @param {Number} y
 	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
+	p.bt = p.bezierCurveTo;
+
+	/**
+	 * Shortcut to drawRect.
+	 * @method dr
+	 * @param {Number} x
+	 * @param {Number} y
+	 * @param {Number} w Width of the rectangle
+	 * @param {Number} h Height of the rectangle
+	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 * @chainable
+	 * @protected
+	 **/
+	p.dr = p.drawRect;
+
+	/**
+	 * Shortcut to drawCircle.
+	 * @method dc
+	 * @param {Number} x x coordinate center point of circle.
+	 * @param {Number} y y coordinate center point of circle.
+	 * @param {Number} radius Radius of circle.
+	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 * @chainable
+	 * @protected
+	 **/
+	p.dc = p.drawCircle;
+
+	/**
+	 * Shortcut to arc.
+	 * @method a
+	 * @param {Number} x
+	 * @param {Number} y
+	 * @param {Number} radius
+	 * @param {Number} startAngle Measured in radians.
+	 * @param {Number} endAngle Measured in radians.
+	 * @param {Boolean} anticlockwise
+	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 * @protected
+	 * @chainable
+	 **/
+	p.a = p.arc;
+
+	/**
+	 * Shortcut to arcTo.
+	 * @method at
+	 * @param {Number} x1
+	 * @param {Number} y1
+	 * @param {Number} x2
+	 * @param {Number} y2
+	 * @param {Number} radius
+	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 * @chainable
+	 * @protected
+	 **/
+	p.at = p.arcTo;
+
+	/**
+	 * Override the draw ellipse method
+	 * @method  de
+	 * @param  {Number} x      [description]
+	 * @param  {Number} y      [description]
+	 * @param  {Number} width  [description]
+	 * @param  {Number} height [description]
+	 */
+	p.de = function(x, y, width, height)
+	{
+		// Math conversion
+		return this.drawEllipse(x + width / 2, y + height / 2, width / 2, height / 2);
+	};
 
 	/**
 	 * Draws a quadratic curve from the current drawing point to (x, y) using the control point (cpx, cpy). For detailed
@@ -1504,7 +1615,7 @@
 	 * @param {Number} y
 	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
-	var quadraticCurveTo = function(cpx, cpy, x, y)
+	p.qt = function(cpx, cpy, x, y)
 	{
 		// Ensure that the draw shape is not closed
 		var currentPath = this.currentPath;
@@ -1512,8 +1623,7 @@
 		{
 			currentPath.shape.closed = false;
 		}
-		this.quadraticCurveTo(cpx, cpy, x, y);
-		return this.graphics;
+		return this.quadraticCurveTo(cpx, cpy, x, y);
 	};
 
 	/**
@@ -1522,14 +1632,14 @@
 	 * @method cp
 	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
-	var closePath = function()
+	p.cp = function()
 	{
 		var currentPath = this.currentPath;
 		if (currentPath && currentPath.shape)
 		{
 			currentPath.shape.closed = true;
 		}
-		return this.graphics;
+		return this;
 	};
 
 	/**
@@ -1539,7 +1649,7 @@
 	 * null will result in no fill.
 	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
-	var beginFill = function(color)
+	p.f = function(color)
 	{
 		if (color)
 		{
@@ -1547,7 +1657,7 @@
 			var a = alphaFromColor(color);
 			this.beginFill(rgb, a);
 		}
-		return this.graphics;
+		return this;
 	};
 
 	/**
@@ -1571,10 +1681,10 @@
 	 * of active transformations.
 	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
-	var setStrokeStyle = function(thickness, caps, joints, miterLimit, ignoreScale)
+	p.ss = function(thickness, caps, joints, miterLimit, ignoreScale)
 	{
 		this.lineWidth = thickness;
-		return this.graphics;
+		return this;
 	};
 
 	/**
@@ -1584,14 +1694,14 @@
 	 * null will result in no stroke.
 	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
-	var beginStroke = function(color)
+	p.s = function(color)
 	{
 		if (color)
 		{
 			this.lineColor = colorToHex(color);
 			this.lineAlpha = 1;
 		}
-		return this.graphics;
+		return this;
 	};
 
 	/**
@@ -1629,15 +1739,19 @@
 	 * @param {String} str The path string to decode.
 	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
-	var decodePath = function(str)
+	p.p = function(str)
 	{
-		var graphics = this.graphics;
+		// Masking implentation doesn't call f(), must beginFill
+		if (!this.filling)
+		{
+			this.beginFill();
+		}
 		var instructions = [
-			graphics.mt,
-			graphics.lt,
-			graphics.qt,
-			graphics.bt,
-			graphics.cp
+			this.mt,
+			this.lt,
+			this.qt,
+			this.bt,
+			this.cp
 		];
 		var paramCount = [2, 2, 4, 6, 0];
 		var i=0, l=str.length;
@@ -1672,7 +1786,7 @@
 			}
 			f.apply(this,params);
 		}
-		return this.graphics;
+		return this;
 	};
 
 	/**
@@ -1716,13 +1830,80 @@
 		}
 		return 1;
 	};
+
+}());
+/**
+ * @module Pixi Flash
+ * @namespace pixiflash
+ */
+(function(undefined)
+{
+	var Container = PIXI.Container,
+		Graphics = pixiflash.Graphics,
+		DisplayObject = pixiflash.DisplayObject;
 	
-	p.__Shape_destroy = p.destroy;
-	p.destroy = function()
+	/**
+	 * The class to emulate createjs.Shape
+	 * @class Shape
+	 * @extends PIXI.Container
+	 */
+	var Shape = function()
 	{
-		this.__Shape_destroy();
-		
+		Container.call(this);
+		DisplayObject.call(this);
+
+		// Shapes have a graphic by default
+		this.graphics = new Graphics();
+	};
+
+	// Extend PIXI.Sprite
+	var s = Container.prototype;
+	var p = Shape.prototype = Object.create(s);
+	
+	// Mixin the display object
+	DisplayObject.mixin(p);
+	
+	//constructor for backwards/Flash exporting compatibility
+	p.initialize = Shape;
+
+	// Assign to namespace
+	pixiflash.Shape = Shape;
+	
+	/**
+	 * The drawing graphics, these are necessary
+	 * for the compability with EaselJS Flash exports.
+	 * @property {pixiflash.Graphics} graphics
+	 */
+	Object.defineProperty(p, "graphics",
+	{
+		get: function() 
+		{
+			return this._graphics; 
+		},
+		set: function(graphics)
+		{
+			if (this._graphics)
+			{
+				this.removeChild(this._graphics);
+			}
+			this._graphics = graphics;
+			if (graphics)
+			{
+				this.addChild(graphics);
+			}
+			this.emit('graphicsChanged', this);
+		}
+	});
+
+	/**
+	 * Override for the destroy
+	 * @method  destroy
+	 * @param  {Boolean} recursive If we should destroy the children of this shape
+	 */
+	p.destroy = function(recursive)
+	{
 		this.graphics = null;
+		s.destroy.call(this, recursive);
 	};
 
 }());
