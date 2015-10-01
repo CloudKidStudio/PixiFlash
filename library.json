@@ -12,6 +12,7 @@
 		"src/MovieClip.js",
 		"src/SpriteSheet.js",
 		"src/Sprite.js",
+		"src/Graphics.js",
 		"src/Shape.js",
 		"src/utils.js"
 	],

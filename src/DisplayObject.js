@@ -50,6 +50,9 @@
 		//remove all listeners on this instance, because the CreateJS published files from flash
 		//makes prototypes in a way that breaks normal PIXI listener usage.
 		this.removeAllListeners();
+
+		// Bound functions
+		this.onShapeChanged = this.onShapeChanged.bind(this);
 	};
 
 	var p = DisplayObject.prototype;
@@ -158,8 +161,77 @@
 			{
 				this.pivot.y = value;
 			}
+		},
+
+		/**
+		 * The drawing graphics, these are necessary
+		 * for the compability with EaselJS Flash exports.
+		 * @property {pixiflash.Shape|pixiflash.Sprite} mask
+		 */
+		mask: {
+			enumerable: true,
+			get: function()
+			{
+				return this._mask;
+			},
+			set: function (mask)
+			{
+				if (this._mask)
+				{
+					// Remove the old mask if we're a shape 
+					if (this._mask.__parentShape)
+					{
+						var parentShape = this._mask.__parentShape;
+						if (parentShape.parent)
+							parentShape.parent.removeChild(parentShape);
+						parentShape.off('graphicsChanged', this.onShapeChanged);
+						delete this._mask.__parentShape;
+					}
+					this._mask.renderable = true;
+				}
+				// If the mask is a shape apply the graphics as the shape
+				if (mask && mask instanceof pixiflash.Shape)
+				{
+					this._mask = mask.graphics;
+					this._mask.__parentShape = mask;
+					mask.once('graphicsChanged', this.onShapeChanged);
+				}
+				else
+				{
+					this._mask = mask;
+				}
+				if (this._mask)
+				{
+					// Wait until we're add and then add the mask
+					// on the same container as this display object
+					if (!this.parent)
+					{
+						this.once("added", function()
+						{
+							this.parent.addChild(this._mask.__parentShape || this._mask);
+						});
+					}
+					else
+					{
+						this.parent.addChild(this._mask.__parentShape || this._mask);
+					}
+					this._mask.renderable = false;
+				}
+			}
 		}
 	});
+
+	/**
+	 * Graphics object was updated on the shape dynamically, update the mask
+	 * @method onShapeChanged
+	 * @private
+	 * @param {pixiflash.Shape} shape
+	 */
+	p.onShapeChanged = function(shape)
+	{
+		// reset the shape mask
+		this.mask = shape;
+	};
 	
 	p.displayObjectUpdateTransform = function()
 	{
