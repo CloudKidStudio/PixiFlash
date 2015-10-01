@@ -74,8 +74,9 @@ function update()
 
 ## Examples
 
-* Animation example [using all bitmaps](http://springroll.github.io/PixiFlash/examples/animation/)
-* Animation example [using only vector shapes](http://springroll.github.io/PixiFlash/examples/shapes/)
+* [Animation using all bitmaps](http://springroll.github.io/PixiFlash/examples/animation/)
+* [Animation using all vectors](http://springroll.github.io/PixiFlash/examples/shapes/)
+* [Masking](http://springroll.github.io/PixiFlash/examples/masking/)
 
 _Examples are from [Fizzy's Lunch Lab](http://pbskids.org/lunchlab/) and used with permission from Lunch Lab, LLC_
 

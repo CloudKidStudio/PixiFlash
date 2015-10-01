@@ -1,6 +1,6 @@
 {
 	"name": "Pixi Flash",
-	"version": "0.1.0",
+	"version": "0.1.2",
 	"description": "A SpringRoll plugin for handling assets exported through Flash's CreateJS publishing.",
 	"url": "https://github.com/SpringRoll/PixiFlash",
 	"output": "pixi-flash",
@@ -12,6 +12,7 @@
 		"src/MovieClip.js",
 		"src/SpriteSheet.js",
 		"src/Sprite.js",
+		"src/Graphics.js",
 		"src/Shape.js",
 		"src/utils.js"
 	],
