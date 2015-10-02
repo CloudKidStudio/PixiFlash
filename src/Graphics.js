@@ -212,6 +212,18 @@
 		}
 		return this;
 	};
+	
+	/**
+	 * Placeholder method for a linear fill. Pixi does not support linear fills,
+	 * so we just pick the first color in colorArray
+	 * @method lf
+	 * @param {Array} colorArray An array of CSS compatible color values @see `f`
+	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 **/
+	p.lf = function(colorArray)
+	{
+		return this.f(colorArray[0]);
+	};
 
 	/**
 	 * Sets the stroke style. Like all drawing methods, this can be chained, so you can define
