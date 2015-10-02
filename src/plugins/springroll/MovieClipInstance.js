@@ -49,6 +49,16 @@
 		//to make sure the timeline is updated immediately in this case
 		this.clip._updateTimeline();
 	};
+	
+	p._Generic_setPosition = p.setPosition;
+	p.setPosition = function(newPos)
+	{
+		this._Generic_setPosition(newPos);
+		
+		//update the timeline manually, because MovieClips that are children of other PixiFlash
+		//display objects won't get their ticks fired when tickEnabled is false.
+		this.clip._updateTimeline();
+	};
 
 	// Assign to namespace
 	namespace('pixiflash').MovieClipInstance = MovieClipInstance;
