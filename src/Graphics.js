@@ -362,20 +362,6 @@
 	};
 
 	/**
-	 * Placeholder method for a beginRadialGradientStroke. Pixi does not support gradient strokes.
-	 * @method rs
-	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
-	 **/
-	p.rs = function()
-	{
-		if (DEBUG)
-		{
-			console.warn("Radial gradient strokes are not supported");
-		}
-		return this;
-	};
-
-	/**
 	 * Sets the stroke style. Like all drawing methods, this can be chained, so you can define
 	 * the stroke style and color in a single line of code like so:
 	 *
