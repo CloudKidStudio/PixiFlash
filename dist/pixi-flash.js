@@ -1,4 +1,4 @@
-/*! Pixi Flash 0.2.1 */
+/*! Pixi Flash 0.2.2 */
 /**
  * @module Pixi Flash
  * @namespace pixiflash
@@ -1547,7 +1547,53 @@
 	 * @chainable
 	 * @protected
 	 **/
-	p.dr = p.drawRect;
+	/**
+	 * Shortcut to drawRect.
+	 * @method r
+	 * @param {Number} x
+	 * @param {Number} y
+	 * @param {Number} w Width of the rectangle
+	 * @param {Number} h Height of the rectangle
+	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 * @chainable
+	 * @protected
+	 **/
+	p.dr = p.r = p.drawRect;
+
+	/**
+	 * Shortcut to drawRoundedRect.
+	 * @method rr
+	 * @param {Number} x
+	 * @param {Number} y
+	 * @param {Number} w Width of the rectangle
+	 * @param {Number} h Height of the rectangle
+	 * @param {Number} radius The corner radius
+	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 * @chainable
+	 * @protected
+	 **/
+	p.rr = p.drawRoundedRect;
+
+	/**
+	 * Shortcut to drawRoundRectComplex. Not supported by pixiflash
+	 * @method rc
+	 * @param {Number} x
+	 * @param {Number} y
+	 * @param {Number} w Width of the rectangle
+	 * @param {Number} h Height of the rectangle
+	 * @param {Number} radius The corner radius
+	 * @return {Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 * @chainable
+	 * @protected
+	 **/
+	p.rc = function(x, y, w, h, radiusTL, radiusTR, radiusBR, radiusBL)
+	{
+		if (true)
+		{
+			console.warn("Complex rounded rectangles not supported");
+		}
+		return this.rr(x, y, w, h, radiusTL);
+	};
 
 	/**
 	 * Shortcut to drawCircle.
@@ -1669,7 +1715,111 @@
 	 **/
 	p.lf = function(colorArray)
 	{
+		if (true)
+		{
+			console.warn("Linear gradient fills are not supported");
+		}
 		return this.f(colorArray[0]);
+	};
+
+	/**
+	 * Placeholder method for a radial fill. Pixi does not support radial fills,
+	 * so we just pick the first color in colorArray
+	 * @method rf
+	 * @param {Array} colorArray An array of CSS compatible color values @see `f`
+	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 **/
+	p.rf = function(colorArray)
+	{
+		if (true)
+		{
+			console.warn("Radial gradient fills are not supported");
+		}
+		return this.f(colorArray[0]);
+	};
+
+	/**
+	 * Placeholder method for a beginBitmapFill. Pixi does not support bitmap fills.
+	 * @method bf
+	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 **/
+	p.bf = function()
+	{
+		if (true)
+		{
+			console.warn("Bitmap fills are not supported");
+		}
+		return this.f("#000000");
+	};
+
+	/**
+	 * Placeholder method for a setStrokeDash. Pixi does not support dashed strokes.
+	 * @method sd
+	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 **/
+	p.sd = function()
+	{
+		if (true)
+		{
+			console.warn("Dashed strokes are not supported");
+		}
+		return this;
+	};
+
+	/**
+	 * Placeholder method for a beginBitmapStroke. Pixi does not support bitmap strokes.
+	 * @method bs
+	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 **/
+	p.bs = function()
+	{
+		if (true)
+		{
+			console.warn("Bitmap strokes are not supported");
+		}
+		return this;
+	};
+
+	/**
+	 * Placeholder method for a beginLinearGradientStroke. Pixi does not support gradient strokes.
+	 * @method ls
+	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 **/
+	p.ls = function()
+	{
+		if (true)
+		{
+			console.warn("Linear gradient strokes are not supported");
+		}
+		return this;
+	};
+
+	/**
+	 * Placeholder method for a beginRadialGradientStroke. Pixi does not support gradient strokes.
+	 * @method rs
+	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 **/
+	p.rs = function()
+	{
+		if (true)
+		{
+			console.warn("Radial gradient strokes are not supported");
+		}
+		return this;
+	};
+
+	/**
+	 * Placeholder method for a beginRadialGradientStroke. Pixi does not support gradient strokes.
+	 * @method rs
+	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 **/
+	p.rs = function()
+	{
+		if (true)
+		{
+			console.warn("Radial gradient strokes are not supported");
+		}
+		return this;
 	};
 
 	/**
