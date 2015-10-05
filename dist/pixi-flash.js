@@ -1,4 +1,4 @@
-/*! Pixi Flash 0.2.2 */
+/*! Pixi Flash 0.2.3 */
 /**
  * @module Pixi Flash
  * @namespace pixiflash
@@ -1790,20 +1790,6 @@
 		if (true)
 		{
 			console.warn("Linear gradient strokes are not supported");
-		}
-		return this;
-	};
-
-	/**
-	 * Placeholder method for a beginRadialGradientStroke. Pixi does not support gradient strokes.
-	 * @method rs
-	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
-	 **/
-	p.rs = function()
-	{
-		if (true)
-		{
-			console.warn("Radial gradient strokes are not supported");
 		}
 		return this;
 	};

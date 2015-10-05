@@ -1,4 +1,4 @@
-/*! Pixi Flash 0.2.2 */
+/*! Pixi Flash 0.2.3 */
 /**
  * @module SpringRoll Plugin
  * @namespace pixiflash
@@ -245,8 +245,8 @@
 				}
 				images.push(atlas);
 			}
-			//Check for EaselJS SpriteSheets
-			else if(this.images[i].format == "createjs.SpriteSheet")
+			//Check for EaselJS style SpriteSheets
+			else if(this.images[i].format == "pixiflash.SpriteSheet")
 			{
 				asset = this.images[i].clone();
 				images.push(asset);
