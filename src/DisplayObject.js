@@ -5,6 +5,7 @@
 (function(undefined)
 {
 	var Point = PIXI.Point;
+	var ColorFilter = pixiflash.ColorFilter;
 	var uniqueId = 0;
 	
 	/**
@@ -53,6 +54,9 @@
 
 		// Bound functions
 		this.onShapeChanged = this.onShapeChanged.bind(this);
+
+		//initialize tint variables:
+		this._lastComputedTint = this._lastSelfTint = this._lastParentTint = this._selfTint = 0xFFFFFF;
 	};
 
 	var p = DisplayObject.prototype;
@@ -63,6 +67,75 @@
 	
 	Object.defineProperties(p,
 	{
+		/**
+		 * Private array of filters - for interpretation of CJS ColorFilters as PIXI tint
+		 * @property {Array} _filters
+		 */
+		_filters:
+		{
+			enumerable: true,
+			get: function() { return this.__filters; },
+			set: function(value)
+			{
+				if(value.length == 1 && value[0] instanceof ColorFilter)
+				{
+					var colorFilter = value[0];
+					this.tint = (colorFilter.r << 16) | (colorFilter.g << 8) | colorFilter.b;
+				}
+				else
+				{
+					this.__filters = value;
+				}
+			}
+		},
+		/**
+		 * Tint to apply to this display object - Interpreted from CJS ColorFilter (multiplicative only)
+		 * @property {UInt} tint
+		 */
+		tint:
+		{
+			enumerable: true,
+			get: function() { 
+				if(this.parent && this.parent._isPixiFlash)
+				{
+					var selfTint = this._selfTint;
+					var parentTint = this.parent.tint;
+
+					if(this._selfTint != this._lastSelfTint || this.parent.tint != this._lastParentTint)
+					{
+						//calculate tint first time
+						var max = 255;
+						var parentR = (parentTint >> 16) & 0xff;
+						var parentG = (parentTint >> 8) & 0xff;
+						var parentB = parentTint & 0xff;
+						var selfR = (selfTint >> 16) & 0xff;
+						var selfG = (selfTint >> 8) & 0xff;
+						var selfB = selfTint & 0xff;
+
+						this._lastComputedTint = (Math.round((parentR * selfR) / max) << 16) | 
+							(Math.round((parentG * selfG) / max) << 8) | 
+							Math.round((parentB * selfB) / max);
+					}
+					else if(selfTint == 0xFFFFFF)
+						this._lastComputedTint = parentTint;
+					else if(parentTint == 0xFFFFFF)
+						this_lastComputedTint = selfTint;
+
+					this._lastSelfTint = selfTint;
+					this._lastParentTint = parentTint;
+
+					return this._lastComputedTint;
+				}
+				else
+				{
+					return this._selfTint;
+				}
+			},
+			set: function(value)
+			{
+				this._selfTint = value;
+			}
+		},
 		/**
 		 * The x skew value of the display object, in degrees.
 		 * This property provides parity with CreateJS display objects.
@@ -220,6 +293,16 @@
 			}
 		}
 	});
+
+	
+	/**
+	 * Dummy function for CJS export compatibility
+	 * @method cache
+	 */
+	p.cache = function()
+	{
+		//don't do anything!
+	};
 
 	/**
 	 * Graphics object was updated on the shape dynamically, update the mask
