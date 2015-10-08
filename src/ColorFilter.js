@@ -23,9 +23,7 @@
 			b = 0;
 		
 		var max = 255;
-		this.r = Math.round(r * max);
-		this.g = Math.round(g * max);
-		this.b = Math.round(b * max);
+		this.tint = (Math.round(r * max) << 16) | (Math.round(g * max) << 8) | Math.round(b * max);
 	};
 	
 	

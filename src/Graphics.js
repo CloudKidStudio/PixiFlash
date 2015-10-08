@@ -16,7 +16,7 @@
 	var Graphics = function()
 	{
 		PixiGraphics.call(this);
-		//DisplayObject.call(this);
+		DisplayObject.call(this);
 	};
 
 	// Extend PIXI.Sprite
@@ -24,7 +24,7 @@
 	var p = Graphics.prototype = Object.create(s);
 	
 	// Mixin the display object
-	//DisplayObject.mixin(p);
+	DisplayObject.mixin(p);
 	
 	//constructor for backwards/Flash exporting compatibility
 	p.initialize = Graphics;

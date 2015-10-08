@@ -7,6 +7,7 @@ A library for bridging CreateJS animations from Flash for use in Pixi.js. Publis
 * [Animation using all bitmaps](http://cloudkidstudio.github.io/PixiFlash/examples/animation/)
 * [Animation using all vectors](http://cloudkidstudio.github.io/PixiFlash/examples/shapes/)
 * [Masking](http://cloudkidstudio.github.io/PixiFlash/examples/masking/)
+* [Color Effects](http://cloudkidstudio.github.io/PixiFlash/examples/color_effects/)
 
 _Examples are from [Fizzy's Lunch Lab](http://pbskids.org/lunchlab/) and used with permission from Lunch Lab, LLC_
 
@@ -91,6 +92,7 @@ function update()
 * Complex shapes with a negative shape inside of it only render the outer-most shape. For example, a donut shape would only render the outer circle and not the hole.
 * Cannot "Test Movie" in side of Flash to preview the animation
 * No support for Text fields
+* Flash Color Effects are supported only for Advanced style multiplicative color changes (RGB percents) by translating to PIXI 'tint' property. Additive color effects such as Tint, and the additive RGB modifiers in the Advanced Color Effect style will be ignored. The Brightness effect, is only capable of darkening the symbol (Brightened symbols will be rendered darker than original). Keyframes and tweening of Color Effects are not supported.
 
 ##License
 

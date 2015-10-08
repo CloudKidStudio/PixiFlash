@@ -1,7 +1,7 @@
-<DOMDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" height="550" frameRate="30" currentTimeline="1" xflVersion="2.6" creatorInfo="Adobe Flash Professional CC" platform="Macintosh" versionInfo="Saved by Adobe Flash Macintosh 15.0 build 179" majorVersion="15" buildNumber="179" nextSceneIdentifier="2" playOptionsPlayLoop="false" playOptionsPlayPages="false" playOptionsPlayFrameActions="false" filetypeGUID="3CE50BB6-55CF-47A6-B591-01286DDDC64C">
+<DOMDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" width="500" height="720" frameRate="30" currentTimeline="1" xflVersion="2.6" creatorInfo="Adobe Flash Professional CC" platform="Windows" versionInfo="Saved by Adobe Flash Windows 15.0 build 179" majorVersion="15" buildNumber="179" viewAngle3D="50.6510299754819" nextSceneIdentifier="2" playOptionsPlayLoop="false" playOptionsPlayPages="false" playOptionsPlayFrameActions="false" filetypeGUID="3CE50BB6-55CF-47A6-B591-01286DDDC64C">
      <media>
-          <DOMBitmapItem name="Bitmap 1" itemID="5615a8af-0000030c" sourceExternalFilepath="Bitmap 1.png" sourceLastImported="1444260015" sourcePlatform="macintosh" allowSmoothing="true" useImportedJPEGData="false" compressionType="lossless" originalCompressionType="lossless" quality="50" href="Bitmap 1.png" bitmapDataHRef="M 3 1444260015.dat" frameRight="2320" frameBottom="2160"/>
-          <DOMBitmapItem name="Bitmap 2" itemID="5615a8b2-00000312" sourceExternalFilepath="Bitmap 2.png" sourceLastImported="1444260018" sourcePlatform="macintosh" allowSmoothing="true" useImportedJPEGData="false" compressionType="lossless" originalCompressionType="lossless" quality="50" href="Bitmap 2.png" bitmapDataHRef="M 4 1444260018.dat" frameRight="4560" frameBottom="4560"/>
+          <DOMBitmapItem name="Bitmap 1" itemID="5615a8af-0000030c" sourceLastImported="1444260015" sourcePlatform="macintosh" allowSmoothing="true" useImportedJPEGData="false" compressionType="lossless" originalCompressionType="lossless" quality="50" href="Bitmap 1.png" bitmapDataHRef="M 3 1444260015.dat" frameRight="2320" frameBottom="2160"/>
+          <DOMBitmapItem name="Bitmap 2" itemID="5615a8b2-00000312" sourceLastImported="1444260018" sourcePlatform="macintosh" allowSmoothing="true" useImportedJPEGData="false" compressionType="lossless" originalCompressionType="lossless" quality="50" href="Bitmap 2.png" bitmapDataHRef="M 4 1444260018.dat" frameRight="4560" frameBottom="4560"/>
      </media>
      <symbols>
           <Include href="BitmapFace.xml" loadImmediate="false" itemID="5615a8a5-00000306" lastModified="1444260018"/>
@@ -16,7 +16,7 @@
                                    <elements>
                                         <DOMSymbolInstance libraryItemName="ShapeFace">
                                              <matrix>
-                                                  <Matrix tx="394" ty="135"/>
+                                                  <Matrix tx="371" ty="360"/>
                                              </matrix>
                                              <transformationPoint>
                                                   <Point x="1" y="-0.05"/>
@@ -27,7 +27,7 @@
                                         </DOMSymbolInstance>
                                         <DOMSymbolInstance libraryItemName="ShapeFace">
                                              <matrix>
-                                                  <Matrix tx="394" ty="392"/>
+                                                  <Matrix tx="371" ty="594"/>
                                              </matrix>
                                              <transformationPoint>
                                                   <Point x="1" y="-0.05"/>
@@ -38,7 +38,7 @@
                                         </DOMSymbolInstance>
                                         <DOMSymbolInstance libraryItemName="BitmapFace">
                                              <matrix>
-                                                  <Matrix tx="148.1" ty="135.1"/>
+                                                  <Matrix tx="125.1" ty="360.1"/>
                                              </matrix>
                                              <transformationPoint>
                                                   <Point x="0.9" y="-0.15"/>
@@ -49,7 +49,7 @@
                                         </DOMSymbolInstance>
                                         <DOMSymbolInstance libraryItemName="BitmapFace">
                                              <matrix>
-                                                  <Matrix tx="148.1" ty="392.1"/>
+                                                  <Matrix tx="125.1" ty="594.1"/>
                                              </matrix>
                                              <transformationPoint>
                                                   <Point x="0.9" y="-0.15"/>
@@ -58,14 +58,23 @@
                                                   <Color blueMultiplier="0.328125" greenMultiplier="0.05078125"/>
                                              </color>
                                         </DOMSymbolInstance>
+                                        <DOMSymbolInstance libraryItemName="ShapeFace">
+                                             <matrix>
+                                                  <Matrix tx="371" ty="125.05"/>
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point x="1" y="-0.05"/>
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
+                                        <DOMSymbolInstance libraryItemName="BitmapFace">
+                                             <matrix>
+                                                  <Matrix tx="125.1" ty="125.15"/>
+                                             </matrix>
+                                             <transformationPoint>
+                                                  <Point x="0.9" y="-0.15"/>
+                                             </transformationPoint>
+                                        </DOMSymbolInstance>
                                    </elements>
-                              </DOMFrame>
-                         </frames>
-                    </DOMLayer>
-                    <DOMLayer name="Layer 1" color="#4F80FF">
-                         <frames>
-                              <DOMFrame index="0" keyMode="9728">
-                                   <elements/>
                               </DOMFrame>
                          </frames>
                     </DOMLayer>

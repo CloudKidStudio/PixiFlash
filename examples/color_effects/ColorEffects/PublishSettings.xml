@@ -4,13 +4,13 @@
     <defaultNames>1</defaultNames>
     <jpeg>0</jpeg>
     <jpegDefaultName>1</jpegDefaultName>
-    <jpegFileName>ColorFilter.jpg</jpegFileName>
+    <jpegFileName>ColorEffects.jpg</jpegFileName>
     <publishFormat id="BBC1F406-65F2-4219-9304-FA48C7549E44">0</publishFormat>
     <publishFormat id="C6B9CB0C-C6DC-4FBC-9805-93E9EB37A444">1</publishFormat>
   </PublishFormatProperties>
   <PublishJpegProperties enabled="true">
-    <Width>550</Width>
-    <Height>550</Height>
+    <Width>500</Width>
+    <Height>720</Height>
     <Progressive>0</Progressive>
     <DPI>4718592</DPI>
     <Size>0</Size>
@@ -21,7 +21,7 @@
     <Property name="copy">true</Property>
     <Property name="default">true</Property>
     <Property name="embed">false</Property>
-    <Property name="filename">ColorFilter.svg</Property>
+    <Property name="filename">ColorEffects.svg</Property>
     <Property name="imagesPath">images</Property>
     <Property name="includeHiddenLayers">true</Property>
     <Property name="version">0.1</Property>
@@ -35,7 +35,7 @@
     <Property name="exportImages">true</Property>
     <Property name="exportLibs">true</Property>
     <Property name="exportSounds">true</Property>
-    <Property name="filename">ColorFilter.js</Property>
+    <Property name="filename">ColorEffects.js</Property>
     <Property name="frameBounds">false</Property>
     <Property name="hostedLibs">true</Property>
     <Property name="imagesNS">pixiflash_images</Property>

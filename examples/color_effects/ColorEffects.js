@@ -17,7 +17,7 @@ var Shape = cjs.Shape;
 
 (lib.Bitmap1 = function() {
 	var spriteSheet;
-	spriteSheet = this.spriteSheet = ss["ColorFilter_atlas_"];
+	spriteSheet = this.spriteSheet = ss["ColorEffects_atlas_"];
 	this.gotoAndStop(0);
 }).prototype = p = new Sprite();
 
@@ -25,7 +25,7 @@ var Shape = cjs.Shape;
 
 (lib.Bitmap2 = function() {
 	var spriteSheet;
-	spriteSheet = this.spriteSheet = ss["ColorFilter_atlas_"];
+	spriteSheet = this.spriteSheet = ss["ColorEffects_atlas_"];
 	this.gotoAndStop(1);
 }).prototype = p = new Sprite();
 
@@ -80,7 +80,9 @@ p.nominalBounds = new Rectangle(-113.1,-114.1,228,228);
 
 
 // stage content:
-(lib.ColorFilter = function() {
+(lib.ColorEffects = function() {
+	var instance_5;
+	var instance_4;
 	var instance_3;
 	var instance_2;
 	var instance_1;
@@ -89,28 +91,34 @@ p.nominalBounds = new Rectangle(-113.1,-114.1,228,228);
 
 	// Layer 2
 	instance = this.instance = new lib.BitmapFace();
-	instance.setTransform(149,392,1,1,0,0,0,0.9,-0.1);
-	instance.filters = [new cjs.ColorFilter(1, 0.05078125, 0.328125, 1, 0, 0, 0, 0)];
-	instance.cache(-115,-116,232,232);
+	instance.setTransform(126,125.1,1,1,0,0,0,0.9,-0.1);
 
-	instance_1 = this.instance_1 = new lib.BitmapFace();
-	instance_1.setTransform(149,135,1,1,0,0,0,0.9,-0.1);
-	instance_1.filters = [new cjs.ColorFilter(0.828125, 1, 0, 1, 0, 0, 0, 0)];
-	instance_1.cache(-115,-116,232,232);
+	instance_1 = this.instance_1 = new lib.ShapeFace();
+	instance_1.setTransform(372,125,1,1,0,0,0,1,-0.1);
 
-	instance_2 = this.instance_2 = new lib.ShapeFace();
-	instance_2.setTransform(395,391.9,1,1,0,0,0,1,-0.1);
-	instance_2.filters = [new cjs.ColorFilter(0.2109375, 0.3515625, 1, 1, 0, 0, 0, 0)];
+	instance_2 = this.instance_2 = new lib.BitmapFace();
+	instance_2.setTransform(126,594,1,1,0,0,0,0.9,-0.1);
+	instance_2.filters = [new cjs.ColorFilter(1, 0.05078125, 0.328125, 1, 0, 0, 0, 0)];
 	instance_2.cache(-115,-116,232,232);
 
-	instance_3 = this.instance_3 = new lib.ShapeFace();
-	instance_3.setTransform(395,134.9,1,1,0,0,0,1,-0.1);
-	instance_3.filters = [new cjs.ColorFilter(0.8515625, 0.3515625, 1, 1, 0, 0, 0, 0)];
+	instance_3 = this.instance_3 = new lib.BitmapFace();
+	instance_3.setTransform(126,360,1,1,0,0,0,0.9,-0.1);
+	instance_3.filters = [new cjs.ColorFilter(0.828125, 1, 0, 1, 0, 0, 0, 0)];
 	instance_3.cache(-115,-116,232,232);
 
-	this.addChild(instance_3,instance_2,instance_1,instance);
+	instance_4 = this.instance_4 = new lib.ShapeFace();
+	instance_4.setTransform(372,593.9,1,1,0,0,0,1,-0.1);
+	instance_4.filters = [new cjs.ColorFilter(0.2109375, 0.3515625, 1, 1, 0, 0, 0, 0)];
+	instance_4.cache(-115,-116,232,232);
+
+	instance_5 = this.instance_5 = new lib.ShapeFace();
+	instance_5.setTransform(372,359.9,1,1,0,0,0,1,-0.1);
+	instance_5.filters = [new cjs.ColorFilter(0.8515625, 0.3515625, 1, 1, 0, 0, 0, 0)];
+	instance_5.cache(-115,-116,232,232);
+
+	this.addChild(instance_5,instance_4,instance_3,instance_2,instance_1,instance);
 }).prototype = p = new Container();
-p.nominalBounds = new Rectangle(310,295.9,474.1,485.2);
+p.nominalBounds = new Rectangle(262,370.9,474.1,697.2);
 
 })(pixiflash_lib = pixiflash_lib||{}, pixiflash_images = pixiflash_images||{}, pixiflash = pixiflash||{}, ss = ss||{});
 var pixiflash_lib, pixiflash_images, pixiflash, ss;

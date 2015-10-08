@@ -57,6 +57,7 @@
 
 		//initialize tint variables:
 		this._lastComputedTint = this._lastSelfTint = this._lastParentTint = this._selfTint = 0xFFFFFF;
+		this.__filters = null;
 	};
 
 	var p = DisplayObject.prototype;
@@ -79,8 +80,9 @@
 			{
 				if(value.length == 1 && value[0] instanceof ColorFilter)
 				{
-					var colorFilter = value[0];
-					this.tint = (colorFilter.r << 16) | (colorFilter.g << 8) | colorFilter.b;
+					//ColorFilter added by CJS exporter - convert to PIXI tint
+					this.tint = value[0].tint;
+					this.__filters = null;
 				}
 				else
 				{
@@ -112,14 +114,12 @@
 						var selfG = (selfTint >> 8) & 0xff;
 						var selfB = selfTint & 0xff;
 
-						this._lastComputedTint = (Math.round((parentR * selfR) / max) << 16) | 
-							(Math.round((parentG * selfG) / max) << 8) | 
-							Math.round((parentB * selfB) / max);
+						this._lastComputedTint = (Math.round((parentR * selfR) / max) << 16) | (Math.round((parentG * selfG) / max) << 8) | Math.round((parentB * selfB) / max);
 					}
 					else if(selfTint == 0xFFFFFF)
 						this._lastComputedTint = parentTint;
 					else if(parentTint == 0xFFFFFF)
-						this_lastComputedTint = selfTint;
+						this._lastComputedTint = selfTint;
 
 					this._lastSelfTint = selfTint;
 					this._lastParentTint = parentTint;

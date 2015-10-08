@@ -80,9 +80,7 @@
 			b = 0;
 		
 		var max = 255;
-		this.r = Math.round(r * max);
-		this.g = Math.round(g * max);
-		this.b = Math.round(b * max);
+		this.tint = (Math.round(r * max) << 16) | (Math.round(g * max) << 8) | Math.round(b * max);
 	};
 	
 	
@@ -148,6 +146,7 @@
 
 		//initialize tint variables:
 		this._lastComputedTint = this._lastSelfTint = this._lastParentTint = this._selfTint = 0xFFFFFF;
+		this.__filters = null;
 	};
 
 	var p = DisplayObject.prototype;
@@ -170,8 +169,9 @@
 			{
 				if(value.length == 1 && value[0] instanceof ColorFilter)
 				{
-					var colorFilter = value[0];
-					this.tint = (colorFilter.r << 16) | (colorFilter.g << 8) | colorFilter.b;
+					//ColorFilter added by CJS exporter - convert to PIXI tint
+					this.tint = value[0].tint;
+					this.__filters = null;
 				}
 				else
 				{
@@ -203,14 +203,12 @@
 						var selfG = (selfTint >> 8) & 0xff;
 						var selfB = selfTint & 0xff;
 
-						this._lastComputedTint = (Math.round((parentR * selfR) / max) << 16) | 
-							(Math.round((parentG * selfG) / max) << 8) | 
-							Math.round((parentB * selfB) / max);
+						this._lastComputedTint = (Math.round((parentR * selfR) / max) << 16) | (Math.round((parentG * selfG) / max) << 8) | Math.round((parentB * selfB) / max);
 					}
 					else if(selfTint == 0xFFFFFF)
 						this._lastComputedTint = parentTint;
 					else if(parentTint == 0xFFFFFF)
-						this_lastComputedTint = selfTint;
+						this._lastComputedTint = selfTint;
 
 					this._lastSelfTint = selfTint;
 					this._lastParentTint = parentTint;
@@ -1580,7 +1578,7 @@
 	var Graphics = function()
 	{
 		PixiGraphics.call(this);
-		//DisplayObject.call(this);
+		DisplayObject.call(this);
 	};
 
 	// Extend PIXI.Sprite
@@ -1588,7 +1586,7 @@
 	var p = Graphics.prototype = Object.create(s);
 	
 	// Mixin the display object
-	//DisplayObject.mixin(p);
+	DisplayObject.mixin(p);
 	
 	//constructor for backwards/Flash exporting compatibility
 	p.initialize = Graphics;
