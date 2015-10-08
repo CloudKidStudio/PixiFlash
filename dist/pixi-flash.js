@@ -192,6 +192,10 @@
 					var selfTint = this._selfTint;
 					var parentTint = this.parent.tint;
 
+					if(selfTint == 0xFFFFFF)
+						this._lastComputedTint = parentTint;
+					else if(parentTint == 0xFFFFFF)
+						this._lastComputedTint = selfTint;
 					if(this._selfTint != this._lastSelfTint || this.parent.tint != this._lastParentTint)
 					{
 						//calculate tint first time
@@ -205,10 +209,6 @@
 
 						this._lastComputedTint = (Math.round((parentR * selfR) / max) << 16) | (Math.round((parentG * selfG) / max) << 8) | Math.round((parentB * selfB) / max);
 					}
-					else if(selfTint == 0xFFFFFF)
-						this._lastComputedTint = parentTint;
-					else if(parentTint == 0xFFFFFF)
-						this._lastComputedTint = selfTint;
 
 					this._lastSelfTint = selfTint;
 					this._lastParentTint = parentTint;
