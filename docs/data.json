@@ -1,0 +1,2621 @@
+{
+    "project": {
+        "name": "Pixi Flash",
+        "description": "Runtime library to play HTML5 Canvas content from Flash with Pixi.js",
+        "version": "0.2.3",
+        "url": "https://github.com/CloudKidStudio/PixiFlash"
+    },
+    "files": {
+        "src\\plugins\\springroll\\FlashArt.js": {
+            "name": "src\\plugins\\springroll\\FlashArt.js",
+            "modules": {
+                "SpringRoll Plugin": 1
+            },
+            "classes": {
+                "pixiflash.FlashArt": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "pixiflash": 1
+            }
+        },
+        "src\\plugins\\springroll\\FlashArtTask.js": {
+            "name": "src\\plugins\\springroll\\FlashArtTask.js",
+            "modules": {},
+            "classes": {
+                "pixiflash.FlashArtTask": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "pixiflash": 1
+            }
+        },
+        "src\\plugins\\springroll\\MovieClipInstance.js": {
+            "name": "src\\plugins\\springroll\\MovieClipInstance.js",
+            "modules": {},
+            "classes": {
+                "pixiflash.MovieClipInstance": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "pixiflash": 1
+            }
+        },
+        "src\\plugins\\springroll\\PixiFlashPlugin.js": {
+            "name": "src\\plugins\\springroll\\PixiFlashPlugin.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {
+                "pixiflash": 1
+            }
+        },
+        "src\\plugins\\springroll\\SpriteSheetTask.js": {
+            "name": "src\\plugins\\springroll\\SpriteSheetTask.js",
+            "modules": {},
+            "classes": {
+                "pixiflash.SpriteSheetTask": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src\\Bitmap.js": {
+            "name": "src\\Bitmap.js",
+            "modules": {
+                "Pixi Flash": 1
+            },
+            "classes": {
+                "pixiflash.Bitmap": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "pixiflash": 1
+            }
+        },
+        "src\\ColorFilter.js": {
+            "name": "src\\ColorFilter.js",
+            "modules": {},
+            "classes": {
+                "pixiflash.ColorFilter": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "pixiflash": 1
+            }
+        },
+        "src\\Container.js": {
+            "name": "src\\Container.js",
+            "modules": {},
+            "classes": {
+                "pixiflash.Container": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "pixiflash": 1
+            }
+        },
+        "src\\DisplayObject.js": {
+            "name": "src\\DisplayObject.js",
+            "modules": {},
+            "classes": {
+                "pixiflash.DisplayObject": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "pixiflash": 1
+            }
+        },
+        "src\\Graphics.js": {
+            "name": "src\\Graphics.js",
+            "modules": {},
+            "classes": {
+                "pixiflash.Graphics": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "pixiflash": 1
+            }
+        },
+        "src\\MovieClip.js": {
+            "name": "src\\MovieClip.js",
+            "modules": {},
+            "classes": {
+                "pixiflash.MovieClip": 1,
+                "pixiflash.MovieClipPlugin": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "pixiflash": 1
+            }
+        },
+        "src\\Shape.js": {
+            "name": "src\\Shape.js",
+            "modules": {},
+            "classes": {
+                "pixiflash.Shape": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "pixiflash": 1
+            }
+        },
+        "src\\Sprite.js": {
+            "name": "src\\Sprite.js",
+            "modules": {},
+            "classes": {
+                "pixiflash.Sprite": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "pixiflash": 1
+            }
+        },
+        "src\\SpriteSheet.js": {
+            "name": "src\\SpriteSheet.js",
+            "modules": {},
+            "classes": {
+                "pixiflash.SpriteSheet": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "pixiflash": 1
+            }
+        },
+        "src\\main.js": {
+            "name": "src\\main.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {
+                "pixiflash": 1
+            }
+        },
+        "src\\utils.js": {
+            "name": "src\\utils.js",
+            "modules": {},
+            "classes": {
+                "pixiflash.utils": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "pixiflash": 1
+            }
+        }
+    },
+    "modules": {
+        "SpringRoll Plugin": {
+            "name": "SpringRoll Plugin",
+            "submodules": {},
+            "classes": {
+                "pixiflash.FlashArt": 1,
+                "pixiflash.FlashArtTask": 1,
+                "pixiflash.MovieClipInstance": 1,
+                "pixiflash.SpriteSheetTask": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "pixiflash": 1
+            },
+            "tag": "module",
+            "file": "src\\plugins\\springroll\\SpriteSheetTask.js",
+            "line": 8,
+            "requires": [
+                "Pixi Flash"
+            ]
+        },
+        "Pixi Flash": {
+            "name": "Pixi Flash",
+            "submodules": {},
+            "classes": {
+                "pixiflash.Bitmap": 1,
+                "pixiflash.ColorFilter": 1,
+                "pixiflash.Container": 1,
+                "pixiflash.DisplayObject": 1,
+                "pixiflash.Graphics": 1,
+                "pixiflash.MovieClip": 1,
+                "pixiflash.MovieClipPlugin": 1,
+                "pixiflash.Shape": 1,
+                "pixiflash.Sprite": 1,
+                "pixiflash.SpriteSheet": 1,
+                "pixiflash.utils": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "pixiflash": 1
+            },
+            "tag": "module",
+            "file": "src\\utils.js",
+            "line": 7
+        }
+    },
+    "classes": {
+        "pixiflash.FlashArt": {
+            "name": "pixiflash.FlashArt",
+            "shortname": "FlashArt",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash",
+            "file": "src\\plugins\\springroll\\FlashArt.js",
+            "line": 10,
+            "description": "Handles the Asset loading for Flash Art takes care of unloading",
+            "is_constructor": 1,
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "The asset id",
+                    "type": "String"
+                },
+                {
+                    "name": "dom",
+                    "description": "The `<script>` element added to the document",
+                    "type": "NodeElement"
+                },
+                {
+                    "name": "libName",
+                    "description": "The window parameter name",
+                    "type": "String",
+                    "optional": true,
+                    "optdefault": "'lib'"
+                }
+            ]
+        },
+        "pixiflash.FlashArtTask": {
+            "name": "pixiflash.FlashArtTask",
+            "shortname": "FlashArtTask",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash",
+            "file": "src\\plugins\\springroll\\FlashArtTask.js",
+            "line": 13,
+            "description": "Loads a FlashArt, making it easier to load and unload PixiFlash art.",
+            "extends": "springroll.Task",
+            "is_constructor": 1,
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "asset",
+                    "description": "The data properties",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "type",
+                            "description": "Asset type must be \"pixi\"",
+                            "type": "String"
+                        },
+                        {
+                            "name": "format",
+                            "description": "Asset format must be \"pixiflash.FlashArt\"",
+                            "type": "String"
+                        },
+                        {
+                            "name": "src",
+                            "description": "The source",
+                            "type": "String"
+                        },
+                        {
+                            "name": "images",
+                            "description": "An array of Image, TextureAtlas, or SpriteSheet assets to load",
+                            "type": "Array"
+                        },
+                        {
+                            "name": "cache",
+                            "description": "If we should cache the result",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        },
+                        {
+                            "name": "id",
+                            "description": "Id of asset",
+                            "type": "String",
+                            "optional": true
+                        },
+                        {
+                            "name": "complete",
+                            "description": "The event to call when done",
+                            "type": "Function",
+                            "optional": true
+                        },
+                        {
+                            "name": "sizes",
+                            "description": "Define if certain sizes are not supported",
+                            "type": "Object",
+                            "optional": true,
+                            "optdefault": "null"
+                        }
+                    ]
+                }
+            ]
+        },
+        "pixiflash.MovieClipInstance": {
+            "name": "pixiflash.MovieClipInstance",
+            "shortname": "MovieClipInstance",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash",
+            "file": "src\\plugins\\springroll\\MovieClipInstance.js",
+            "line": 12,
+            "description": "The plugin for working with movieclip and animator",
+            "extends": "springroll.GenericMovieClipInstance",
+            "access": "private",
+            "tagname": ""
+        },
+        "pixiflash.SpriteSheetTask": {
+            "name": "pixiflash.SpriteSheetTask",
+            "shortname": "SpriteSheetTask",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash",
+            "file": "src\\plugins\\springroll\\SpriteSheetTask.js",
+            "line": 8,
+            "description": "Load a spritesheet generated from Flash and adds it to the global ss namespace.\nThis namespace is shared with regular CreateJS art, as it can't be changed in Flash's\npublishing settings. As such, don't name spritesheets for CreateJS and PixiFlash the same\nthing if both spritesheets are being used by art published from Flash.",
+            "extends": "springroll.LoadTask",
+            "is_constructor": 1,
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "asset",
+                    "description": "The data properties",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "type",
+                            "description": "Asset type must be \"pixi\"",
+                            "type": "String"
+                        },
+                        {
+                            "name": "format",
+                            "description": "Asset format must be \"pixiflash.SpriteSheet\"",
+                            "type": "String"
+                        },
+                        {
+                            "name": "src",
+                            "description": "The source",
+                            "type": "String"
+                        },
+                        {
+                            "name": "cache",
+                            "description": "If we should cache the result",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        },
+                        {
+                            "name": "id",
+                            "description": "Id of asset",
+                            "type": "String",
+                            "optional": true
+                        },
+                        {
+                            "name": "complete",
+                            "description": "The event to call when done",
+                            "type": "Function",
+                            "optional": true
+                        },
+                        {
+                            "name": "sizes",
+                            "description": "Define if certain sizes are not supported",
+                            "type": "Object",
+                            "optional": true,
+                            "optdefault": "null"
+                        }
+                    ]
+                }
+            ]
+        },
+        "pixiflash.Bitmap": {
+            "name": "pixiflash.Bitmap",
+            "shortname": "Bitmap",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Pixi Flash",
+            "namespace": "pixiflash",
+            "file": "src\\Bitmap.js",
+            "line": 10,
+            "description": "The class to emulate createjs.Bitmap",
+            "extends": "PIXI.Sprite"
+        },
+        "pixiflash.ColorFilter": {
+            "name": "pixiflash.ColorFilter",
+            "shortname": "ColorFilter",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Pixi Flash",
+            "namespace": "pixiflash",
+            "file": "src\\ColorFilter.js",
+            "line": 8,
+            "description": "The class to emulate some of the functionality of createjs.ColorFilter (multiplicative values only -Advanced Color option in Flash)\n(acts only as a container for multiplicative values, to be  used by DisplayObject)",
+            "params": [
+                {
+                    "name": "r",
+                    "description": "red multiplier",
+                    "type": "Number"
+                },
+                {
+                    "name": "g",
+                    "description": "green multiplier",
+                    "type": "Number"
+                },
+                {
+                    "name": "b",
+                    "description": "blue multiplier",
+                    "type": "Number"
+                }
+            ]
+        },
+        "pixiflash.Container": {
+            "name": "pixiflash.Container",
+            "shortname": "Container",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Pixi Flash",
+            "namespace": "pixiflash",
+            "file": "src\\Container.js",
+            "line": 11,
+            "description": "The class to emulate createjs.Container",
+            "extends": "PIXI.Container"
+        },
+        "pixiflash.DisplayObject": {
+            "name": "pixiflash.DisplayObject",
+            "shortname": "DisplayObject",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Pixi Flash",
+            "namespace": "pixiflash",
+            "file": "src\\DisplayObject.js",
+            "line": 11,
+            "description": "Mixins for the display objects used for bridging CreateJS over to PIXI."
+        },
+        "pixiflash.Graphics": {
+            "name": "pixiflash.Graphics",
+            "shortname": "Graphics",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Pixi Flash",
+            "namespace": "pixiflash",
+            "file": "src\\Graphics.js",
+            "line": 10,
+            "description": "The class to emulate createjs.Graphics",
+            "extends": "PIXI.Graphics",
+            "is_constructor": 1
+        },
+        "pixiflash.MovieClip": {
+            "name": "pixiflash.MovieClip",
+            "shortname": "MovieClip",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Pixi Flash",
+            "namespace": "pixiflash",
+            "file": "src\\MovieClip.js",
+            "line": 43,
+            "description": "The class to emulate createjs.MovieClip, requires TweenJS",
+            "extends": "PIXI.Container"
+        },
+        "pixiflash.MovieClipPlugin": {
+            "name": "pixiflash.MovieClipPlugin",
+            "shortname": "MovieClipPlugin",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Pixi Flash",
+            "namespace": "pixiflash",
+            "file": "src\\MovieClip.js",
+            "line": 599,
+            "description": "This plugin works with <a href=\"http://tweenjs.com\" target=\"_blank\">TweenJS</a> to prevent the startPosition\nproperty from tweening.",
+            "access": "private",
+            "tagname": "",
+            "is_constructor": 1
+        },
+        "pixiflash.Shape": {
+            "name": "pixiflash.Shape",
+            "shortname": "Shape",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Pixi Flash",
+            "namespace": "pixiflash",
+            "file": "src\\Shape.js",
+            "line": 11,
+            "description": "The class to emulate createjs.Shape",
+            "extends": "PIXI.Container"
+        },
+        "pixiflash.Sprite": {
+            "name": "pixiflash.Sprite",
+            "shortname": "Sprite",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Pixi Flash",
+            "namespace": "pixiflash",
+            "file": "src\\Sprite.js",
+            "line": 10,
+            "description": "The class to emulate createjs.Sprite",
+            "extends": "PIXI.Sprite"
+        },
+        "pixiflash.SpriteSheet": {
+            "name": "pixiflash.SpriteSheet",
+            "shortname": "SpriteSheet",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Pixi Flash",
+            "namespace": "pixiflash",
+            "file": "src\\SpriteSheet.js",
+            "line": 12,
+            "description": "SpriteSheet for export from flash",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "data",
+                    "description": "The spritesheet to load",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "images",
+                            "description": "The collection of BaseTextures",
+                            "type": "Array"
+                        },
+                        {
+                            "name": "frames",
+                            "description": "The collection of frames",
+                            "type": "Array"
+                        }
+                    ]
+                }
+            ]
+        },
+        "pixiflash.utils": {
+            "name": "pixiflash.utils",
+            "shortname": "utils",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Pixi Flash",
+            "namespace": "pixiflash",
+            "file": "src\\utils.js",
+            "line": 7,
+            "description": "Utilities for converting"
+        }
+    },
+    "classitems": [
+        {
+            "file": "src\\plugins\\springroll\\FlashArt.js",
+            "line": 26,
+            "description": "Reference to the node element",
+            "itemtype": "property",
+            "name": "dom",
+            "type": "NodeElement",
+            "class": "pixiflash.FlashArt",
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\plugins\\springroll\\FlashArt.js",
+            "line": 32,
+            "description": "The collection of loaded symbols by name",
+            "itemtype": "property",
+            "name": "symbols",
+            "type": "Array",
+            "class": "pixiflash.FlashArt",
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\plugins\\springroll\\FlashArt.js",
+            "line": 38,
+            "description": "The name of the output lib name",
+            "itemtype": "property",
+            "name": "libName",
+            "type": "String",
+            "default": "'lib'",
+            "class": "pixiflash.FlashArt",
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\plugins\\springroll\\FlashArt.js",
+            "line": 45,
+            "description": "The name of the output lib name",
+            "itemtype": "property",
+            "name": "id",
+            "type": "String",
+            "class": "pixiflash.FlashArt",
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\plugins\\springroll\\FlashArt.js",
+            "line": 58,
+            "description": "The collection of all symbols and assets",
+            "itemtype": "property",
+            "name": "globalSymbols",
+            "type": "Object",
+            "static": 1,
+            "access": "private",
+            "tagname": "",
+            "class": "pixiflash.FlashArt",
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\plugins\\springroll\\FlashArt.js",
+            "line": 66,
+            "description": "Get the name of all the library elements of the dom text",
+            "itemtype": "method",
+            "name": "parseSymbols",
+            "params": [
+                {
+                    "name": "text",
+                    "description": "The DOM text contents",
+                    "type": "String"
+                }
+            ],
+            "class": "pixiflash.FlashArt",
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\plugins\\springroll\\FlashArt.js",
+            "line": 115,
+            "description": "Cleanup the Flash library that's been loaded",
+            "itemtype": "method",
+            "name": "destroy",
+            "class": "pixiflash.FlashArt",
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\plugins\\springroll\\FlashArtTask.js",
+            "line": 33,
+            "description": "The path to the flash asset",
+            "itemtype": "property",
+            "name": "src",
+            "type": "String",
+            "class": "pixiflash.FlashArtTask",
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\plugins\\springroll\\FlashArtTask.js",
+            "line": 39,
+            "description": "Any image, atlas, or SpriteSheet assets that should be loaded along with this piece\nof flash art.",
+            "itemtype": "property",
+            "name": "images",
+            "type": "Array",
+            "class": "pixiflash.FlashArtTask",
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\plugins\\springroll\\FlashArtTask.js",
+            "line": 46,
+            "description": "The name of the window object library items hang on",
+            "itemtype": "property",
+            "name": "libName",
+            "type": "String",
+            "class": "pixiflash.FlashArtTask",
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\plugins\\springroll\\FlashArtTask.js",
+            "line": 52,
+            "description": "The name of the window object images hang on",
+            "itemtype": "property",
+            "name": "imagesName",
+            "type": "String",
+            "class": "pixiflash.FlashArtTask",
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\plugins\\springroll\\FlashArtTask.js",
+            "line": 62,
+            "description": "Test if we should run this task",
+            "itemtype": "method",
+            "name": "test",
+            "static": 1,
+            "params": [
+                {
+                    "name": "asset",
+                    "description": "The asset to check",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "If the asset is compatible with this asset",
+                "type": "Boolean"
+            },
+            "class": "pixiflash.FlashArtTask",
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\plugins\\springroll\\FlashArtTask.js",
+            "line": 78,
+            "description": "Start the task",
+            "itemtype": "method",
+            "name": "start",
+            "params": [
+                {
+                    "name": "callback",
+                    "description": "Callback when finished",
+                    "type": "Function"
+                }
+            ],
+            "class": "pixiflash.FlashArtTask",
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\plugins\\springroll\\MovieClipInstance.js",
+            "line": 23,
+            "description": "Required to test clip",
+            "itemtype": "method",
+            "name": "test",
+            "static": 1,
+            "params": [
+                {
+                    "name": "clip",
+                    "description": "The object to test",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "If the clip is compatible with this plugin",
+                "type": "Boolean"
+            },
+            "class": "pixiflash.MovieClipInstance",
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\plugins\\springroll\\SpriteSheetTask.js",
+            "line": 35,
+            "description": "Test if we should run this task",
+            "itemtype": "method",
+            "name": "test",
+            "static": 1,
+            "params": [
+                {
+                    "name": "asset",
+                    "description": "The asset to check",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "If the asset is compatible with this asset",
+                "type": "Boolean"
+            },
+            "class": "pixiflash.SpriteSheetTask",
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\plugins\\springroll\\SpriteSheetTask.js",
+            "line": 50,
+            "description": "Start the task",
+            "itemtype": "method",
+            "name": "start",
+            "params": [
+                {
+                    "name": "callback",
+                    "description": "Callback when finished",
+                    "type": "Function"
+                }
+            ],
+            "class": "pixiflash.SpriteSheetTask",
+            "module": "SpringRoll Plugin",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Container.js",
+            "line": 21,
+            "description": "If false, the tick will not be propagated to children of this Container. This can provide some performance benefits.\nIn addition to preventing the \"tick\" event from being dispatched, it will also prevent tick related updates\non some display objects (ex. Sprite & MovieClip frame advancing, DOMElement visibility handling).",
+            "itemtype": "property",
+            "name": "tickChildren",
+            "type": "Boolean",
+            "default": "true",
+            "class": "pixiflash.Container",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Container.js",
+            "line": 81,
+            "itemtype": "method",
+            "name": "_tick",
+            "params": [
+                {
+                    "name": "delta",
+                    "description": "Time elapsed since the previous tick, in milliseconds.",
+                    "type": "Number"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "pixiflash.Container",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\DisplayObject.js",
+            "line": 21,
+            "description": "x and y skew of the display object, with values in radians.",
+            "itemtype": "property",
+            "name": "skew",
+            "type": "PIXI.Point",
+            "class": "pixiflash.DisplayObject",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\DisplayObject.js",
+            "line": 27,
+            "description": "Rotation of the display object, with values in radians.",
+            "itemtype": "property",
+            "name": "rotation",
+            "type": "Number",
+            "class": "pixiflash.DisplayObject",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\DisplayObject.js",
+            "line": 41,
+            "description": "If false, the tick will not run on this display object (or its children). This can provide some performance benefits.\nIn addition to preventing the \"tick\" event from being dispatched, it will also prevent tick related updates\non some display objects (ex. Sprite & MovieClip frame advancing, DOMElement visibility handling).",
+            "itemtype": "property",
+            "name": "tickEnabled",
+            "type": "Boolean",
+            "default": "true",
+            "class": "pixiflash.DisplayObject",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\DisplayObject.js",
+            "line": 71,
+            "description": "Private array of filters - for interpretation of CJS ColorFilters as PIXI tint",
+            "itemtype": "property",
+            "name": "_filters",
+            "type": "Array",
+            "class": "pixiflash.DisplayObject",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\DisplayObject.js",
+            "line": 93,
+            "description": "Tint to apply to this display object - Interpreted from CJS ColorFilter (multiplicative only)",
+            "itemtype": "property",
+            "name": "tint",
+            "type": "UInt",
+            "class": "pixiflash.DisplayObject",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\DisplayObject.js",
+            "line": 139,
+            "description": "The x skew value of the display object, in degrees.\nThis property provides parity with CreateJS display objects.",
+            "itemtype": "property",
+            "name": "skewX",
+            "type": "Number",
+            "class": "pixiflash.DisplayObject",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\DisplayObject.js",
+            "line": 153,
+            "description": "The y skew value of the display object, in degrees.\nThis property provides parity with CreateJS display objects.",
+            "itemtype": "property",
+            "name": "skewY",
+            "type": "Number",
+            "class": "pixiflash.DisplayObject",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\DisplayObject.js",
+            "line": 167,
+            "description": "The rotation of the display object, in degrees.\nThis overrides the radian degrees of the PIXI display objects so that\ntweening exported from Flash will work correctly.",
+            "itemtype": "property",
+            "name": "rotation",
+            "type": "Number",
+            "class": "pixiflash.DisplayObject",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\DisplayObject.js",
+            "line": 182,
+            "description": "The x scale value of the display object.\nThis property provides parity with CreateJS display objects.",
+            "itemtype": "property",
+            "name": "scaleX",
+            "type": "Number",
+            "class": "pixiflash.DisplayObject",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\DisplayObject.js",
+            "line": 196,
+            "description": "The y scale value of the display object.\nThis property provides parity with CreateJS display objects.",
+            "itemtype": "property",
+            "name": "scaleY",
+            "type": "Number",
+            "class": "pixiflash.DisplayObject",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\DisplayObject.js",
+            "line": 210,
+            "description": "The x value of the registration, or pivot, point.\nThis property provides parity with CreateJS display objects.",
+            "itemtype": "property",
+            "name": "regX",
+            "type": "Number",
+            "class": "pixiflash.DisplayObject",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\DisplayObject.js",
+            "line": 224,
+            "description": "The y value of the registration, or pivot, point.\nThis property provides parity with CreateJS display objects.",
+            "itemtype": "property",
+            "name": "regY",
+            "type": "Number",
+            "class": "pixiflash.DisplayObject",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\DisplayObject.js",
+            "line": 239,
+            "description": "The drawing graphics, these are necessary\nfor the compability with EaselJS Flash exports.",
+            "itemtype": "property",
+            "name": "mask",
+            "type": "pixiflash.Shape|pixiflash.Sprite",
+            "class": "pixiflash.DisplayObject",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\DisplayObject.js",
+            "line": 298,
+            "description": "Dummy function for CJS export compatibility",
+            "itemtype": "method",
+            "name": "cache",
+            "class": "pixiflash.DisplayObject",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\DisplayObject.js",
+            "line": 307,
+            "description": "Graphics object was updated on the shape dynamically, update the mask",
+            "itemtype": "method",
+            "name": "onShapeChanged",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "shape",
+                    "description": "",
+                    "type": "pixiflash.Shape"
+                }
+            ],
+            "class": "pixiflash.DisplayObject",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Graphics.js",
+            "line": 35,
+            "description": "Map of Base64 characters to values. Used by {{#crossLink \"Graphics/decodePath\"}}{{/crossLink}}.",
+            "itemtype": "property",
+            "name": "BASE_64",
+            "type": "Object",
+            "static": 1,
+            "final": 1,
+            "access": "private",
+            "tagname": "",
+            "readonly": "",
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Graphics.js",
+            "line": 53,
+            "description": "Moves the drawing point to the specified position. A tiny API method \"mt\" also exists.",
+            "itemtype": "method",
+            "name": "mt",
+            "params": [
+                {
+                    "name": "x",
+                    "description": "The x coordinate the drawing point should move to.",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "The y coordinate the drawing point should move to.",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "The Graphics instance the method is called on (useful for chaining calls).",
+                "type": "pixiflash.Graphics"
+            },
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Graphics.js",
+            "line": 62,
+            "description": "Draws a line from the current drawing point to the specified position, which become the new current drawing\npoint. A tiny API method \"lt\" also exists.\n\nFor detailed information, read the\n<a href=\"http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#complex-shapes-(paths)\">\nwhatwg spec</a>.",
+            "itemtype": "method",
+            "name": "lt",
+            "params": [
+                {
+                    "name": "x",
+                    "description": "The x coordinate the drawing point should draw to.",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "The y coordinate the drawing point should draw to.",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "The Graphics instance the method is called on (useful for chaining calls.)",
+                "type": "pixiflash.Graphics"
+            },
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Graphics.js",
+            "line": 76,
+            "description": "Draws a bezier curve from the current drawing point to (x, y) using the control points (cp1x, cp1y) and (cp2x,\ncp2y). For detailed information, read the\n<a href=\"http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#dom-context-2d-beziercurveto\">\nwhatwg spec</a>. A tiny API method \"bt\" also exists.",
+            "itemtype": "method",
+            "name": "bt",
+            "params": [
+                {
+                    "name": "cp1x",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "cp1y",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "cp2x",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "cp2y",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "The Graphics instance the method is called on (useful for chaining calls.)",
+                "type": "pixiflash.Graphics"
+            },
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Graphics.js",
+            "line": 92,
+            "description": "Shortcut to drawRect.",
+            "itemtype": "method",
+            "name": "dr",
+            "params": [
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "w",
+                    "description": "Width of the rectangle",
+                    "type": "Number"
+                },
+                {
+                    "name": "h",
+                    "description": "Height of the rectangle",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "The Graphics instance the method is called on (useful for chaining calls.)",
+                "type": "Graphics"
+            },
+            "chainable": 1,
+            "access": "protected",
+            "tagname": "",
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Graphics.js",
+            "line": 103,
+            "description": "Shortcut to drawRect.",
+            "itemtype": "method",
+            "name": "r",
+            "params": [
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "w",
+                    "description": "Width of the rectangle",
+                    "type": "Number"
+                },
+                {
+                    "name": "h",
+                    "description": "Height of the rectangle",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "The Graphics instance the method is called on (useful for chaining calls.)",
+                "type": "Graphics"
+            },
+            "chainable": 1,
+            "access": "protected",
+            "tagname": "",
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Graphics.js",
+            "line": 116,
+            "description": "Shortcut to drawRoundedRect.",
+            "itemtype": "method",
+            "name": "rr",
+            "params": [
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "w",
+                    "description": "Width of the rectangle",
+                    "type": "Number"
+                },
+                {
+                    "name": "h",
+                    "description": "Height of the rectangle",
+                    "type": "Number"
+                },
+                {
+                    "name": "radius",
+                    "description": "The corner radius",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "The Graphics instance the method is called on (useful for chaining calls.)",
+                "type": "Graphics"
+            },
+            "chainable": 1,
+            "access": "protected",
+            "tagname": "",
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Graphics.js",
+            "line": 130,
+            "description": "Shortcut to drawRoundRectComplex. Not supported by pixiflash",
+            "itemtype": "method",
+            "name": "rc",
+            "params": [
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "w",
+                    "description": "Width of the rectangle",
+                    "type": "Number"
+                },
+                {
+                    "name": "h",
+                    "description": "Height of the rectangle",
+                    "type": "Number"
+                },
+                {
+                    "name": "radius",
+                    "description": "The corner radius",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "The Graphics instance the method is called on (useful for chaining calls.)",
+                "type": "Graphics"
+            },
+            "chainable": 1,
+            "access": "protected",
+            "tagname": "",
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Graphics.js",
+            "line": 151,
+            "description": "Shortcut to drawCircle.",
+            "itemtype": "method",
+            "name": "dc",
+            "params": [
+                {
+                    "name": "x",
+                    "description": "x coordinate center point of circle.",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "y coordinate center point of circle.",
+                    "type": "Number"
+                },
+                {
+                    "name": "radius",
+                    "description": "Radius of circle.",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "The Graphics instance the method is called on (useful for chaining calls.)",
+                "type": "Graphics"
+            },
+            "chainable": 1,
+            "access": "protected",
+            "tagname": "",
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Graphics.js",
+            "line": 163,
+            "description": "Shortcut to arc.",
+            "itemtype": "method",
+            "name": "a",
+            "params": [
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "radius",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "startAngle",
+                    "description": "Measured in radians.",
+                    "type": "Number"
+                },
+                {
+                    "name": "endAngle",
+                    "description": "Measured in radians.",
+                    "type": "Number"
+                },
+                {
+                    "name": "anticlockwise",
+                    "description": "",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "The Graphics instance the method is called on (useful for chaining calls.)",
+                "type": "Graphics"
+            },
+            "access": "protected",
+            "tagname": "",
+            "chainable": 1,
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Graphics.js",
+            "line": 178,
+            "description": "Shortcut to arcTo.",
+            "itemtype": "method",
+            "name": "at",
+            "params": [
+                {
+                    "name": "x1",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "y1",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "x2",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "y2",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "radius",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "The Graphics instance the method is called on (useful for chaining calls.)",
+                "type": "Graphics"
+            },
+            "chainable": 1,
+            "access": "protected",
+            "tagname": "",
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Graphics.js",
+            "line": 192,
+            "description": "Override the draw ellipse method",
+            "itemtype": "method",
+            "name": "de",
+            "params": [
+                {
+                    "name": "x",
+                    "description": "[description]",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "[description]",
+                    "type": "Number"
+                },
+                {
+                    "name": "width",
+                    "description": "[description]",
+                    "type": "Number"
+                },
+                {
+                    "name": "height",
+                    "description": "[description]",
+                    "type": "Number"
+                }
+            ],
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Graphics.js",
+            "line": 206,
+            "description": "Draws a quadratic curve from the current drawing point to (x, y) using the control point (cpx, cpy). For detailed\ninformation, read the <a href=\"http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#dom-context-2d-quadraticcurveto\">\nwhatwg spec</a>. A tiny API method \"qt\" also exists.",
+            "itemtype": "method",
+            "name": "qt",
+            "params": [
+                {
+                    "name": "cpx",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "cpy",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "The Graphics instance the method is called on (useful for chaining calls.)",
+                "type": "pixiflash.Graphics"
+            },
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Graphics.js",
+            "line": 228,
+            "description": "Closes the current path, effectively drawing a line from the current drawing point to the first drawing point specified\nsince the fill or stroke was last set. A tiny API method \"cp\" also exists.",
+            "itemtype": "method",
+            "name": "cp",
+            "return": {
+                "description": "The Graphics instance the method is called on (useful for chaining calls.)",
+                "type": "pixiflash.Graphics"
+            },
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Graphics.js",
+            "line": 244,
+            "description": "Begins a fill with the specified color. This ends the current sub-path. A tiny API method \"f\" also exists.",
+            "itemtype": "method",
+            "name": "f",
+            "params": [
+                {
+                    "name": "color",
+                    "description": "A CSS compatible color value (ex. \"red\", \"#FF0000\", or \"rgba(255,0,0,0.5)\"). Setting to\nnull will result in no fill.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "The Graphics instance the method is called on (useful for chaining calls.)",
+                "type": "pixiflash.Graphics"
+            },
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Graphics.js",
+            "line": 262,
+            "description": "Placeholder method for a linear fill. Pixi does not support linear fills,\nso we just pick the first color in colorArray",
+            "itemtype": "method",
+            "name": "lf",
+            "params": [
+                {
+                    "name": "colorArray",
+                    "description": "An array of CSS compatible color values @see `f`",
+                    "type": "Array"
+                }
+            ],
+            "return": {
+                "description": "The Graphics instance the method is called on (useful for chaining calls.)",
+                "type": "pixiflash.Graphics"
+            },
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Graphics.js",
+            "line": 278,
+            "description": "Placeholder method for a radial fill. Pixi does not support radial fills,\nso we just pick the first color in colorArray",
+            "itemtype": "method",
+            "name": "rf",
+            "params": [
+                {
+                    "name": "colorArray",
+                    "description": "An array of CSS compatible color values @see `f`",
+                    "type": "Array"
+                }
+            ],
+            "return": {
+                "description": "The Graphics instance the method is called on (useful for chaining calls.)",
+                "type": "pixiflash.Graphics"
+            },
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Graphics.js",
+            "line": 294,
+            "description": "Placeholder method for a beginBitmapFill. Pixi does not support bitmap fills.",
+            "itemtype": "method",
+            "name": "bf",
+            "return": {
+                "description": "The Graphics instance the method is called on (useful for chaining calls.)",
+                "type": "pixiflash.Graphics"
+            },
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Graphics.js",
+            "line": 308,
+            "description": "Placeholder method for a setStrokeDash. Pixi does not support dashed strokes.",
+            "itemtype": "method",
+            "name": "sd",
+            "return": {
+                "description": "The Graphics instance the method is called on (useful for chaining calls.)",
+                "type": "pixiflash.Graphics"
+            },
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Graphics.js",
+            "line": 322,
+            "description": "Placeholder method for a beginBitmapStroke. Pixi does not support bitmap strokes.",
+            "itemtype": "method",
+            "name": "bs",
+            "return": {
+                "description": "The Graphics instance the method is called on (useful for chaining calls.)",
+                "type": "pixiflash.Graphics"
+            },
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Graphics.js",
+            "line": 336,
+            "description": "Placeholder method for a beginLinearGradientStroke. Pixi does not support gradient strokes.",
+            "itemtype": "method",
+            "name": "ls",
+            "return": {
+                "description": "The Graphics instance the method is called on (useful for chaining calls.)",
+                "type": "pixiflash.Graphics"
+            },
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Graphics.js",
+            "line": 350,
+            "description": "Placeholder method for a beginRadialGradientStroke. Pixi does not support gradient strokes.",
+            "itemtype": "method",
+            "name": "rs",
+            "return": {
+                "description": "The Graphics instance the method is called on (useful for chaining calls.)",
+                "type": "pixiflash.Graphics"
+            },
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Graphics.js",
+            "line": 364,
+            "description": "Sets the stroke style. Like all drawing methods, this can be chained, so you can define\nthe stroke style and color in a single line of code like so:\n\n\tmyGraphics.setStrokeStyle(8,\"round\").beginStroke(\"#F00\");\n\nA tiny API method \"ss\" also exists.",
+            "itemtype": "method",
+            "name": "ss",
+            "params": [
+                {
+                    "name": "thickness",
+                    "description": "The width of the stroke.",
+                    "type": "Number"
+                },
+                {
+                    "name": "caps",
+                    "description": "Indicates the type of caps to use at the end of lines. One of butt,\nround, or square. Defaults to \"butt\". Also accepts the values 0 (butt), 1 (round), and 2 (square) for use with\nthe tiny API.",
+                    "type": "String | Number",
+                    "optional": true,
+                    "optdefault": "0"
+                },
+                {
+                    "name": "joints",
+                    "description": "Specifies the type of joints that should be used where two lines meet.\nOne of bevel, round, or miter. Defaults to \"miter\". Also accepts the values 0 (miter), 1 (round), and 2 (bevel)\nfor use with the tiny API.",
+                    "type": "String | Number",
+                    "optional": true,
+                    "optdefault": "0"
+                },
+                {
+                    "name": "miterLimit",
+                    "description": "If joints is set to \"miter\", then you can specify a miter limit ratio which\ncontrols at what point a mitered joint will be clipped.",
+                    "type": "Number",
+                    "optional": true,
+                    "optdefault": "10"
+                },
+                {
+                    "name": "ignoreScale",
+                    "description": "If true, the stroke will be drawn at the specified thickness regardless\nof active transformations.",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "return": {
+                "description": "The Graphics instance the method is called on (useful for chaining calls.)",
+                "type": "pixiflash.Graphics"
+            },
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Graphics.js",
+            "line": 391,
+            "description": "Begins a stroke with the specified color. This ends the current sub-path. A tiny API method \"s\" also exists.",
+            "itemtype": "method",
+            "name": "s",
+            "params": [
+                {
+                    "name": "color",
+                    "description": "A CSS compatible color value (ex. \"#FF0000\", \"red\", or \"rgba(255,0,0,0.5)\"). Setting to\nnull will result in no stroke.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "The Graphics instance the method is called on (useful for chaining calls.)",
+                "type": "pixiflash.Graphics"
+            },
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Graphics.js",
+            "line": 408,
+            "description": "Decodes a compact encoded path string into a series of draw instructions.\nThis format is not intended to be human readable, and is meant for use by authoring tools.\nThe format uses a base64 character set, with each character representing 6 bits, to define a series of draw\ncommands.\n\nEach command is comprised of a single \"header\" character followed by a variable number of alternating x and y\nposition values. Reading the header bits from left to right (most to least significant): bits 1 to 3 specify the\ntype of operation (0-moveTo, 1-lineTo, 2-quadraticCurveTo, 3-bezierCurveTo, 4-closePath, 5-7 unused). Bit 4\nindicates whether position values use 12 bits (2 characters) or 18 bits (3 characters), with a one indicating the\nlatter. Bits 5 and 6 are currently unused.\n\nFollowing the header is a series of 0 (closePath), 2 (moveTo, lineTo), 4 (quadraticCurveTo), or 6 (bezierCurveTo)\nparameters. These parameters are alternating x/y positions represented by 2 or 3 characters (as indicated by the\n4th bit in the command char). These characters consist of a 1 bit sign (1 is negative, 0 is positive), followed\nby an 11 (2 char) or 17 (3 char) bit integer value. All position values are in tenths of a pixel. Except in the\ncase of move operations which are absolute, this value is a delta from the previous x or y position (as\nappropriate).\n\nFor example, the string \"A3cAAMAu4AAA\" represents a line starting at -150,0 and ending at 150,0.\n<br />A - bits 000000. First 3 bits (000) indicate a moveTo operation. 4th bit (0) indicates 2 chars per\nparameter.\n<br />n0 - 110111011100. Absolute x position of -150.0px. First bit indicates a negative value, remaining bits\nindicate 1500 tenths of a pixel.\n<br />AA - 000000000000. Absolute y position of 0.\n<br />I - 001100. First 3 bits (001) indicate a lineTo operation. 4th bit (1) indicates 3 chars per parameter.\n<br />Au4 - 000000101110111000. An x delta of 300.0px, which is added to the previous x value of -150.0px to\nprovide an absolute position of +150.0px.\n<br />AAA - 000000000000000000. A y delta value of 0.\n\nA tiny API method \"p\" also exists.",
+            "itemtype": "method",
+            "name": "p",
+            "params": [
+                {
+                    "name": "str",
+                    "description": "The path string to decode.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "The Graphics instance the method is called on (useful for chaining calls.)",
+                "type": "pixiflash.Graphics"
+            },
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Graphics.js",
+            "line": 493,
+            "description": "Convert a string color \"#ffffff\" to int 0xffffff",
+            "itemtype": "method",
+            "name": "colorToHex",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "color",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "The hex color",
+                "type": "Int"
+            },
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Graphics.js",
+            "line": 517,
+            "description": "Get the alpha color from color string",
+            "itemtype": "method",
+            "name": "alphaFromColor",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "color",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "pixiflash.Graphics",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 55,
+            "description": "Controls how this MovieClip advances its time. Must be one of 0 (INDEPENDENT), 1 (SINGLE_FRAME), or 2 (SYNCHED).\nSee each constant for a description of the behaviour.",
+            "itemtype": "property",
+            "name": "mode",
+            "type": "String",
+            "default": "null",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 64,
+            "description": "Specifies what the first frame to play in this movieclip, or the only frame to display if mode is SINGLE_FRAME.",
+            "itemtype": "property",
+            "name": "startPosition",
+            "type": "Number",
+            "default": "0",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 72,
+            "description": "Indicates whether this MovieClip should loop when it reaches the end of its timeline.",
+            "itemtype": "property",
+            "name": "loop",
+            "type": "Boolean",
+            "default": "true",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 80,
+            "description": "The current frame of the movieclip.",
+            "itemtype": "property",
+            "name": "currentFrame",
+            "type": "Number",
+            "default": "0",
+            "readonly": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 89,
+            "description": "The TweenJS Timeline that is associated with this MovieClip. This is created automatically when the MovieClip\ninstance is initialized. Animations are created by adding <a href=\"http://tweenjs.com\">TweenJS</a> Tween\ninstances to the timeline.\n\n<h4>Example</h4>\n\n     var tween = createjs.Tween.get(target).to({x:0}).to({x:100}, 30);\n     var mc = new createjs.MovieClip();\n     mc.timeline.addTween(tween);\n\nElements can be added and removed from the timeline by toggling an \"_off\" property\nusing the <code>tweenInstance.to()</code> method. Note that using <code>Tween.set</code> is not recommended to\ncreate MovieClip animations. The following example will toggle the target off on frame 0, and then back on for\nframe 1. You can use the \"visible\" property to achieve the same effect.\n\n     var tween = createjs.Tween.get(target).to({_off:false})\n         .wait(1).to({_off:true})\n         .wait(1).to({_off:false});",
+            "itemtype": "property",
+            "name": "timeline",
+            "type": "Timeline",
+            "default": "null",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 115,
+            "description": "If true, the MovieClip's position will not advance when ticked.",
+            "itemtype": "property",
+            "name": "paused",
+            "type": "Boolean",
+            "default": "false",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 123,
+            "description": "If true, actions in this MovieClip's tweens will be run when the playhead advances.",
+            "itemtype": "property",
+            "name": "actionsEnabled",
+            "type": "Boolean",
+            "default": "true",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 131,
+            "description": "If true, the MovieClip will automatically be reset to its first frame whenever the timeline adds\nit back onto the display list. This only applies to MovieClip instances with mode=INDEPENDENT.\n<br><br>\nFor example, if you had a character animation with a \"body\" child MovieClip instance\nwith different costumes on each frame, you could set body.autoReset = false, so that\nyou can manually change the frame it is on, without worrying that it will be reset\nautomatically.",
+            "itemtype": "property",
+            "name": "autoReset",
+            "type": "Boolean",
+            "default": "true",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 145,
+            "itemtype": "property",
+            "name": "_synchOffset",
+            "type": "Number",
+            "default": "0",
+            "access": "private",
+            "tagname": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 153,
+            "itemtype": "property",
+            "name": "_prevPos",
+            "type": "Number",
+            "default": "-1",
+            "access": "private",
+            "tagname": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 161,
+            "itemtype": "property",
+            "name": "_prevPosition",
+            "type": "Number",
+            "default": "0",
+            "access": "private",
+            "tagname": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 169,
+            "description": "Note - changed from default: When the MovieClip is framerate independent, this is the time\nelapsed from frame 0 in seconds.",
+            "itemtype": "property",
+            "name": "_t",
+            "type": "Number",
+            "default": "0",
+            "access": "private",
+            "tagname": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 179,
+            "description": "By default MovieClip instances advance one frame per tick. Specifying a framerate for the MovieClip\nwill cause it to advance based on elapsed time between ticks as appropriate to maintain the target\nframerate.",
+            "itemtype": "property",
+            "name": "_framerate",
+            "type": "{Number}",
+            "default": "0",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 189,
+            "description": "When the MovieClip is framerate independent, this is the total time in seconds for the animation.",
+            "itemtype": "property",
+            "name": "_duration",
+            "type": "Number",
+            "default": "0",
+            "access": "private",
+            "tagname": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 198,
+            "description": "List of display objects that are actively being managed by the MovieClip.",
+            "itemtype": "property",
+            "name": "_managed",
+            "type": "Object",
+            "access": "private",
+            "tagname": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 219,
+            "description": "The MovieClip will advance independently of its parent, even if its parent is paused.\nThis is the default mode.",
+            "itemtype": "property",
+            "name": "INDEPENDENT",
+            "static": 1,
+            "type": "String",
+            "default": "\"independent\"",
+            "readonly": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 230,
+            "description": "The MovieClip will only display a single frame (as determined by the startPosition property).",
+            "itemtype": "property",
+            "name": "SINGLE_FRAME",
+            "static": 1,
+            "type": "String",
+            "default": "\"single\"",
+            "readonly": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 240,
+            "description": "The MovieClip will be advanced only when its parent advances and will be synched to the position of\nthe parent MovieClip.",
+            "itemtype": "property",
+            "name": "SYNCHED",
+            "static": 1,
+            "type": "String",
+            "default": "\"synched\"",
+            "readonly": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 278,
+            "description": "Use the {{#crossLink \"MovieClip/labels:property\"}}{{/crossLink}} property instead.",
+            "itemtype": "method",
+            "name": "getLabels",
+            "return": {
+                "description": "",
+                "type": "Array"
+            },
+            "deprecated": true,
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 288,
+            "description": "Use the {{#crossLink \"MovieClip/currentLabel:property\"}}{{/crossLink}} property instead.",
+            "itemtype": "method",
+            "name": "getCurrentLabel",
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "deprecated": true,
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 299,
+            "description": "Returns an array of objects with label and position (aka frame) properties, sorted by position.\nShortcut to TweenJS: Timeline.getLabels();",
+            "itemtype": "property",
+            "name": "labels",
+            "type": "{Array}",
+            "readonly": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 307,
+            "description": "Returns the name of the label on or immediately before the current frame. See TweenJS: Timeline.getCurrentLabel()\nfor more information.",
+            "itemtype": "property",
+            "name": "currentLabel",
+            "type": "{String}",
+            "readonly": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 321,
+            "description": "When the MovieClip is framerate independent, this is the time elapsed from frame 0 in seconds.",
+            "itemtype": "property",
+            "name": "elapsedTime",
+            "type": "Number",
+            "default": "0",
+            "access": "public",
+            "tagname": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 337,
+            "description": "By default MovieClip instances advance one frame per tick. Specifying a framerate for the MovieClip\nwill cause it to advance based on elapsed time between ticks as appropriate to maintain the target\nframerate.\n\nFor example, if a MovieClip with a framerate of 10 is placed on a Stage being updated at 40fps, then the MovieClip will\nadvance roughly one frame every 4 ticks. This will not be exact, because the time between each tick will\nvary slightly between frames.\n\nThis feature is dependent on the tick event object (or an object with an appropriate \"delta\" property) being\npassed into {{#crossLink \"Stage/update\"}}{{/crossLink}}.",
+            "itemtype": "property",
+            "name": "framerate",
+            "type": "{Number}",
+            "default": "0",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 367,
+            "description": "Sets paused to false.",
+            "itemtype": "method",
+            "name": "play",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 375,
+            "description": "Sets paused to true.",
+            "itemtype": "method",
+            "name": "stop",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 383,
+            "description": "Advances this movie clip to the specified position or label and sets paused to false.",
+            "itemtype": "method",
+            "name": "gotoAndPlay",
+            "params": [
+                {
+                    "name": "positionOrLabel",
+                    "description": "The animation name or frame number to go to.",
+                    "type": "String|Number"
+                }
+            ],
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 393,
+            "description": "Advances this movie clip to the specified position or label and sets paused to true.",
+            "itemtype": "method",
+            "name": "gotoAndStop",
+            "params": [
+                {
+                    "name": "positionOrLabel",
+                    "description": "The animation or frame name to go to.",
+                    "type": "String|Number"
+                }
+            ],
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 403,
+            "description": "Advances the playhead. This occurs automatically each tick by default.",
+            "params": [
+                {
+                    "name": "time",
+                    "description": "The amount of time in ms to advance by. Only applicable if framerate is set.",
+                    "type": "Number",
+                    "optional": true
+                }
+            ],
+            "itemtype": "method",
+            "name": "advance",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 443,
+            "itemtype": "method",
+            "name": "_tick",
+            "params": [
+                {
+                    "name": "delta",
+                    "description": "Time elapsed since the previous tick, in milliseconds.\nfunction.",
+                    "type": "Number"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 469,
+            "itemtype": "method",
+            "name": "_goto",
+            "params": [
+                {
+                    "name": "positionOrLabel",
+                    "description": "The animation name or frame number to go to.",
+                    "type": "String|Number"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 488,
+            "itemtype": "method",
+            "name": "_reset",
+            "access": "private",
+            "tagname": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 498,
+            "itemtype": "method",
+            "name": "_updateTimeline",
+            "access": "protected",
+            "tagname": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 548,
+            "itemtype": "method",
+            "name": "_setState",
+            "params": [
+                {
+                    "name": "state",
+                    "description": "",
+                    "type": "Array"
+                },
+                {
+                    "name": "offset",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 565,
+            "description": "Adds a child to the timeline, and sets it up as a managed child.",
+            "itemtype": "method",
+            "name": "_addManagedChild",
+            "params": [
+                {
+                    "name": "child",
+                    "description": "The child MovieClip to manage",
+                    "type": "MovieClip"
+                },
+                {
+                    "name": "offset",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "pixiflash.MovieClip",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 610,
+            "itemtype": "method",
+            "name": "priority",
+            "access": "private",
+            "tagname": "",
+            "class": "pixiflash.MovieClipPlugin",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 616,
+            "itemtype": "method",
+            "name": "install",
+            "access": "private",
+            "tagname": "",
+            "class": "pixiflash.MovieClipPlugin",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 624,
+            "itemtype": "method",
+            "name": "init",
+            "params": [
+                {
+                    "name": "tween",
+                    "description": "",
+                    "type": "Tween"
+                },
+                {
+                    "name": "prop",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "String|Number|Boolean"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "pixiflash.MovieClipPlugin",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 635,
+            "itemtype": "method",
+            "name": "step",
+            "access": "private",
+            "tagname": "",
+            "class": "pixiflash.MovieClipPlugin",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\MovieClip.js",
+            "line": 643,
+            "itemtype": "method",
+            "name": "tween",
+            "params": [
+                {
+                    "name": "tween",
+                    "description": "",
+                    "type": "Tween"
+                },
+                {
+                    "name": "prop",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "String | Number | Boolean"
+                },
+                {
+                    "name": "startValues",
+                    "description": "",
+                    "type": "Array"
+                },
+                {
+                    "name": "endValues",
+                    "description": "",
+                    "type": "Array"
+                },
+                {
+                    "name": "ratio",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "wait",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "end",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "*"
+            },
+            "class": "pixiflash.MovieClipPlugin",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Shape.js",
+            "line": 38,
+            "description": "The drawing graphics, these are necessary\nfor the compability with EaselJS Flash exports.",
+            "itemtype": "property",
+            "name": "graphics",
+            "type": "pixiflash.Graphics",
+            "class": "pixiflash.Shape",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Shape.js",
+            "line": 64,
+            "description": "Override for the destroy",
+            "itemtype": "method",
+            "name": "destroy",
+            "params": [
+                {
+                    "name": "recursive",
+                    "description": "If we should destroy the children of this shape",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "pixiflash.Shape",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Sprite.js",
+            "line": 20,
+            "description": "The spritesheet to use",
+            "itemtype": "property",
+            "name": "spriteSheet",
+            "type": "pixiflash.SpriteSheet",
+            "class": "pixiflash.Sprite",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\Sprite.js",
+            "line": 36,
+            "description": "Goto and stop on a frame",
+            "itemtype": "method",
+            "name": "gotoAndStop",
+            "params": [
+                {
+                    "name": "frame",
+                    "description": "The frame index",
+                    "type": "Int"
+                }
+            ],
+            "class": "pixiflash.Sprite",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\SpriteSheet.js",
+            "line": 22,
+            "description": "The collection of frames",
+            "itemtype": "property",
+            "name": "frames",
+            "type": "Array",
+            "access": "private",
+            "tagname": "",
+            "class": "pixiflash.SpriteSheet",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\SpriteSheet.js",
+            "line": 29,
+            "description": "The global id of the spriteshet",
+            "itemtype": "property",
+            "name": "_id",
+            "type": "String",
+            "access": "private",
+            "tagname": "",
+            "class": "pixiflash.SpriteSheet",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\SpriteSheet.js",
+            "line": 45,
+            "description": "Add the frames data",
+            "itemtype": "method",
+            "name": "_addFrames",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "The spritesheet to load",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "images",
+                            "description": "The collection of BaseTextures",
+                            "type": "Array"
+                        },
+                        {
+                            "name": "frames",
+                            "description": "The collection of frames",
+                            "type": "Array"
+                        }
+                    ]
+                }
+            ],
+            "class": "pixiflash.SpriteSheet",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\SpriteSheet.js",
+            "line": 71,
+            "description": "Get a frame of the spritesheet",
+            "itemtype": "method",
+            "name": "getFrame",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "The index or frame to get",
+                    "type": "Int"
+                }
+            ],
+            "class": "pixiflash.SpriteSheet",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\SpriteSheet.js",
+            "line": 81,
+            "description": "Destroy the spritesheet",
+            "itemtype": "method",
+            "name": "destroy",
+            "class": "pixiflash.SpriteSheet",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\SpriteSheet.js",
+            "line": 102,
+            "description": "Get a frame of the spritesheet",
+            "itemtype": "method",
+            "name": "addToGlobal",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "The id of the spritesheet",
+                    "type": "String"
+                }
+            ],
+            "class": "pixiflash.SpriteSheet",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\SpriteSheet.js",
+            "line": 116,
+            "description": "Create a spritesheet",
+            "itemtype": "method",
+            "name": "fromData",
+            "static": 1,
+            "params": [
+                {
+                    "name": "input",
+                    "description": "The flash spritesheet data",
+                    "type": "Object"
+                },
+                {
+                    "name": "Callback",
+                    "description": "when complete",
+                    "type": "Function"
+                }
+            ],
+            "class": "pixiflash.SpriteSheet",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        },
+        {
+            "file": "src\\utils.js",
+            "line": 13,
+            "description": "Convert the loaded texture atlas to images",
+            "itemtype": "method",
+            "name": "addImages",
+            "static": 1,
+            "params": [
+                {
+                    "name": "atlas",
+                    "description": "The atlas to convert images",
+                    "type": "PIXI.Texture"
+                }
+            ],
+            "class": "pixiflash.utils",
+            "module": "Pixi Flash",
+            "namespace": "pixiflash"
+        }
+    ],
+    "warnings": []
+}

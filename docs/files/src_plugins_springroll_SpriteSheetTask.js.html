@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://yui-s.yahooapis.com/3.8.0/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
+    <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
+	<title>Pixi Flash v0.2.3 API Documentation : src\plugins\springroll\SpriteSheetTask.js</title>  
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><a href="https://github.com/CloudKidStudio/PixiFlash"><img src="../assets/css/logo.png" title="Pixi Flash"></a></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Documentation for: 0.2.3</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                		<ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                			<li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/pixiflash.Bitmap.html">pixiflash.Bitmap</a></li>
+                                <li><a href="../classes/pixiflash.ColorFilter.html">pixiflash.ColorFilter</a></li>
+                                <li><a href="../classes/pixiflash.Container.html">pixiflash.Container</a></li>
+                                <li><a href="../classes/pixiflash.DisplayObject.html">pixiflash.DisplayObject</a></li>
+                                <li><a href="../classes/pixiflash.FlashArt.html">pixiflash.FlashArt</a></li>
+                                <li><a href="../classes/pixiflash.FlashArtTask.html">pixiflash.FlashArtTask</a></li>
+                                <li><a href="../classes/pixiflash.Graphics.html">pixiflash.Graphics</a></li>
+                                <li><a href="../classes/pixiflash.MovieClip.html">pixiflash.MovieClip</a></li>
+                                <li><a href="../classes/pixiflash.MovieClipInstance.html">pixiflash.MovieClipInstance</a></li>
+                                <li><a href="../classes/pixiflash.MovieClipPlugin.html">pixiflash.MovieClipPlugin</a></li>
+                                <li><a href="../classes/pixiflash.Shape.html">pixiflash.Shape</a></li>
+                                <li><a href="../classes/pixiflash.Sprite.html">pixiflash.Sprite</a></li>
+                                <li><a href="../classes/pixiflash.SpriteSheet.html">pixiflash.SpriteSheet</a></li>
+                                <li><a href="../classes/pixiflash.SpriteSheetTask.html">pixiflash.SpriteSheetTask</a></li>
+                                <li><a href="../classes/pixiflash.utils.html">pixiflash.utils</a></li>
+                            </ul>
+                
+                            <ul id="api-modules" class="apis modules">
+                                <li><a href="../modules/Pixi Flash.html">Pixi Flash</a></li>
+                                <li><a href="../modules/SpringRoll Plugin.html">SpringRoll Plugin</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+            <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<script>
+	var name = src\plugins\springroll\SpriteSheetTask.js      
+</script>
+<h1 class="file-heading">File:src\plugins\springroll\SpriteSheetTask.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+(function()
+{
+	var LoadTask = include(&#x27;springroll.LoadTask&#x27;),
+		SpriteSheet = include(&#x27;pixiflash.SpriteSheet&#x27;),
+		TextureAtlas = include(&#x27;springroll.pixi.TextureAtlas&#x27;),
+		Texture = include(&#x27;PIXI.Texture&#x27;);
+
+	/**
+	 * Load a spritesheet generated from Flash and adds it to the global ss namespace.
+	 * This namespace is shared with regular CreateJS art, as it can&#x27;t be changed in Flash&#x27;s
+	 * publishing settings. As such, don&#x27;t name spritesheets for CreateJS and PixiFlash the same
+	 * thing if both spritesheets are being used by art published from Flash.
+	 * @class SpriteSheetTask
+	 * @extends springroll.LoadTask
+	 * @constructor
+	 * @private
+	 * @param {Object} asset The data properties
+	 * @param {String} asset.type Asset type must be &quot;pixi&quot;
+	 * @param {String} asset.format Asset format must be &quot;pixiflash.SpriteSheet&quot;
+	 * @param {String} asset.src The source
+	 * @param {Boolean} [asset.cache=false] If we should cache the result
+	 * @param {String} [asset.id] Id of asset
+	 * @param {Function} [asset.complete] The event to call when done
+	 * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
+	 */
+	var SpriteSheetTask = function(asset)
+	{
+		LoadTask.call(this, asset, asset.src);
+	};
+
+	// Reference to prototype
+	var s = LoadTask.prototype;
+	var p = extend(SpriteSheetTask, LoadTask);
+
+	/**
+	 * Test if we should run this task
+	 * @method test
+	 * @static
+	 * @param {Object} asset The asset to check
+	 * @return {Boolean} If the asset is compatible with this asset
+	 */
+	SpriteSheetTask.test = function(asset)
+	{
+		return asset.src &amp;&amp;
+			asset.src.search(/\.json$/i) &gt; -1 &amp;&amp;
+			asset.type == &quot;pixi&quot; &amp;&amp;
+			asset.format == &quot;pixiflash.SpriteSheet&quot;;
+	};
+
+	/**
+	 * Start the task
+	 * @method  start
+	 * @param  {Function} callback Callback when finished
+	 */
+	p.start = function(callback)
+	{
+		this.load(this.src, function(data)
+		{
+			var images = [];
+			data.images.forEach(function(image)
+			{
+				// Convert string loads
+				if (typeof image == &quot;string&quot;)
+				{
+					image = {
+						image: image,
+						type: &#x27;pixi&#x27;
+					};
+				}
+				// Use pixi tasks to load images
+				images.push(image);
+			});
+
+			var id = this.id;
+			this.load(images, function(textures)
+			{
+				data.images.forEach(function(image, i)
+				{
+					// assume the textures are the same order as
+					// the files that were loaded, need to double-check
+					data.images[i] = textures[i].baseTexture;
+				});
+				var spriteSheet = new SpriteSheet(data);
+				spriteSheet.addToGlobal(id);
+				callback(spriteSheet);
+			});
+		}
+		.bind(this));
+	};
+
+	// Assign to namespace
+	namespace(&#x27;pixiflash&#x27;).SpriteSheetTask = SpriteSheetTask;
+
+}());
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
