@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<title>Pixi Flash Example - Bitmap Animation</title>
+		<title>Pixi Flash Example - Flash Color Effects/CreateJS ColorFilter</title>
 		<meta name="description" content="">
 		<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
 
@@ -18,7 +18,7 @@
 		<script src="../../dist/pixi-flash.js"></script>
 		
 		<!-- The Flash exported animation -->
-		<script src="Fizzy.js"></script>
+		<script src="ColorEffects.js"></script>
 
 	</head>
 	<body>
@@ -26,7 +26,7 @@
 			<canvas id="stage" width="800" height="500"></canvas>
 <script>
 
-var renderer = new PIXI.autoDetectRenderer(800, 500, {
+var renderer = new PIXI.autoDetectRenderer(500, 720, {
 	view: document.getElementById("stage"),
 	backgroundColor: 0xffffff
 });
@@ -35,18 +35,13 @@ var renderer = new PIXI.autoDetectRenderer(800, 500, {
 var stage = new PIXI.Container();
 
 // Load the spritesheet data
-$.getJSON("Fizzy_atlas_.json", function(data)
+$.getJSON("ColorEffects_atlas_.json", function(data)
 {
     // Load the atlas for the character
 	pixiflash.SpriteSheet.fromData(data, function()
 	{
-		// Create the character
-		var fizzy = new pixiflash_lib.Fizzy();
-		fizzy.framerate = 30;
-		fizzy.play();
-
-		// Add to stage
-		stage.addChild(fizzy);
+		// Create art & Add to stage
+		stage.addChild(new pixiflash_lib.ColorEffects());
 	});
 });
 
