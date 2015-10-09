@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>Pixi Flash v0.2.3 API Documentation : src\DisplayObject.js</title>  
+	<title>Pixi Flash v0.2.5 API Documentation : src/DisplayObject.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -17,7 +17,7 @@
                 <h1><a href="https://github.com/CloudKidStudio/PixiFlash"><img src="../assets/css/logo.png" title="Pixi Flash"></a></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.2.3</em>
+            <em>API Documentation for: 0.2.5</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -46,10 +46,12 @@
                                 <li><a href="../classes/pixiflash.MovieClip.html">pixiflash.MovieClip</a></li>
                                 <li><a href="../classes/pixiflash.MovieClipInstance.html">pixiflash.MovieClipInstance</a></li>
                                 <li><a href="../classes/pixiflash.MovieClipPlugin.html">pixiflash.MovieClipPlugin</a></li>
+                                <li><a href="../classes/pixiflash.Shadow.html">pixiflash.Shadow</a></li>
                                 <li><a href="../classes/pixiflash.Shape.html">pixiflash.Shape</a></li>
                                 <li><a href="../classes/pixiflash.Sprite.html">pixiflash.Sprite</a></li>
                                 <li><a href="../classes/pixiflash.SpriteSheet.html">pixiflash.SpriteSheet</a></li>
                                 <li><a href="../classes/pixiflash.SpriteSheetTask.html">pixiflash.SpriteSheetTask</a></li>
+                                <li><a href="../classes/pixiflash.Text.html">pixiflash.Text</a></li>
                                 <li><a href="../classes/pixiflash.utils.html">pixiflash.utils</a></li>
                             </ul>
                 
@@ -88,9 +90,9 @@
                 <div id="docs-main">
                     <div class="content">
 <script>
-	var name = src\DisplayObject.js      
+	var name = src/DisplayObject.js      
 </script>
-<h1 class="file-heading">File:src\DisplayObject.js</h1>
+<h1 class="file-heading">File:DisplayObject.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
@@ -199,6 +201,10 @@
 					var selfTint = this._selfTint;
 					var parentTint = this.parent.tint;
 
+					if(selfTint == 0xFFFFFF)
+						this._lastComputedTint = parentTint;
+					else if(parentTint == 0xFFFFFF)
+						this._lastComputedTint = selfTint;
 					if(this._selfTint != this._lastSelfTint || this.parent.tint != this._lastParentTint)
 					{
 						//calculate tint first time
@@ -212,10 +218,6 @@
 
 						this._lastComputedTint = (Math.round((parentR * selfR) / max) &lt;&lt; 16) | (Math.round((parentG * selfG) / max) &lt;&lt; 8) | Math.round((parentB * selfB) / max);
 					}
-					else if(selfTint == 0xFFFFFF)
-						this._lastComputedTint = parentTint;
-					else if(parentTint == 0xFFFFFF)
-						this._lastComputedTint = selfTint;
 
 					this._lastSelfTint = selfTint;
 					this._lastParentTint = parentTint;

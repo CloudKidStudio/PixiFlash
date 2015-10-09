@@ -11,10 +11,12 @@ YUI.add("yuidoc-meta", function(Y) {
         "pixiflash.MovieClip",
         "pixiflash.MovieClipInstance",
         "pixiflash.MovieClipPlugin",
+        "pixiflash.Shadow",
         "pixiflash.Shape",
         "pixiflash.Sprite",
         "pixiflash.SpriteSheet",
         "pixiflash.SpriteSheetTask",
+        "pixiflash.Text",
         "pixiflash.utils"
     ],
     "modules": [

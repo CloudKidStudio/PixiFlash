@@ -1,4 +1,4 @@
-/*! Pixi Flash 0.2.3 */
+/*! Pixi Flash 0.2.5 */
 /**
  * @module Pixi Flash
  * @namespace pixiflash
@@ -53,6 +53,66 @@
 	{
 		window.pixiflash_images = {};
 	}
+
+}(window));
+/**
+ * @module Pixi Flash
+ * @namespace pixiflash
+ */
+(function(window)
+{
+	/**
+	 * Utilities for converting 
+	 * @class utils
+	 */
+	var utils = {};
+
+	/**
+	 * Convert the loaded texture atlas to images
+	 * @method addImages
+	 * @static
+	 * @param {PIXI.Texture} atlas The atlas to convert images
+	 */
+	utils.addImages = function(atlas)
+	{
+		var id;
+
+		// This needs to happen before we create the character
+		// so that the textures exist for the movieclip
+		for(var frame in atlas.textures)
+		{
+			// Remove the file extension from the image name
+			id = frame.substring(0, frame.indexOf("."));
+			window.pixiflash_images[id] = atlas.textures[frame];
+		}
+	};
+
+	/**
+	 * Convert a string color "#ffffff" to int 0xffffff
+	 * @method colorToHex
+	 * @private
+	 * @param {String} color
+	 * @return {int} The hex color
+	 */
+	utils.colorToHex = function(color)
+	{
+		if (/^rgba\(/.test(color))
+		{
+			// Remove "rgba(" and ")" and turn into array
+			color = color.substring(5, color.length - 1).split(',');
+			color = 65536 * parseInt(color[0]) +
+				256 * parseInt(color[1]) +
+				parseInt(color[2]);
+		}
+		else
+		{
+			color = parseInt(color.replace(/^#/, ''), 16);
+		}
+		return color;
+	};
+
+	// Assign to namespace
+	pixiflash.utils = utils;
 
 }(window));
 /**
@@ -192,6 +252,10 @@
 					var selfTint = this._selfTint;
 					var parentTint = this.parent.tint;
 
+					if(selfTint == 0xFFFFFF)
+						this._lastComputedTint = parentTint;
+					else if(parentTint == 0xFFFFFF)
+						this._lastComputedTint = selfTint;
 					if(this._selfTint != this._lastSelfTint || this.parent.tint != this._lastParentTint)
 					{
 						//calculate tint first time
@@ -205,10 +269,6 @@
 
 						this._lastComputedTint = (Math.round((parentR * selfR) / max) << 16) | (Math.round((parentG * selfG) / max) << 8) | Math.round((parentB * selfB) / max);
 					}
-					else if(selfTint == 0xFFFFFF)
-						this._lastComputedTint = parentTint;
-					else if(parentTint == 0xFFFFFF)
-						this._lastComputedTint = selfTint;
 
 					this._lastSelfTint = selfTint;
 					this._lastParentTint = parentTint;
@@ -1567,6 +1627,7 @@
 (function(undefined)
 {
 	var PixiGraphics = PIXI.Graphics,
+		utils = pixiflash.utils,
 		DisplayObject = pixiflash.DisplayObject;
 	
 	/**
@@ -1814,7 +1875,7 @@
 	{
 		if (color)
 		{
-			var rgb = colorToHex(color);
+			var rgb = utils.colorToHex(color);
 			var a = alphaFromColor(color);
 			this.beginFill(rgb, a);
 		}
@@ -1961,7 +2022,7 @@
 	{
 		if (color)
 		{
-			this.lineColor = colorToHex(color);
+			this.lineColor = utils.colorToHex(color);
 			this.lineAlpha = 1;
 		}
 		return this;
@@ -2050,30 +2111,6 @@
 			f.apply(this,params);
 		}
 		return this;
-	};
-
-	/**
-	 * Convert a string color "#ffffff" to int 0xffffff
-	 * @method colorToHex
-	 * @private
-	 * @param {String} color
-	 * @return {int} The hex color
-	 */
-	var colorToHex = function(color)
-	{
-		if (/^rgba\(/.test(color))
-		{
-			// Remove "rgba(" and ")" and turn into array
-			color = color.substring(5, color.length - 1).split(',');
-			color = 65536 * parseInt(color[0]) +
-				256 * parseInt(color[1]) +
-				parseInt(color[2]);
-		}
-		else
-		{
-			color = parseInt(color.replace(/^#/, ''), 16);
-		}
-		return color;
 	};
 
 	/**
@@ -2174,35 +2211,135 @@
  * @module Pixi Flash
  * @namespace pixiflash
  */
-(function(window)
+(function(undefined)
 {
+	var PixiText = PIXI.Text,
+		DisplayObject = pixiflash.DisplayObject;
+	
 	/**
-	 * Utilities for converting 
-	 * @class utils
+	 * The class to emulate createjs.Text
+	 * @class Text
+	 * @extends PIXI.Text
 	 */
-	var utils = {};
-
-	/**
-	 * Convert the loaded texture atlas to images
-	 * @method addImages
-	 * @static
-	 * @param {PIXI.Texture} atlas The atlas to convert images
-	 */
-	utils.addImages = function(atlas)
+	var Text = function(text, font, color)
 	{
-		var id;
-
-		// This needs to happen before we create the character
-		// so that the textures exist for the movieclip
-		for(var frame in atlas.textures)
-		{
-			// Remove the file extension from the image name
-			id = frame.substring(0, frame.indexOf("."));
-			window.pixiflash_images[id] = atlas.textures[frame];
-		}
+		PixiText.call(this, text, { 
+			font: font, 
+			fill: color,
+			padding: 10 // so text doesn't get cut off
+		});
+		DisplayObject.call(this);
 	};
+	
+	// Extend PIXI.Text
+	var p = Text.prototype = Object.create(PixiText.prototype);
 
+	Object.defineProperties(p, 
+	{
+		/**
+		 * The text align
+		 * @property {String} textAlign 
+		 */
+		textAlign: 
+		{
+			set: function(align)
+			{
+				if (align == "center")
+					this.anchor.x = 0.5;
+				else if (align == "right")
+					this.anchor.x = 1;
+				else 
+					this.anchor.x = 0;
+
+				this.style.align = align;
+			}, 
+			get: function()
+			{
+				return this.style.align;
+			}
+		},
+		/**
+		 * The text line height
+		 * @property {Number} lineHeight 
+		 */
+		lineHeight: 
+		{
+			set: function(lineHeight)
+			{
+				this.style.lineHeight = lineHeight;
+			},
+			get: function()
+			{
+				return this.style.lineHeight;
+			}
+		},
+		/**
+		 * The text line width
+		 * @property {Number} lineWidth 
+		 */
+		lineWidth: 
+		{
+			set: function(wordWrapWidth)
+			{
+				this.style.wordWrapWidth = wordWrapWidth;
+			},
+			get: function()
+			{
+				return this.style.wordWrapWidth;
+			}
+		},
+		shadow: 
+		{
+			set: function(shadow)
+			{
+				this.style.dropShadow = !!shadow;
+				if (shadow)
+				{
+					this.style.dropShadowColor = shadow.color;
+					// CreateJS can't handle these
+					// this.style.dropShadowAngle = shadow.angle;
+					// this.style.dropShadowDistance = shadow.distance;
+				}
+			}
+		}
+	});
+	
+	// Mixin the display object
+	DisplayObject.mixin(p);
+	
+	//constructor for backwards/Flash exporting compatibility
+	p.initialize = Text;
+	
 	// Assign to namespace
-	pixiflash.utils = utils;
+	pixiflash.Text = Text;
+	
+}());
+/**
+ * @module Pixi Flash
+ * @namespace pixiflash
+ */
+(function(undefined)
+{
+	// Import classes
+	var utils = pixiflash.utils;
 
-}(window));
+	/**
+	 * The class to emulate createjs.Shadow
+	 * @class Shadow
+	 */
+	var Shadow = function(color, x, y, blur)
+	{
+		this.color = color;
+		// CreateJS export doesn't support these properties
+		// this.angle = Math.atan(y / x);
+		// this.distance = Math.sqrt(x * x + y * y);
+		// this.blur = blur;
+	};
+	
+	// Extend PIXI.Sprite
+	var p = Shadow.prototype;
+	
+	// Assign to namespace
+	pixiflash.Shadow = Shadow;
+	
+}());

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>Pixi Flash v0.2.5 API Documentation : src/Shape.js</title>  
+	<title>Pixi Flash v0.2.5 API Documentation : src/Shadow.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -90,9 +90,9 @@
                 <div id="docs-main">
                     <div class="content">
 <script>
-	var name = src/Shape.js      
+	var name = src/Shadow.js      
 </script>
-<h1 class="file-heading">File:Shape.js</h1>
+<h1 class="file-heading">File:Shadow.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
@@ -102,74 +102,28 @@
  */
 (function(undefined)
 {
-	var Container = PIXI.Container,
-		Graphics = pixiflash.Graphics,
-		DisplayObject = pixiflash.DisplayObject;
-	
+	// Import classes
+	var utils = pixiflash.utils;
+
 	/**
-	 * The class to emulate createjs.Shape
-	 * @class Shape
-	 * @extends PIXI.Container
+	 * The class to emulate createjs.Shadow
+	 * @class Shadow
 	 */
-	var Shape = function()
+	var Shadow = function(color, x, y, blur)
 	{
-		Container.call(this);
-		DisplayObject.call(this);
-
-		// Shapes have a graphic by default
-		this.graphics = new Graphics();
+		this.color = color;
+		// CreateJS export doesn&#x27;t support these properties
+		// this.angle = Math.atan(y / x);
+		// this.distance = Math.sqrt(x * x + y * y);
+		// this.blur = blur;
 	};
-
+	
 	// Extend PIXI.Sprite
-	var s = Container.prototype;
-	var p = Shape.prototype = Object.create(s);
+	var p = Shadow.prototype;
 	
-	// Mixin the display object
-	DisplayObject.mixin(p);
-	
-	//constructor for backwards/Flash exporting compatibility
-	p.initialize = Shape;
-
 	// Assign to namespace
-	pixiflash.Shape = Shape;
+	pixiflash.Shadow = Shadow;
 	
-	/**
-	 * The drawing graphics, these are necessary
-	 * for the compability with EaselJS Flash exports.
-	 * @property {pixiflash.Graphics} graphics
-	 */
-	Object.defineProperty(p, &quot;graphics&quot;,
-	{
-		get: function() 
-		{
-			return this._graphics; 
-		},
-		set: function(graphics)
-		{
-			if (this._graphics)
-			{
-				this.removeChild(this._graphics);
-			}
-			this._graphics = graphics;
-			if (graphics)
-			{
-				this.addChild(graphics);
-			}
-			this.emit(&#x27;graphicsChanged&#x27;, this);
-		}
-	});
-
-	/**
-	 * Override for the destroy
-	 * @method  destroy
-	 * @param  {Boolean} recursive If we should destroy the children of this shape
-	 */
-	p.destroy = function(recursive)
-	{
-		this.graphics = null;
-		s.destroy.call(this, recursive);
-	};
-
 }());
     </pre>
 </div>

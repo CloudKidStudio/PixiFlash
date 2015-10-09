@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>Pixi Flash v0.2.5 API Documentation : src/Shape.js</title>  
+	<title>Pixi Flash v0.2.5 API Documentation : pixiflash.Text</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -89,89 +89,145 @@
                 </div>            <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<script>
-	var name = src/Shape.js      
-</script>
-<h1 class="file-heading">File:Shape.js</h1>
+<h1>pixiflash.Text Class</h1>
+<div class="box meta">
 
-<div class="file">
-    <pre class="code prettyprint linenums">
-/**
- * @module Pixi Flash
- * @namespace pixiflash
- */
-(function(undefined)
-{
-	var Container = PIXI.Container,
-		Graphics = pixiflash.Graphics,
-		DisplayObject = pixiflash.DisplayObject;
-	
-	/**
-	 * The class to emulate createjs.Shape
-	 * @class Shape
-	 * @extends PIXI.Container
-	 */
-	var Shape = function()
-	{
-		Container.call(this);
-		DisplayObject.call(this);
+        <div class="extends">
+            Extends PIXI.Text
+        </div>
 
-		// Shapes have a graphic by default
-		this.graphics = new Graphics();
-	};
+        <div class="foundat">
+            Defined in: <a href="../files/src_Text.js.html#l10"><code>pixiflash.Text:10</code></a>
+        </div>
 
-	// Extend PIXI.Sprite
-	var s = Container.prototype;
-	var p = Shape.prototype = Object.create(s);
-	
-	// Mixin the display object
-	DisplayObject.mixin(p);
-	
-	//constructor for backwards/Flash exporting compatibility
-	p.initialize = Shape;
+            Module: <a href="../modules/Pixi Flash.html">Pixi Flash</a>
 
-	// Assign to namespace
-	pixiflash.Shape = Shape;
-	
-	/**
-	 * The drawing graphics, these are necessary
-	 * for the compability with EaselJS Flash exports.
-	 * @property {pixiflash.Graphics} graphics
-	 */
-	Object.defineProperty(p, &quot;graphics&quot;,
-	{
-		get: function() 
-		{
-			return this._graphics; 
-		},
-		set: function(graphics)
-		{
-			if (this._graphics)
-			{
-				this.removeChild(this._graphics);
-			}
-			this._graphics = graphics;
-			if (graphics)
-			{
-				this.addChild(graphics);
-			}
-			this.emit(&#x27;graphicsChanged&#x27;, this);
-		}
-	});
+</div>
 
-	/**
-	 * Override for the destroy
-	 * @method  destroy
-	 * @param  {Boolean} recursive If we should destroy the children of this shape
-	 */
-	p.destroy = function(recursive)
-	{
-		this.graphics = null;
-		s.destroy.call(this, recursive);
-	};
 
-}());
-    </pre>
+<div class="box intro">
+    <p>The class to emulate createjs.Text</p>
+
+</div>
+
+
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
+
+            <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
+    </ul>
+
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
+
+
+                <div class="index-section properties">
+                    <h3>Properties</h3>
+
+                    <ul class="index-list properties extends">
+                            <li class="index-item property">
+                                <a href="#property_lineHeight">lineHeight</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_lineWidth">lineWidth</a>
+
+                            </li>
+                            <li class="index-item property">
+                                <a href="#property_textAlign">textAlign</a>
+
+                            </li>
+                    </ul>
+                </div>
+
+
+        </div>
+
+
+            <div id="properties" class="api-class-tabpanel">
+                <h2 class="off-left">Properties</h2>
+
+                    <div id="property_lineHeight" class="property item">
+                        <h3 class="name"><code>lineHeight</code></h3>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_Text.js.html#l52"><code>lineHeight:52</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>The text line height</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_lineWidth" class="property item">
+                        <h3 class="name"><code>lineWidth</code></h3>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_Text.js.html#l67"><code>lineWidth:67</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>The text line width</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+                    <div id="property_textAlign" class="property item">
+                        <h3 class="name"><code>textAlign</code></h3>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    
+                    
+                    
+                    
+                    
+                        <div class="meta">
+                                    <p>
+                                    Defined in
+                            <a href="../files/src_Text.js.html#l30"><code>textAlign:30</code></a>
+                            </p>
+                    
+                    
+                        </div>
+                    
+                        <div class="description">
+                            <p>The text align</p>
+                    
+                        </div>
+                    
+                    
+                    
+                    </div>
+            </div>
+
+
+    </div>
 </div>
                     </div>
                 </div>
