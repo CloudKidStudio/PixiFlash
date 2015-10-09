@@ -1,11 +1,12 @@
 {
 	"name": "Pixi Flash",
-	"version": "0.2.4",
+	"version": "0.2.5",
 	"description": "Runtime library to play HTML5 Canvas content from Flash with Pixi.js",
 	"url": "https://github.com/CloudKidStudio/PixiFlash",
 	"output": "pixi-flash",
 	"main": [
 		"src/main.js",
+		"src/utils.js",
 		"src/ColorFilter.js",
 		"src/DisplayObject.js",
 		"src/Container.js",
@@ -15,7 +16,8 @@
 		"src/Sprite.js",
 		"src/Graphics.js",
 		"src/Shape.js",
-		"src/utils.js"
+		"src/Text.js",
+		"src/Shadow.js"
 	],
 	"modules": {
 		"springroll": [

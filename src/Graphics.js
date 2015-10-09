@@ -5,6 +5,7 @@
 (function(undefined)
 {
 	var PixiGraphics = PIXI.Graphics,
+		utils = pixiflash.utils,
 		DisplayObject = pixiflash.DisplayObject;
 	
 	/**
@@ -252,7 +253,7 @@
 	{
 		if (color)
 		{
-			var rgb = colorToHex(color);
+			var rgb = utils.colorToHex(color);
 			var a = alphaFromColor(color);
 			this.beginFill(rgb, a);
 		}
@@ -399,7 +400,7 @@
 	{
 		if (color)
 		{
-			this.lineColor = colorToHex(color);
+			this.lineColor = utils.colorToHex(color);
 			this.lineAlpha = 1;
 		}
 		return this;
@@ -488,30 +489,6 @@
 			f.apply(this,params);
 		}
 		return this;
-	};
-
-	/**
-	 * Convert a string color "#ffffff" to int 0xffffff
-	 * @method colorToHex
-	 * @private
-	 * @param {String} color
-	 * @return {int} The hex color
-	 */
-	var colorToHex = function(color)
-	{
-		if (/^rgba\(/.test(color))
-		{
-			// Remove "rgba(" and ")" and turn into array
-			color = color.substring(5, color.length - 1).split(',');
-			color = 65536 * parseInt(color[0]) +
-				256 * parseInt(color[1]) +
-				parseInt(color[2]);
-		}
-		else
-		{
-			color = parseInt(color.replace(/^#/, ''), 16);
-		}
-		return color;
 	};
 
 	/**
