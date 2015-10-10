@@ -1,54 +1,52 @@
-(function (lib, img, cjs, ss) {
+(function (lib) {
 
-var p; // shortcut to reference prototypes
-var MovieClip = cjs.MovieClip;
-var Tween = cjs.Tween;
-var Rectangle = cjs.Rectangle;
-var Shape = cjs.Shape;
-
-// library properties:
-
-
-
-
-// symbols:
-
-
+var MovieClip = PIXI.flash.Container;
+var Mask = PIXI.flash.Mask;
+var Graphics = PIXI.flash.Graphics;
 
 // stage content:
-(lib.Masking = function(mode,startPosition,loop) {
-	var shape_1;
-	var shape;
-	this.initialize(mode,startPosition,loop,{});
+lib.Masking = function(mode, startPosition, loop)
+{
+	MovieClip.call(this, mode, startPosition, loop);
 
 	// Layer 2 (mask)
-	var mask = new Shape();
-	mask._off = true;
-	var mask_graphics_0 = new cjs.Graphics().p("AcHLuQAACNgkCCQgkCBhDByQhDByhdBdQhcBchyBDQhyBDiCAkQiCAkiNAAQjUgBi5hPQi4hPiMiLQiKiMhOi5QhPi4gCjUQABiOAkiCQAkiBBDhyQBDhyBahdQBdhaByhDQBxhDCCgkQCCgkCNAAQCNAACCAkQCCAkByBDQByBDBcBaQBdBdBDByQBDByAkCBQAkCCAACOg");
-	var mask_graphics_12 = new cjs.Graphics().p("AKxhsMAkQAAAIAAdfMgkQAAAg");
+	var mask_graphics_0 = new Mask(180, 177, "AcHLuQAACNgkCCQgkCBhDByQhDByhdBdQhcBchyBDQhyBDiCAkQiCAkiNAAQjUgBi5hPQi4hPiMiLQiKiMhOi5QhPi4gCjUQABiOAkiCQAkiBBDhyQBDhyBahdQBdhaByhDQBxhDCCgkQCCgkCNAAQCNAACCAkQCCAkByBDQByBDBcBaQBdBdBDByQBDByAkCBQAkCCAACOg");
+	var mask_graphics_12 = new Mask(301, 178, "AKxhsMAkQAAAIAAdfMgkQAAAg");
 
-	this.timeline.addTween(Tween.get(mask).to({graphics:mask_graphics_0,x:180,y:177}).wait(12).to({graphics:mask_graphics_12,x:301,y:178}).wait(13));
+	// this.timeline.addTween(
+	// 	Tween.get(this)
+	// 		.to({ mask: mask_graphics_0 })
+	// 		.wait(12)
+	// 		.to({ mask: mask_graphics_12 })
+	// 		.wait(13)
+	// );
 
 	// Layer 3
-	shape = this.shape = new Shape();
-	shape.graphics.f("#666699").s().dr(-94,-148.5,188,297);
-	shape.setTransform(350,259.5);
+	this.shape = new Graphics()
+		.f(0x666699)
+		.dr(-94,-148.5,188,297)
+		.tr(350,259.5)
+		.ma(mask_graphics_0);
 
-	shape.mask = mask;
-
-	this.timeline.addTween(Tween.get(shape).wait(25));
+	// this.timeline.addTween(Tween.get(shape).wait(25));
 
 	// Layer 1
-	shape_1 = this.shape_1 = new Shape();
-	shape_1.graphics.f("#004166").s().dr(-283,-171,566,342);
-	shape_1.setTransform(391,257);
+	this.shape_1 = new Graphics()
+		.f(0x004166)
+		.dr(-283,-171,566,342)
+		.tr(391,257)
+		.ma(mask_graphics_0);
 
-	shape_1.mask = mask;
+	// this.timeline.addTween(Tween.get(shape_1).wait(25));
 
-	this.timeline.addTween(Tween.get(shape_1).wait(25));
+	this.ad(
+		mask_graphics_0,
+		mask_graphics_12,
+		this.shape_1,
+		this.shape
+	);
 
-}).prototype = p = new MovieClip();
-p.nominalBounds = new Rectangle(551,400,204,204);
+}.extend(MovieClip);
 
-})(pixiflash_lib = pixiflash_lib||{}, pixiflash_images = pixiflash_images||{}, pixiflash = pixiflash||{}, ss = ss||{});
-var pixiflash_lib, pixiflash_images, pixiflash, ss;
+})(lib = lib||{});
+var lib;

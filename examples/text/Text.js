@@ -1,53 +1,62 @@
-(function (lib, img, cjs, ss) {
+(function (lib) {
 
-var p; // shortcut to reference prototypes
-
-// library properties:
-lib.properties = {
-	width: 790,
-	height: 500,
-	fps: 30,
-	color: "#FFFFFF",
-	manifest: []
-};
-
-
-
-// symbols:
-
-
+var Container = PIXI.flash.Container;
+var Text = PIXI.flash.Text;
+var Graphics = PIXI.flash.Graphics;
 
 // stage content:
-(lib.Text = function() {
-	this.initialize();
+lib.Text = function()
+{
+	Container.call(this);
 
 	// Layer 1
-	this.text = new cjs.Text("Prepare to die.", "35px 'Verdana'", "#33CC00");
-	this.text.textAlign = "right";
-	this.text.lineHeight = 37;
-	this.text.lineWidth = 511;
-	this.text.setTransform(654,285);
+	this.text = new Text("Prepare to die.", {
+		font: "35px 'Verdana'", 
+		fill: 0x33CC00,
+		align: 'right',
+		lineHeight: 37,
+		wordWrap: true,
+		wordWrapWidth: 511,
+		padding: 10
+	})
+	.tr(654,285);
 
-	this.text_1 = new cjs.Text("You killed my father.", "35px 'Times'", "#1F2CB4");
-	this.text_1.textAlign = "center";
-	this.text_1.lineHeight = 37;
-	this.text_1.lineWidth = 511;
-	this.text_1.setTransform(398.5,237);
-	this.text_1.shadow = new cjs.Shadow("rgba(255,255,255,1)",0,0,4);
+	this.text_1 = new Text("You killed my father.", {
+		font: "35px 'Times'", 
+		fill: "#1F2CB4",
+		align: 'center',
+		lineHeight: 37,
+		wordWrap: true,
+		wordWrapWidth: 511,
+		padding: 10
+	})
+	.tr(398.5,237)
+	.sh(0xFFFFFF);
 
-	this.text_2 = new cjs.Text("My name is Inigo Montoya.", "35px 'Helvetica'", "#FF0000");
-	this.text_2.lineHeight = 37;
-	this.text_2.lineWidth = 510;
-	this.text_2.setTransform(143,185);
+	this.text_2 = new Text("My name is Inigo Montoya.", {
+		font: "35px 'Helvetica'", 
+		fill: "#FF0000",
+		lineHeight: 37,
+		wordWrap: true,
+		wordWrapWidth: 510,
+		padding: 10
+	})
+	.tr(143,185);
 
 	// Layer 4
-	this.shape = new cjs.Shape();
-	this.shape.graphics.f("#CCCCCC").s().p("EgqAANHIAA6NMBUBAAAIAAaNg");
-	this.shape.setTransform(400,258);
+	this.shape = new Graphics()
+		.f(0xCCCCCC)
+		.p("EgqAANHIAA6NMBUBAAAIAAaNg")
+		.tr(400,258);
 
-	this.addChild(this.shape,this.text_2,this.text_1,this.text);
-}).prototype = p = new cjs.Container();
-p.nominalBounds = new cjs.Rectangle(526,424,538,168);
+	this.ad(
+		this.shape,
+		this.text_2,
+		this.text_1,
+		this.text
+	);
 
-})(pixiflash_lib = pixiflash_lib||{}, pixiflash_images = pixiflash_images||{}, pixiflash = pixiflash||{}, ss = ss||{});
-var pixiflash_lib, pixiflash_images, pixiflash, ss;
+}.extend(Container);
+
+})(lib = lib||{});
+var lib;

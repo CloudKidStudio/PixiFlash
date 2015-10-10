@@ -3,15 +3,11 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<title>Pixi Flash Example - Flash Color Effects/CreateJS ColorFilter</title>
+		<title>Pixi Flash Example - ColorFilter</title>
 		<meta name="description" content="">
 		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
 
-		<!-- Example (not required) dependencies -->
-		<script src="../libs/jquery.min.js"></script>
-
 		<!-- Required dependencies -->
-		<script src="../libs/tweenjs-NEXT.min.js"></script>
 		<script src="../libs/pixi.min.js"></script>
 
 		<!-- PIXI Flash dependencies -->
@@ -22,40 +18,40 @@
 
 	</head>
 	<body>
-		<div id="content" class="canvas">
-			<canvas id="stage" width="800" height="500"></canvas>
-<script>
+		<canvas id="stage" width="500" height="720"></canvas>
+		<script>
 
-var renderer = new PIXI.autoDetectRenderer(500, 720, {
-	view: document.getElementById("stage"),
-	backgroundColor: 0xffffff
-});
+			var renderer = new PIXI.autoDetectRenderer(500, 720, {
+				view: document.getElementById("stage"),
+				backgroundColor: 0xffffff,
+				antialias: true
+			});
 
-// Don't prevent default
-renderer.plugins.interaction.autoPreventDefault = false;
+			// Don't prevent default
+			renderer.plugins.interaction.autoPreventDefault = false;
 
-// Root display object
-var stage = new PIXI.Container();
+			// Root display object
+			var stage = new PIXI.Container();
 
-// Load the spritesheet data
-$.getJSON("ColorEffects_atlas_.json", function(data)
-{
-    // Load the atlas for the character
-	pixiflash.SpriteSheet.fromData(data, function()
-	{
-		// Create art & Add to stage
-		stage.addChild(new pixiflash_lib.ColorEffects());
-	});
-});
+			// Load the atlas for the character
+			var loader = new PIXI.loaders.Loader();
 
-update();
-function update()
-{
-    requestAnimationFrame(update);
-    renderer.render(stage);
-}
+			// This atlas is created with TexturePacker from the 
+			// output individual images from Flash publishing
+			loader.add('ColorEffectsAtlas', 'ColorEffectsAtlas.json');
+			loader.once('complete', function(loader, resources)
+			{
+				stage.addChild(new lib.ColorEffects());
+			});
+			loader.load();
 
-</script>
-		</div>
+			update();
+			function update()
+			{
+				requestAnimationFrame(update);
+				renderer.render(stage);
+			}
+
+		</script>
 	</body>
 </html>

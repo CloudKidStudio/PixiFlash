@@ -7,11 +7,7 @@
 		<meta name="description" content="">
 		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
 
-		<!-- Example (not required) dependencies -->
-		<script src="../libs/jquery.min.js"></script>
-
 		<!-- Required dependencies -->
-		<script src="../libs/tweenjs-NEXT.min.js"></script>
 		<script src="../libs/pixi.min.js"></script>
 
 		<!-- PIXI Flash dependencies -->
@@ -22,36 +18,31 @@
 
 	</head>
 	<body>
-		<div id="content" class="canvas">
-			<canvas id="stage" width="800" height="500"></canvas>
-<script>
+		<canvas id="stage" width="800" height="500"></canvas>
+		<script>
 
-var renderer = new PIXI.autoDetectRenderer(800, 500, {
-	view: document.getElementById("stage"),
-	backgroundColor: 0xffffff,
-	antialias: true
-});
+			var renderer = new PIXI.autoDetectRenderer(800, 500, {
+				view: document.getElementById("stage"),
+				backgroundColor: 0xffffff,
+				antialias: true
+			});
 
-// Don't prevent default
-renderer.plugins.interaction.autoPreventDefault = false;
+			// Don't prevent default
+			renderer.plugins.interaction.autoPreventDefault = false;
 
-// Root display object
-var stage = new PIXI.Container();
+			// Root display object
+			var stage = new PIXI.Container();
 
-// Create the character
-var text = new pixiflash_lib.Text();
+			// Add to stage
+			stage.addChild(new lib.Text());
 
-// Add to stage
-stage.addChild(text);
+			update();
+			function update()
+			{
+				requestAnimationFrame(update);
+				renderer.render(stage);
+			}
 
-update();
-function update()
-{
-    requestAnimationFrame(update);
-    renderer.render(stage);
-}
-
-</script>
-		</div>
+		</script>
 	</body>
 </html>

@@ -1,39 +1,30 @@
 /**
  * @module Pixi Flash
- * @namespace pixiflash
+ * @namespace PIXI.flash
  */
-(function(undefined)
+(function(PIXI, undefined)
 {
-	var PixiGraphics = PIXI.Graphics,
-		utils = pixiflash.utils,
-		DisplayObject = pixiflash.DisplayObject;
+	var BaseGraphics = PIXI.Graphics;
+	var DisplayObject = PIXI.flash.DisplayObject;
 	
 	/**
 	 * The class to emulate createjs.Graphics
 	 * @class Graphics
 	 * @extends PIXI.Graphics
-	 * @constructor
 	 */
 	var Graphics = function()
 	{
-		PixiGraphics.call(this);
+		BaseGraphics.call(this);
 		DisplayObject.call(this);
 	};
-
-	// Extend PIXI.Sprite
-	var s = PixiGraphics.prototype;
-	var p = Graphics.prototype = Object.create(s);
 	
+	// Extend PIXI.Graphics
+	var p = Graphics.extend(BaseGraphics).prototype;
+
 	// Mixin the display object
 	DisplayObject.mixin(p);
 	
-	//constructor for backwards/Flash exporting compatibility
-	p.initialize = Graphics;
-
-	// Assign to namespace
-	pixiflash.Graphics = Graphics;
-	
-	 /**
+	/**
 	 * Map of Base64 characters to values. Used by {{#crossLink "Graphics/decodePath"}}{{/crossLink}}.
 	 * @property {Object} BASE_64
 	 * @static
@@ -56,7 +47,7 @@
 	 * @method mt
 	 * @param {Number} x The x coordinate the drawing point should move to.
 	 * @param {Number} y The y coordinate the drawing point should move to.
-	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls).
+	 * @return {PIXI.flash.Graphics} The Graphics instance the method is called on (useful for chaining calls).
 	 **/
 	p.mt = p.moveTo;
 
@@ -70,7 +61,7 @@
 	 * @method lt
 	 * @param {Number} x The x coordinate the drawing point should draw to.
 	 * @param {Number} y The y coordinate the drawing point should draw to.
-	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 * @return {PIXI.flash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
 	p.lt = p.lineTo;
 
@@ -86,7 +77,7 @@
 	 * @param {Number} cp2y
 	 * @param {Number} x
 	 * @param {Number} y
-	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 * @return {PIXI.flash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
 	p.bt = p.bezierCurveTo;
 
@@ -129,7 +120,7 @@
 	p.rr = p.drawRoundedRect;
 
 	/**
-	 * Shortcut to drawRoundRectComplex. Not supported by pixiflash
+	 * Shortcut to drawRoundRectComplex. Not supported by PIXI.flash
 	 * @method rc
 	 * @param {Number} x
 	 * @param {Number} y
@@ -201,7 +192,12 @@
 	p.de = function(x, y, width, height)
 	{
 		// Math conversion
-		return this.drawEllipse(x + width / 2, y + height / 2, width / 2, height / 2);
+		return this.drawEllipse(
+			x + width / 2, 
+			y + height / 2, 
+			width / 2, 
+			height / 2
+		);
 	};
 
 	/**
@@ -213,7 +209,7 @@
 	 * @param {Number} cpy
 	 * @param {Number} x
 	 * @param {Number} y
-	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 * @return {PIXI.flash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
 	p.qt = function(cpx, cpy, x, y)
 	{
@@ -230,7 +226,7 @@
 	 * Closes the current path, effectively drawing a line from the current drawing point to the first drawing point specified
 	 * since the fill or stroke was last set. A tiny API method "cp" also exists.
 	 * @method cp
-	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 * @return {PIXI.flash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
 	p.cp = function()
 	{
@@ -245,17 +241,16 @@
 	/**
 	 * Begins a fill with the specified color. This ends the current sub-path. A tiny API method "f" also exists.
 	 * @method f
-	 * @param {String} color A CSS compatible color value (ex. "red", "#FF0000", or "rgba(255,0,0,0.5)"). Setting to
+	 * @param {Uint} color The hex color value (e.g. 0xFFFFFF)
 	 * null will result in no fill.
-	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 * @param {Number} [alpha=1] The alpha value of fill
+	 * @return {PIXI.flash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
-	p.f = function(color)
+	p.f = function(color, alpha)
 	{
-		if (color)
+		if (color !== undefined)
 		{
-			var rgb = utils.colorToHex(color);
-			var a = alphaFromColor(color);
-			this.beginFill(rgb, a);
+			this.beginFill(color, alpha);
 		}
 		return this;
 	};
@@ -265,7 +260,7 @@
 	 * so we just pick the first color in colorArray
 	 * @method lf
 	 * @param {Array} colorArray An array of CSS compatible color values @see `f`
-	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 * @return {PIXI.flash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
 	p.lf = function(colorArray)
 	{
@@ -281,7 +276,7 @@
 	 * so we just pick the first color in colorArray
 	 * @method rf
 	 * @param {Array} colorArray An array of CSS compatible color values @see `f`
-	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 * @return {PIXI.flash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
 	p.rf = function(colorArray)
 	{
@@ -295,7 +290,7 @@
 	/**
 	 * Placeholder method for a beginBitmapFill. Pixi does not support bitmap fills.
 	 * @method bf
-	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 * @return {PIXI.flash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
 	p.bf = function()
 	{
@@ -309,7 +304,7 @@
 	/**
 	 * Placeholder method for a setStrokeDash. Pixi does not support dashed strokes.
 	 * @method sd
-	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 * @return {PIXI.flash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
 	p.sd = function()
 	{
@@ -323,7 +318,7 @@
 	/**
 	 * Placeholder method for a beginBitmapStroke. Pixi does not support bitmap strokes.
 	 * @method bs
-	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 * @return {PIXI.flash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
 	p.bs = function()
 	{
@@ -337,7 +332,7 @@
 	/**
 	 * Placeholder method for a beginLinearGradientStroke. Pixi does not support gradient strokes.
 	 * @method ls
-	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 * @return {PIXI.flash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
 	p.ls = function()
 	{
@@ -351,7 +346,7 @@
 	/**
 	 * Placeholder method for a beginRadialGradientStroke. Pixi does not support gradient strokes.
 	 * @method rs
-	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 * @return {PIXI.flash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
 	p.rs = function()
 	{
@@ -363,45 +358,21 @@
 	};
 
 	/**
-	 * Sets the stroke style. Like all drawing methods, this can be chained, so you can define
-	 * the stroke style and color in a single line of code like so:
-	 *
-	 * 	myGraphics.setStrokeStyle(8,"round").beginStroke("#F00");
-	 *
-	 * A tiny API method "ss" also exists.
-	 * @method ss
-	 * @param {Number} thickness The width of the stroke.
-	 * @param {String | Number} [caps=0] Indicates the type of caps to use at the end of lines. One of butt,
-	 * round, or square. Defaults to "butt". Also accepts the values 0 (butt), 1 (round), and 2 (square) for use with
-	 * the tiny API.
-	 * @param {String | Number} [joints=0] Specifies the type of joints that should be used where two lines meet.
-	 * One of bevel, round, or miter. Defaults to "miter". Also accepts the values 0 (miter), 1 (round), and 2 (bevel)
-	 * for use with the tiny API.
-	 * @param {Number} [miterLimit=10] If joints is set to "miter", then you can specify a miter limit ratio which
-	 * controls at what point a mitered joint will be clipped.
-	 * @param {Boolean} [ignoreScale=false] If true, the stroke will be drawn at the specified thickness regardless
-	 * of active transformations.
-	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
-	 **/
-	p.ss = function(thickness, caps, joints, miterLimit, ignoreScale)
-	{
-		this.lineWidth = thickness;
-		return this;
-	};
-
-	/**
 	 * Begins a stroke with the specified color. This ends the current sub-path. A tiny API method "s" also exists.
 	 * @method s
 	 * @param {String} color A CSS compatible color value (ex. "#FF0000", "red", or "rgba(255,0,0,0.5)"). Setting to
 	 * null will result in no stroke.
-	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 * @param {Number} [thickness=1] The thickness of the stroke
+	 * @param {Number} [alpha=1] The alpha value from 0 (invisibile) to 1 (visible)
+	 * @return {PIXI.flash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
-	p.s = function(color)
+	p.s = function(color, thickness, alpha)
 	{
-		if (color)
+		if (color !== undefined)
 		{
-			this.lineColor = utils.colorToHex(color);
-			this.lineAlpha = 1;
+			this.lineColor = color;
+			this.lineAlpha = alpha || 1;
+			this.lineWidth = thickness || 1;
 		}
 		return this;
 	};
@@ -439,7 +410,7 @@
 	 * A tiny API method "p" also exists.
 	 * @method p
 	 * @param {String} str The path string to decode.
-	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 * @return {PIXI.flash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
 	p.p = function(str)
 	{
@@ -491,22 +462,7 @@
 		return this;
 	};
 
-	/**
-	 * Get the alpha color from color string
-	 * @method alphaFromColor
-	 * @private
-	 * @param {String} color
-	 */
-	var alphaFromColor = function(color)
-	{
-		if (/^rgba\(/.test(color))
-		{
-			return parseFloat(color.substring(
-				color.lastIndexOf(',') + 1,
-				color.lastIndexOf(')')
-			));
-		}
-		return 1;
-	};
-
-}());
+	// Assign to namespace
+	PIXI.flash.Graphics = Graphics;
+	
+}(PIXI));
