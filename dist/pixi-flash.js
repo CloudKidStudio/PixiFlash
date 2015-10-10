@@ -983,7 +983,7 @@
 	};
 
 	/**
-	 * Begins a stroke with the specified color. This ends the current sub-path. A tiny API method "s" also exists.
+ 	 * Short-hand version for setStroke
 	 * @method s
 	 * @param {String} color A CSS compatible color value (ex. "#FF0000", "red", or "rgba(255,0,0,0.5)"). Setting to
 	 * null will result in no stroke.
@@ -991,7 +991,16 @@
 	 * @param {Number} [alpha=1] The alpha value from 0 (invisibile) to 1 (visible)
 	 * @return {PIXI.flash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
-	p.s = function(color, thickness, alpha)
+	/**
+	 * Begins a stroke with the specified color. This ends the current sub-path. A tiny API method "s" also exists.
+	 * @method setStroke
+	 * @param {String} color A CSS compatible color value (ex. "#FF0000", "red", or "rgba(255,0,0,0.5)"). Setting to
+	 * null will result in no stroke.
+	 * @param {Number} [thickness=1] The thickness of the stroke
+	 * @param {Number} [alpha=1] The alpha value from 0 (invisibile) to 1 (visible)
+	 * @return {PIXI.flash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 **/
+	p.setStroke = p.s = function(color, thickness, alpha)
 	{
 		if (color !== undefined)
 		{
