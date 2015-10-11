@@ -150,7 +150,8 @@
 			this._useTicks = props.useTicks;
 			this.loop = props.loop;
 			this.ignoreGlobalPause = props.ignoreGlobalPause;
-			props.onChange && this.addEventListener("change", props.onChange);
+			if (props.onChange)
+				this.addEventListener("change", props.onChange);
 		}
 		if (tweens)
 		{
@@ -166,11 +167,11 @@
 		{
 			Tween._register(this, true);
 		}
-		if (props && props.position != null)
+		if (props && props.position != null) // jshint ignore:line
 		{
 			this.setPosition(props.position, Tween.NONE);
 		}
-	};
+	}
 
 	var p = Timeline.extend(EventEmitter).prototype;
 
@@ -200,7 +201,7 @@
 			}
 			return arguments[0];
 		}
-		else if (l == 0)
+		else if (l === 0)
 		{
 			return null;
 		}
@@ -229,22 +230,23 @@
 	p.removeTween = function(tween)
 	{
 		var l = arguments.length;
+		var i;
 		if (l > 1)
 		{
 			var good = true;
-			for (var i = 0; i < l; i++)
+			for (i = 0; i < l; i++)
 			{
 				good = good && this.removeTween(arguments[i]);
 			}
 			return good;
 		}
-		else if (l == 0)
+		else if (l === 0)
 		{
 			return false;
 		}
 
 		var tweens = this._tweens;
-		var i = tweens.length;
+		i = tweens.length;
 		while (i--)
 		{
 			if (tweens[i] == tween)
@@ -351,7 +353,7 @@
 					break;
 				}
 			}
-			return (i == 0) ? null : labels[i - 1].label;
+			return (i === 0) ? null : labels[i - 1].label;
 		}
 		return null;
 	};
@@ -491,7 +493,7 @@
 	p._goto = function(positionOrLabel)
 	{
 		var pos = this.resolve(positionOrLabel);
-		if (pos != null)
+		if (pos != null) // jshint ignore:line
 		{
 			this.setPosition(pos);
 		}
