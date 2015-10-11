@@ -13,9 +13,7 @@
 		"src/flash/Sprite.js",
 		"src/flash/Graphics.js",
 		"src/flash/Mask.js",
-		"src/flash/Text.js",
-		"src/MovieClip.js",
-		"src/Timeline.js"
+		"src/flash/Text.js"
 	],
 	"modules":
 	{

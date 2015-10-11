@@ -2,7 +2,7 @@
  * @module Pixi Flash
  * @namespace window
  */
-(function()
+(function(PIXI)
 {
 	/**
 	 * Prototype methods for Function
@@ -16,10 +16,7 @@
 	 */
 	Function.prototype.extend = function(parent)
 	{
-		this.prototype = Object.create(parent.prototype);
-		this.prototype.__parent = parent.prototype;
-		this.prototype.constructor = this;
-		return this;
+		return PIXI.utils.extend(this, parent);
 	};
 
-}());
+}(PIXI));

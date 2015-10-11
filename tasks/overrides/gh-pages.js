@@ -7,6 +7,7 @@ module.exports = {
 	src: [
 		'<%= docsPath %>/**/*',
 		'dist/*.js',
-		'examples/**/*'
+		'examples/**/*',
+		'components/pixi.js/bin/**/*'
 	]
 };

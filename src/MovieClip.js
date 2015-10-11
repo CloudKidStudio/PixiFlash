@@ -7,7 +7,7 @@
 	var Container = PIXI.Container,
 		DisplayObject = PIXI.flash.DisplayObject,
 		Timeline = PIXI.flash.Timeline,
-		Tween = createjs.Tween,
+		Tween = PIXI.flash.Tween,
 		SharedTicker = PIXI.ticker.shared;
 
 	//*** Note: the vast majority of the code here is from EaselJS's MovieClip class.

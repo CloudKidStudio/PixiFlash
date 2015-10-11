@@ -33,7 +33,7 @@
 (function(PIXI)
 {
 	// Import libraries
-	var Tween = createjs.Tween;
+	var Tween = PIXI.flash.Tween;
 
 	// constructor	
 	/**

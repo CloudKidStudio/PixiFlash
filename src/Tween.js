@@ -1,3 +1,4 @@
+/* jshint ignore:start */
 /*
  * Tween
  * Visit http://createjs.com/ for documentation, updates and examples.
@@ -1137,3 +1138,4 @@
 	PIXI.flash.Tween = Tween;
 
 }(PIXI));
+/* jshint ignore:end */
