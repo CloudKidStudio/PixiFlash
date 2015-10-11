@@ -6,7 +6,7 @@
 {
 	var BaseGraphics = PIXI.Graphics;
 	var DisplayObject = PIXI.flash.DisplayObject;
-	
+
 	/**
 	 * The class to emulate createjs.Graphics
 	 * @class Graphics
@@ -17,13 +17,13 @@
 		BaseGraphics.call(this);
 		DisplayObject.call(this);
 	};
-	
+
 	// Extend PIXI.Graphics
 	var p = Graphics.extend(BaseGraphics).prototype;
 
 	// Mixin the display object
 	DisplayObject.mixin(p);
-	
+
 	/**
 	 * Map of Base64 characters to values. Used by {{#crossLink "Graphics/decodePath"}}{{/crossLink}}.
 	 * @property {Object} BASE_64
@@ -33,13 +33,70 @@
 	 * @readonly
 	 **/
 	var BASE_64 = {
-		"A":0,"B":1,"C":2,"D":3,"E":4,"F":5,"G":6,"H":7,"I":8,
-		"J":9,"K":10,"L":11,"M":12,"N":13,"O":14,"P":15,"Q":16,"R":17,"S":18,
-		"T":19,"U":20,"V":21,"W":22,"X":23,"Y":24,"Z":25,"a":26,"b":27,"c":28,
-		"d":29,"e":30,"f":31,"g":32,"h":33,"i":34,"j":35,"k":36,"l":37,"m":38,
-		"n":39,"o":40,"p":41,"q":42,"r":43,"s":44,"t":45,"u":46,"v":47,"w":48,
-		"x":49,"y":50,"z":51,"0":52,"1":53,"2":54,"3":55,"4":56,"5":57,"6":58,
-		"7":59,"8":60,"9":61,"+":62,"/":63
+		"A": 0,
+		"B": 1,
+		"C": 2,
+		"D": 3,
+		"E": 4,
+		"F": 5,
+		"G": 6,
+		"H": 7,
+		"I": 8,
+		"J": 9,
+		"K": 10,
+		"L": 11,
+		"M": 12,
+		"N": 13,
+		"O": 14,
+		"P": 15,
+		"Q": 16,
+		"R": 17,
+		"S": 18,
+		"T": 19,
+		"U": 20,
+		"V": 21,
+		"W": 22,
+		"X": 23,
+		"Y": 24,
+		"Z": 25,
+		"a": 26,
+		"b": 27,
+		"c": 28,
+		"d": 29,
+		"e": 30,
+		"f": 31,
+		"g": 32,
+		"h": 33,
+		"i": 34,
+		"j": 35,
+		"k": 36,
+		"l": 37,
+		"m": 38,
+		"n": 39,
+		"o": 40,
+		"p": 41,
+		"q": 42,
+		"r": 43,
+		"s": 44,
+		"t": 45,
+		"u": 46,
+		"v": 47,
+		"w": 48,
+		"x": 49,
+		"y": 50,
+		"z": 51,
+		"0": 52,
+		"1": 53,
+		"2": 54,
+		"3": 55,
+		"4": 56,
+		"5": 57,
+		"6": 58,
+		"7": 59,
+		"8": 60,
+		"9": 61,
+		"+": 62,
+		"/": 63
 	};
 
 	/**
@@ -193,9 +250,9 @@
 	{
 		// Math conversion
 		return this.drawEllipse(
-			x + width / 2, 
-			y + height / 2, 
-			width / 2, 
+			x + width / 2,
+			y + height / 2,
+			width / 2,
 			height / 2
 		);
 	};
@@ -254,7 +311,7 @@
 		}
 		return this;
 	};
-	
+
 	/**
 	 * Placeholder method for a linear fill. Pixi does not support linear fills,
 	 * so we just pick the first color in colorArray
@@ -358,7 +415,7 @@
 	};
 
 	/**
- 	 * Short-hand version for setStroke
+	 * Short-hand version for setStroke
 	 * @method s
 	 * @param {String} color A CSS compatible color value (ex. "#FF0000", "red", or "rgba(255,0,0,0.5)"). Setting to
 	 * null will result in no stroke.
@@ -436,42 +493,59 @@
 			this.cp
 		];
 		var paramCount = [2, 2, 4, 6, 0];
-		var i=0, l=str.length;
+		var i = 0,
+			l = str.length;
 		var params = [];
-		var x=0, y=0;
+		var x = 0,
+			y = 0;
 		var base64 = BASE_64;
 
-		while (i<l)
+		while (i < l)
 		{
 			var c = str.charAt(i);
 			var n = base64[c];
-			var fi = n>>3; // highest order bits 1-3 code for operation.
+			var fi = n >> 3; // highest order bits 1-3 code for operation.
 			var f = instructions[fi];
 			// check that we have a valid instruction & that the unused bits are empty:
-			if (!f || (n&3)) { throw("bad path data (@"+i+"): "+c); }
+			if (!f || (n & 3))
+			{
+				throw ("bad path data (@" + i + "): " + c);
+			}
 			var pl = paramCount[fi];
-			if (!fi) { x=y=0; } // move operations reset the position.
+			if (!fi)
+			{
+				x = y = 0;
+			} // move operations reset the position.
 			params.length = 0;
 			i++;
-			var charCount = (n>>2&1)+2;  // 4th header bit indicates number size for this operation.
-			for (var p=0; p<pl; p++)
+			var charCount = (n >> 2 & 1) + 2; // 4th header bit indicates number size for this operation.
+			for (var p = 0; p < pl; p++)
 			{
 				var num = base64[str.charAt(i)];
-				var sign = (num>>5) ? -1 : 1;
-				num = ((num&31)<<6)|(base64[str.charAt(i+1)]);
-				if (charCount == 3) { num = (num<<6)|(base64[str.charAt(i+2)]); }
-				num = sign*num/10;
-				if (p%2) { x = (num += x); }
-				else { y = (num += y); }
+				var sign = (num >> 5) ? -1 : 1;
+				num = ((num & 31) << 6) | (base64[str.charAt(i + 1)]);
+				if (charCount == 3)
+				{
+					num = (num << 6) | (base64[str.charAt(i + 2)]);
+				}
+				num = sign * num / 10;
+				if (p % 2)
+				{
+					x = (num += x);
+				}
+				else
+				{
+					y = (num += y);
+				}
 				params[p] = num;
 				i += charCount;
 			}
-			f.apply(this,params);
+			f.apply(this, params);
 		}
 		return this;
 	};
 
 	// Assign to namespace
 	PIXI.flash.Graphics = Graphics;
-	
+
 }(PIXI));

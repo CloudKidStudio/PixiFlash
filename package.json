@@ -3,22 +3,28 @@
 	"version": "0.2.5",
 	"main": "dist/pixi-flash.min.js",
 	"author": "CloudKid <tools@cloudkid.com>",
-	"dependencies": {
-		"pixi.js": "*",
-		"createjs-tweenjs": "*"
+	"dependencies":
+	{
+		"createjs-tweenjs": "*",
+		"grunt-jsbeautifier": "^0.2.10",
+		"pixi.js": "*"
 	},
-	"devDependencies": {
+	"devDependencies":
+	{
 		"grunt": "~0.4.5",
 		"library-grunt": "~0.6.0"
 	},
-	"repository": {
+	"repository":
+	{
 		"type": "git",
 		"url": "https://github.com/CloudKidStudio/PixiFlash"
 	},
-	"bugs": {
+	"bugs":
+	{
 		"url": "https://github.com/CloudKidStudio/PixiFlash/issues"
 	},
-	"scripts": {
+	"scripts":
+	{
 		"test": "grunt default --verbose"
 	},
 	"keywords": [

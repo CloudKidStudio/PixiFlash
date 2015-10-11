@@ -2,6 +2,7 @@
 .gitattributes
 .editorconfig
 .bowerrc
+.jsbeautifyrc
 .travis.yml
 bower.json
 library.json

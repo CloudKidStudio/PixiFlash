@@ -31,13 +31,13 @@
 		 * @private
 		 */
 		this._rotation = 0;
-		
+
 		// Transform matrix properties
 		this._srB = 0;
 		this._srC = 0;
 		this._crA = 1;
 		this._crD = 1;
-		
+
 		/**
 		 * Cached Y Rotation
 		 * @property {Number} _cachedRotY
@@ -185,7 +185,7 @@
 		enumerable: true,
 		get: function()
 		{
-			return this._rotation * RAD_TO_DEG; 
+			return this._rotation * RAD_TO_DEG;
 		},
 		set: function(value)
 		{
@@ -202,7 +202,7 @@
 	{
 		enumerable: true,
 		get: function()
-		{ 
+		{
 			if (this.parent && this.parent._isPixiFlash)
 			{
 				var selfTint = this._tint;
@@ -268,8 +268,8 @@
 		if (b < 0) b = 0;
 		var max = 255;
 
-		this.tint = (Math.round(r * max) << 16) | 
-			(Math.round(g * max) << 8) | 
+		this.tint = (Math.round(r * max) << 16) |
+			(Math.round(g * max) << 8) |
 			Math.round(b * max);
 
 		return this;
@@ -300,22 +300,22 @@
 				// cache new values
 				this._cachedRotX = rotX;
 				this._cachedRotY = rotY;
-				
+
 				// recalculate expensive ops
 				this._crA = Math.cos(rotY);
 				this._srB = Math.sin(rotY);
-				
+
 				this._srC = Math.sin(-rotX);
 				this._crD = Math.cos(rotX);
 			}
 
 			// get the matrix values of the displayobject based on its transform properties..
-			a  = this._crA * this.scale.x;
-			b  = this._srB * this.scale.x;
-			c  = this._srC * this.scale.y;
-			d  = this._crD * this.scale.y;
-			tx =  this.position.x;
-			ty =  this.position.y;
+			a = this._crA * this.scale.x;
+			b = this._srB * this.scale.x;
+			c = this._srC * this.scale.y;
+			d = this._crD * this.scale.y;
+			tx = this.position.x;
+			ty = this.position.y;
 
 			// check for pivot.. not often used so geared towards that fact!
 			if (this.pivot.x || this.pivot.y)
@@ -325,26 +325,26 @@
 			}
 
 			// concat the parent matrix with the objects transform.
-			wt.a  = a  * pt.a + b  * pt.c;
-			wt.b  = a  * pt.b + b  * pt.d;
-			wt.c  = c  * pt.a + d  * pt.c;
-			wt.d  = c  * pt.b + d  * pt.d;
+			wt.a = a * pt.a + b * pt.c;
+			wt.b = a * pt.b + b * pt.d;
+			wt.c = c * pt.a + d * pt.c;
+			wt.d = c * pt.b + d * pt.d;
 			wt.tx = tx * pt.a + ty * pt.c + pt.tx;
 			wt.ty = tx * pt.b + ty * pt.d + pt.ty;
 		}
 		else
 		{
 			// lets do the fast version as we know there is no rotation..
-			a  = this.scale.x;
-			d  = this.scale.y;
+			a = this.scale.x;
+			d = this.scale.y;
 
 			tx = this.position.x - this.pivot.x * a;
 			ty = this.position.y - this.pivot.y * d;
 
-			wt.a  = a  * pt.a;
-			wt.b  = a  * pt.b;
-			wt.c  = d  * pt.c;
-			wt.d  = d  * pt.d;
+			wt.a = a * pt.a;
+			wt.b = a * pt.b;
+			wt.c = d * pt.c;
+			wt.d = d * pt.d;
 			wt.tx = tx * pt.a + ty * pt.c + pt.tx;
 			wt.ty = tx * pt.b + ty * pt.d + pt.ty;
 		}
@@ -364,13 +364,13 @@
 	 */
 	DisplayObject.mixin = function(targetPrototype)
 	{
-		for(var prop in p)
+		for (var prop in p)
 		{
 			// For things that we set using Object.defineProperty
 			// very important that enumerable:true for the
 			// defineProperty options
 			var propDesc = Object.getOwnPropertyDescriptor(p, prop);
-			if(propDesc)
+			if (propDesc)
 			{
 				Object.defineProperty(targetPrototype, prop, propDesc);
 			}

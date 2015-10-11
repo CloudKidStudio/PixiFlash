@@ -15,7 +15,7 @@
 	{
 		Graphics.call(this);
 		this.renderable = false;
-		this.p(path).tr(x,y);
+		this.p(path).tr(x, y);
 	};
 
 	// Extends base graphics

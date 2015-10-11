@@ -2,11 +2,13 @@
 	"name": "pixi-flash",
 	"version": "0.2.5",
 	"main": "dist/pixi-flash.min.js",
-	"dependencies": {
+	"dependencies":
+	{
 		"createjs-tweenjs": "*",
 		"pixi.js": "~3.0.7"
 	},
-	"devDependencies": {
+	"devDependencies":
+	{
 		"qunit": "*",
 		"google-code-prettify": "*",
 		"bind-polyfill": "*"
@@ -19,6 +21,7 @@
 		"src",
 		"test",
 		"tools",
+		".jsbeautifyrc",
 		".bowerrc",
 		".editorconfig",
 		".npmignore",

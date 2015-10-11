@@ -35,7 +35,7 @@
 		 * @property {String} src
 		 */
 		this.src = this.filter(asset.src);
-		
+
 		/**
 		 * Any image, atlas, or SpriteSheet assets that should be loaded along with this piece
 		 * of flash art.
@@ -48,7 +48,7 @@
 		 * @property {String} libName
 		 */
 		this.libName = "pixiflash_lib";
-		
+
 		/**
 		 * The name of the window object images hang on
 		 * @property {String} imagesName
@@ -85,18 +85,18 @@
 		var images = [];
 		var atlas, assetCount = 0;
 		var asset;
-		for(var i = 0; i < this.images.length; ++i)
+		for (var i = 0; i < this.images.length; ++i)
 		{
 			//check for texture atlases from TexturePacker or similar things
-			if(this.images[i].atlas)
+			if (this.images[i].atlas)
 			{
 				asset = this.images[i];
 				atlas = {
-					atlas:this.filter(asset.atlas),
+					atlas: this.filter(asset.atlas),
 					id: "asset_" + (assetCount++),
-					type:"pixi"
+					type: "pixi"
 				};
-				if(asset.image)
+				if (asset.image)
 					atlas.image = this.filter(asset.image);
 				else
 				{
@@ -106,26 +106,28 @@
 				images.push(atlas);
 			}
 			//Check for EaselJS style SpriteSheets
-			else if(this.images[i].format == "pixiflash.SpriteSheet")
+			else if (this.images[i].format == "pixiflash.SpriteSheet")
 			{
 				asset = this.images[i].clone();
 				images.push(asset);
-				if(!asset.type)
+				if (!asset.type)
 					asset.type = "pixi";
-				if(!asset.id)
+				if (!asset.id)
 					asset.id = "asset_" + (assetCount++);
 			}
 			//standard images
 			else
 			{
 				//check for urls
-				if(typeof this.images[i] == "string")
-					asset = {image:this.filter(this.images[i])};
+				if (typeof this.images[i] == "string")
+					asset = {
+						image: this.filter(this.images[i])
+					};
 				//and full tasks
 				else
 					asset = this.images[i].clone();
 				//ensure an ID for these
-				if(!asset.id)
+				if (!asset.id)
 				{
 					var fallbackId = asset.src || asset.color;
 					// Remove the file extension
@@ -147,12 +149,14 @@
 				images.push(asset);
 			}
 		}
-		
+
 		var assets = {
-			_flash : this.src
+			_flash: this.src
 		};
-		if(images.length)
-			assets._images = {assets:images};
+		if (images.length)
+			assets._images = {
+				assets: images
+			};
 
 		// Load all the assets
 		this.load(assets, function(results)
@@ -162,16 +166,16 @@
 				results._flash,
 				this.libName
 			);
-			
+
 			var images = results._images;
-			if(images)
+			if (images)
 			{
 				var image;
 				var objectsToDestroy = [];
 				var texturesToRemove = [];
 				var globalImages = namespace(this.imagesName);
-				
-				for(var id in images)
+
+				for (var id in images)
 				{
 					var result = images[id];
 
@@ -179,34 +183,34 @@
 					objectsToDestroy.push(result);
 
 					//look for individual images
-					if(result instanceof Texture)
+					if (result instanceof Texture)
 					{
 						globalImages[id] = result;
 						texturesToRemove.push(id);
 					}
-					else if(result instanceof TextureAtlas)
+					else if (result instanceof TextureAtlas)
 					{
 						var frames = result.frames;
-						for(var frame in frames)
+						for (var frame in frames)
 						{
 							globalImages[frame] = frames[frame];
 							texturesToRemove.push(frame);
 						}
 					}
 				}
-				
+
 				art._orig_destroy = art.destroy;
 				art.destroy = function()
 				{
 					var i;
-					for(i = objectsToDestroy.length - 1; i >= 0; --i)
+					for (i = objectsToDestroy.length - 1; i >= 0; --i)
 					{
-						if(objectsToDestroy[i].destroy)
+						if (objectsToDestroy[i].destroy)
 							objectsToDestroy[i].destroy();
 						else
 							objectsToDestroy[i].dispatchEvent("destroy");
 					}
-					for(i = texturesToRemove.length - 1; i >= 0; --i)
+					for (i = texturesToRemove.length - 1; i >= 0; --i)
 					{
 						delete globalImages[texturesToRemove[i]];
 					}
@@ -214,7 +218,7 @@
 				};
 			}
 			callback(art);
-			
+
 		}.bind(this));
 	};
 

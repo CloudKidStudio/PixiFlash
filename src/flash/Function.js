@@ -18,6 +18,7 @@
 	{
 		this.prototype = Object.create(parent.prototype);
 		this.prototype.__parent = parent.prototype;
+		this.prototype.constructor = this;
 		return this;
 	};
 

@@ -55,37 +55,37 @@
 	p.start = function(callback)
 	{
 		this.load(this.src, function(data)
-		{
-			var images = [];
-			data.images.forEach(function(image)
 			{
-				// Convert string loads
-				if (typeof image == "string")
+				var images = [];
+				data.images.forEach(function(image)
 				{
-					image = {
-						image: image,
-						type: 'pixi'
-					};
-				}
-				// Use pixi tasks to load images
-				images.push(image);
-			});
-
-			var id = this.id;
-			this.load(images, function(textures)
-			{
-				data.images.forEach(function(image, i)
-				{
-					// assume the textures are the same order as
-					// the files that were loaded, need to double-check
-					data.images[i] = textures[i].baseTexture;
+					// Convert string loads
+					if (typeof image == "string")
+					{
+						image = {
+							image: image,
+							type: 'pixi'
+						};
+					}
+					// Use pixi tasks to load images
+					images.push(image);
 				});
-				var spriteSheet = new SpriteSheet(data);
-				spriteSheet.addToGlobal(id);
-				callback(spriteSheet);
-			});
-		}
-		.bind(this));
+
+				var id = this.id;
+				this.load(images, function(textures)
+				{
+					data.images.forEach(function(image, i)
+					{
+						// assume the textures are the same order as
+						// the files that were loaded, need to double-check
+						data.images[i] = textures[i].baseTexture;
+					});
+					var spriteSheet = new SpriteSheet(data);
+					spriteSheet.addToGlobal(id);
+					callback(spriteSheet);
+				});
+			}
+			.bind(this));
 	};
 
 	// Assign to namespace

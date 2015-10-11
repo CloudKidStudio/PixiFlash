@@ -6,7 +6,7 @@
 {
 	var BaseText = PIXI.Text;
 	var DisplayObject = PIXI.flash.DisplayObject;
-	
+
 	/**
 	 * The class to emulate createjs.Text
 	 * @class Text
@@ -22,22 +22,28 @@
 		if (style && style.align)
 		{
 			var x;
-			switch(style.align)
+			switch (style.align)
 			{
-				case "center": x = 0.5; break;
-				case "right": x = 1; break;
-				case "left": x = 0; break;
+				case "center":
+					x = 0.5;
+					break;
+				case "right":
+					x = 1;
+					break;
+				case "left":
+					x = 0;
+					break;
 			}
 			this.anchor.x = x;
 		}
 	};
-	
+
 	// Extend PIXI.Text
 	var p = Text.extend(BaseText).prototype;
 
 	// Mixin the display object
 	DisplayObject.mixin(p);
-	
+
 	/**
 	 * Initial setting of the drop shadow
 	 * @method setShadow
@@ -82,5 +88,5 @@
 
 	// Assign to namespace
 	PIXI.flash.Text = Text;
-	
+
 }(PIXI));
