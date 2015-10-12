@@ -20,12 +20,6 @@
 		this._isPixiFlash = true;
 
 		/**
-		 * X and Y skew of the display object, with values in radians.
-		 * @property {PIXI.Point} skew
-		 */
-		this.skew = new Point();
-
-		/**
 		 * Rotation of the display object, with values in radians.
 		 * @property {Number} _rotation
 		 * @private
@@ -83,93 +77,34 @@
 		 * @default 0xFFFFFF
 		 */
 		this._tint = 0xFFFFFF;
+
+		/**
+		 * Short-hand method for setTransform
+		 * @method tr
+		 * @param {Number} x The X position
+		 * @param {Number} y The Y position
+		 * @param {Number} scaleX The X Scale value
+		 * @param {Number} scaleY The Y Scale value
+		 * @param {Number} skewX The X skew value
+		 * @param {Number} skewY The Y skew value
+		 * @param {Number} pivotX The X pivot value
+		 * @param {Number} pivotY The Y pivot value
+		 * @return {PIXI.flash.DisplayObject} Instance for chaining
+		 */
+		this.tr = this.setTransform;
 	};
 
 	// Reference to prototype
 	var p = DisplayObject.prototype;
 
 	/**
-	 * Double Pi
-	 * @property {Number} PI_2
-	 * @static
-	 * @private
-	 * @final
-	 */
-	var PI_2 = Math.PI * 2;
-
-	/**
-	 * Convert degrees to radian
-	 * @property {Number} DEG_TO_RAD
-	 * @static
-	 * @private
-	 * @final
-	 */
-	var DEG_TO_RAD = Math.PI / 180;
-
-	/**
-	 * Convert radians to degrees
-	 * @property {Number} RAD_TO_DEG
-	 * @static
-	 * @private
-	 * @final
-	 */
-	var RAD_TO_DEG = 180 / Math.PI;
-
-	/**
-	 * Short method to initial set transforms
-	 * @method setTransform
-	 * @param {Number} x The X position
-	 * @param {Number} y The Y position
-	 * @param {Number} scaleX The X Scale value
-	 * @param {Number} scaleY The Y Scale value
-	 * @param {Number} skewX The X skew value
-	 * @param {Number} skewY The Y skew value
-	 * @param {Number} pivotX The X pivot value
-	 * @param {Number} pivotY The Y pivot value
-	 * @return {PIXI.flash.DisplayObject} Instance for chaining
-	 */
-	/**
-	 * Short-hand method for setTransform
-	 * @method tr
-	 * @param {Number} x The X position
-	 * @param {Number} y The Y position
-	 * @param {Number} scaleX The X Scale value
-	 * @param {Number} scaleY The Y Scale value
-	 * @param {Number} skewX The X skew value
-	 * @param {Number} skewY The Y skew value
-	 * @param {Number} pivotX The X pivot value
-	 * @param {Number} pivotY The Y pivot value
-	 * @return {PIXI.flash.DisplayObject} Instance for chaining
-	 */
-	p.setTransform = p.tr = function(x, y, scaleX, scaleY, rotation, skewX, skewY, pivotX, pivotY)
-	{
-		this.position.x = x || 0;
-		this.position.y = y || 0;
-		this.scale.x = !scaleX ? 1 : scaleX;
-		this.scale.y = !scaleY ? 1 : scaleY;
-		this.rotation = rotation || 0;
-		this.skew.x = skewX || 0;
-		this.skew.y = skewY || 0;
-		this.pivot.x = pivotX || 0;
-		this.pivot.y = pivotY || 0;
-		return this;
-	};
-
-	/**
-	 * Set the initial mask
-	 * @method setMask
-	 * @param {PIXI.Graphics} mask The mask shape to use
-	 * @return {PIXI.flash.DisplayObject} Instance for chaining
-	 */
-	/**
 	 * Short-hand for setMask method
 	 * @method ma
 	 * @param {PIXI.Graphics} mask The mask shape to use
 	 * @return {PIXI.flash.DisplayObject} Instance for chaining
 	 */
-	p.setMask = p.ma = function(mask)
+	p.ma = function(mask)
 	{
-		mask.renderable = false;
 		this.mask = mask;
 		return this;
 	};
@@ -185,11 +120,11 @@
 		enumerable: true,
 		get: function()
 		{
-			return this._rotation * RAD_TO_DEG;
+			return this._rotation * PIXI.RAD_TO_DEG;
 		},
 		set: function(value)
 		{
-			this._rotation = value * DEG_TO_RAD;
+			this._rotation = value * PIXI.DEG_TO_RAD;
 		}
 	});
 
@@ -288,11 +223,11 @@
 
 		// temporary matrix variables
 		var a, b, c, d, tx, ty,
-			rotY = this.rotation + this.skew.y * DEG_TO_RAD,
-			rotX = this.rotation + this.skew.x * DEG_TO_RAD;
+			rotY = this.rotation + this.skew.y * PIXI.DEG_TO_RAD,
+			rotX = this.rotation + this.skew.x * PIXI.DEG_TO_RAD;
 
 		// so if rotation is between 0 then we can simplify the multiplication process...
-		if (rotY % PI_2 || rotX % PI_2)
+		if (rotY % PIXI.PI_2 || rotX % PIXI.PI_2)
 		{
 			// check to see if the rotation is the same as the previous render. This means we only need to use sin and cos when rotation actually changes
 			if (rotX !== this._cachedRotX || rotY !== this._cachedRotY)

@@ -24,7 +24,7 @@ lib.ShapeFace = Container.extend(function()
 	// Layer 2
 	this.shape = new Graphics()
 		.f(0xCCCCCC)
-		.s(0x666666,16.2,1)
+		.s(16.2,0x666666,1)
 		.p("AiBAAQAAA2AmAmQAnAmA0AAQA1AAAngmQAmgmAAg2QAAg0gmgnQgnglg1AAQg0AAgnAlQgmAnAAA0g")
 		.tr(37,-25);
 
@@ -36,7 +36,7 @@ lib.ShapeFace = Container.extend(function()
 	// Layer 1
 	this.shape_2 = new Graphics()
 		.f(0xFFFFFF)
-		.s(0x999999,16.2,1)
+		.s(16.2,0x999999,1)
 		.de(-106,-106,212,212)
 		.tr(1,0,1,1,0,0,180);
 

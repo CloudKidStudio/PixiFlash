@@ -432,16 +432,7 @@
 	 * @param {Number} [alpha=1] The alpha value from 0 (invisibile) to 1 (visible)
 	 * @return {PIXI.flash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
-	p.setStroke = p.s = function(color, thickness, alpha)
-	{
-		if (color !== undefined)
-		{
-			this.lineColor = color;
-			this.lineAlpha = alpha || 1;
-			this.lineWidth = thickness || 1;
-		}
-		return this;
-	};
+	p.s = p.lineStyle;
 
 	/**
 	 * Decodes a compact encoded path string into a series of draw instructions.

@@ -5,7 +5,7 @@
 	"dependencies":
 	{
 		"createjs-tweenjs": "*",
-		"pixi.js": "~3.0.7"
+		"pixi.js": "https://github.com/CloudKidStudio/pixi.js#dev-flash"
 	},
 	"devDependencies":
 	{
