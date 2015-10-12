@@ -12,10 +12,15 @@
 	 * @class Graphics
 	 * @extends PIXI.Graphics
 	 */
-	var Graphics = function()
+	var Graphics = function(commands)
 	{
 		BaseGraphics.call(this);
 		DisplayObject.call(this);
+
+		if (commands)
+		{
+			this.drawCommands(commands);
+		}
 	};
 
 	// Extend PIXI.Graphics
@@ -23,6 +28,32 @@
 
 	// Mixin the display object
 	DisplayObject.mixin(p);
+
+	p.drawCommands = function(commands)
+	{
+		var currentCommand, params = [], i = 0;
+		
+		while(i <= commands.length)
+		{
+			var item = commands[i++];
+			if (item === undefined || this[item])
+			{
+				if (currentCommand)
+				{
+					this[currentCommand].apply(this, params);
+					params.length = 0;
+				}
+				currentCommand = item;
+			}
+			else
+			{
+				// convert colors to int
+				if (/^#/.test(item)) 
+					item = parseInt(item.substr(1), 16);
+				params.push(item);
+			}
+		}
+	};
 
 	/**
 	 * Map of Base64 characters to values. Used by {{#crossLink "Graphics/decodePath"}}{{/crossLink}}.
@@ -471,6 +502,7 @@
 	 **/
 	p.p = function(str)
 	{
+		var rows = [];
 		// Masking implentation doesn't call f(), must beginFill
 		if (!this.filling)
 		{
@@ -482,6 +514,13 @@
 			this.qt,
 			this.bt,
 			this.cp
+		];
+		var names = [
+			"mt",
+			"lt",
+			"qt",
+			"bt",
+			"cp"
 		];
 		var paramCount = [2, 2, 4, 6, 0];
 		var i = 0,
@@ -531,10 +570,21 @@
 				params[p] = num;
 				i += charCount;
 			}
+			addDrawCommand(rows, names[fi], params);
 			f.apply(this, params);
 		}
+		console.log(rows);
 		return this;
 	};
+
+	function addDrawCommand(rows, cmd, args)
+	{
+		rows.push(cmd);
+		args.forEach(function(arg, i, args)
+		{
+			rows.push(Math.round(arg * 1000)/1000);
+		});
+	}
 
 	// Assign to namespace
 	PIXI.flash.Graphics = Graphics;

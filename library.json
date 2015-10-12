@@ -5,6 +5,8 @@
 	"url": "https://github.com/CloudKidStudio/PixiFlash",
 	"output": "pixi-flash",
 	"main": [
+		"src/data/BISON.js",
+		"src/data/BISONLoader.js",
 		"src/flash/main.js",
 		"src/flash/ColorFilter.js",
 		"src/flash/DisplayObject.js",

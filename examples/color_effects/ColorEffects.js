@@ -5,46 +5,24 @@ var Sprite = PIXI.flash.Sprite;
 var Container = PIXI.flash.Container;
 var ColorFilter = PIXI.flash.ColorFilter;
 var Graphics = PIXI.flash.Graphics;
+var fromFrame = PIXI.Texture.fromFrame;
 
 // symbols:
 lib.Bitmap1 = Sprite.extend(function()
 {
-	Sprite.call(this, "Bitmap1");
+	Sprite.call(this, fromFrame("Bitmap1"));
 });
 
 lib.Bitmap2 = Sprite.extend(function()
 {
-	Sprite.call(this, "Bitmap2");
+	Sprite.call(this, fromFrame("Bitmap2"));
 });
 
 lib.ShapeFace = Container.extend(function()
 {
 	Container.call(this);
-
-	// Layer 2
-	this.shape = new Graphics()
-		.f(0xCCCCCC)
-		.s(16.2,0x666666,1)
-		.p("AiBAAQAAA2AmAmQAnAmA0AAQA1AAAngmQAmgmAAg2QAAg0gmgnQgnglg1AAQg0AAgnAlQgmAnAAA0g")
-		.tr(37,-25);
-
-	this.shape_1 = new Graphics()
-		.f(0x666666)
-		.p("ADnHVQgggfAAgrQAAgsAggfQAegeAsAAQArAAAfAeQAfAfAAAsQAAArgfAfQgfAegrAAQgsAAgegegAlykUQgmgmAAg2QAAg2AmgnQAmglA1gBQA2ABAmAlQAmAnAAA2QAAA2gmAmQgmAmg2gBQg1ABgmgmg")
-		.tr(-17,12);
-
-	// Layer 1
-	this.shape_2 = new Graphics()
-		.f(0xFFFFFF)
-		.s(16.2,0x999999,1)
-		.de(-106,-106,212,212)
-		.tr(1,0,1,1,0,0,180);
-
-	this.ad(
-		this.shape_2,
-		this.shape_1,
-		this.shape
-	);
+	this.shape = new Graphics(graphics.ShapeFace);
+	this.addChild(this.shape);
 });
 
 lib.BitmapFace = Container.extend(function() 
