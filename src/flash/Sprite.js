@@ -25,7 +25,7 @@
 	};
 
 	// Extend PIXI.Sprite
-	var p = Sprite.extend(BaseSprite).prototype;
+	var p = BaseSprite.extend(Sprite).prototype;
 
 	// Mixin the display object
 	DisplayObject.mixin(p);

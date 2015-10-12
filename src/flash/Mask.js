@@ -19,7 +19,7 @@
 	};
 
 	// Extends base graphics
-	Mask.extend(Graphics);
+	Graphics.extend(Mask);
 
 	// Assign to namespace
 	PIXI.flash.Mask = Mask;

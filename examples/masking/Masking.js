@@ -5,7 +5,7 @@ var Mask = PIXI.flash.Mask;
 var Graphics = PIXI.flash.Graphics;
 
 // stage content:
-lib.Masking = function(mode, startPosition, loop)
+lib.Masking = MovieClip.extend(function(mode, startPosition, loop)
 {
 	MovieClip.call(this, mode, startPosition, loop);
 
@@ -46,7 +46,7 @@ lib.Masking = function(mode, startPosition, loop)
 		this.shape
 	);
 
-}.extend(MovieClip);
+});
 
 })(lib = lib||{});
 var lib;

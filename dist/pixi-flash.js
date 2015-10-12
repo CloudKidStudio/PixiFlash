@@ -23,28 +23,6 @@
 }(window));
 /**
  * @module Pixi Flash
- * @namespace window
- */
-(function(PIXI)
-{
-	/**
-	 * Prototype methods for Function
-	 * @class Function
-	 */
-	/**
-	 * Extend function (class) to another class
-	 * @method extend
-	 * @param {function} parent The parent class to inherit
-	 * @return {function} Instance of class for chaining
-	 */
-	Function.prototype.extend = function(parent)
-	{
-		return PIXI.utils.extend(this, parent);
-	};
-
-}(PIXI));
-/**
- * @module Pixi Flash
  * @namespace PIXI.flash
  */
 (function(PIXI)
@@ -477,7 +455,7 @@
 	};
 
 	// Extend the base container
-	var p = Container.extend(BaseContainer).prototype;
+	var p = BaseContainer.extend(Container).prototype;
 
 	// Mixin display object properties to the prototype
 	DisplayObject.mixin(p);
@@ -612,7 +590,7 @@
 	};
 
 	// Extend PIXI.Sprite
-	var p = Sprite.extend(BaseSprite).prototype;
+	var p = BaseSprite.extend(Sprite).prototype;
 
 	// Mixin the display object
 	DisplayObject.mixin(p);
@@ -642,7 +620,7 @@
 	};
 
 	// Extend PIXI.Graphics
-	var p = Graphics.extend(BaseGraphics).prototype;
+	var p = BaseGraphics.extend(Graphics).prototype;
 
 	// Mixin the display object
 	DisplayObject.mixin(p);
@@ -1193,7 +1171,7 @@
 	};
 
 	// Extends base graphics
-	Mask.extend(Graphics);
+	Graphics.extend(Mask);
 
 	// Assign to namespace
 	PIXI.flash.Mask = Mask;
@@ -1240,7 +1218,7 @@
 	};
 
 	// Extend PIXI.Text
-	var p = Text.extend(BaseText).prototype;
+	var p = BaseText.extend(Text).prototype;
 
 	// Mixin the display object
 	DisplayObject.mixin(p);

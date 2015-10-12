@@ -6,7 +6,6 @@
 	"output": "pixi-flash",
 	"main": [
 		"src/flash/main.js",
-		"src/flash/Function.js",
 		"src/flash/ColorFilter.js",
 		"src/flash/DisplayObject.js",
 		"src/flash/Container.js",

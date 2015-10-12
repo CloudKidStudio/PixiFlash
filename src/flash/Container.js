@@ -44,7 +44,7 @@
 	};
 
 	// Extend the base container
-	var p = Container.extend(BaseContainer).prototype;
+	var p = BaseContainer.extend(Container).prototype;
 
 	// Mixin display object properties to the prototype
 	DisplayObject.mixin(p);

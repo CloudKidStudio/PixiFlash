@@ -7,19 +7,17 @@ var ColorFilter = PIXI.flash.ColorFilter;
 var Graphics = PIXI.flash.Graphics;
 
 // symbols:
-lib.Bitmap1 = function()
+lib.Bitmap1 = Sprite.extend(function()
 {
 	Sprite.call(this, "Bitmap1");
-}
-.extend(Sprite);
+});
 
-lib.Bitmap2 = function()
+lib.Bitmap2 = Sprite.extend(function()
 {
 	Sprite.call(this, "Bitmap2");
-}
-.extend(Sprite);
+});
 
-lib.ShapeFace = function()
+lib.ShapeFace = Container.extend(function()
 {
 	Container.call(this);
 
@@ -47,10 +45,9 @@ lib.ShapeFace = function()
 		this.shape_1,
 		this.shape
 	);
-}
-.extend(Container);
+});
 
-lib.BitmapFace = function() 
+lib.BitmapFace = Container.extend(function() 
 {
 	Container.call(this);
 
@@ -66,11 +63,10 @@ lib.BitmapFace = function()
 		this.instance_1,
 		this.instance
 	);
-}
-.extend(Container);
+});
 
 // stage content:
-lib.ColorEffects = function()
+lib.ColorEffects = Container.extend(function()
 {
 	Container.call(this);
 
@@ -105,8 +101,7 @@ lib.ColorEffects = function()
 		this.instance_1,
 		this.instance
 	);
-}
-.extend(Container);
+});
 
 })(lib = lib||{});
 var lib;

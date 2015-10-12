@@ -5,7 +5,7 @@ var Text = PIXI.flash.Text;
 var Graphics = PIXI.flash.Graphics;
 
 // stage content:
-lib.Text = function()
+lib.Text = Container.extend(function()
 {
 	Container.call(this);
 
@@ -56,7 +56,7 @@ lib.Text = function()
 		this.text
 	);
 
-}.extend(Container);
+});
 
 })(lib = lib||{});
 var lib;

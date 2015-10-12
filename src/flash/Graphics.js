@@ -19,7 +19,7 @@
 	};
 
 	// Extend PIXI.Graphics
-	var p = Graphics.extend(BaseGraphics).prototype;
+	var p = BaseGraphics.extend(Graphics).prototype;
 
 	// Mixin the display object
 	DisplayObject.mixin(p);

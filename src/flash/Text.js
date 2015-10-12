@@ -39,7 +39,7 @@
 	};
 
 	// Extend PIXI.Text
-	var p = Text.extend(BaseText).prototype;
+	var p = BaseText.extend(Text).prototype;
 
 	// Mixin the display object
 	DisplayObject.mixin(p);
