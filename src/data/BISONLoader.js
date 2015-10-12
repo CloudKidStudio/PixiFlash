@@ -8,7 +8,7 @@
 			{
 				resource.data = BISON.decode(resource.data);
 			}
-			next();	
+			next();
 		};
 	};
 

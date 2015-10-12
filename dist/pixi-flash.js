@@ -1,494 +1,567 @@
 /*! Pixi Flash 0.2.5 */
 /**
-  * Copyright (c) 2009-2012 Ivo Wetzel.
-  *
-  * Permission is hereby granted, free of charge, to any person obtaining a copy
-  * of this software and associated documentation files (the "Software"), to deal
-  * in the Software without restriction, including without limitation the rights
-  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-  * copies of the Software, and to permit persons to whom the Software is
-  * furnished to do so, subject to the following conditions:
-  *
-  * The above copyright notice and this permission notice shall be included in
-  * all copies or substantial portions of the Software.
-  *
-  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-  * THE SOFTWARE.
-  */
+ * Copyright (c) 2009-2012 Ivo Wetzel.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 /* jshint ignore:start */
-(function(Array, undefined) {
-    "use strict";
+(function(Array, undefined)
+{
+	"use strict";
 
-    // Some lookup tables
-    var chrTable = new Array(256),
-        maskTable = new Array(9),
-        powTable = new Array(9),
-        reversePowTable = new Array(9);
+	// Some lookup tables
+	var chrTable = new Array(256),
+		maskTable = new Array(9),
+		powTable = new Array(9),
+		reversePowTable = new Array(9);
 
-    for(var i = 0; i < 256; i++) {
-        chrTable[i] = String.fromCharCode(i);
-    }
+	for (var i = 0; i < 256; i++)
+	{
+		chrTable[i] = String.fromCharCode(i);
+	}
 
-    for(var f = 0; f < 9; f++) {
-        maskTable[f] = ~((powTable[f] = Math.pow(2, f) - 1) ^ 0xFF);
-        reversePowTable[f] = Math.pow(10, f);
-    }
+	for (var f = 0; f < 9; f++)
+	{
+		maskTable[f] = ~((powTable[f] = Math.pow(2, f) - 1) ^ 0xFF);
+		reversePowTable[f] = Math.pow(10, f);
+	}
 
-    var bitStream = '',
-        bitValue = 0,
-        bitsLeft = 8,
-        streamIndex = 0;
+	var bitStream = '',
+		bitValue = 0,
+		bitsLeft = 8,
+		streamIndex = 0;
 
-    function write(val, count) {
+	function write(val, count)
+	{
 
-        var overflow = count - bitsLeft,
-            use = bitsLeft < count ? bitsLeft : count,
-            shift = bitsLeft - use;
+		var overflow = count - bitsLeft,
+			use = bitsLeft < count ? bitsLeft : count,
+			shift = bitsLeft - use;
 
-        if (overflow > 0) {
-            bitValue += val >> overflow << shift;
+		if (overflow > 0)
+		{
+			bitValue += val >> overflow << shift;
 
-        } else {
-            bitValue += val << shift;
-        }
+		}
+		else
+		{
+			bitValue += val << shift;
+		}
 
-        bitsLeft -= use;
+		bitsLeft -= use;
 
-        if (bitsLeft === 0) {
+		if (bitsLeft === 0)
+		{
 
-            bitStream += chrTable[bitValue];
-            bitsLeft = 8;
-            bitValue = 0;
+			bitStream += chrTable[bitValue];
+			bitsLeft = 8;
+			bitValue = 0;
 
-            if (overflow > 0) {
-                bitValue += (val & powTable[overflow]) << (8 - overflow);
-                bitsLeft -= overflow;
-            }
+			if (overflow > 0)
+			{
+				bitValue += (val & powTable[overflow]) << (8 - overflow);
+				bitsLeft -= overflow;
+			}
 
-        }
+		}
 
-    }
+	}
+
+	function read(count)
+	{
 
-    function read(count) {
-
-        var overflow = count - bitsLeft,
-            use = bitsLeft < count ? bitsLeft : count,
-            shift = bitsLeft - use;
-
-        // Wrap bits over to next byte
-        var val = (bitValue & maskTable[bitsLeft]) >> shift;
-        bitsLeft -= use;
-
-        if (bitsLeft === 0) {
-
-            bitValue = bitStream.charCodeAt(++streamIndex);
-            bitsLeft = 8;
-
-            if (overflow > 0) {
-                val = val << overflow | ((bitValue & maskTable[bitsLeft]) >> 8 - overflow);
-                bitsLeft -= overflow;
-            }
-
-        }
-
-        if (streamIndex > bitStream.length) {
-            return 7;
-        }
-
-        return val;
-
-    }
-
-
-    // Encoder ----------------------------------------------------------------
-    function _encode(value, top) {
-
-        // Numbers
-        if (typeof value === 'number') {
-
-            var type = value !== (value | 0) ? 1 : 0,
-                sign = 0;
-
-            if (value < 0) {
-                value = -value;
-                sign = 1;
-            }
-
-            write(1 + type, 3);
-
-            // Float
-            if (type) {
-
-                var shift = 0,
-                    step = 10,
-                    m = value,
-                    tmp = 0;
-
-                // Figure out the exponent
-                do {
-                    m = value * step;
-                    step *= 10;
-                    shift++;
-                    tmp = m | 0;
-
-                } while(m - tmp > 1 / step && shift < 8 && m < 214748364);
-
-                // Correct if we overshoot
-                step = tmp / 10;
-                if (step === (step | 0)) {
-                    tmp = step;
-                    shift--;
-                }
-
-                value = tmp;
-
-            }
-
-            // 2 size 0-3: 0 = < 16 1 = < 256 2 = < 65536 3 >=
-            if (value < 2) {
-                write(value, 4);
-
-            } else if (value < 16) {
-                write(1, 3);
-                write(value, 4);
-
-            } else if (value < 256) {
-                write(2, 3);
-                write(value, 8);
-
-            } else if (value < 4096) {
-                write(3, 3);
-                write(value >> 8 & 0xff, 4);
-                write(value & 0xff, 8);
-
-            } else if (value < 65536) {
-                write(4, 3);
-                write(value >> 8 & 0xff, 8);
-                write(value & 0xff, 8);
-
-            } else if (value < 1048576) {
-                write(5, 3);
-                write(value >> 16 & 0xff, 4);
-                write(value >> 8 & 0xff, 8);
-                write(value & 0xff, 8);
-
-            } else if (value < 16777216) {
-                write(6, 3);
-                write(value >> 16 & 0xff, 8);
-                write(value >> 8 & 0xff, 8);
-                write(value & 0xff, 8);
-
-            } else {
-                write(7, 3);
-                write(value >> 24 & 0xff, 8);
-                write(value >> 16 & 0xff, 8);
-                write(value >> 8 & 0xff, 8);
-                write(value & 0xff, 8);
-            }
-
-            write(sign, 1);
-
-            if (type) {
-                write(shift, 4);
-            }
-
-        // Strings
-        } else if (typeof value === 'string') {
-
-            var len = value.length;
-            write(3, 3);
-
-            if (len > 65535) {
-                write(31, 5);
-                write(len >> 24 & 0xff, 8);
-                write(len >> 16 & 0xff, 8);
-                write(len >> 8 & 0xff, 8);
-                write(len & 0xff, 8);
-
-            } else if (len > 255) {
-                write(30, 5);
-                write(len >> 8 & 0xff, 8);
-                write(len & 0xff, 8);
-
-            } else if (len > 28) {
-                write(29, 5);
-                write(len, 8);
-
-            } else {
-                write(len, 5);
-            }
-
-            // Write a raw string to the stream
-            if (bitsLeft !== 8) {
-                bitStream += chrTable[bitValue];
-                bitValue = 0;
-                bitsLeft = 8;
-            }
-
-            bitStream += value;
-
-        // Booleans
-        } else if (typeof value === 'boolean') {
-            write(+value, 4);
-
-        // Null
-        } else if (value === null) {
-            write(7, 3);
-            write(0, 1);
-
-        // Arrays
-        } else if (value instanceof Array) {
-
-            write(4, 3);
-            for(var i = 0, l = value.length; i < l; i++) {
-                _encode(value[i]);
-            }
-
-            if (!top) {
-                write(6, 3);
-            }
-
-        // Object
-        } else {
-
-            write(5, 3);
-            for(var e in value) {
-                _encode(e);
-                _encode(value[e]);
-            }
-
-            if (!top) {
-                write(6, 3);
-            }
-
-        }
-
-    }
-
-    function encode(value) {
-
-        bitsLeft = 8;
-        bitValue = 0;
-        bitStream = '';
-
-        _encode(value, true);
-
-        write(7, 3);
-        write(1, 1);
-
-        if (bitValue > 0) {
-            bitStream += chrTable[bitValue];
-        }
-
-        return bitStream;
-
-    }
-
-    // Decoder ----------------------------------------------------------------
-    function decode(string) {
-
-        var stack = [], i = -1, decoded,
-            type, top, value,
-            getKey = false, key, isObj;
-
-        bitsLeft = 8;
-        streamIndex = 0;
-        bitStream = string;
-        bitValue = bitStream.charCodeAt(streamIndex);
-
-        while(true) {
-
-            // Grab type
-            type = read(3);
-
-            switch(type) {
-
-            // Bool
-            case 0:
-                value = read(1) ? true : false;
-                break;
-
-            // EOS / Stream Overrun / Null
-            case 7:
-                switch(read(1)) {
-                    case 1:
-                        return decoded;
-
-                    case 7:
-                        return undefined;
-
-                    default:
-                        value = null;
-                }
-                break;
-
-            // Integer / Float
-            case 1:
-            case 2:
-                switch(read(3)) {
-                    case 0:
-                        value = read(1);
-                        break;
-
-                    case 1:
-                        value = read(4);
-                        break;
-
-                    case 2:
-                        value = read(8);
-                        break;
-
-                    case 3:
-                        value = (read(4) << 8)
-                                + read(8);
-
-                        break;
-
-                    case 4:
-                        value = (read(8) << 8)
-                                + read(8);
-
-                        break;
-
-                    case 5:
-                        value = (read(4) << 16)
-                                + (read(8) << 8)
-                                + read(8);
-
-                        break;
-
-                    case 6:
-                        value = (read(8) << 16)
-                                + (read(8) << 8)
-                                + read(8);
-
-                        break;
-
-                    case 7:
-                        value = (read(8) << 24)
-                                + (read(8) << 16)
-                                + (read(8) << 8)
-                                + read(8);
-
-                        break;
-                }
-
-                if (read(1)) {
-                    value = -value;
-                }
-
-                if (type === 2) {
-                    value /= reversePowTable[read(4)];
-                }
-
-                break;
-
-            // String
-            case 3:
-
-                var size = read(5);
-                switch(size) {
-                    case 31:
-                        size = (read(8) << 24)
-                               + (read(8) << 16)
-                               + (read(8) << 8)
-                               + read(8);
-
-                        break;
-
-                    case 30:
-                        size = (read(8) << 8)
-                               + read(8);
-
-                        break;
-
-                    case 29:
-                        size = read(8);
-                        break;
-
-                }
-
-                // Read a raw string from the stream
-                if (bitsLeft !== 8) {
-                    streamIndex++;
-                    bitValue = 0;
-                    bitsLeft = 8;
-                }
-
-                value = bitStream.substr(streamIndex, size);
-                streamIndex += size;
-                bitValue = bitStream.charCodeAt(streamIndex);
-
-                if (getKey) {
-                    key = value;
-                    getKey = false;
-                    continue;
-                }
-
-                break;
-
-            // Open Array / Objects
-            case 4:
-            case 5:
-                getKey = type === 5;
-                value = getKey ? {} : [];
-
-                if (decoded === undefined) {
-                    decoded = value;
-
-                } else {
-
-                    if (isObj) {
-                        top[key] = value;
-
-                    } else {
-                        top.push(value);
-                    }
-                }
-
-                top = stack[++i] = value;
-                isObj = !(top instanceof Array);
-                continue;
-
-            // Close Array / Object
-            case 6:
-                top = stack[--i];
-                getKey = isObj = !(top instanceof Array);
-                continue;
-            }
-
-            // Assign value to top of stack or return value
-            if (isObj) {
-                top[key] = value;
-                getKey = true;
-
-            } else if (top !== undefined) {
-                top.push(value);
-
-            } else {
-                return value;
-            }
-
-        }
-
-    }
-
-    // Exports
-    if (typeof exports !== 'undefined') {
-        exports.encode = encode;
-        exports.decode = decode;
-
-    } else {
-        window.BISON = {
-            encode: encode,
-            decode: decode
-        };
-    }
+		var overflow = count - bitsLeft,
+			use = bitsLeft < count ? bitsLeft : count,
+			shift = bitsLeft - use;
+
+		// Wrap bits over to next byte
+		var val = (bitValue & maskTable[bitsLeft]) >> shift;
+		bitsLeft -= use;
+
+		if (bitsLeft === 0)
+		{
+
+			bitValue = bitStream.charCodeAt(++streamIndex);
+			bitsLeft = 8;
+
+			if (overflow > 0)
+			{
+				val = val << overflow | ((bitValue & maskTable[bitsLeft]) >> 8 - overflow);
+				bitsLeft -= overflow;
+			}
+
+		}
+
+		if (streamIndex > bitStream.length)
+		{
+			return 7;
+		}
+
+		return val;
+
+	}
+
+
+	// Encoder ----------------------------------------------------------------
+	function _encode(value, top)
+	{
+
+		// Numbers
+		if (typeof value === 'number')
+		{
+
+			var type = value !== (value | 0) ? 1 : 0,
+				sign = 0;
+
+			if (value < 0)
+			{
+				value = -value;
+				sign = 1;
+			}
+
+			write(1 + type, 3);
+
+			// Float
+			if (type)
+			{
+
+				var shift = 0,
+					step = 10,
+					m = value,
+					tmp = 0;
+
+				// Figure out the exponent
+				do {
+					m = value * step;
+					step *= 10;
+					shift++;
+					tmp = m | 0;
+
+				} while (m - tmp > 1 / step && shift < 8 && m < 214748364);
+
+				// Correct if we overshoot
+				step = tmp / 10;
+				if (step === (step | 0))
+				{
+					tmp = step;
+					shift--;
+				}
+
+				value = tmp;
+
+			}
+
+			// 2 size 0-3: 0 = < 16 1 = < 256 2 = < 65536 3 >=
+			if (value < 2)
+			{
+				write(value, 4);
+
+			}
+			else if (value < 16)
+			{
+				write(1, 3);
+				write(value, 4);
+
+			}
+			else if (value < 256)
+			{
+				write(2, 3);
+				write(value, 8);
+
+			}
+			else if (value < 4096)
+			{
+				write(3, 3);
+				write(value >> 8 & 0xff, 4);
+				write(value & 0xff, 8);
+
+			}
+			else if (value < 65536)
+			{
+				write(4, 3);
+				write(value >> 8 & 0xff, 8);
+				write(value & 0xff, 8);
+
+			}
+			else if (value < 1048576)
+			{
+				write(5, 3);
+				write(value >> 16 & 0xff, 4);
+				write(value >> 8 & 0xff, 8);
+				write(value & 0xff, 8);
+
+			}
+			else if (value < 16777216)
+			{
+				write(6, 3);
+				write(value >> 16 & 0xff, 8);
+				write(value >> 8 & 0xff, 8);
+				write(value & 0xff, 8);
+
+			}
+			else
+			{
+				write(7, 3);
+				write(value >> 24 & 0xff, 8);
+				write(value >> 16 & 0xff, 8);
+				write(value >> 8 & 0xff, 8);
+				write(value & 0xff, 8);
+			}
+
+			write(sign, 1);
+
+			if (type)
+			{
+				write(shift, 4);
+			}
+
+			// Strings
+		}
+		else if (typeof value === 'string')
+		{
+
+			var len = value.length;
+			write(3, 3);
+
+			if (len > 65535)
+			{
+				write(31, 5);
+				write(len >> 24 & 0xff, 8);
+				write(len >> 16 & 0xff, 8);
+				write(len >> 8 & 0xff, 8);
+				write(len & 0xff, 8);
+
+			}
+			else if (len > 255)
+			{
+				write(30, 5);
+				write(len >> 8 & 0xff, 8);
+				write(len & 0xff, 8);
+
+			}
+			else if (len > 28)
+			{
+				write(29, 5);
+				write(len, 8);
+
+			}
+			else
+			{
+				write(len, 5);
+			}
+
+			// Write a raw string to the stream
+			if (bitsLeft !== 8)
+			{
+				bitStream += chrTable[bitValue];
+				bitValue = 0;
+				bitsLeft = 8;
+			}
+
+			bitStream += value;
+
+			// Booleans
+		}
+		else if (typeof value === 'boolean')
+		{
+			write(+value, 4);
+
+			// Null
+		}
+		else if (value === null)
+		{
+			write(7, 3);
+			write(0, 1);
+
+			// Arrays
+		}
+		else if (value instanceof Array)
+		{
+
+			write(4, 3);
+			for (var i = 0, l = value.length; i < l; i++)
+			{
+				_encode(value[i]);
+			}
+
+			if (!top)
+			{
+				write(6, 3);
+			}
+
+			// Object
+		}
+		else
+		{
+
+			write(5, 3);
+			for (var e in value)
+			{
+				_encode(e);
+				_encode(value[e]);
+			}
+
+			if (!top)
+			{
+				write(6, 3);
+			}
+
+		}
+
+	}
+
+	function encode(value)
+	{
+
+		bitsLeft = 8;
+		bitValue = 0;
+		bitStream = '';
+
+		_encode(value, true);
+
+		write(7, 3);
+		write(1, 1);
+
+		if (bitValue > 0)
+		{
+			bitStream += chrTable[bitValue];
+		}
+
+		return bitStream;
+
+	}
+
+	// Decoder ----------------------------------------------------------------
+	function decode(string)
+	{
+
+		var stack = [],
+			i = -1,
+			decoded,
+			type, top, value,
+			getKey = false,
+			key, isObj;
+
+		bitsLeft = 8;
+		streamIndex = 0;
+		bitStream = string;
+		bitValue = bitStream.charCodeAt(streamIndex);
+
+		while (true)
+		{
+
+			// Grab type
+			type = read(3);
+
+			switch (type)
+			{
+
+				// Bool
+				case 0:
+					value = read(1) ? true : false;
+					break;
+
+					// EOS / Stream Overrun / Null
+				case 7:
+					switch (read(1))
+					{
+						case 1:
+							return decoded;
+
+						case 7:
+							return undefined;
+
+						default:
+							value = null;
+					}
+					break;
+
+					// Integer / Float
+				case 1:
+				case 2:
+					switch (read(3))
+					{
+						case 0:
+							value = read(1);
+							break;
+
+						case 1:
+							value = read(4);
+							break;
+
+						case 2:
+							value = read(8);
+							break;
+
+						case 3:
+							value = (read(4) << 8) + read(8);
+
+							break;
+
+						case 4:
+							value = (read(8) << 8) + read(8);
+
+							break;
+
+						case 5:
+							value = (read(4) << 16) + (read(8) << 8) + read(8);
+
+							break;
+
+						case 6:
+							value = (read(8) << 16) + (read(8) << 8) + read(8);
+
+							break;
+
+						case 7:
+							value = (read(8) << 24) + (read(8) << 16) + (read(8) << 8) + read(8);
+
+							break;
+					}
+
+					if (read(1))
+					{
+						value = -value;
+					}
+
+					if (type === 2)
+					{
+						value /= reversePowTable[read(4)];
+					}
+
+					break;
+
+					// String
+				case 3:
+
+					var size = read(5);
+					switch (size)
+					{
+						case 31:
+							size = (read(8) << 24) + (read(8) << 16) + (read(8) << 8) + read(8);
+
+							break;
+
+						case 30:
+							size = (read(8) << 8) + read(8);
+
+							break;
+
+						case 29:
+							size = read(8);
+							break;
+
+					}
+
+					// Read a raw string from the stream
+					if (bitsLeft !== 8)
+					{
+						streamIndex++;
+						bitValue = 0;
+						bitsLeft = 8;
+					}
+
+					value = bitStream.substr(streamIndex, size);
+					streamIndex += size;
+					bitValue = bitStream.charCodeAt(streamIndex);
+
+					if (getKey)
+					{
+						key = value;
+						getKey = false;
+						continue;
+					}
+
+					break;
+
+					// Open Array / Objects
+				case 4:
+				case 5:
+					getKey = type === 5;
+					value = getKey ?
+					{} : [];
+
+					if (decoded === undefined)
+					{
+						decoded = value;
+
+					}
+					else
+					{
+
+						if (isObj)
+						{
+							top[key] = value;
+
+						}
+						else
+						{
+							top.push(value);
+						}
+					}
+
+					top = stack[++i] = value;
+					isObj = !(top instanceof Array);
+					continue;
+
+					// Close Array / Object
+				case 6:
+					top = stack[--i];
+					getKey = isObj = !(top instanceof Array);
+					continue;
+			}
+
+			// Assign value to top of stack or return value
+			if (isObj)
+			{
+				top[key] = value;
+				getKey = true;
+
+			}
+			else if (top !== undefined)
+			{
+				top.push(value);
+
+			}
+			else
+			{
+				return value;
+			}
+
+		}
+
+	}
+
+	// Exports
+	if (typeof exports !== 'undefined')
+	{
+		exports.encode = encode;
+		exports.decode = decode;
+
+	}
+	else
+	{
+		window.BISON = {
+			encode: encode,
+			decode: decode
+		};
+	}
 
 })(Array);
 /* jshint ignore:end */
@@ -502,7 +575,7 @@
 			{
 				resource.data = BISON.decode(resource.data);
 			}
-			next();	
+			next();
 		};
 	};
 
@@ -642,9 +715,10 @@
 	 */
 	p.drawCommands = p.d = function(commands)
 	{
-		var currentCommand, params = [], i = 0;
-		
-		while(i <= commands.length)
+		var currentCommand, params = [],
+			i = 0;
+
+		while (i <= commands.length)
 		{
 			var item = commands[i++];
 			if (item === undefined || this[item])
@@ -659,7 +733,7 @@
 			else
 			{
 				// convert colors to int
-				if (/^#/.test(item)) 
+				if (/^#/.test(item))
 					item = parseInt(item.substr(1), 16);
 				params.push(item);
 			}
@@ -1019,202 +1093,6 @@
 	 * @return {PIXI.flash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
 	p.s = p.lineStyle;
-
-	/**
-	 * Map of Base64 characters to values. Used by {{#crossLink "Graphics/decodePath"}}{{/crossLink}}.
-	 * @property {Object} BASE_64
-	 * @static
-	 * @final
-	 * @private
-	 * @readonly
-	 **/
-	var BASE_64 = {
-		"A": 0,
-		"B": 1,
-		"C": 2,
-		"D": 3,
-		"E": 4,
-		"F": 5,
-		"G": 6,
-		"H": 7,
-		"I": 8,
-		"J": 9,
-		"K": 10,
-		"L": 11,
-		"M": 12,
-		"N": 13,
-		"O": 14,
-		"P": 15,
-		"Q": 16,
-		"R": 17,
-		"S": 18,
-		"T": 19,
-		"U": 20,
-		"V": 21,
-		"W": 22,
-		"X": 23,
-		"Y": 24,
-		"Z": 25,
-		"a": 26,
-		"b": 27,
-		"c": 28,
-		"d": 29,
-		"e": 30,
-		"f": 31,
-		"g": 32,
-		"h": 33,
-		"i": 34,
-		"j": 35,
-		"k": 36,
-		"l": 37,
-		"m": 38,
-		"n": 39,
-		"o": 40,
-		"p": 41,
-		"q": 42,
-		"r": 43,
-		"s": 44,
-		"t": 45,
-		"u": 46,
-		"v": 47,
-		"w": 48,
-		"x": 49,
-		"y": 50,
-		"z": 51,
-		"0": 52,
-		"1": 53,
-		"2": 54,
-		"3": 55,
-		"4": 56,
-		"5": 57,
-		"6": 58,
-		"7": 59,
-		"8": 60,
-		"9": 61,
-		"+": 62,
-		"/": 63
-	};
-
-	/**
-	 * Decodes a compact encoded path string into a series of draw instructions.
-	 * This format is not intended to be human readable, and is meant for use by authoring tools.
-	 * The format uses a base64 character set, with each character representing 6 bits, to define a series of draw
-	 * commands.
-	 *
-	 * Each command is comprised of a single "header" character followed by a variable number of alternating x and y
-	 * position values. Reading the header bits from left to right (most to least significant): bits 1 to 3 specify the
-	 * type of operation (0-moveTo, 1-lineTo, 2-quadraticCurveTo, 3-bezierCurveTo, 4-closePath, 5-7 unused). Bit 4
-	 * indicates whether position values use 12 bits (2 characters) or 18 bits (3 characters), with a one indicating the
-	 * latter. Bits 5 and 6 are currently unused.
-	 *
-	 * Following the header is a series of 0 (closePath), 2 (moveTo, lineTo), 4 (quadraticCurveTo), or 6 (bezierCurveTo)
-	 * parameters. These parameters are alternating x/y positions represented by 2 or 3 characters (as indicated by the
-	 * 4th bit in the command char). These characters consist of a 1 bit sign (1 is negative, 0 is positive), followed
-	 * by an 11 (2 char) or 17 (3 char) bit integer value. All position values are in tenths of a pixel. Except in the
-	 * case of move operations which are absolute, this value is a delta from the previous x or y position (as
-	 * appropriate).
-	 *
-	 * For example, the string "A3cAAMAu4AAA" represents a line starting at -150,0 and ending at 150,0.
-	 * <br />A - bits 000000. First 3 bits (000) indicate a moveTo operation. 4th bit (0) indicates 2 chars per
-	 * parameter.
-	 * <br />n0 - 110111011100. Absolute x position of -150.0px. First bit indicates a negative value, remaining bits
-	 * indicate 1500 tenths of a pixel.
-	 * <br />AA - 000000000000. Absolute y position of 0.
-	 * <br />I - 001100. First 3 bits (001) indicate a lineTo operation. 4th bit (1) indicates 3 chars per parameter.
-	 * <br />Au4 - 000000101110111000. An x delta of 300.0px, which is added to the previous x value of -150.0px to
-	 * provide an absolute position of +150.0px.
-	 * <br />AAA - 000000000000000000. A y delta value of 0.
-	 *
-	 * A tiny API method "p" also exists.
-	 * @method p
-	 * @param {String} str The path string to decode.
-	 * @return {PIXI.flash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
-	 **/
-	p.p = function(str)
-	{
-		var rows = [];
-		// Masking implentation doesn't call f(), must beginFill
-		if (!this.filling)
-		{
-			this.beginFill();
-		}
-		var instructions = [
-			this.mt,
-			this.lt,
-			this.qt,
-			this.bt,
-			this.cp
-		];
-		var names = [
-			"mt",
-			"lt",
-			"qt",
-			"bt",
-			"cp"
-		];
-		var paramCount = [2, 2, 4, 6, 0];
-		var i = 0,
-			l = str.length;
-		var params = [];
-		var x = 0,
-			y = 0;
-		var base64 = BASE_64;
-
-		while (i < l)
-		{
-			var c = str.charAt(i);
-			var n = base64[c];
-			var fi = n >> 3; // highest order bits 1-3 code for operation.
-			var f = instructions[fi];
-			// check that we have a valid instruction & that the unused bits are empty:
-			if (!f || (n & 3))
-			{
-				throw ("bad path data (@" + i + "): " + c);
-			}
-			var pl = paramCount[fi];
-			if (!fi)
-			{
-				x = y = 0;
-			} // move operations reset the position.
-			params.length = 0;
-			i++;
-			var charCount = (n >> 2 & 1) + 2; // 4th header bit indicates number size for this operation.
-			for (var p = 0; p < pl; p++)
-			{
-				var num = base64[str.charAt(i)];
-				var sign = (num >> 5) ? -1 : 1;
-				num = ((num & 31) << 6) | (base64[str.charAt(i + 1)]);
-				if (charCount == 3)
-				{
-					num = (num << 6) | (base64[str.charAt(i + 2)]);
-				}
-				num = sign * num / 10;
-				if (p % 2)
-				{
-					x = (num += x);
-				}
-				else
-				{
-					y = (num += y);
-				}
-				params[p] = num;
-				i += charCount;
-			}
-			addDrawCommand(rows, names[fi], params);
-			f.apply(this, params);
-		}
-		console.log(JSON.stringify(rows));
-		return this;
-	};
-
-	function addDrawCommand(rows, cmd, args)
-	{
-		rows.push(cmd);
-		args.forEach(function(arg, i, args)
-		{
-			rows.push(Math.round(arg * 1000)/1000);
-		});
-	}
 
 }(PIXI));
 /**
