@@ -1,8 +1,8 @@
 (function (lib) {
 
-var Container = PIXI.flash.Container;
-var Text = PIXI.flash.Text;
-var Graphics = PIXI.flash.Graphics;
+var Container = PIXI.Container;
+var Text = PIXI.Text;
+var Graphics = PIXI.Graphics;
 
 // stage content:
 lib.Text = Container.extend(function()
@@ -13,23 +13,23 @@ lib.Text = Container.extend(function()
 	this.text = new Text("Prepare to die.", {
 		font: "35px 'Verdana'", 
 		fill: 0x33CC00,
-		align: 'right',
 		lineHeight: 37,
 		wordWrap: true,
 		wordWrapWidth: 511,
 		padding: 10
 	})
+	.al('right')
 	.tr(654,285);
 
 	this.text_1 = new Text("You killed my father.", {
 		font: "35px 'Times'", 
 		fill: "#1F2CB4",
-		align: 'center',
 		lineHeight: 37,
 		wordWrap: true,
 		wordWrapWidth: 511,
 		padding: 10
 	})
+	.al('center')
 	.tr(398.5,237)
 	.sh(0xFFFFFF);
 
@@ -45,11 +45,9 @@ lib.Text = Container.extend(function()
 
 	// Layer 4
 	this.shape = new Graphics()
-		.f(0xCCCCCC)
-		.p("EgqAANHIAA6NMBUBAAAIAAaNg")
-		.tr(400,258);
+		.d(graphics.Text);
 
-	this.ad(
+	this.ac(
 		this.shape,
 		this.text_2,
 		this.text_1,

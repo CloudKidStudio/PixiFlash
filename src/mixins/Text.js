@@ -4,45 +4,30 @@
  */
 (function(PIXI, undefined)
 {
-	var BaseText = PIXI.Text;
-	var DisplayObject = PIXI.flash.DisplayObject;
+	var p = PIXI.Text.prototype;
 
 	/**
 	 * The class to emulate createjs.Text
-	 * @class Text
-	 * @extends PIXI.Text
-	 * @param {String} text The text to add
-	 * @param {Object} [style] The text style
+	 * @method setAlign
+	 * @param {String} align Either, center, right, left
+	 * @return {PIXI.Text} For chaining
 	 */
-	var Text = function(text, style)
+	p.setAlign = p.al = function(align)
 	{
-		BaseText.call(this, text, style);
-		DisplayObject.call(this);
-
-		if (style && style.align)
+		this.style.align = align || "left";
+		var x = 0;
+		switch (align)
 		{
-			var x;
-			switch (style.align)
-			{
-				case "center":
-					x = 0.5;
-					break;
-				case "right":
-					x = 1;
-					break;
-				case "left":
-					x = 0;
-					break;
-			}
-			this.anchor.x = x;
+			case "center":
+				x = 0.5;
+				break;
+			case "right":
+				x = 1;
+				break;
 		}
+		this.anchor.x = x;
+		return this;
 	};
-
-	// Extend PIXI.Text
-	var p = BaseText.extend(Text).prototype;
-
-	// Mixin the display object
-	DisplayObject.mixin(p);
 
 	/**
 	 * Initial setting of the drop shadow
@@ -85,8 +70,5 @@
 	{
 		return value === undefined ? defaultValue : value;
 	};
-
-	// Assign to namespace
-	PIXI.flash.Text = Text;
 
 }(PIXI));

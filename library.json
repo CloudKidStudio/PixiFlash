@@ -8,13 +8,7 @@
 		"src/data/BISON.js",
 		"src/data/BISONLoader.js",
 		"src/flash/main.js",
-		"src/flash/ColorFilter.js",
-		"src/flash/DisplayObject.js",
-		"src/flash/Container.js",
-		"src/flash/Sprite.js",
-		"src/flash/Graphics.js",
-		"src/flash/Mask.js",
-		"src/flash/Text.js"
+		"src/mixins/*.js"
 	],
 	"modules":
 	{

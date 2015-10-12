@@ -1,35 +1,24 @@
 /**
  * @module Pixi Flash
- * @namespace PIXI.flash
+ * @namespace PIXI
  */
 (function(PIXI, undefined)
 {
-	var BaseGraphics = PIXI.Graphics;
-	var DisplayObject = PIXI.flash.DisplayObject;
+	var p = PIXI.Graphics.prototype;
 
 	/**
-	 * The class to emulate createjs.Graphics
-	 * @class Graphics
-	 * @extends PIXI.Graphics
+	 * Shortcut for drawCommands
+	 * @method d
+	 * @param  {Array} commands The commands and parameters to draw
+	 * @return {PIXI.Graphics}
 	 */
-	var Graphics = function(commands)
-	{
-		BaseGraphics.call(this);
-		DisplayObject.call(this);
-
-		if (commands)
-		{
-			this.drawCommands(commands);
-		}
-	};
-
-	// Extend PIXI.Graphics
-	var p = BaseGraphics.extend(Graphics).prototype;
-
-	// Mixin the display object
-	DisplayObject.mixin(p);
-
-	p.drawCommands = function(commands)
+	/**
+	 * Execute a series of commands
+	 * @method drawCommands
+	 * @param  {Array} commands The commands and parameters to draw
+	 * @return {PIXI.Graphics}
+	 */
+	p.drawCommands = p.d = function(commands)
 	{
 		var currentCommand, params = [], i = 0;
 		
@@ -53,81 +42,25 @@
 				params.push(item);
 			}
 		}
+		return this;
 	};
 
 	/**
-	 * Map of Base64 characters to values. Used by {{#crossLink "Graphics/decodePath"}}{{/crossLink}}.
-	 * @property {Object} BASE_64
-	 * @static
-	 * @final
-	 * @private
-	 * @readonly
-	 **/
-	var BASE_64 = {
-		"A": 0,
-		"B": 1,
-		"C": 2,
-		"D": 3,
-		"E": 4,
-		"F": 5,
-		"G": 6,
-		"H": 7,
-		"I": 8,
-		"J": 9,
-		"K": 10,
-		"L": 11,
-		"M": 12,
-		"N": 13,
-		"O": 14,
-		"P": 15,
-		"Q": 16,
-		"R": 17,
-		"S": 18,
-		"T": 19,
-		"U": 20,
-		"V": 21,
-		"W": 22,
-		"X": 23,
-		"Y": 24,
-		"Z": 25,
-		"a": 26,
-		"b": 27,
-		"c": 28,
-		"d": 29,
-		"e": 30,
-		"f": 31,
-		"g": 32,
-		"h": 33,
-		"i": 34,
-		"j": 35,
-		"k": 36,
-		"l": 37,
-		"m": 38,
-		"n": 39,
-		"o": 40,
-		"p": 41,
-		"q": 42,
-		"r": 43,
-		"s": 44,
-		"t": 45,
-		"u": 46,
-		"v": 47,
-		"w": 48,
-		"x": 49,
-		"y": 50,
-		"z": 51,
-		"0": 52,
-		"1": 53,
-		"2": 54,
-		"3": 55,
-		"4": 56,
-		"5": 57,
-		"6": 58,
-		"7": 59,
-		"8": 60,
-		"9": 61,
-		"+": 62,
-		"/": 63
+	 * Make renderable
+	 * @method setRenderable
+	 * @param  {Boolean} [renderable=false] Make renderable
+	 * @return {PIXI.Graphics}
+	 */
+	/**
+	 * Make renderable
+	 * @method re
+	 * @param  {Boolean} [renderable=false] Make renderable
+	 * @return {PIXI.Graphics}
+	 */
+	p.setRenderable = p.re = function(renderable)
+	{
+		this.renderable = !!renderable;
+		return this;
 	};
 
 	/**
@@ -466,6 +399,81 @@
 	p.s = p.lineStyle;
 
 	/**
+	 * Map of Base64 characters to values. Used by {{#crossLink "Graphics/decodePath"}}{{/crossLink}}.
+	 * @property {Object} BASE_64
+	 * @static
+	 * @final
+	 * @private
+	 * @readonly
+	 **/
+	var BASE_64 = {
+		"A": 0,
+		"B": 1,
+		"C": 2,
+		"D": 3,
+		"E": 4,
+		"F": 5,
+		"G": 6,
+		"H": 7,
+		"I": 8,
+		"J": 9,
+		"K": 10,
+		"L": 11,
+		"M": 12,
+		"N": 13,
+		"O": 14,
+		"P": 15,
+		"Q": 16,
+		"R": 17,
+		"S": 18,
+		"T": 19,
+		"U": 20,
+		"V": 21,
+		"W": 22,
+		"X": 23,
+		"Y": 24,
+		"Z": 25,
+		"a": 26,
+		"b": 27,
+		"c": 28,
+		"d": 29,
+		"e": 30,
+		"f": 31,
+		"g": 32,
+		"h": 33,
+		"i": 34,
+		"j": 35,
+		"k": 36,
+		"l": 37,
+		"m": 38,
+		"n": 39,
+		"o": 40,
+		"p": 41,
+		"q": 42,
+		"r": 43,
+		"s": 44,
+		"t": 45,
+		"u": 46,
+		"v": 47,
+		"w": 48,
+		"x": 49,
+		"y": 50,
+		"z": 51,
+		"0": 52,
+		"1": 53,
+		"2": 54,
+		"3": 55,
+		"4": 56,
+		"5": 57,
+		"6": 58,
+		"7": 59,
+		"8": 60,
+		"9": 61,
+		"+": 62,
+		"/": 63
+	};
+
+	/**
 	 * Decodes a compact encoded path string into a series of draw instructions.
 	 * This format is not intended to be human readable, and is meant for use by authoring tools.
 	 * The format uses a base64 character set, with each character representing 6 bits, to define a series of draw
@@ -573,7 +581,7 @@
 			addDrawCommand(rows, names[fi], params);
 			f.apply(this, params);
 		}
-		console.log(rows);
+		console.log(JSON.stringify(rows));
 		return this;
 	};
 
@@ -585,8 +593,5 @@
 			rows.push(Math.round(arg * 1000)/1000);
 		});
 	}
-
-	// Assign to namespace
-	PIXI.flash.Graphics = Graphics;
 
 }(PIXI));

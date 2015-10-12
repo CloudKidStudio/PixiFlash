@@ -33,8 +33,18 @@
 			// Root display object
 			var stage = new PIXI.Container();
 
-			// Add to stage
-			stage.addChild(new lib.Text());
+			// Load the atlas for the character
+			var loader = new PIXI.loaders.Loader();
+
+			// This atlas is created with TexturePacker from the 
+			// output individual images from Flash publishing
+			loader.add('Text', 'Text.bson');
+			loader.once('complete', function(loader, resources)
+			{
+				window.graphics = resources.Text.data;
+				stage.addChild(new lib.Text());
+			});
+			loader.load();
 
 			update();
 			function update()

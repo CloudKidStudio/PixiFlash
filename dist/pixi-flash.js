@@ -535,183 +535,69 @@
  * @module Pixi Flash
  * @namespace PIXI.flash
  */
-(function(PIXI)
+(function(PIXI, undefined)
 {
-	// Include classes
-	var Point = PIXI.Point;
+	var p = PIXI.Container.prototype;
 
 	/**
-	 * Root display object
-	 * @class DisplayObject
+	 * Add multiple children
+	 * @method addChildren
+	 * @param {*} [child*] N-number of children
+	 * @return {Container} Instance of this container
 	 */
-	var DisplayObject = function()
+	/**
+	 * Add multiple children, shortcut for addChildren
+	 * @method ac
+	 * @param {*} [child*] N-number of children
+	 * @return {Container} Instance of this container
+	 */
+	p.addChildren = p.ac = function(child)
 	{
-		/**
-		 * Mark these objects so that we can recognize them internally
-		 * @property {Boolean} _isPixiFlash
-		 */
-		this._isPixiFlash = true;
-
-		/**
-		 * Rotation of the display object, with values in radians.
-		 * @property {Number} _rotation
-		 * @private
-		 */
-		this._rotation = 0;
-
-		// Transform matrix properties
-		this._srB = 0;
-		this._srC = 0;
-		this._crA = 1;
-		this._crD = 1;
-
-		/**
-		 * Cached Y Rotation
-		 * @property {Number} _cachedRotY
-		 * @private
-		 */
-		this._cachedRotY = 0;
-
-		/**
-		 * Cached X Rotation
-		 * @property {Number} _cachedRotX
-		 * @private
-		 */
-		this._cachedRotX = 0;
-
-		/**
-		 * The last computed tint value
-		 * @property {Uint} _lastComputedTint
-		 * @private
-		 * @default 0xFFFFFF
-		 */
-		this._lastComputedTint = 0xFFFFFF;
-
-		/**
-		 * The last self tint value
-		 * @property {Uint} _lastSelfTint
-		 * @private
-		 * @default 0xFFFFFF
-		 */
-		this._lastSelfTint = 0xFFFFFF;
-
-		/**
-		 * The last parent tint value
-		 * @property {Uint} _lastParentTint
-		 * @private
-		 * @default 0xFFFFFF
-		 */
-		this._lastParentTint = 0xFFFFFF;
-
-		/**
-		 * The current self tint value
-		 * @property {Uint} _tint
-		 * @private
-		 * @default 0xFFFFFF
-		 */
-		this._tint = 0xFFFFFF;
-
-		/**
-		 * Short-hand method for setTransform
-		 * @method tr
-		 * @param {Number} x The X position
-		 * @param {Number} y The Y position
-		 * @param {Number} scaleX The X Scale value
-		 * @param {Number} scaleY The Y Scale value
-		 * @param {Number} skewX The X skew value
-		 * @param {Number} skewY The Y skew value
-		 * @param {Number} pivotX The X pivot value
-		 * @param {Number} pivotY The Y pivot value
-		 * @return {PIXI.flash.DisplayObject} Instance for chaining
-		 */
-		this.tr = this.setTransform;
+		for (var i = 0; i < arguments.length; i++)
+		{
+			this.addChild(arguments[i]);
+		}
+		return this;
 	};
 
-	// Reference to prototype
-	var p = DisplayObject.prototype;
+	// Assign to namespace
+	PIXI.flash.Container = PIXI.Container;
+
+}(PIXI));
+/**
+ * @module Pixi Flash
+ * @namespace PIXI.flash
+ */
+(function(PIXI)
+{
+	var p = PIXI.DisplayObject.prototype;
+
+	/**
+	 * Short-hand method for setTransform
+	 * @method tr
+	 * @param {Number} x The X position
+	 * @param {Number} y The Y position
+	 * @param {Number} scaleX The X Scale value
+	 * @param {Number} scaleY The Y Scale value
+	 * @param {Number} skewX The X skew value
+	 * @param {Number} skewY The Y skew value
+	 * @param {Number} pivotX The X pivot value
+	 * @param {Number} pivotY The Y pivot value
+	 * @return {PIXI.DisplayObject} Instance for chaining
+	 */
+	p.tr = p.setTransform;
 
 	/**
 	 * Short-hand for setMask method
 	 * @method ma
 	 * @param {PIXI.Graphics} mask The mask shape to use
-	 * @return {PIXI.flash.DisplayObject} Instance for chaining
+	 * @return {PIXI.DisplayObject} Instance for chaining
 	 */
-	p.ma = function(mask)
+	p.setMask = p.ma = function(mask)
 	{
 		this.mask = mask;
 		return this;
 	};
-
-	/**
-	 * The rotation of the display object, in degrees.
-	 * This overrides the radian degrees of the PIXI display objects so that
-	 * tweening exported from Flash will work correctly.
-	 * @property {Number} rotation
-	 */
-	Object.defineProperty(p, "rotation",
-	{
-		enumerable: true,
-		get: function()
-		{
-			return this._rotation * PIXI.RAD_TO_DEG;
-		},
-		set: function(value)
-		{
-			this._rotation = value * PIXI.DEG_TO_RAD;
-		}
-	});
-
-	/**
-	 * Tint to apply to this display object - Interpreted from CJS 
-	 * ColorFilter (multiplicative only)
-	 * @property {UInt} tint
-	 */
-	Object.defineProperty(p, "tint",
-	{
-		enumerable: true,
-		get: function()
-		{
-			if (this.parent && this.parent._isPixiFlash)
-			{
-				var selfTint = this._tint;
-				var parentTint = this.parent.tint;
-
-				if (selfTint == 0xFFFFFF)
-				{
-					this._lastComputedTint = parentTint;
-				}
-				else if (parentTint == 0xFFFFFF)
-				{
-					this._lastComputedTint = selfTint;
-				}
-				if (this._tint != this._lastSelfTint || this.parent.tint != this._lastParentTint)
-				{
-					//calculate tint first time
-					var max = 255;
-					var parentR = (parentTint >> 16) & 0xff;
-					var parentG = (parentTint >> 8) & 0xff;
-					var parentB = parentTint & 0xff;
-					var selfR = (selfTint >> 16) & 0xff;
-					var selfG = (selfTint >> 8) & 0xff;
-					var selfB = selfTint & 0xff;
-					this._lastComputedTint = (Math.round((parentR * selfR) / max) << 16) | (Math.round((parentG * selfG) / max) << 8) | Math.round((parentB * selfB) / max);
-				}
-
-				this._lastSelfTint = selfTint;
-				this._lastParentTint = parentTint;
-
-				return this._lastComputedTint;
-			}
-			else
-			{
-				return this._tint;
-			}
-		},
-		set: function(value)
-		{
-			this._tint = value;
-		}
-	});
 
 	/**
 	 * Set the tint values by RGB
@@ -724,353 +610,37 @@
 	/**
 	 * Shortcut method for setTint
 	 * @method tn
-	 * @param {Number} r The red percentage value
-	 * @param {Number} g The green percentage value
-	 * @param {Number} b The blue percentage value
+	 * @param {Number} ting The red percentage value
 	 * @return {DisplayObject} Object for chaining
 	 */
-	p.setTint = p.tn = function(r, g, b)
+	p.setTint = p.tn = function(tint)
 	{
-		if (r < 0) r = 0;
-		if (g < 0) g = 0;
-		if (b < 0) b = 0;
-		var max = 255;
-
-		this.tint = (Math.round(r * max) << 16) |
-			(Math.round(g * max) << 8) |
-			Math.round(b * max);
-
+		this.tint = tint;
 		return this;
 	};
 
-	/**
-	 * Override the object tranforms
-	 * @method displayObjectUpdateTransform
-	 * @protected
-	 */
-	p.displayObjectUpdateTransform = function()
-	{
-		// create some matrix refs for easy access
-		var pt = this.parent.worldTransform;
-		var wt = this.worldTransform;
-
-		// temporary matrix variables
-		var a, b, c, d, tx, ty,
-			rotY = this.rotation + this.skew.y * PIXI.DEG_TO_RAD,
-			rotX = this.rotation + this.skew.x * PIXI.DEG_TO_RAD;
-
-		// so if rotation is between 0 then we can simplify the multiplication process...
-		if (rotY % PIXI.PI_2 || rotX % PIXI.PI_2)
-		{
-			// check to see if the rotation is the same as the previous render. This means we only need to use sin and cos when rotation actually changes
-			if (rotX !== this._cachedRotX || rotY !== this._cachedRotY)
-			{
-				// cache new values
-				this._cachedRotX = rotX;
-				this._cachedRotY = rotY;
-
-				// recalculate expensive ops
-				this._crA = Math.cos(rotY);
-				this._srB = Math.sin(rotY);
-
-				this._srC = Math.sin(-rotX);
-				this._crD = Math.cos(rotX);
-			}
-
-			// get the matrix values of the displayobject based on its transform properties..
-			a = this._crA * this.scale.x;
-			b = this._srB * this.scale.x;
-			c = this._srC * this.scale.y;
-			d = this._crD * this.scale.y;
-			tx = this.position.x;
-			ty = this.position.y;
-
-			// check for pivot.. not often used so geared towards that fact!
-			if (this.pivot.x || this.pivot.y)
-			{
-				tx -= this.pivot.x * a + this.pivot.y * c;
-				ty -= this.pivot.x * b + this.pivot.y * d;
-			}
-
-			// concat the parent matrix with the objects transform.
-			wt.a = a * pt.a + b * pt.c;
-			wt.b = a * pt.b + b * pt.d;
-			wt.c = c * pt.a + d * pt.c;
-			wt.d = c * pt.b + d * pt.d;
-			wt.tx = tx * pt.a + ty * pt.c + pt.tx;
-			wt.ty = tx * pt.b + ty * pt.d + pt.ty;
-		}
-		else
-		{
-			// lets do the fast version as we know there is no rotation..
-			a = this.scale.x;
-			d = this.scale.y;
-
-			tx = this.position.x - this.pivot.x * a;
-			ty = this.position.y - this.pivot.y * d;
-
-			wt.a = a * pt.a;
-			wt.b = a * pt.b;
-			wt.c = d * pt.c;
-			wt.d = d * pt.d;
-			wt.tx = tx * pt.a + ty * pt.c + pt.tx;
-			wt.ty = tx * pt.b + ty * pt.d + pt.ty;
-		}
-
-		// multiply the alphas..
-		this.worldAlpha = this.alpha * this.parent.worldAlpha;
-
-		// reset the bounds each time this is called!
-		this._currentBounds = null;
-	};
-
-	/**
-	 * Mixin display options
-	 * @method mixin
-	 * @static
-	 * @param {Object} targetPrototype The prototype to add methods to
-	 */
-	DisplayObject.mixin = function(targetPrototype)
-	{
-		for (var prop in p)
-		{
-			// For things that we set using Object.defineProperty
-			// very important that enumerable:true for the
-			// defineProperty options
-			var propDesc = Object.getOwnPropertyDescriptor(p, prop);
-			if (propDesc)
-			{
-				Object.defineProperty(targetPrototype, prop, propDesc);
-			}
-			else
-			{
-				// Should cover all other prototype methods/properties
-				targetPrototype[prop] = p[prop];
-			}
-		}
-	};
-
-	// Assign to namespace
-	PIXI.flash.DisplayObject = DisplayObject;
-
 }(PIXI));
 /**
  * @module Pixi Flash
- * @namespace PIXI.flash
+ * @namespace PIXI
  */
 (function(PIXI, undefined)
 {
-	var BaseContainer = PIXI.Container;
-	var DisplayObject = PIXI.flash.DisplayObject;
-	var SharedTicker = PIXI.ticker.shared;
+	var p = PIXI.Graphics.prototype;
 
 	/**
-	 * The class to emulate createjs.Container
-	 * @class Container
-	 * @extends PIXI.Container
-	 */
-	var Container = function()
-	{
-		BaseContainer.call(this);
-		DisplayObject.call(this);
-
-		/**
-		 * If false, the tick will not be propagated to children of this Container. 
-		 * This can provide some performance benefits. In addition to preventing 
-		 * the "tick" event from being dispatched, it will also prevent tick related 
-		 * updates on some display objects (ex. Sprite & MovieClip frame advancing, 
-		 * DOMElement visibility handling).
-		 * @property {Boolean} tickChildren
-		 * @default true
-		 **/
-		this.tickChildren = true;
-
-		// add a listener for the first time the object is added, to get around
-		// using new instances for prototypes that the CreateJS exporting does.
-		this.once("added", function()
-			{
-				this._tickListener = this._tickListener.bind(this);
-				this._onAdded();
-				this._onAdded = this._onAdded.bind(this);
-				this._onRemoved = this._onRemoved.bind(this);
-				this.on("added", this._onAdded);
-				this.on("removed", this._onRemoved);
-			}
-			.bind(this));
-	};
-
-	// Extend the base container
-	var p = BaseContainer.extend(Container).prototype;
-
-	// Mixin display object properties to the prototype
-	DisplayObject.mixin(p);
-
-	/**
-	 * Add multiple children
-	 * @method addChildren
-	 * @param {*} [child*] N-number of children
-	 * @return {Container} Instance of this container
+	 * Shortcut for drawCommands
+	 * @method d
+	 * @param  {Array} commands The commands and parameters to draw
+	 * @return {PIXI.Graphics}
 	 */
 	/**
-	 * Shortcut method for addChildren
-	 * @method ad
-	 * @param {*} [child*] N-number of children
-	 * @return {Container} Instance of this container
+	 * Execute a series of commands
+	 * @method drawCommands
+	 * @param  {Array} commands The commands and parameters to draw
+	 * @return {PIXI.Graphics}
 	 */
-	p.addChildren = p.ad = function(child)
-	{
-		var addChild = this.__parent.addChild.bind(this);
-		for (var i = 0; i < arguments.length; i++)
-		{
-			addChild(arguments[i]);
-		}
-		return this;
-	};
-
-	/**
-	 * When this container is added to a display list
-	 * @method _onAdded
-	 * @private
-	 */
-	p._onAdded = function()
-	{
-		if (!this.parent._isPixiFlash)
-		{
-			SharedTicker.add(this._tickListener);
-		}
-	};
-
-
-	/**
-	 * The update tick
-	 * @method _tickListener
-	 * @param {int} tickerDeltaTime Time in seconds since last update
-	 */
-	p._tickListener = function(tickerDeltaTime)
-	{
-		var ms = tickerDeltaTime / SharedTicker.speed / PIXI.TARGET_FPMS;
-		this._tick(ms);
-	};
-
-	/**
-	 * When this container is removed from a display list
-	 * @method _onRemoved
-	 * @private
-	 */
-	p._onRemoved = function()
-	{
-		if (this._tickListener)
-		{
-			SharedTicker.remove(this._tickListener);
-		}
-	};
-
-	/**
-	 * @method _tick
-	 * @param {Number} delta Time elapsed since the previous tick, in milliseconds.
-	 * @protected
-	 **/
-	p._tick = p.Container__tick = function(delta)
-	{
-		if (this.tickChildren)
-		{
-			for (var i = this.children.length - 1; i >= 0; i--)
-			{
-				var child = this.children[i];
-				if (child.tickEnabled && child._tick)
-				{
-					child._tick(delta);
-				}
-				else if (child.tickChildren && child.Container__tick)
-				{
-					child.Container__tick(delta);
-				}
-			}
-		}
-	};
-
-	/**
-	 * Override the destroy method of container
-	 * @method destroy
-	 * @param {Boolean} [destroyChildren=false] Recursively destory children
-	 */
-	p.destroy = function(destroyChildren)
-	{
-		if (this._tickListener)
-		{
-			SharedTicker.remove(this._tickListener);
-			this._tickListener = null;
-		}
-		this.__parent.destroy.call(this, destroyChildren);
-	};
-
-	// Assign to namespace
-	PIXI.flash.Container = Container;
-
-}(PIXI));
-/**
- * @module Pixi Flash
- * @namespace PIXI.flash
- */
-(function(PIXI, undefined)
-{
-	var BaseSprite = PIXI.Sprite;
-	var DisplayObject = PIXI.flash.DisplayObject;
-
-	/**
-	 * The class to emulate createjs.Sprite
-	 * @class Sprite
-	 * @extends PIXI.Sprite
-	 * @param {PIXI.Texture} texture The texture to assign to Sprite
-	 */
-	var Sprite = PIXI.flash.Sprite = function(texture)
-	{
-		BaseSprite.call(this, texture);
-		DisplayObject.call(this);
-	};
-
-	// Extend PIXI.Sprite
-	var p = BaseSprite.extend(Sprite).prototype;
-
-	// Mixin the display object
-	DisplayObject.mixin(p);
-
-	// Assign to namespace
-	PIXI.flash.Sprite = Sprite;
-
-}(PIXI));
-/**
- * @module Pixi Flash
- * @namespace PIXI.flash
- */
-(function(PIXI, undefined)
-{
-	var BaseGraphics = PIXI.Graphics;
-	var DisplayObject = PIXI.flash.DisplayObject;
-
-	/**
-	 * The class to emulate createjs.Graphics
-	 * @class Graphics
-	 * @extends PIXI.Graphics
-	 */
-	var Graphics = function(commands)
-	{
-		BaseGraphics.call(this);
-		DisplayObject.call(this);
-
-		if (commands)
-		{
-			this.drawCommands(commands);
-		}
-	};
-
-	// Extend PIXI.Graphics
-	var p = BaseGraphics.extend(Graphics).prototype;
-
-	// Mixin the display object
-	DisplayObject.mixin(p);
-
-	p.drawCommands = function(commands)
+	p.drawCommands = p.d = function(commands)
 	{
 		var currentCommand, params = [], i = 0;
 		
@@ -1094,81 +664,25 @@
 				params.push(item);
 			}
 		}
+		return this;
 	};
 
 	/**
-	 * Map of Base64 characters to values. Used by {{#crossLink "Graphics/decodePath"}}{{/crossLink}}.
-	 * @property {Object} BASE_64
-	 * @static
-	 * @final
-	 * @private
-	 * @readonly
-	 **/
-	var BASE_64 = {
-		"A": 0,
-		"B": 1,
-		"C": 2,
-		"D": 3,
-		"E": 4,
-		"F": 5,
-		"G": 6,
-		"H": 7,
-		"I": 8,
-		"J": 9,
-		"K": 10,
-		"L": 11,
-		"M": 12,
-		"N": 13,
-		"O": 14,
-		"P": 15,
-		"Q": 16,
-		"R": 17,
-		"S": 18,
-		"T": 19,
-		"U": 20,
-		"V": 21,
-		"W": 22,
-		"X": 23,
-		"Y": 24,
-		"Z": 25,
-		"a": 26,
-		"b": 27,
-		"c": 28,
-		"d": 29,
-		"e": 30,
-		"f": 31,
-		"g": 32,
-		"h": 33,
-		"i": 34,
-		"j": 35,
-		"k": 36,
-		"l": 37,
-		"m": 38,
-		"n": 39,
-		"o": 40,
-		"p": 41,
-		"q": 42,
-		"r": 43,
-		"s": 44,
-		"t": 45,
-		"u": 46,
-		"v": 47,
-		"w": 48,
-		"x": 49,
-		"y": 50,
-		"z": 51,
-		"0": 52,
-		"1": 53,
-		"2": 54,
-		"3": 55,
-		"4": 56,
-		"5": 57,
-		"6": 58,
-		"7": 59,
-		"8": 60,
-		"9": 61,
-		"+": 62,
-		"/": 63
+	 * Make renderable
+	 * @method setRenderable
+	 * @param  {Boolean} [renderable=false] Make renderable
+	 * @return {PIXI.Graphics}
+	 */
+	/**
+	 * Make renderable
+	 * @method re
+	 * @param  {Boolean} [renderable=false] Make renderable
+	 * @return {PIXI.Graphics}
+	 */
+	p.setRenderable = p.re = function(renderable)
+	{
+		this.renderable = !!renderable;
+		return this;
 	};
 
 	/**
@@ -1507,6 +1021,81 @@
 	p.s = p.lineStyle;
 
 	/**
+	 * Map of Base64 characters to values. Used by {{#crossLink "Graphics/decodePath"}}{{/crossLink}}.
+	 * @property {Object} BASE_64
+	 * @static
+	 * @final
+	 * @private
+	 * @readonly
+	 **/
+	var BASE_64 = {
+		"A": 0,
+		"B": 1,
+		"C": 2,
+		"D": 3,
+		"E": 4,
+		"F": 5,
+		"G": 6,
+		"H": 7,
+		"I": 8,
+		"J": 9,
+		"K": 10,
+		"L": 11,
+		"M": 12,
+		"N": 13,
+		"O": 14,
+		"P": 15,
+		"Q": 16,
+		"R": 17,
+		"S": 18,
+		"T": 19,
+		"U": 20,
+		"V": 21,
+		"W": 22,
+		"X": 23,
+		"Y": 24,
+		"Z": 25,
+		"a": 26,
+		"b": 27,
+		"c": 28,
+		"d": 29,
+		"e": 30,
+		"f": 31,
+		"g": 32,
+		"h": 33,
+		"i": 34,
+		"j": 35,
+		"k": 36,
+		"l": 37,
+		"m": 38,
+		"n": 39,
+		"o": 40,
+		"p": 41,
+		"q": 42,
+		"r": 43,
+		"s": 44,
+		"t": 45,
+		"u": 46,
+		"v": 47,
+		"w": 48,
+		"x": 49,
+		"y": 50,
+		"z": 51,
+		"0": 52,
+		"1": 53,
+		"2": 54,
+		"3": 55,
+		"4": 56,
+		"5": 57,
+		"6": 58,
+		"7": 59,
+		"8": 60,
+		"9": 61,
+		"+": 62,
+		"/": 63
+	};
+
+	/**
 	 * Decodes a compact encoded path string into a series of draw instructions.
 	 * This format is not intended to be human readable, and is meant for use by authoring tools.
 	 * The format uses a base64 character set, with each character representing 6 bits, to define a series of draw
@@ -1614,7 +1203,7 @@
 			addDrawCommand(rows, names[fi], params);
 			f.apply(this, params);
 		}
-		console.log(rows);
+		console.log(JSON.stringify(rows));
 		return this;
 	};
 
@@ -1627,36 +1216,6 @@
 		});
 	}
 
-	// Assign to namespace
-	PIXI.flash.Graphics = Graphics;
-
-}(PIXI));
-(function(PIXI)
-{
-	// Import classes
-	var Graphics = PIXI.flash.Graphics;
-
-	/**
-	 * Convenience wrapper for Mask graphics
-	 * @class Mask
-	 * @constructor
-	 * @param {Number} x The x position
-	 * @param {Number} y The y position
-	 * @param {String} path Encoded path for shape
-	 */
-	var Mask = function(x, y, path)
-	{
-		Graphics.call(this);
-		this.renderable = false;
-		this.p(path).tr(x, y);
-	};
-
-	// Extends base graphics
-	Graphics.extend(Mask);
-
-	// Assign to namespace
-	PIXI.flash.Mask = Mask;
-
 }(PIXI));
 /**
  * @module Pixi Flash
@@ -1664,45 +1223,30 @@
  */
 (function(PIXI, undefined)
 {
-	var BaseText = PIXI.Text;
-	var DisplayObject = PIXI.flash.DisplayObject;
+	var p = PIXI.Text.prototype;
 
 	/**
 	 * The class to emulate createjs.Text
-	 * @class Text
-	 * @extends PIXI.Text
-	 * @param {String} text The text to add
-	 * @param {Object} [style] The text style
+	 * @method setAlign
+	 * @param {String} align Either, center, right, left
+	 * @return {PIXI.Text} For chaining
 	 */
-	var Text = function(text, style)
+	p.setAlign = p.al = function(align)
 	{
-		BaseText.call(this, text, style);
-		DisplayObject.call(this);
-
-		if (style && style.align)
+		this.style.align = align || "left";
+		var x = 0;
+		switch (align)
 		{
-			var x;
-			switch (style.align)
-			{
-				case "center":
-					x = 0.5;
-					break;
-				case "right":
-					x = 1;
-					break;
-				case "left":
-					x = 0;
-					break;
-			}
-			this.anchor.x = x;
+			case "center":
+				x = 0.5;
+				break;
+			case "right":
+				x = 1;
+				break;
 		}
+		this.anchor.x = x;
+		return this;
 	};
-
-	// Extend PIXI.Text
-	var p = BaseText.extend(Text).prototype;
-
-	// Mixin the display object
-	DisplayObject.mixin(p);
 
 	/**
 	 * Initial setting of the drop shadow
@@ -1745,8 +1289,5 @@
 	{
 		return value === undefined ? defaultValue : value;
 	};
-
-	// Assign to namespace
-	PIXI.flash.Text = Text;
 
 }(PIXI));

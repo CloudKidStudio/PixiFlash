@@ -33,12 +33,19 @@
 			// Root display object
 			var stage = new PIXI.Container();
 
-			// Create the character
-			var masking = new lib.Masking();
+			// Load the atlas for the character
+			var loader = new PIXI.loaders.Loader();
 
-			// Add to stage
-			stage.addChild(masking);
-
+			// This atlas is created with TexturePacker from the 
+			// output individual images from Flash publishing
+			loader.add('Masking', 'Masking.bson');
+			loader.once('complete', function(loader, resources)
+			{
+				window.graphics = resources.Masking.data;
+				stage.addChild(new lib.Masking());
+			});
+			loader.load();
+			
 			update();
 			function update()
 			{
