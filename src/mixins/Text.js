@@ -1,16 +1,26 @@
 /**
  * @module Pixi Flash
- * @namespace PIXI.flash
+ * @namespace PIXI
  */
 (function(PIXI, undefined)
 {
+	/**
+	 * @class Text
+	 */
 	var p = PIXI.Text.prototype;
 
 	/**
-	 * The class to emulate createjs.Text
+	 * Setter for the alignment, also sets the anchor point
+	 * to make sure the positioning is correct.
 	 * @method setAlign
 	 * @param {String} align Either, center, right, left
-	 * @return {PIXI.Text} For chaining
+	 * @return {Text} For chaining
+	 */
+	/**
+	 * Shortcut for setAlign.
+	 * @method al
+	 * @param {String} align Either, center, right, left
+	 * @return {Text} For chaining
 	 */
 	p.setAlign = p.al = function(align)
 	{
@@ -30,7 +40,7 @@
 	};
 
 	/**
-	 * Initial setting of the drop shadow
+	 * Initial setting of the drop shadow.
 	 * @method setShadow
 	 * @param {String} [color="#000000"] The color to set
 	 * @param {Number} [angle=Math.PI/4] The angle of offset, in radians
@@ -38,7 +48,7 @@
 	 * @return {Text} For chaining
 	 */
 	/**
-	 * Shortcut for adding drop shadow
+	 * Shortcut for setShadow.
 	 * @method sh
 	 * @param {String} [color="#000000"] The color to set
 	 * @param {Number} [angle=Math.PI/4] The angle of offset, in radians
@@ -65,6 +75,9 @@
 	 * Check if a value is undefined, fallback to default value
 	 * @method isUndefinedOr 
 	 * @private
+	 * @param {*} value The value to check
+	 * @param {*} defaultValue The default value if value is undefined
+	 * @return {*} The either the value or the default value
 	 */
 	var isUndefinedOr = function(value, defaultValue)
 	{

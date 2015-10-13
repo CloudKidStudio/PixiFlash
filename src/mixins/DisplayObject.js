@@ -1,13 +1,16 @@
 /**
  * @module Pixi Flash
- * @namespace PIXI.flash
+ * @namespace PIXI
  */
 (function(PIXI)
 {
+	/**
+	 * @class DisplayObject
+	 */
 	var p = PIXI.DisplayObject.prototype;
 
 	/**
-	 * Short-hand method for setTransform
+	 * Shortcut for setTransform.
 	 * @method tr
 	 * @param {Number} x The X position
 	 * @param {Number} y The Y position
@@ -17,15 +20,21 @@
 	 * @param {Number} skewY The Y skew value
 	 * @param {Number} pivotX The X pivot value
 	 * @param {Number} pivotY The Y pivot value
-	 * @return {PIXI.DisplayObject} Instance for chaining
+	 * @return {DisplayObject} Instance for chaining
 	 */
 	p.tr = p.setTransform;
 
 	/**
-	 * Short-hand for setMask method
+	 * Setter for mask to be able to chain.
+	 * @method setMask
+	 * @param {PIXI.Graphics} mask The mask shape to use
+	 * @return {DisplayObject} Instance for chaining
+	 */
+	/**
+	 * Shortcut for setMask.
 	 * @method ma
 	 * @param {PIXI.Graphics} mask The mask shape to use
-	 * @return {PIXI.DisplayObject} Instance for chaining
+	 * @return {DisplayObject} Instance for chaining
 	 */
 	p.setMask = p.ma = function(mask)
 	{
@@ -34,7 +43,7 @@
 	};
 
 	/**
-	 * Set the tint values by RGB
+	 * Set the tint values by color.
 	 * @method setTint
 	 * @param {Number} r The red percentage value
 	 * @param {Number} g The green percentage value
@@ -42,7 +51,7 @@
 	 * @return {DisplayObject} Object for chaining
 	 */
 	/**
-	 * Shortcut method for setTint
+	 * Shortcut to setTint.
 	 * @method tn
 	 * @param {Number} ting The red percentage value
 	 * @return {DisplayObject} Object for chaining

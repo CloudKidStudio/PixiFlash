@@ -1,19 +1,22 @@
 /**
  * @module Pixi Flash
- * @namespace PIXI.flash
+ * @namespace PIXI
  */
 (function(PIXI, undefined)
 {
+	/**
+	 * @class Container
+	 */
 	var p = PIXI.Container.prototype;
 
 	/**
-	 * Add multiple children
+	 * Add multiple children instead of one at a time.
 	 * @method addChildren
 	 * @param {*} [child*] N-number of children
 	 * @return {Container} Instance of this container
 	 */
 	/**
-	 * Add multiple children, shortcut for addChildren
+	 * Shortcut for addChildren.
 	 * @method ac
 	 * @param {*} [child*] N-number of children
 	 * @return {Container} Instance of this container
@@ -26,8 +29,5 @@
 		}
 		return this;
 	};
-
-	// Assign to namespace
-	PIXI.flash.Container = PIXI.Container;
 
 }(PIXI));

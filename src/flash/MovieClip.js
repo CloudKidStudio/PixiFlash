@@ -5,7 +5,7 @@
 (function(PIXI, undefined)
 {
 	var Container = PIXI.Container,
-		DisplayObject = PIXI.flash.DisplayObject,
+		DisplayObject = PIXI.DisplayObject,
 		Timeline = PIXI.flash.Timeline,
 		Tween = PIXI.flash.Tween,
 		SharedTicker = PIXI.ticker.shared;
