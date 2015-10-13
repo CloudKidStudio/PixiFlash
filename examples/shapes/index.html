@@ -7,12 +7,8 @@
 		<meta name="description" content="">
 		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
 
-		<!-- Example (not required) dependencies -->
-		<script src="../libs/jquery.min.js"></script>
-
 		<!-- Required dependencies -->
-		<script src="../libs/tweenjs-NEXT.min.js"></script>
-		<script src="../libs/pixi.min.js"></script>
+		<script src="../../components/pixi.js/bin/pixi.js"></script>
 
 		<!-- PIXI Flash dependencies -->
 		<script src="../../dist/pixi-flash.js"></script>
@@ -24,36 +20,42 @@
 	<body>
 		<div id="content" class="canvas">
 			<canvas id="stage" width="800" height="500"></canvas>
-<script>
+			<script>
 
-var renderer = new PIXI.autoDetectRenderer(800, 500, {
-	view: document.getElementById("stage"),
-	backgroundColor: 0xffffff,
-	antialias: true
-});
+				var renderer = new PIXI.autoDetectRenderer(800, 500, {
+					view: document.getElementById("stage"),
+					backgroundColor: 0xffffff,
+					antialias: true
+				});
 
-// Don't prevent default
-renderer.plugins.interaction.autoPreventDefault = false;
+				// Don't prevent default
+				renderer.plugins.interaction.autoPreventDefault = false;
 
-// Root display object
-var stage = new PIXI.Container();
+				// Root display object
+				var stage = new PIXI.Container();
 
-// Create the character
-var fizzy = new pixiflash_lib.Fizzy();
+				// Load the atlas for the character
+				var loader = new PIXI.loaders.Loader();
 
-fizzy.framerate = 30;
+				loader.add('Fizzy_graphics_', 'Fizzy_graphics_.bson');
+				loader.once('complete', function(loader, resources)
+				{
+					// Create the character
+					var fizzy = new lib.Fizzy();
 
-// Add to stage
-stage.addChild(fizzy);
+					// Add to stage
+					stage.addChild(fizzy);
+				});
+				loader.load();
 
-update();
-function update()
-{
-    requestAnimationFrame(update);
-    renderer.render(stage);
-}
+				update();
+				function update()
+				{
+					requestAnimationFrame(update);
+					renderer.render(stage);
+				}
 
-</script>
+			</script>
 		</div>
 	</body>
 </html>

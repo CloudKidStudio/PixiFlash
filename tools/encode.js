@@ -3,16 +3,15 @@ var fs = require('fs');
 var path = require('path');
 
 var input = process.argv[2];
-var output = process.argv[3];
 
-if (!input || !output)
+if (!input)
 {
 	console.error("ERROR: No input or output");
 	process.exit(1);
 }
 
 input = path.resolve(input);
-output = path.resolve(output);
+output = input.replace('.json', '.bson');
 
 try
 {

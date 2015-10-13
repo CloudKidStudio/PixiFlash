@@ -38,10 +38,9 @@
 
 			// This atlas is created with TexturePacker from the 
 			// output individual images from Flash publishing
-			loader.add('Text', 'Text.bson');
+			loader.add('Text_graphics_', 'Text_graphics_.bson');
 			loader.once('complete', function(loader, resources)
 			{
-				window.graphics = resources.Text.data;
 				stage.addChild(new lib.Text());
 			});
 			loader.load();

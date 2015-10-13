@@ -51,24 +51,6 @@
 	};
 
 	/**
-	 * Function to see if this is renderable or not. Useful for setting masks.
-	 * @method setRenderable
-	 * @param  {Boolean} [renderable=false] Make renderable
-	 * @return {Graphics}
-	 */
-	/**
-	 * Shortcut to setRenderable.
-	 * @method re
-	 * @param  {Boolean} [renderable=false] Make renderable
-	 * @return {Graphics}
-	 */
-	p.setRenderable = p.re = function(renderable)
-	{
-		this.renderable = !!renderable;
-		return this;
-	};
-
-	/**
 	 * Closes the current path, effectively drawing a line from the current drawing point to the first drawing point specified
 	 * since the fill or stroke was last set.
 	 * @method cp

@@ -10,6 +10,24 @@
 	var p = PIXI.DisplayObject.prototype;
 
 	/**
+	 * Function to see if this is renderable or not. Useful for setting masks.
+	 * @method setRenderable
+	 * @param  {Boolean} [renderable=false] Make renderable
+	 * @return {Graphics}
+	 */
+	/**
+	 * Shortcut to setRenderable.
+	 * @method re
+	 * @param  {Boolean} [renderable=false] Make renderable
+	 * @return {Graphics}
+	 */
+	p.setRenderable = p.re = function(renderable)
+	{
+		this.renderable = !!renderable;
+		return this;
+	};
+
+	/**
 	 * Shortcut for setTransform.
 	 * @method tr
 	 * @param {Number} x The X position

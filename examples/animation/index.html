@@ -7,12 +7,8 @@
 		<meta name="description" content="">
 		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
 
-		<!-- Example (not required) dependencies -->
-		<script src="../libs/jquery.min.js"></script>
-
 		<!-- Required dependencies -->
-		<script src="../libs/tweenjs-NEXT.min.js"></script>
-		<script src="../libs/pixi.min.js"></script>
+		<script src="../../components/pixi.js/bin/pixi.js"></script>
 
 		<!-- PIXI Flash dependencies -->
 		<script src="../../dist/pixi-flash.js"></script>
@@ -24,43 +20,43 @@
 	<body>
 		<div id="content" class="canvas">
 			<canvas id="stage" width="800" height="500"></canvas>
-<script>
+			<script>
 
-var renderer = new PIXI.autoDetectRenderer(800, 500, {
-	view: document.getElementById("stage"),
-	backgroundColor: 0xffffff
-});
+				var renderer = new PIXI.autoDetectRenderer(800, 500, {
+					view: document.getElementById("stage"),
+					backgroundColor: 0xffffff
+				});
 
-// Don't prevent default
-renderer.plugins.interaction.autoPreventDefault = false;
+				// Don't prevent default
+				renderer.plugins.interaction.autoPreventDefault = false;
 
-// Root display object
-var stage = new PIXI.Container();
+				// Root display object
+				var stage = new PIXI.Container();
 
-// Load the spritesheet data
-$.getJSON("Fizzy_atlas_.json", function(data)
-{
-    // Load the atlas for the character
-	pixiflash.SpriteSheet.fromData(data, function()
-	{
-		// Create the character
-		var fizzy = new pixiflash_lib.Fizzy();
-		fizzy.framerate = 30;
-		fizzy.play();
+				// Load the atlas for the character
+				var loader = new PIXI.loaders.Loader();
 
-		// Add to stage
-		stage.addChild(fizzy);
-	});
-});
+				loader.add('Fizzy_atlas_', 'Fizzy_atlas_.json');
+				loader.once('complete', function(loader, resources)
+				{
+					// Create the character
+					var fizzy = new lib.Fizzy();
+					//fizzy.framerate = 30;
+					//fizzy.play();
 
-update();
-function update()
-{
-    requestAnimationFrame(update);
-    renderer.render(stage);
-}
+					// Add to stage
+					stage.addChild(fizzy);
+				});
+				loader.load();
 
-</script>
+				update();
+				function update()
+				{
+					requestAnimationFrame(update);
+					renderer.render(stage);
+				}
+
+			</script>
 		</div>
 	</body>
 </html>

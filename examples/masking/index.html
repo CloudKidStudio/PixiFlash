@@ -38,10 +38,9 @@
 
 			// This atlas is created with TexturePacker from the 
 			// output individual images from Flash publishing
-			loader.add('Masking', 'Masking.bson');
+			loader.add('Masking_graphics_', 'Masking_graphics_.bson');
 			loader.once('complete', function(loader, resources)
 			{
-				window.graphics = resources.Masking.data;
 				stage.addChild(new lib.Masking());
 			});
 			loader.load();

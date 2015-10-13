@@ -565,8 +565,19 @@
 
 })(Array);
 /* jshint ignore:end */
+/**
+ * @module Pixi Flash
+ * @namespace PIXI
+ */
 (function(PIXI)
 {
+	/**
+	 * Contains the collection of graphics data
+	 * @class GraphicsCache
+	 */
+	PIXI.GraphicsCache = PIXI.GraphicsCache ||
+	{};
+
 	/**
 	 * The middleware for PIXI's ResourceLoader to be able to 
 	 * decode the laoding for bson files, which are graphic maps.
@@ -579,6 +590,10 @@
 			if (/\.bson$/i.test(resource.url))
 			{
 				resource.data = BISON.decode(resource.data);
+				for (var name in resource.data)
+				{
+					PIXI.GraphicsCache[name] = resource.data[name];
+				}
 			}
 			next();
 		};
@@ -653,6 +668,24 @@
 	 * @class DisplayObject
 	 */
 	var p = PIXI.DisplayObject.prototype;
+
+	/**
+	 * Function to see if this is renderable or not. Useful for setting masks.
+	 * @method setRenderable
+	 * @param  {Boolean} [renderable=false] Make renderable
+	 * @return {Graphics}
+	 */
+	/**
+	 * Shortcut to setRenderable.
+	 * @method re
+	 * @param  {Boolean} [renderable=false] Make renderable
+	 * @return {Graphics}
+	 */
+	p.setRenderable = p.re = function(renderable)
+	{
+		this.renderable = !!renderable;
+		return this;
+	};
 
 	/**
 	 * Shortcut for setTransform.
@@ -757,24 +790,6 @@
 				params.push(item);
 			}
 		}
-		return this;
-	};
-
-	/**
-	 * Function to see if this is renderable or not. Useful for setting masks.
-	 * @method setRenderable
-	 * @param  {Boolean} [renderable=false] Make renderable
-	 * @return {Graphics}
-	 */
-	/**
-	 * Shortcut to setRenderable.
-	 * @method re
-	 * @param  {Boolean} [renderable=false] Make renderable
-	 * @return {Graphics}
-	 */
-	p.setRenderable = p.re = function(renderable)
-	{
-		this.renderable = !!renderable;
 		return this;
 	};
 

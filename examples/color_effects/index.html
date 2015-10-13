@@ -38,11 +38,10 @@
 
 			// This atlas is created with TexturePacker from the 
 			// output individual images from Flash publishing
-			loader.add('ColorEffectsAtlas', 'ColorEffectsAtlas.json');
-			loader.add('ColorEffects', 'ColorEffects.bson');
+			loader.add('ColorEffects_atlas_', 'ColorEffects_atlas_.json');
+			loader.add('ColorEffects_graphics_', 'ColorEffects_graphics_.bson');
 			loader.once('complete', function(loader, resources)
 			{
-				window.graphics = resources.ColorEffects.data;
 				stage.addChild(new lib.ColorEffects());
 			});
 			loader.load();

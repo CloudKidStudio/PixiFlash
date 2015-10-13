@@ -5,6 +5,7 @@ var Sprite = PIXI.Sprite;
 var Container = PIXI.Container;
 var Graphics = PIXI.Graphics;
 var fromFrame = PIXI.Texture.fromFrame;
+var graphics = PIXI.GraphicsCache;
 
 // symbols:
 lib.Bitmap1 = Sprite.extend(function()
