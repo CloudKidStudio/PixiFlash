@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+    <head>
+        <title>PixiFlash Publish Settings</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="ui.css">
+        <link rel="stylesheet" type="text/css" href="layout.css">
+    </head>
+    <body>
+        <div class="dialog">
+            <div class="dialog_row">
+                <div class="side right">Output file:</div>
+                <input type="text" id="outputFile" class="text" value="Untitled-1.js">
+                <button class="button" id="newDoc">
+                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="10" viewBox="0 0 512 512">
+                    <path fill="#a0a0a0" d="M416 480l96-256h-416l-96 256zM64 192l-64 288v-416h144l64 64h208v64z"></path>
+                    </svg>
+                </button>
+                <div class="indent">
+                    <div class="checkbox">
+                        <input type="checkbox" checked="true" id="loopTimeline" name="check" />
+                        <label for="loopTimeline"></label> 
+                    </div>
+                    <label for="loopTimeline">Loop timeline</label>
+                    <br>
+                    <div class="checkbox">
+                        <input type="checkbox" checked="true" id="overwriteHtml" name="check" />
+                        <label for="overwriteHtml"></label> 
+                    </div>
+                    <label for="overwriteHtml">Overwrite HTML</label>
+                </div>
+            </div>
+            <div class="dialog_row">
+                ASSET EXPORT OPTIONS
+            </div>
+            <div class="dialog_row">
+                <div class="side">
+                    <div class="checkbox">
+                        <input type="checkbox" checked="true" id="pixiJS" name="check" />
+                        <label for="pixiJS"></label> 
+                    </div> 
+                    <label for="pixiJS">PIXI.js:</label>
+                </div>
+                <input type="text" id="libsPath" class="text" value="libs/">
+                <div class="side">
+                    <div class="checkbox">
+                        <input type="checkbox" checked="true" id="images" name="check" />
+                        <label for="images"></label> 
+                    </div> 
+                    <label for="images">Images:</label>
+                </div>
+                <input type="text" id="imagesPath" class="text" value="images/">
+                <div class="indent">
+                    <div class="checkbox">
+                        <input type="checkbox" checked="true" id="spritesheets" name="check" />
+                        <label for="spritesheets"></label> 
+                    </div> 
+                    <label for="spritesheets">Export all bitmaps as Spritesheets</label>
+                </div>
+            </div>
+            
+            <div class="dialog_row">
+                JAVASCRIPT
+            </div>
+            <div class="dialog_row">
+                <div class="side right">Namespace:</div>
+                <input type="text" class="text" value="lib">
+                <div class="indent">
+                    <div class="checkbox">
+                        <input type="checkbox" checked="true" id="compressJS" name="check" />
+                        <label for="compressJS"></label> 
+                    </div> 
+                    <label for="compressJS">Compress Output JavaScript</label>
+                </div>
+            </div>
+
+            <div class="dialog_row">
+                ADVANCED
+            </div>
+
+            <div class="dialog_row">
+                <div class="indent">
+                    <div class="checkbox">
+                        <input type="checkbox" checked="true" id="hostedLibs" name="check" />
+                        <label for="hostedLibs"></label> 
+                    </div> 
+                    <label for="hostedLibs">Hosted Libraries</label>
+                    <br>
+                    <div class="checkbox">
+                        <input type="checkbox" checked="true" id="hiddenLayers" name="check" />
+                        <label for="hiddenLayers"></label> 
+                    </div> 
+                    <label for="hiddenLayers">Include Hidden Layers</label>
+                    <br>
+                    <div class="checkbox">
+                        <input type="checkbox" checked="true" id="compactShapes" name="check" />
+                        <label for="compactShapes"></label> 
+                    </div> 
+                    <label for="compactShapes">Compact Shapes</label>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

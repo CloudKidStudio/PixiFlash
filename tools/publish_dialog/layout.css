@@ -1,0 +1,29 @@
+.dialog {
+	width:360px;
+	margin:0 auto;
+	text-align:left;
+}
+
+.dialog_row {
+	padding:5px;
+	line-height: 1.8;
+}
+
+.dialog_row .side {
+	display:inline-block;
+	width:75px;
+}
+.dialog_row .side.right {
+	text-align: right;
+}
+.dialog_row .text {
+	width:240px;
+	margin-bottom:5px;
+}
+.dialog_row .indent {
+	padding-left:80px;
+}
+
+#outputFile {
+	width:210px;
+}
