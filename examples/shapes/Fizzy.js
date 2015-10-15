@@ -3,7 +3,7 @@
 var Graphics = PIXI.Graphics;
 var Container = PIXI.Container;
 var MovieClip = PIXI.Container; //TODO Replace
-var graphics = PIXI.GraphicsCache;
+var graphics = PIXI.flash.GraphicsCache;
 
 lib.FIZ34_Skate1_PupilR = Container.extend(function()
 {

@@ -567,44 +567,6 @@
 /* jshint ignore:end */
 /**
  * @module Pixi Flash
- * @namespace PIXI
- */
-(function(PIXI)
-{
-	/**
-	 * Contains the collection of graphics data
-	 * @class GraphicsCache
-	 */
-	PIXI.GraphicsCache = PIXI.GraphicsCache ||
-	{};
-
-	/**
-	 * The middleware for PIXI's ResourceLoader to be able to 
-	 * decode the laoding for bson files, which are graphic maps.
-	 * @class BISONLoader
-	 */
-	var BISONLoader = function()
-	{
-		return function(resource, next)
-		{
-			if (/\.bson$/i.test(resource.url))
-			{
-				resource.data = BISON.decode(resource.data);
-				for (var name in resource.data)
-				{
-					PIXI.GraphicsCache[name] = resource.data[name];
-				}
-			}
-			next();
-		};
-	};
-
-	// Assign to the loader
-	PIXI.loaders.Loader.addPixiMiddleware(BISONLoader);
-
-}(PIXI));
-/**
- * @module Pixi Flash
  * @namespace PIXI.flash
  */
 (function(window)
@@ -625,6 +587,159 @@
 	window.PIXI.flash = {};
 
 }(window));
+/**
+ * @module Pixi Flash
+ * @namespace PIXI.flash
+ */
+(function(PIXI)
+{
+	/**
+	 * Contains the collection of graphics data
+	 * @class GraphicsCache
+	 */
+	var GraphicsCache = {};
+
+	/**
+	 * Add an item or itesm to the cache
+	 * @method add
+	 * @static
+	 * @param {String|Object} prop  The id of graphic or map
+	 * @param {Array} [value] If adding a single property, the draw commands
+	 */
+	Object.defineProperty(GraphicsCache, "add",
+	{
+		enumerable: false,
+	    value: function(prop, value)
+		{
+			if (typeof prop == "object")
+			{
+				for(var id in prop)
+				{
+					GraphicsCache.add(id, prop[id]);
+				}
+			}
+			else
+			{
+				GraphicsCache[prop] = value;
+			}
+		}
+	});
+
+	/**
+	 * Decode a resource to the cache
+	 * @method decode
+	 * @static
+	 * @param  {String} str The string to decode
+	 */
+	Object.defineProperty(GraphicsCache, "decode",
+	{
+		enumerable: false,
+	    value: function(str)
+		{
+			GraphicsCache.add(BISON.decode(str));
+		}
+	});
+
+	/**
+	 * Get the graphic from cache
+	 * @method  fromCache
+	 * @static
+	 * @param  {String} id The cache id
+	 * @return {Array} Series of graphic draw commands
+	 */
+	Object.defineProperty(GraphicsCache, "fromCache",
+	{
+		enumerable: false,
+		value: function(id)
+		{
+			return GraphicsCache[id] || null;
+		}
+	});
+
+	/**
+	 * Remove the graphic from cache
+	 * @method  remove
+	 * @static
+	 * @param  {String} id The cache id
+	 */
+	Object.defineProperty(GraphicsCache, "remove",
+	{
+		enumerable: false,
+		value: function(id)
+		{
+			if (GraphicsCache[id])
+			{
+				GraphicsCache[id].length = 0;
+				delete GraphicsCache[id];
+			}
+		}
+	});
+
+	/**
+	 * Remove all graphics from cache
+	 * @method  removeAll
+	 * @static
+	 */
+	Object.defineProperty(GraphicsCache, "removeAll",
+	{
+		enumerable: false,
+		value: function()
+		{
+			for(var id in GraphicsCache)
+			{
+				GraphicsCache.remove(id);
+			}
+		}
+	});
+
+	// Assign to namespace
+	PIXI.flash.GraphicsCache = GraphicsCache;
+
+}(PIXI));
+/**
+ * @module Pixi Flash
+ * @namespace PIXI.flash
+ */
+(function(PIXI)
+{
+	var GraphicsCache = PIXI.flash.GraphicsCache;
+	var Texture = PIXI.Texture;
+	var Loader = PIXI.loaders.Loader;
+
+	/**
+	 * The middleware for PIXI's ResourceLoader to be able to 
+	 * load Flash symbols such as graphics and images.
+	 * @class SymbolLoader
+	 */
+	var SymbolLoader = function()
+	{
+		return function(resource, next)
+		{
+			if (/_graphics_\.bson$/i.test(resource.url))
+			{
+				GraphicsCache.decode(resource.data);
+			}
+			else if (/_graphics_\.json$/i.test(resource.url))
+			{
+				GraphicsCache.add(resource.data);
+			}
+			else if (resource.data.nodeName && resource.data.nodeName == "IMG")
+			{
+				// Add individual images to the texture cache by their
+				// short symbol name, not the URL
+				Texture.addTextureToCache(
+					Texture.fromFrame(resource.url),
+					resource.name 
+				);
+			}
+			next();
+		};
+	};
+
+	// Assign to the loader
+	Loader.addPixiMiddleware(SymbolLoader);
+
+}(PIXI));
 /**
  * @module Pixi Flash
  * @namespace PIXI

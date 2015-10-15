@@ -6,8 +6,9 @@
 	"output": "pixi-flash",
 	"main": [
 		"src/data/BISON.js",
-		"src/data/BISONLoader.js",
 		"src/flash/main.js",
+		"src/flash/GraphicsCache.js",
+		"src/flash/SymbolLoader.js",
 		"src/mixins/*.js"
 	],
 	"modules":

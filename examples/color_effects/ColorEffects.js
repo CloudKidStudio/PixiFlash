@@ -5,7 +5,7 @@ var Sprite = PIXI.Sprite;
 var Container = PIXI.Container;
 var Graphics = PIXI.Graphics;
 var fromFrame = PIXI.Texture.fromFrame;
-var graphics = PIXI.GraphicsCache;
+var graphics = PIXI.flash.GraphicsCache;
 
 // symbols:
 lib.Bitmap1 = Sprite.extend(function()
@@ -51,25 +51,25 @@ lib.ColorEffects = Container.extend(function()
 
 	// Layer 2
 	this.instance = new lib.BitmapFace()
-		.tr(126,125.1,1,1,0,0,0,0.9,-0.1);
+		.tr(126,125.1,1,1,0,0,0,0.9,0);
 
 	this.instance_1 = new lib.ShapeFace()
-		.tr(372,125,1,1,0,0,0,1,-0.1);
+		.tr(372,125,1,1,0,0,0,1,0);
 
 	this.instance_2 = new lib.BitmapFace()
-		.tr(126,594,1,1,0,0,0,0.9,-0.1)
+		.tr(126,594,1,1,0,0,0,0.9,0)
 		.tn(0xFF0D54);
 
 	this.instance_3 = new lib.BitmapFace()
-		.tr(126,360,1,1,0,0,0,0.9,-0.1)
+		.tr(126,360,1,1,0,0,0,0.9,0)
 		.tn(0xD3FF00);
 
 	this.instance_4 = new lib.ShapeFace()
-		.tr(372,593.9,1,1,0,0,0,1,-0.1)
+		.tr(372,593.9,1,1,0,0,0,1,0)
 		.tn(0x365AFF);
 
 	this.instance_5 = new lib.ShapeFace()
-		.tr(372,359.9,1,1,0,0,0,1,-0.1)
+		.tr(372,359.9,1,1,0,0,0,1,0)
 		.tn(0xD95AFF);
 
 	this.ac(

@@ -2,7 +2,7 @@
 
 var MovieClip = PIXI.Container;
 var Graphics = PIXI.Graphics;
-var graphics = PIXI.GraphicsCache;
+var graphics = PIXI.flash.GraphicsCache;
 
 // stage content:
 lib.Masking = MovieClip.extend(function(mode, startPosition, loop)
