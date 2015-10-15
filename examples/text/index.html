@@ -19,20 +19,20 @@
 				antialias: true
 			});
 			var stage = new PIXI.Container();
-			var loader = new PIXI.loaders.Loader();
-			loader.add('Text_graphics_', 'Text_graphics_.bson');
-			loader.once('complete', function(loader, resources)
-			{
-				var clip = new lib.Text();
-				stage.addChild(clip);
-			});
-			loader.load();
-			update();
+			var loader = new PIXI.loaders.Loader()
+				.add('Text_graphics_', 'Text_graphics_.bson')
+				.once('complete', function(loader, resources)
+				{
+					var clip = new lib.Text();
+					stage.addChild(clip);
+				})
+				.load();
 			function update()
 			{
 				requestAnimationFrame(update);
 				renderer.render(stage);
 			}
+			update();
 		</script>
 	</body>
 </html>

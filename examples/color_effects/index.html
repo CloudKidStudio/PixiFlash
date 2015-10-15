@@ -19,21 +19,21 @@
 				antialias: true
 			});
 			var stage = new PIXI.Container();
-			var loader = new PIXI.loaders.Loader();
-			loader.add('ColorEffects_atlas_', 'ColorEffects_atlas_.json');
-			loader.add('ColorEffects_graphics_', 'ColorEffects_graphics_.bson');
-			loader.once('complete', function(loader, resources)
-			{
-				var clip = new lib.ColorEffects();
-				stage.addChild(clip);
-			});
-			loader.load();
-			update();
+			var loader = new PIXI.loaders.Loader()
+				.add('ColorEffects_atlas_', 'ColorEffects_atlas_.json')
+				.add('ColorEffects_graphics_', 'ColorEffects_graphics_.bson')
+				.once('complete', function(loader, resources)
+				{
+					var clip = new lib.ColorEffects();
+					stage.addChild(clip);
+				})
+				.load();
 			function update()
 			{
 				requestAnimationFrame(update);
 				renderer.render(stage);
 			}
+			update();
 		</script>
 	</body>
 </html>

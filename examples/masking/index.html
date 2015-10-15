@@ -19,21 +19,21 @@
 				antialias: true
 			});
 			var stage = new PIXI.Container();
-			var loader = new PIXI.loaders.Loader();
-			loader.add('Masking_graphics_', 'Masking_graphics_.bson');
-			loader.once('complete', function(loader, resources)
-			{
-				var clip = new lib.Masking();
-				clip.framerate = 30;
-				stage.addChild(clip);
-			});
-			loader.load();
-			update();
+			var loader = new PIXI.loaders.Loader()
+				.add('Masking_graphics_', 'Masking_graphics_.bson')
+				.once('complete', function(loader, resources)
+				{
+					var clip = new lib.Masking();
+					clip.framerate = 30;
+					stage.addChild(clip);
+				})
+				.load();
 			function update()
 			{
 				requestAnimationFrame(update);
 				renderer.render(stage);
 			}
+			update();
 		</script>
 	</body>
 </html>
