@@ -20,11 +20,13 @@
 			});
 			var stage = new PIXI.Container();
 			var loader = new PIXI.loaders.Loader()
-				.add('Text_graphics_', 'Text_graphics_.bson')
+				.add('Text_graphics_.bson')
 				.once('complete', function(loader, resources)
 				{
 					var clip = new lib.Text();
+					clip.framerate = 30;
 					stage.addChild(clip);
+					update();
 				})
 				.load();
 			function update()
@@ -32,7 +34,6 @@
 				requestAnimationFrame(update);
 				renderer.render(stage);
 			}
-			update();
 		</script>
 	</body>
 </html>

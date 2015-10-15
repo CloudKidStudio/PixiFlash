@@ -20,12 +20,13 @@
 			});
 			var stage = new PIXI.Container();
 			var loader = new PIXI.loaders.Loader()
-				.add('Fizzy_atlas_', 'Fizzy_atlas_.json')
+				.add('Fizzy_atlas_.json')
 				.once('complete', function(loader, resources)
 				{
 					var clip = new lib.Fizzy();
 					clip.framerate = 30;
 					stage.addChild(clip);
+					update();
 				})
 				.load();
 			function update()
@@ -33,7 +34,6 @@
 				requestAnimationFrame(update);
 				renderer.render(stage);
 			}
-			update();
 		</script>
 	</body>
 </html>
