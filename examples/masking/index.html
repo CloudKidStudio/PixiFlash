@@ -26,7 +26,6 @@
 					var clip = new lib.Masking();
 					clip.framerate = 30;
 					stage.addChild(clip);
-					update();
 				})
 				.load();
 			function update()
@@ -34,6 +33,7 @@
 				requestAnimationFrame(update);
 				renderer.render(stage);
 			}
+			update();
 		</script>
 	</body>
 </html>
