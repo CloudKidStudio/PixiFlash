@@ -92,7 +92,6 @@ function update()
 * Abutting vector shapes create a small seams which make it possible to see the color underneath (similar to EaselJS)
 * Complex shapes with a negative shape inside of it only render the outer-most shape. For example, a donut shape would only render the outer circle and not the hole.
 * Cannot "Test Movie" in side of Flash to preview the animation
-* No support for Text fields
 * Flash Color Effects are supported only for Advanced style multiplicative color changes (RGB percents) by translating to PIXI 'tint' property. Additive color effects such as Tint, and the additive RGB modifiers in the Advanced Color Effect style will be ignored. The Brightness effect is only capable of darkening the symbol (Brightened symbols will be rendered darker than original). Keyframes and tweening of Color Effects are not supported.
 
 ##License
