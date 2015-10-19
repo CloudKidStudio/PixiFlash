@@ -252,8 +252,13 @@
 				images.push(asset);
 				if(!asset.type)
 					asset.type = "pixi";
-				if(!asset.id)
-					asset.id = "asset_" + (assetCount++);
+				if (!asset.id)
+				{
+					var src = asset.src;
+					src = src.substr(0, src.lastIndexOf("."));
+					src = src.substr(src.lastIndexOf("/") + 1);
+					asset.id = src;
+				}
 			}
 			//standard images
 			else
