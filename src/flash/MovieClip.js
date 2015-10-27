@@ -48,9 +48,6 @@
 	var MovieClip = function(mode, startPosition, loop, labels)
 	{
 		Container.call(this);
-		DisplayObject.call(this);
-
-		this.tickChildren = true;
 
 		/**
 		 * Controls how this MovieClip advances its time. Must be one of 0 (INDEPENDENT), 1 (SINGLE_FRAME), or 2 (SYNCHED).
@@ -75,7 +72,7 @@
 		 * @type Boolean
 		 * @default true
 		 */
-		this.loop = loop;
+		this.loop = !!loop;
 
 		/**
 		 * The current frame of the movieclip.
@@ -85,37 +82,32 @@
 		 * @readonly
 		 */
 		this.currentFrame = 0;
+		
+		this._labels = [];
+		this._labelDict = labels || {};
+		if (labels)
+		{
+			for (var name in labels)
+			{
+				var label = {
+					label: name,
+					position: labels[name]
+				};
+				this._labels.push(label);
+			}
+			this._labels.sort(function(a, b)
+				{
+					return a.position - b.position;
+				});
+		}
 
 		/**
-		 * The TweenJS Timeline that is associated with this MovieClip. This is created automatically when the MovieClip
-		 * instance is initialized. Animations are created by adding <a href="http://tweenjs.com">TweenJS</a> Tween
-		 * instances to the timeline.
-		 *
-		 * <h4>Example</h4>
-		 *
-		 *      var tween = createjs.Tween.get(target).to({x:0}).to({x:100}, 30);
-		 *      var mc = new createjs.MovieClip();
-		 *      mc.timeline.addTween(tween);
-		 *
-		 * Elements can be added and removed from the timeline by toggling an "_off" property
-		 * using the <code>tweenInstance.to()</code> method. Note that using <code>Tween.set</code> is not recommended to
-		 * create MovieClip animations. The following example will toggle the target off on frame 0, and then back on for
-		 * frame 1. You can use the "visible" property to achieve the same effect.
-		 *
-		 *      var tween = createjs.Tween.get(target).to({_off:false})
-		 *          .wait(1).to({_off:true})
-		 *          .wait(1).to({_off:false});
-		 *
-		 * @property timeline
-		 * @type Timeline
-		 * @default null
+		 * If true, this movieclip will animate automatically whenever it is on the stage.
+		 * @property selfAdvance
+		 * @type Boolean
+		 * @default true
 		 */
-		this.timeline = new Timeline(null, labels,
-		{
-			paused: true,
-			position: startPosition,
-			useTicks: true
-		});
+		this.selfAdvance = true;
 
 		/**
 		 * If true, the MovieClip's position will not advance when ticked.
@@ -192,13 +184,29 @@
 		 **/
 		this._framerate = 0;
 		/**
-		 * When the MovieClip is framerate independent, this is the total time in seconds for the animation.
+		 * The total time in seconds for the animation. This is changed when setting the framerate.
 		 * @property _duration
 		 * @type Number
 		 * @default 0
 		 * @private
 		 */
 		this._duration = 0;
+		
+		/**
+		 * The total duration in frames for the animation.
+		 * @property _frameDuration
+		 * @type Number
+		 * @default 0
+		 * @private
+		 */
+		this._frameDuration = 0;
+		
+		/**
+		 * @property _tweens
+		 * @type Array
+		 * @protected
+		 **/
+		this._tweens = [];
 
 		/**
 		 * List of display objects that are actively being managed by the MovieClip.
@@ -207,18 +215,15 @@
 		 * @private
 		 */
 		this._managed = {};
-
-		//add a listener for the first time the object is added, to get around
-		//using new instances for prototypes that the CreateJS exporting does.
-		this.once("added", function()
+		
+		if(this.mode == MovieClip.INDEPENDENT)
 		{
 			this._tickListener = this._tickListener.bind(this);
-			this._onAdded();
 			this._onAdded = this._onAdded.bind(this);
 			this._onRemoved = this._onRemoved.bind(this);
 			this.on("added", this._onAdded);
 			this.on("removed", this._onRemoved);
-		}.bind(this));
+		}
 	};
 
 	/**
@@ -255,65 +260,71 @@
 
 	var p = MovieClip.prototype = Object.create(Container.prototype);
 
-	DisplayObject.mixin(p);
-
 	//constructor for backwards/Flash exporting compatibility
 	p.initialize = MovieClip;
 
 	p._onAdded = function()
 	{
-		if (!this.parent._isPixiFlash)
-		{
-			SharedTicker.add(this._tickListener);
-		}
+		SharedTicker.add(this._tickListener);
 	};
 
 	p._tickListener = function(tickerDeltaTime)
 	{
-		var ms = tickerDeltaTime / SharedTicker.speed / PIXI.TARGET_FPMS;
-		this._tick(ms);
+		if(this.paused || !this.selfAdvance)
+		{
+			//see if the movieclip needs to be updated even though it isn't animating
+			if(this._prevPos < 0)
+				this._goto(this.currentFrame);
+			return;
+		}
+		var seconds = tickerDeltaTime / SharedTicker.speed / PIXI.TARGET_FPMS / 1000;
+		this._tick(seconds);
 	};
 
 	p._onRemoved = function()
 	{
-		if (this._tickListener)
-			SharedTicker.remove(this._tickListener);
+		SharedTicker.remove(this._tickListener);
 	};
 
 	/**
-	 * Use the {{#crossLink "MovieClip/labels:property"}}{{/crossLink}} property instead.
+	 * Returns a sorted list of the labels defined on this AdvancedMovieClip.
 	 * @method getLabels
-	 * @return {Array}
-	 * @deprecated
-	 **/
+	 * @return {Array[Object]} A sorted array of objects with label and position (aka frame)
+	 *                        properties.
+	 */
 	p.getLabels = function()
 	{
-		return this.timeline.getLabels();
+		return this._labels;
 	};
 
 	/**
-	 * Use the {{#crossLink "MovieClip/currentLabel:property"}}{{/crossLink}} property instead.
+	 * Returns the name of the label on or immediately before the current frame.
 	 * @method getCurrentLabel
-	 * @return {String}
-	 * @deprecated
-	 **/
+	 * @return {String} The name of the current label or null if there is no label.
+	 */
 	p.getCurrentLabel = function()
 	{
-		this._updateTimeline();
-		return this.timeline.getCurrentLabel();
+		var labels = this._labels;
+		var current = null;
+		for (var i = 0, len = labels.length; i < len; ++i)
+		{
+			if (labels[i].position <= this.currentFrame)
+				current = labels[i].label;
+			else
+				break;
+		}
+		return current;
 	};
 
 	/**
 	 * Returns an array of objects with label and position (aka frame) properties, sorted by position.
-	 * Shortcut to TweenJS: Timeline.getLabels();
 	 * @property labels
 	 * @type {Array}
 	 * @readonly
 	 **/
 
 	/**
-	 * Returns the name of the label on or immediately before the current frame. See TweenJS: Timeline.getCurrentLabel()
-	 * for more information.
+	 * Returns the name of the label on or immediately before the current frame.
 	 * @property currentLabel
 	 * @type {String}
 	 * @readonly
@@ -380,12 +391,63 @@
 			if (value > 0)
 			{
 				this._framerate = value;
-				this._duration = value ? this.timeline.duration / value : 0;
+				this._duration = value ? this._frameDuration / value : 0;
 			}
 			else
 				this._framerate = this._duration = 0;
 		}
 	});
+	
+	/**
+	 * Add a tween to the clip
+	 * @method addTween
+	 * @param {PIXI.DisplayObject} instance The clip to tween
+	 * @param {Object} properties The property or property to tween
+	 * @param {int} startFrame The frame to start tweening
+	 * @param {int} [duration=0] Number of frames to tween. If 0, then the properties are set
+	 *                           with no tweening.
+	 * @return {MovieClip}
+	 */
+	p.tw = p.addTween = function(instance, properties, startFrame, duration)
+	{
+		//1. determine if there is already a tween for this instance, and if so prepare to add it
+		//   on/insert it - if there isn't, then make one and set up a wait until startFrame
+		//2. create the tween segment, recording the starting values of properties and using the
+		//   supplied properties as the ending values
+		return this;
+	};
+	
+	/**
+	 * Add a child to show for a certain number of frames before automatic removal.
+	 * @method addTimedChild
+	 * @param {PIXI.DisplayObject} instance The clip to show
+	 * @param {int} startFrame The starting frame
+	 * @param {int} [duration=1] The number of frames to display the child before removing it.
+	 * @return {MovieClip}
+	 */
+	p.at = p.addTimedChild = function(instance, startFrame, duration)
+	{
+		if(startFrame == null)// jshint ignore:line
+			startFrame = 0;
+		if(duration == null || duration < 1)// jshint ignore:line
+			duration = 1;
+		//add tweening info about this child's visibility/presence on stage
+		//when the child is added, if it has 'autoReset' set to true, then it should be set back to
+		//frame 0
+		return this;
+	};
+	
+	/**
+	 * Handle frame actions, callback is bound to the instance of the MovieClip
+	 * @method addAction
+	 * @param {Function} callback The clip call on a certain frame
+	 * @param {int} startFrame The starting frame
+	 * @return {MovieClip}
+	 */
+	p.aa = p.addAction = function(callback, startFrame)
+	{
+		return this;
+	};
 
 	/**
 	 * Sets paused to false.
@@ -429,18 +491,11 @@
 
 	/**
 	 * Advances the playhead. This occurs automatically each tick by default.
-	 * @param [time] {Number} The amount of time in ms to advance by. Only applicable if framerate is set.
+	 * @param [time] {Number} The amount of time in seconds to advance by. Only applicable if framerate is set.
 	 * @method advance
 	 */
 	p.advance = function(time)
 	{
-		// TODO: should we worry at all about clips who change their own modes via frame scripts?
-		var independent = MovieClip.INDEPENDENT;
-		if (this.mode != independent)
-		{
-			return;
-		}
-
 		if (!this._framerate)
 		{
 			var o = this,
@@ -455,58 +510,27 @@
 			this.framerate = fps;
 		}
 
-		if (!this.paused)
-		{
-			if (this._framerate > 0)
-			{
-				if (time)
-					this._t += time * 0.001; //milliseconds -> seconds
-				if (this._t > this._duration)
-					this._t = this.timeline.loop ? this._t - this._duration : this._duration;
-				//add a tiny amount to account for potential floating point errors
-				this._prevPosition = Math.floor(this._t * this._framerate + 0.00000001);
-				if (this._prevPosition > this.timeline.duration)
-					this._prevPosition = this.timeline.duration;
-			}
-			else
-				this._prevPosition = (this._prevPos < 0) ? 0 : this._prevPosition + 1;
-			//Timeline is always updated in the tick function for PixiFlash MovieClips,
-			//to replace EaselJS's timeline updating in draw().
-			//this._updateTimeline();
-		}
+		if (time)
+			this._t += time;
+		if (this._t > this._duration)
+			this._t = this.timeline.loop ? this._t - this._duration : this._duration;
+		//add a tiny amount to account for potential floating point errors
+		this.currentFrame = Math.floor(this._t * this._framerate + 0.00000001);
+		//final error checking
+		if (this.currentFrame >= this._frameDuration)
+			this.currentFrame = this._frameDuration - 1;
+		//update all tweens & actions in the timeline
+		this._updateTimeline();
 	};
 
 	/**
 	 * @method _tick
-	 * @param {Number} delta Time elapsed since the previous tick, in milliseconds.
-	 * function.
+	 * @param {Number} delta Time elapsed since the previous tick, in seconds.
 	 * @protected
 	 **/
 	p._tick = function(delta)
 	{
-		if (this.tickEnabled)
-			this.advance(delta);
-		this._updateTimeline();
-		this.Container__tick(delta);
-	};
-
-	p.Container__tick = function(delta)
-	{
-		if (this.tickChildren)
-		{
-			for (var i = this.children.length - 1; i >= 0; i--)
-			{
-				var child = this.children[i];
-				if (child.tickEnabled && child._tick)
-				{
-					child._tick(delta);
-				}
-				else if (child.tickChildren && child.Container__tick)
-				{
-					child.Container__tick(delta);
-				}
-			}
-		}
+		this.advance(delta);
 	};
 
 	/**
@@ -516,8 +540,8 @@
 	 **/
 	p._goto = function(positionOrLabel)
 	{
-		var pos = this.timeline.resolve(positionOrLabel);
-		if (pos === null || pos === undefined)
+		var pos = typeof positionOrLabel == "string" ? this._labelDict[positionOrLabel] : positionOrLabel;
+		if (pos == null)// jshint ignore:line
 		{
 			return;
 		}
@@ -526,7 +550,7 @@
 		{
 			this._prevPos = NaN;
 		}
-		this._prevPosition = pos;
+		this.currentFrame = pos;
 		//update the elapsed time if a time based movieclip
 		if (this._framerate > 0)
 			this._t = pos / this._framerate;
@@ -552,9 +576,7 @@
 	 **/
 	p._updateTimeline = function()
 	{
-		var tl = this.timeline;
 		var synched = this.mode != MovieClip.INDEPENDENT;
-		tl.loop = (this.loop == null) ? true : this.loop; // jshint ignore:line
 
 		// update timeline position, ignoring actions if this is a graphic.
 		if (synched)
@@ -682,74 +704,5 @@
 
 	// Assign to namespace
 	PIXI.flash.MovieClip = MovieClip;
-
-	/**
-	 * This plugin works with <a href="http://tweenjs.com" target="_blank">TweenJS</a> to prevent the startPosition
-	 * property from tweening.
-	 * @private
-	 * @class MovieClipPlugin
-	 * @constructor
-	 **/
-	function MovieClipPlugin()
-	{
-		throw ("MovieClipPlugin cannot be instantiated.");
-	}
-
-	/**
-	 * @method priority
-	 * @private
-	 **/
-	MovieClipPlugin.priority = 100; // very high priority, should run first
-
-	/**
-	 * @method install
-	 * @private
-	 **/
-	MovieClipPlugin.install = function()
-	{
-		Tween.installPlugin(MovieClipPlugin, ["startPosition"]);
-	};
-
-	/**
-	 * @method init
-	 * @param {Tween} tween
-	 * @param {String} prop
-	 * @param {String|Number|Boolean} value
-	 * @private
-	 **/
-	MovieClipPlugin.init = function(tween, prop, value)
-	{
-		return value;
-	};
-
-	/**
-	 * @method step
-	 * @private
-	 **/
-	MovieClipPlugin.step = function()
-	{
-		// unused.
-	};
-
-	/**
-	 * @method tween
-	 * @param {Tween} tween
-	 * @param {String} prop
-	 * @param {String | Number | Boolean} value
-	 * @param {Array} startValues
-	 * @param {Array} endValues
-	 * @param {Number} ratio
-	 * @param {Object} wait
-	 * @param {Object} end
-	 * @return {*}
-	 */
-	MovieClipPlugin.tween = function(tween, prop, value, startValues, endValues, ratio, wait, end)
-	{
-		if (!(tween.target instanceof MovieClip))
-		{
-			return value;
-		}
-		return (ratio == 1 ? endValues[prop] : startValues[prop]);
-	};
 
 }(PIXI));
