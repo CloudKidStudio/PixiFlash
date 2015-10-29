@@ -38,8 +38,11 @@ renderer.plugins.interaction.autoPreventDefault = false;
 // Root display object
 var stage = new PIXI.Container();
 
+pixiflash_images["MaskedSprite"] = PIXI.Texture.fromImage("images/MaskedSprite.png");
+
 // Create the character
 var masking = new pixiflash_lib.Masking();
+masking.framerate = 30;
 
 // Add to stage
 stage.addChild(masking);
@@ -47,6 +50,8 @@ stage.addChild(masking);
 update();
 function update()
 {
+	if(window.stopped) return;
+	
     requestAnimationFrame(update);
     renderer.render(stage);
 }

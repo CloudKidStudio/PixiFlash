@@ -1,4 +1,4 @@
-/*! Pixi Flash 0.2.5 */
+/*! Pixi Flash 0.2.6 */
 /**
  * @module Pixi Flash
  * @namespace pixiflash
@@ -201,8 +201,8 @@
 		//makes prototypes in a way that breaks normal PIXI listener usage.
 		this.removeAllListeners();
 
-		// Bound functions
-		this.onShapeChanged = this.onShapeChanged.bind(this);
+		// Bound functions need to be bound later
+		this.boundMaskChanged = false;
 
 		//initialize tint variables:
 		this._lastComputedTint = this._lastSelfTint = this._lastParentTint = this._selfTint = 0xFFFFFF;
@@ -246,7 +246,7 @@
 		tint:
 		{
 			enumerable: true,
-			get: function() { 
+			get: function() {
 				if(this.parent && this.parent._isPixiFlash)
 				{
 					var selfTint = this._selfTint;
@@ -400,7 +400,7 @@
 			{
 				if (this._mask)
 				{
-					// Remove the old mask if we're a shape 
+					// Remove the old mask if we're a shape
 					if (this._mask.__parentShape)
 					{
 						var parentShape = this._mask.__parentShape;
@@ -416,6 +416,11 @@
 				{
 					this._mask = mask.graphics;
 					this._mask.__parentShape = mask;
+					if(!this.boundMaskChanged)
+					{
+						this.boundMaskChanged = true;
+						this.onShapeChanged = this.onShapeChanged.bind(this);
+					}
 					mask.once('graphicsChanged', this.onShapeChanged);
 				}
 				else
@@ -430,6 +435,7 @@
 					{
 						this.once("added", function()
 						{
+							if(!this._mask) return;
 							this.parent.addChild(this._mask.__parentShape || this._mask);
 						});
 					}
