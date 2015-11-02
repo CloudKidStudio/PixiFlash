@@ -156,14 +156,6 @@
 		this._prevPos = -1; // TODO: evaluate using a ._reset Boolean prop instead of -1.
 
 		/**
-		 * @property _prevPosition
-		 * @type Number
-		 * @default 0
-		 * @private
-		 */
-		this._prevPosition = 0;
-
-		/**
 		 * Note - changed from default: When the MovieClip is framerate independent, this is the time
 		 * elapsed from frame 0 in seconds.
 		 * @property _t
@@ -202,19 +194,20 @@
 		this._frameDuration = 0;
 		
 		/**
+		 * Standard tween timelines for all objects
 		 * @property _tweens
 		 * @type Array
 		 * @protected
 		 **/
 		this._tweens = [];
-
+		
 		/**
-		 * List of display objects that are actively being managed by the MovieClip.
-		 * @property _managed
-		 * @type Object
-		 * @private
+		 * Array of frame scripts, indexed by frame.
+		 * @property _actions
+		 * @type {Array}
+		 * @protected
 		 */
-		this._managed = {};
+		this._actions = [];
 		
 		if(this.mode == MovieClip.INDEPENDENT)
 		{
@@ -446,6 +439,19 @@
 	 */
 	p.aa = p.addAction = function(callback, startFrame)
 	{
+		var _actions = this._actions;
+		if(_actions.length <= startFrame)
+			_actions.length = startFrame + 1;
+		if(this._frameDuration <= startFrame)
+			this._frameDuration = startFrame;
+		if(_actions[startFrame])
+		{
+			_actions[startFrame].push(callback);
+		}
+		else
+		{
+			_actions[startFrame] = [callback];
+		}
 		return this;
 	};
 
