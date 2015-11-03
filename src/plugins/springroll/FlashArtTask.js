@@ -54,6 +54,12 @@
 		 * @property {String} imagesName
 		 */
 		this.imagesName = "pixiflash_images";
+		
+		/**
+		 * Do we suppress 'flash asset collision' warnings?
+		 * @property {Boolean} suppressWarnings
+		 */
+		this.suppressWarnings = !!asset.suppress;
 	};
 
 	// Reference to prototype
@@ -165,7 +171,8 @@
 			var art = new FlashArt(
 				this.id,
 				results._flash,
-				this.libName
+				this.libName,
+				this.suppressWarnings
 			);
 			
 			var images = results._images;

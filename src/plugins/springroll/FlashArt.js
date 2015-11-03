@@ -15,8 +15,9 @@
 	 * @param {String} id The asset id
 	 * @param {NodeElement} dom The `<script>` element added to the document
 	 * @param {String} [libName='lib'] The window parameter name
+	 * @param {Boolean} suppressWarnings	Should we hide 'flash asset collision' warnings (default false)
 	 */
-	var FlashArt = function(id, dom, libName)
+	var FlashArt = function(id, dom, libName, suppressWarnings)
 	{
 		if (DEBUG && Debug === undefined)
 		{
@@ -48,8 +49,8 @@
 		 */
 		this.id = id;
 
-		// Pare the dome object
-		this.parseSymbols(dom.text);
+		// Parse the dom object
+		this.parseSymbols(dom.text, suppressWarnings);
 	};
 
 	// Reference to the prototype
@@ -67,8 +68,9 @@
 	 * Get the name of all the library elements of the dom text
 	 * @method parseSymbols
 	 * @param {String} text The DOM text contents
+	 * @param {Boolean} suppressWarnings	Should we hide 'flash asset collision' warnings (default false)
 	 */
-	p.parseSymbols = function(text)
+	p.parseSymbols = function(text, suppressWarnings)
 	{
 		// split into the initialization functions, that take 'lib' as a parameter
 		var textArray = text.split(/[\(!]function\s*\(/);
@@ -94,7 +96,7 @@
 				assetId = foundName[1];
 
 				// Warn about collisions with assets that already exist
-				if (DEBUG && Debug && globalSymbols[assetId])
+				if (DEBUG && Debug && globalSymbols[assetId] && !suppressWarnings)
 				{
 					Debug.warn(
 						"Flash Asset Collision: asset '" + this.id +
