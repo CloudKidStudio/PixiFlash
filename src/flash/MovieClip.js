@@ -399,9 +399,10 @@
 	 * @param {int} startFrame The frame to start tweening
 	 * @param {int} [duration=0] Number of frames to tween. If 0, then the properties are set
 	 *                           with no tweening.
+	 * @param {Function} [ease] An optional easing function that takes the tween time from 0-1.
 	 * @return {MovieClip}
 	 */
-	p.tw = p.addTween = function(instance, properties, startFrame, duration)
+	p.tw = p.addTween = function(instance, properties, startFrame, duration, ease)
 	{
 		//1. determine if there is already a tween for this instance, and if so prepare to add it
 		//   on/insert it - if there isn't, then make one and set up a wait until startFrame
