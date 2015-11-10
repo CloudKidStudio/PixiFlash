@@ -9,7 +9,8 @@
 		//properties at the end of the tween, as well as any properties that are set
 		//instead of tweened
 		this.endProps = {};
-		//duration in frames
+		//duration of tween in frames. For a keyframe with no tweening, the duration
+		//will be 0.
 		this.duration = 0;
 		//the frame that the tween starts on
 		this.startFrame = 0;
@@ -101,15 +102,20 @@
 		//tinting
 		t: lerpColor,
 		//values to be set
-		v: null,
-		m: null,
+		v: null,//visible
+		m: null,//mask
 		g: null,//not sure if we'll actually handle graphics this way?
-		p: null
+		p: null//Graphic position/mode
 	};
 	
 	p.setPosition = function(currentFrame)
 	{
-		var time = (currentFrame - this.startFrame) / duration;
+		//if this is a single frame with no tweening, or at the end of the tween, then
+		//just speed up the process by setting values
+		if(currentFrame - this.startFrame == this.duration)
+			this.setToEnd();
+		
+		var time = (currentFrame - this.startFrame) / this.duration;
 		if(this.ease)
 			time = this.ease(time);
 		var startProps = this.startProps;

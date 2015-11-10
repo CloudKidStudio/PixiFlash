@@ -194,7 +194,8 @@
 		this._frameDuration = 0;
 		
 		/**
-		 * Standard tween timelines for all objects
+		 * Standard tween timelines for all objects. Each element in the _tweens array
+		 * is an array of tweens for one target, in order of occurrence.
 		 * @property _tweens
 		 * @type Array
 		 * @protected
@@ -584,88 +585,71 @@
 	p._updateTimeline = function()
 	{
 		var synched = this.mode != MovieClip.INDEPENDENT;
-
+		
+		if(synched)
+		{
+			this.currentFrame = this.startPosition + (this.mode == MovieClip.SINGLE_FRAME ? 0 : this._synchOffset);
+		}
+		
+		if (this._prevPos == this.currentFrame)
+		{
+			return;
+		}
+		
 		// update timeline position, ignoring actions if this is a graphic.
-		if (synched)
-		{
-			tl.setPosition(this.startPosition + (this.mode == MovieClip.SINGLE_FRAME ? 0 : this._synchOffset), Tween.NONE);
-		}
-		else
-		{
-			tl.setPosition(this._prevPos < 0 ? 0 : this._prevPosition, this.actionsEnabled ? null : Tween.NONE);
-		}
-
-		this._prevPosition = tl._prevPosition;
-		if (this._prevPos == tl._prevPos)
-		{
-			return;
-		}
-		this.currentFrame = this._prevPos = tl._prevPos;
-
-		for (var n in this._managed)
-		{
-			this._managed[n] = 1;
-		}
-
-		var tweens = tl._tweens;
-		for (var i = 0, l = tweens.length; i < l; i++)
-		{
-			var tween = tweens[i];
-			var target = tween._target;
-			if (target == this || tween.passive)
-			{
-				continue;
-			} // TODO: this assumes actions tween has this as the target. Valid?
-			var offset = tween._stepPosition;
-
-			//Containers, Bitmaps(Sprites), and MovieClips(also Containers) all inherit from
-			//Container for PIXI
-			if (target instanceof Container)
-			{
-				// motion tween.
-				this._addManagedChild(target, offset);
-			}
-			else
-			{
-				// state tween.
-				this._setState(target.state, offset);
-			}
-		}
-
-		var kids = this.children;
-		for (i = kids.length - 1; i >= 0; i--)
-		{
-			var id = kids[i].id;
-			if (this._managed[id] == 1)
-			{
-				this.removeChildAt(i);
-				delete(this._managed[id]);
-			}
-		}
+		var startFrame = this._prevPos < 0 ? 0 : this._prevPos;
+		this._setTimelinePosition(startFrame, this.currentFrame, synched ? false : this.actionsEnabled);
+		
+		this._prevPos = this.currentFrame;
 	};
-
-	/**
-	 * @method _setState
-	 * @param {Array} state
-	 * @param {Number} offset
-	 * @protected
-	 **/
-	p._setState = function(state, offset)
+	
+	p._setTimelinePosition = function(startFrame, currentFrame, doActions)
 	{
-		if (!state)
+		//handle all tweens
+		var i, j, length, _tweens = this._tweens;
+		for(i = _tweens.length - 1; i >= 0; --i)
 		{
-			return;
-		}
-		for (var i = state.length - 1; i >= 0; i--)
-		{
-			var o = state[i];
-			var target = o.t;
-			var props = o.p;
-			for (var n in props)
+			var timeline = _tweens[i];
+			for(j = 0, length = timeline.length; j < length; ++j)
 			{
-				target[n] = props[n];
+				var tween = timeline[j];
+				//if the tween contains part of the timeline that we are travelling through
+				if(currentFrame >= tween.startFrame &&
+					startFrame <= tween.startFrame + tween.duration - 1)
+				{
+					//if we are past the end of this tween, then just set values to the ending
+					//ones
+					if(currentFrame > tween.startFrame + tween.duration - 1)
+					{
+						tween.setToEnd();
+					}
+					//otherwise, set the position within that tween
+					//and break the loop
+					else
+					{
+						tween.setPosition(currentFrame);
+						break;
+					}
+				}
 			}
-			this._addManagedChild(target, offset);
+		}
+		//handle children removal and adding
+		
+		//go through all children and update synched movieclips that are not single frames
+		
+		//handle actions
+		if(doActions)
+		{
+			var actions = this._actions;
+			for(i = startFrame, length = Math.min(currentFrame + 1, actions.length); i < length; ++i)
+			{
+				if(actions[i])
+				{
+					var frameActions = actions[i];
+					for(j = 0; j < frameActions.length; ++j)
+						frameActions[j].call(this);
+				}
+			}
 		}
 	};
 
