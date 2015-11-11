@@ -1,19 +1,21 @@
 (function(PIXI)
 {
-	var Tween = function(target, endProps, ease)
+	var Tween = function(target, startProps, endProps, startFrame, duration, ease)
 	{
 		//target display object
 		this.target = target;
 		//properties at the start of the tween
-		this.startProps = {};
+		this.startProps = startProps;
 		//properties at the end of the tween, as well as any properties that are set
 		//instead of tweened
-		this.endProps = {};
+		this.endProps = endProps;
 		//duration of tween in frames. For a keyframe with no tweening, the duration
 		//will be 0.
-		this.duration = 0;
+		this.duration = duration;
 		//the frame that the tween starts on
-		this.startFrame = 0;
+		this.startFrame = startFrame;
+		//the frame that the tween ends on
+		this.endFrame = startFrame + duration;
 		//easing function to use, if any
 		this.ease = ease;
 	};
@@ -112,7 +114,7 @@
 	{
 		//if this is a single frame with no tweening, or at the end of the tween, then
 		//just speed up the process by setting values
-		if(currentFrame - this.startFrame == this.duration)
+		if(currentFrame >= this.endFrame)
 			this.setToEnd();
 		
 		var time = (currentFrame - this.startFrame) / this.duration;
@@ -124,9 +126,9 @@
 		{
 			var lerp = Tween.propDict[prop];
 			if(lerp)
-				target[prop] = lerp(startProps[prop], endProps[prop], time);
+				setPropFromShorthand(target, prop, lerp(startProps[prop], endProps[prop], time));
 			else
-				target[prop] = endProps[prop];
+				setPropFromShorthand(target, prop, endProps[prop]);
 		}
 	};
 	
@@ -135,9 +137,55 @@
 		var endProps = this.endProps;
 		for(var prop in endProps)
 		{
-			target[prop] = endProps[prop];
+			setPropFromShorthand(target, prop, endProps[prop]);
 		}
 	};
+	
+	function setPropFromShorthand(target, prop, value)
+	{
+		switch(prop)
+		{
+			case "x":
+				target.position.x = value;
+				break;
+			case "y":
+				target.position.y = value;
+				break;
+			case "sx":
+				target.scale.x = value;
+				break;
+			case "sy":
+				target.scale.y = value;
+				break;
+			case "kx":
+				target.skew.x = value;
+				break;
+			case "ky":
+				target.skew.y = value;
+				break;
+			case "r":
+				target.rotation = value;
+				break;
+			case "a":
+				target.alpha = value;
+				break;
+			case "t":
+				target.tint = value;
+				break;
+			case "v":
+				target.visible = value;
+				break;
+			case "m":
+				target.mask = value;
+				break;
+			//g: null,//not sure if we'll actually handle graphics this way?
+			case "p":
+				target.mode = value.m;
+				target.startPosition = value.sp;
+				break;
+		}
+	}
+
 
 	// Assign to namespace
 	PIXI.flash.Tween = Tween;

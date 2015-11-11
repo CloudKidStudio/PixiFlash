@@ -10,36 +10,6 @@
 		Tween = PIXI.flash.Tween,
 		SharedTicker = PIXI.ticker.shared;
 
-	//*** Note: the vast majority of the code here is from EaselJS's MovieClip class.
-
-	/*
-	 * MovieClip
-	 * Visit http://createjs.com/ for documentation, updates and examples.
-	 *
-	 * Copyright (c) 2010 gskinner.com, inc.
-	 *
-	 * Permission is hereby granted, free of charge, to any person
-	 * obtaining a copy of this software and associated documentation
-	 * files (the "Software"), to deal in the Software without
-	 * restriction, including without limitation the rights to use,
-	 * copy, modify, merge, publish, distribute, sublicense, and/or sell
-	 * copies of the Software, and to permit persons to whom the
-	 * Software is furnished to do so, subject to the following
-	 * conditions:
-	 *
-	 * The above copyright notice and this permission notice shall be
-	 * included in all copies or substantial portions of the Software.
-	 *
-	 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-	 * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-	 * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-	 * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-	 * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-	 * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-	 * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-	 * OTHER DEALINGS IN THE SOFTWARE.
-	 */
-
 	/**
 	 * The class to emulate createjs.MovieClip, requires TweenJS
 	 * @class MovieClip
@@ -407,8 +377,23 @@
 	{
 		//1. determine if there is already a tween for this instance, and if so prepare to add it
 		//   on/insert it - if there isn't, then make one and set up a wait until startFrame
+		var timeline, i;
+		for(i = this._tweens.length - 1; i >= 0; --i)
+		{
+			if(this._tweens[i].target == instance)
+			{
+				timeline = this._tweens[i];
+				break;
+			}
+		}
+		if(!timeline)
+		{
+			timeline = new Timeline(instance);
+			this._tweens.push(timeline);
+		}
 		//2. create the tween segment, recording the starting values of properties and using the
 		//   supplied properties as the ending values
+		timeline.addTween(instance, properties, startFrame, duration, ease);
 		return this;
 	};
 	
