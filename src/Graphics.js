@@ -72,7 +72,10 @@
 	 * @param {Number} y The y coordinate the drawing point should draw to.
 	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
-	p.lt = p.lineTo;
+	p.lt = function(x, y)
+	{
+		return this.op().lineTo(x, y);
+	};
 
 	/**
 	 * Draws a bezier curve from the current drawing point to (x, y) using the control points (cp1x, cp1y) and (cp2x,
@@ -88,7 +91,10 @@
 	 * @param {Number} y
 	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
 	 **/
-	p.bt = p.bezierCurveTo;
+	p.bt = function(cp1x, cp1y, cp2x, cp2y, x, y)
+	{
+		return this.op().bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y);
+	};
 
 	/**
 	 * Shortcut to drawRect.
@@ -174,7 +180,10 @@
 	 * @protected
 	 * @chainable
 	 **/
-	p.a = p.arc;
+	p.a = function(x, y, radius, startAngle, endAngle, anticlockwise)
+	{
+		return this.op().arc(x, y, radius, startAngle, endAngle, anticlockwise);
+	};
 
 	/**
 	 * Shortcut to arcTo.
@@ -188,7 +197,10 @@
 	 * @chainable
 	 * @protected
 	 **/
-	p.at = p.arcTo;
+	p.at = function(x1, y1, x2, y2, radius)
+	{
+		return this.op().arcTo(x1, y1, x2, y2, radius);
+	};
 
 	/**
 	 * Override the draw ellipse method
@@ -217,13 +229,7 @@
 	 **/
 	p.qt = function(cpx, cpy, x, y)
 	{
-		// Ensure that the draw shape is not closed
-		var currentPath = this.currentPath;
-		if (currentPath && currentPath.shape)
-		{
-			currentPath.shape.closed = false;
-		}
-		return this.quadraticCurveTo(cpx, cpy, x, y);
+		return this.op().quadraticCurveTo(cpx, cpy, x, y);
 	};
 
 	/**
@@ -238,6 +244,23 @@
 		if (currentPath && currentPath.shape)
 		{
 			currentPath.shape.closed = true;
+		}
+		return this;
+	};
+
+	/**
+	 * Open path method for drawing, ensure that the draw shape is not closed
+	 * @method op
+	 * @private
+	 * @return {pixiflash.Graphics} The Graphics instance the method is called on (useful for chaining calls.)
+	 */
+	p.op = function()
+	{
+		// Ensure that the draw shape is not closed
+		var currentPath = this.currentPath;
+		if (currentPath && currentPath.shape)
+		{
+			currentPath.shape.closed = false;
 		}
 		return this;
 	};
