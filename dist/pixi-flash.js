@@ -1,4 +1,4 @@
-/*! Pixi Flash 0.2.6 */
+/*! Pixi Flash 0.2.7 */
 /**
  * @module Pixi Flash
  * @namespace pixiflash
@@ -1884,6 +1884,10 @@
 			var rgb = utils.colorToHex(color);
 			var a = alphaFromColor(color);
 			this.beginFill(rgb, a);
+		}
+		else
+		{
+			this.beginFill(0, 0);
 		}
 		return this;
 	};

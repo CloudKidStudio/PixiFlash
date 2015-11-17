@@ -257,6 +257,10 @@
 			var a = alphaFromColor(color);
 			this.beginFill(rgb, a);
 		}
+		else
+		{
+			this.beginFill(0, 0);
+		}
 		return this;
 	};
 	

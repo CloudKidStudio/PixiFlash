@@ -9,6 +9,7 @@ A library for bridging CreateJS animations from Flash for use in Pixi.js. Publis
 * [Masking](http://cloudkidstudio.github.io/PixiFlash/examples/masking/)
 * [Color Effects](http://cloudkidstudio.github.io/PixiFlash/examples/color_effects/)
 * [Text](http://cloudkidstudio.github.io/PixiFlash/examples/text/)
+* [Drawing](http://cloudkidstudio.github.io/PixiFlash/examples/drawing/)
 
 _Animated examples are from [Fizzy's Lunch Lab](http://pbskids.org/lunchlab/) and used with permission from Lunch Lab, LLC_
 
