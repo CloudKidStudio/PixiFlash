@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>Pixi Flash v0.2.5 API Documentation : src/DisplayObject.js</title>  
+	<title>Pixi Flash v0.2.7 API Documentation : src/DisplayObject.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -17,7 +17,7 @@
                 <h1><a href="https://github.com/CloudKidStudio/PixiFlash"><img src="../assets/css/logo.png" title="Pixi Flash"></a></h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.2.5</em>
+            <em>API Documentation for: 0.2.7</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -150,8 +150,8 @@
 		//makes prototypes in a way that breaks normal PIXI listener usage.
 		this.removeAllListeners();
 
-		// Bound functions
-		this.onShapeChanged = this.onShapeChanged.bind(this);
+		// Bound functions need to be bound later
+		this.boundMaskChanged = false;
 
 		//initialize tint variables:
 		this._lastComputedTint = this._lastSelfTint = this._lastParentTint = this._selfTint = 0xFFFFFF;
@@ -195,7 +195,7 @@
 		tint:
 		{
 			enumerable: true,
-			get: function() { 
+			get: function() {
 				if(this.parent &amp;&amp; this.parent._isPixiFlash)
 				{
 					var selfTint = this._selfTint;
@@ -349,7 +349,7 @@
 			{
 				if (this._mask)
 				{
-					// Remove the old mask if we&#x27;re a shape 
+					// Remove the old mask if we&#x27;re a shape
 					if (this._mask.__parentShape)
 					{
 						var parentShape = this._mask.__parentShape;
@@ -365,6 +365,11 @@
 				{
 					this._mask = mask.graphics;
 					this._mask.__parentShape = mask;
+					if(!this.boundMaskChanged)
+					{
+						this.boundMaskChanged = true;
+						this.onShapeChanged = this.onShapeChanged.bind(this);
+					}
 					mask.once(&#x27;graphicsChanged&#x27;, this.onShapeChanged);
 				}
 				else
@@ -379,6 +384,7 @@
 					{
 						this.once(&quot;added&quot;, function()
 						{
+							if(!this._mask) return;
 							this.parent.addChild(this._mask.__parentShape || this._mask);
 						});
 					}
