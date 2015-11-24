@@ -779,6 +779,8 @@
 	 */
 	var MovieClip = function(mode, startPosition, loop, labels)
 	{
+		if(!MovieClip.inited) MovieClip.init(); // static init
+		
 		Container.call(this);
 		DisplayObject.call(this);
 		
@@ -946,6 +948,16 @@
 			this.on("added", this._onAdded);
 			this.on("removed", this._onRemoved);
 		}.bind(this));
+	};
+	
+	MovieClip.inited = false;
+	
+	// static methods:
+	MovieClip.init = function() {
+		if (MovieClip.inited) { return; }
+		// plugins introduce some overhead to Tween, so we only install this if an MC is instantiated.
+		MovieClipPlugin.install();
+		MovieClip.inited = true;
 	};
 	
 	/**

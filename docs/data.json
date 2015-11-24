@@ -2,7 +2,7 @@
     "project": {
         "name": "Pixi Flash",
         "description": "Runtime library to play HTML5 Canvas content from Flash with Pixi.js",
-        "version": "0.2.7",
+        "version": "0.2.8",
         "url": "https://github.com/CloudKidStudio/PixiFlash"
     },
     "files": {
@@ -569,7 +569,7 @@
             "module": "Pixi Flash",
             "namespace": "pixiflash",
             "file": "src/MovieClip.js",
-            "line": 599,
+            "line": 611,
             "description": "This plugin works with <a href=\"http://tweenjs.com\" target=\"_blank\">TweenJS</a> to prevent the startPosition\nproperty from tweening.",
             "access": "private",
             "tagname": "",
@@ -1883,7 +1883,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 55,
+            "line": 57,
             "description": "Controls how this MovieClip advances its time. Must be one of 0 (INDEPENDENT), 1 (SINGLE_FRAME), or 2 (SYNCHED).\nSee each constant for a description of the behaviour.",
             "itemtype": "property",
             "name": "mode",
@@ -1895,7 +1895,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 64,
+            "line": 66,
             "description": "Specifies what the first frame to play in this movieclip, or the only frame to display if mode is SINGLE_FRAME.",
             "itemtype": "property",
             "name": "startPosition",
@@ -1907,7 +1907,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 72,
+            "line": 74,
             "description": "Indicates whether this MovieClip should loop when it reaches the end of its timeline.",
             "itemtype": "property",
             "name": "loop",
@@ -1919,7 +1919,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 80,
+            "line": 82,
             "description": "The current frame of the movieclip.",
             "itemtype": "property",
             "name": "currentFrame",
@@ -1932,7 +1932,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 89,
+            "line": 91,
             "description": "The TweenJS Timeline that is associated with this MovieClip. This is created automatically when the MovieClip\ninstance is initialized. Animations are created by adding <a href=\"http://tweenjs.com\">TweenJS</a> Tween\ninstances to the timeline.\n\n<h4>Example</h4>\n\n     var tween = createjs.Tween.get(target).to({x:0}).to({x:100}, 30);\n     var mc = new createjs.MovieClip();\n     mc.timeline.addTween(tween);\n\nElements can be added and removed from the timeline by toggling an \"_off\" property\nusing the <code>tweenInstance.to()</code> method. Note that using <code>Tween.set</code> is not recommended to\ncreate MovieClip animations. The following example will toggle the target off on frame 0, and then back on for\nframe 1. You can use the \"visible\" property to achieve the same effect.\n\n     var tween = createjs.Tween.get(target).to({_off:false})\n         .wait(1).to({_off:true})\n         .wait(1).to({_off:false});",
             "itemtype": "property",
             "name": "timeline",
@@ -1944,7 +1944,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 115,
+            "line": 117,
             "description": "If true, the MovieClip's position will not advance when ticked.",
             "itemtype": "property",
             "name": "paused",
@@ -1956,7 +1956,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 123,
+            "line": 125,
             "description": "If true, actions in this MovieClip's tweens will be run when the playhead advances.",
             "itemtype": "property",
             "name": "actionsEnabled",
@@ -1968,7 +1968,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 131,
+            "line": 133,
             "description": "If true, the MovieClip will automatically be reset to its first frame whenever the timeline adds\nit back onto the display list. This only applies to MovieClip instances with mode=INDEPENDENT.\n<br><br>\nFor example, if you had a character animation with a \"body\" child MovieClip instance\nwith different costumes on each frame, you could set body.autoReset = false, so that\nyou can manually change the frame it is on, without worrying that it will be reset\nautomatically.",
             "itemtype": "property",
             "name": "autoReset",
@@ -1980,7 +1980,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 145,
+            "line": 147,
             "itemtype": "property",
             "name": "_synchOffset",
             "type": "Number",
@@ -1993,7 +1993,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 153,
+            "line": 155,
             "itemtype": "property",
             "name": "_prevPos",
             "type": "Number",
@@ -2006,7 +2006,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 161,
+            "line": 163,
             "itemtype": "property",
             "name": "_prevPosition",
             "type": "Number",
@@ -2019,7 +2019,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 169,
+            "line": 171,
             "description": "Note - changed from default: When the MovieClip is framerate independent, this is the time\nelapsed from frame 0 in seconds.",
             "itemtype": "property",
             "name": "_t",
@@ -2033,7 +2033,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 179,
+            "line": 181,
             "description": "By default MovieClip instances advance one frame per tick. Specifying a framerate for the MovieClip\nwill cause it to advance based on elapsed time between ticks as appropriate to maintain the target\nframerate.",
             "itemtype": "property",
             "name": "_framerate",
@@ -2045,7 +2045,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 189,
+            "line": 191,
             "description": "When the MovieClip is framerate independent, this is the total time in seconds for the animation.",
             "itemtype": "property",
             "name": "_duration",
@@ -2059,7 +2059,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 198,
+            "line": 200,
             "description": "List of display objects that are actively being managed by the MovieClip.",
             "itemtype": "property",
             "name": "_managed",
@@ -2072,7 +2072,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 219,
+            "line": 231,
             "description": "The MovieClip will advance independently of its parent, even if its parent is paused.\nThis is the default mode.",
             "itemtype": "property",
             "name": "INDEPENDENT",
@@ -2086,7 +2086,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 230,
+            "line": 242,
             "description": "The MovieClip will only display a single frame (as determined by the startPosition property).",
             "itemtype": "property",
             "name": "SINGLE_FRAME",
@@ -2100,7 +2100,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 240,
+            "line": 252,
             "description": "The MovieClip will be advanced only when its parent advances and will be synched to the position of\nthe parent MovieClip.",
             "itemtype": "property",
             "name": "SYNCHED",
@@ -2114,7 +2114,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 278,
+            "line": 290,
             "description": "Use the {{#crossLink \"MovieClip/labels:property\"}}{{/crossLink}} property instead.",
             "itemtype": "method",
             "name": "getLabels",
@@ -2129,7 +2129,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 288,
+            "line": 300,
             "description": "Use the {{#crossLink \"MovieClip/currentLabel:property\"}}{{/crossLink}} property instead.",
             "itemtype": "method",
             "name": "getCurrentLabel",
@@ -2144,7 +2144,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 299,
+            "line": 311,
             "description": "Returns an array of objects with label and position (aka frame) properties, sorted by position.\nShortcut to TweenJS: Timeline.getLabels();",
             "itemtype": "property",
             "name": "labels",
@@ -2156,7 +2156,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 307,
+            "line": 319,
             "description": "Returns the name of the label on or immediately before the current frame. See TweenJS: Timeline.getCurrentLabel()\nfor more information.",
             "itemtype": "property",
             "name": "currentLabel",
@@ -2168,7 +2168,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 321,
+            "line": 333,
             "description": "When the MovieClip is framerate independent, this is the time elapsed from frame 0 in seconds.",
             "itemtype": "property",
             "name": "elapsedTime",
@@ -2182,7 +2182,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 337,
+            "line": 349,
             "description": "By default MovieClip instances advance one frame per tick. Specifying a framerate for the MovieClip\nwill cause it to advance based on elapsed time between ticks as appropriate to maintain the target\nframerate.\n\nFor example, if a MovieClip with a framerate of 10 is placed on a Stage being updated at 40fps, then the MovieClip will\nadvance roughly one frame every 4 ticks. This will not be exact, because the time between each tick will\nvary slightly between frames.\n\nThis feature is dependent on the tick event object (or an object with an appropriate \"delta\" property) being\npassed into {{#crossLink \"Stage/update\"}}{{/crossLink}}.",
             "itemtype": "property",
             "name": "framerate",
@@ -2194,7 +2194,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 367,
+            "line": 379,
             "description": "Sets paused to false.",
             "itemtype": "method",
             "name": "play",
@@ -2204,7 +2204,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 375,
+            "line": 387,
             "description": "Sets paused to true.",
             "itemtype": "method",
             "name": "stop",
@@ -2214,7 +2214,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 383,
+            "line": 395,
             "description": "Advances this movie clip to the specified position or label and sets paused to false.",
             "itemtype": "method",
             "name": "gotoAndPlay",
@@ -2231,7 +2231,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 393,
+            "line": 405,
             "description": "Advances this movie clip to the specified position or label and sets paused to true.",
             "itemtype": "method",
             "name": "gotoAndStop",
@@ -2248,7 +2248,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 403,
+            "line": 415,
             "description": "Advances the playhead. This occurs automatically each tick by default.",
             "params": [
                 {
@@ -2266,7 +2266,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 443,
+            "line": 455,
             "itemtype": "method",
             "name": "_tick",
             "params": [
@@ -2284,7 +2284,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 469,
+            "line": 481,
             "itemtype": "method",
             "name": "_goto",
             "params": [
@@ -2302,7 +2302,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 488,
+            "line": 500,
             "itemtype": "method",
             "name": "_reset",
             "access": "private",
@@ -2313,7 +2313,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 498,
+            "line": 510,
             "itemtype": "method",
             "name": "_updateTimeline",
             "access": "protected",
@@ -2324,7 +2324,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 548,
+            "line": 560,
             "itemtype": "method",
             "name": "_setState",
             "params": [
@@ -2347,7 +2347,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 565,
+            "line": 577,
             "description": "Adds a child to the timeline, and sets it up as a managed child.",
             "itemtype": "method",
             "name": "_addManagedChild",
@@ -2371,7 +2371,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 610,
+            "line": 622,
             "itemtype": "method",
             "name": "priority",
             "access": "private",
@@ -2382,7 +2382,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 616,
+            "line": 628,
             "itemtype": "method",
             "name": "install",
             "access": "private",
@@ -2393,7 +2393,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 624,
+            "line": 636,
             "itemtype": "method",
             "name": "init",
             "params": [
@@ -2421,7 +2421,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 635,
+            "line": 647,
             "itemtype": "method",
             "name": "step",
             "access": "private",
@@ -2432,7 +2432,7 @@
         },
         {
             "file": "src/MovieClip.js",
-            "line": 643,
+            "line": 655,
             "itemtype": "method",
             "name": "tween",
             "params": [
