@@ -261,6 +261,7 @@
 						delete this._mask.__parentShape;
 					}
 					this._mask.renderable = true;
+					this.off("added", this.onAddedWithMask);
 				}
 				// If the mask is a shape apply the graphics as the shape
 				if (mask && mask instanceof pixiflash.Shape)
@@ -271,6 +272,7 @@
 					{
 						this.boundMaskChanged = true;
 						this.onShapeChanged = this.onShapeChanged.bind(this);
+						this.onAddedWithMask = this.onAddedWithMask.bind(this);
 					}
 					mask.once('graphicsChanged', this.onShapeChanged);
 				}
@@ -284,11 +286,7 @@
 					// on the same container as this display object
 					if (!this.parent)
 					{
-						this.once("added", function()
-						{
-							if(!this._mask) return;
-							this.parent.addChild(this._mask.__parentShape || this._mask);
-						});
+						this.once("added", this.onAddedWithMask);
 					}
 					else
 					{
@@ -299,7 +297,12 @@
 			}
 		}
 	});
-
+	
+	p.onAddedWithMask = function()
+	{
+		if(!this._mask) return;
+		this.parent.addChild(this._mask.__parentShape || this._mask);
+	};
 	
 	/**
 	 * Dummy function for CJS export compatibility
