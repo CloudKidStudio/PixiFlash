@@ -49,12 +49,12 @@
 	//constructor for backwards/Flash exporting compatibility
 	p.initialize = Container;
 
+	p.__Container_addChild = p.addChild;
 	p.addChild = function(child)
 	{
-		var addChild = s.addChild.bind(this);
 		for(var i = 0; i < arguments.length; i++)
 		{
-			addChild(arguments[i]);
+			this.__Container_addChild(arguments[i]);
 		}
 	};
 
