@@ -249,36 +249,56 @@
 			},
 			set: function (mask)
 			{
+				var _maskShape = this._maskShape;
+				//if the old mask is a shape and is not the new mask, remove it
+				if (_maskShape && mask != _maskShape)
+				{
+					if(--_maskShape._maskUses < 1)
+					{
+						if(_maskShape.parent)
+							_maskShape.parent.removeChild(_maskShape);
+					}
+					_maskShape.off('graphicsChanged', this.onShapeChanged);
+				}
 				if (this._mask)
 				{
-					// Remove the old mask if we're a shape
-					if (this._mask.__parentShape)
-					{
-						var parentShape = this._mask.__parentShape;
-						if (parentShape.parent)
-							parentShape.parent.removeChild(parentShape);
-						parentShape.off('graphicsChanged', this.onShapeChanged);
-						delete this._mask.__parentShape;
-					}
+					//is this safe if a mask is reused multiple places?
 					this._mask.renderable = true;
-					this.off("added", this.onAddedWithMask);
 				}
 				// If the mask is a shape apply the graphics as the shape
 				if (mask && mask instanceof pixiflash.Shape)
 				{
-					this._mask = mask.graphics;
-					this._mask.__parentShape = mask;
 					if(!this.boundMaskChanged)
 					{
 						this.boundMaskChanged = true;
 						this.onShapeChanged = this.onShapeChanged.bind(this);
 						this.onAddedWithMask = this.onAddedWithMask.bind(this);
 					}
-					mask.once('graphicsChanged', this.onShapeChanged);
+					if(_maskShape != mask)
+					{
+						_maskShape = this._maskShape = mask;
+						++_maskShape._maskUses;
+						_maskShape.on('graphicsChanged', this.onShapeChanged);
+					}
+					if(mask.graphics.graphicsData.length)
+					{
+						this._mask = mask.graphics;
+					}
+					else
+						this._mask = null;
 				}
 				else
 				{
 					this._mask = mask;
+				}
+				if(!mask)
+				{
+					
+					if(this._hasAddedEvent)
+					{
+						this.off("added", this.onAddedWithMask);
+						this._hasAddedEvent = false;
+					}
 				}
 				if (this._mask)
 				{
@@ -286,11 +306,17 @@
 					// on the same container as this display object
 					if (!this.parent)
 					{
-						this.once("added", this.onAddedWithMask);
+						//only add event if it isn't already included
+						if(!this._hasAddedEvent)
+						{
+							this._hasAddedEvent = true;
+							this.once("added", this.onAddedWithMask);
+						}
 					}
 					else
 					{
-						this.parent.addChild(this._mask.__parentShape || this._mask);
+						if(mask.parent != this.parent)
+							this.parent.addChild(mask);
 					}
 					this._mask.renderable = false;
 				}
@@ -301,7 +327,9 @@
 	p.onAddedWithMask = function()
 	{
 		if(!this._mask) return;
-		this.parent.addChild(this._mask.__parentShape || this._mask);
+		var mask = this._maskShape || this._mask;
+		if(mask.parent != this.parent)
+			this.parent.addChild(mask);
 	};
 	
 	/**

@@ -20,6 +20,10 @@
 
 		// Shapes have a graphic by default
 		this.graphics = new Graphics();
+		
+		//keep track of the number of things using this as a mask so we can avoid adding/removing
+		//it more than needed
+		this._maskUses = 0;
 	};
 
 	// Extend PIXI.Sprite
@@ -42,9 +46,9 @@
 	 */
 	Object.defineProperty(p, "graphics",
 	{
-		get: function() 
+		get: function()
 		{
-			return this._graphics; 
+			return this._graphics;
 		},
 		set: function(graphics)
 		{
