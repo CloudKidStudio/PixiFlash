@@ -1,4 +1,4 @@
-/*! Pixi Flash 0.2.7 */
+/*! Pixi Flash 0.2.9 */
 /**
  * @module Pixi Flash
  * @namespace pixiflash
@@ -398,34 +398,56 @@
 			},
 			set: function (mask)
 			{
+				var _maskShape = this._maskShape;
+				//if the old mask is a shape and is not the new mask, remove it
+				if (_maskShape && mask != _maskShape)
+				{
+					if(--_maskShape._maskUses < 1)
+					{
+						if(_maskShape.parent)
+							_maskShape.parent.removeChild(_maskShape);
+					}
+					_maskShape.off('graphicsChanged', this.onShapeChanged);
+				}
 				if (this._mask)
 				{
-					// Remove the old mask if we're a shape
-					if (this._mask.__parentShape)
-					{
-						var parentShape = this._mask.__parentShape;
-						if (parentShape.parent)
-							parentShape.parent.removeChild(parentShape);
-						parentShape.off('graphicsChanged', this.onShapeChanged);
-						delete this._mask.__parentShape;
-					}
+					//is this safe if a mask is reused multiple places?
 					this._mask.renderable = true;
 				}
 				// If the mask is a shape apply the graphics as the shape
 				if (mask && mask instanceof pixiflash.Shape)
 				{
-					this._mask = mask.graphics;
-					this._mask.__parentShape = mask;
 					if(!this.boundMaskChanged)
 					{
 						this.boundMaskChanged = true;
 						this.onShapeChanged = this.onShapeChanged.bind(this);
+						this.onAddedWithMask = this.onAddedWithMask.bind(this);
 					}
-					mask.once('graphicsChanged', this.onShapeChanged);
+					if(_maskShape != mask)
+					{
+						_maskShape = this._maskShape = mask;
+						++_maskShape._maskUses;
+						_maskShape.on('graphicsChanged', this.onShapeChanged);
+					}
+					if(mask.graphics.graphicsData.length)
+					{
+						this._mask = mask.graphics;
+					}
+					else
+						this._mask = null;
 				}
 				else
 				{
 					this._mask = mask;
+				}
+				if(!mask)
+				{
+					
+					if(this._hasAddedEvent)
+					{
+						this.off("added", this.onAddedWithMask);
+						this._hasAddedEvent = false;
+					}
 				}
 				if (this._mask)
 				{
@@ -433,22 +455,31 @@
 					// on the same container as this display object
 					if (!this.parent)
 					{
-						this.once("added", function()
+						//only add event if it isn't already included
+						if(!this._hasAddedEvent)
 						{
-							if(!this._mask) return;
-							this.parent.addChild(this._mask.__parentShape || this._mask);
-						});
+							this._hasAddedEvent = true;
+							this.once("added", this.onAddedWithMask);
+						}
 					}
 					else
 					{
-						this.parent.addChild(this._mask.__parentShape || this._mask);
+						if(mask.parent != this.parent)
+							this.parent.addChild(mask);
 					}
 					this._mask.renderable = false;
 				}
 			}
 		}
 	});
-
+	
+	p.onAddedWithMask = function()
+	{
+		if(!this._mask) return;
+		var mask = this._maskShape || this._mask;
+		if(mask.parent != this.parent)
+			this.parent.addChild(mask);
+	};
 	
 	/**
 	 * Dummy function for CJS export compatibility
@@ -635,12 +666,12 @@
 	//constructor for backwards/Flash exporting compatibility
 	p.initialize = Container;
 
+	p.__Container_addChild = p.addChild;
 	p.addChild = function(child)
 	{
-		var addChild = s.addChild.bind(this);
 		for(var i = 0; i < arguments.length; i++)
 		{
-			addChild(arguments[i]);
+			this.__Container_addChild(arguments[i]);
 		}
 	};
 
@@ -2199,6 +2230,10 @@
 
 		// Shapes have a graphic by default
 		this.graphics = new Graphics();
+		
+		//keep track of the number of things using this as a mask so we can avoid adding/removing
+		//it more than needed
+		this._maskUses = 0;
 	};
 
 	// Extend PIXI.Sprite
@@ -2221,9 +2256,9 @@
 	 */
 	Object.defineProperty(p, "graphics",
 	{
-		get: function() 
+		get: function()
 		{
-			return this._graphics; 
+			return this._graphics;
 		},
 		set: function(graphics)
 		{
