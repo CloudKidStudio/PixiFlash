@@ -618,9 +618,10 @@
 				}
 			}
 		}
-		//handle children removal and adding
+		//TODO: handle children removal and adding - try to avoid adding & removing each child
+		//each frame the way CreateJS does
 		
-		//go through all children and update synched movieclips that are not single frames
+		//TODO: go through all children and update synched movieclips that are not single frames
 		
 		//handle actions
 		if(doActions)

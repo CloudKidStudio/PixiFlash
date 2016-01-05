@@ -49,15 +49,28 @@
 	 **/
 	p.addTween = function(instance, properties, startFrame, duration, ease)
 	{
+		//ownership of startProps is passed to the new Tween - this object should not be reused
 		var startProps = {};
 		var prop;
 		//figure out what the starting values for this tween should be
 		for(prop in properties)
 		{
+			//if we have already set that property in an earlier tween, use the ending value
 			if(this._currentProps.hasOwnProperty(prop))
 				startProps[prop] = this._currentProps[prop];
+			//otherwise, get the current value
 			else
-				startProps[prop] = getPropFromShorthand(instance, prop);
+			{
+				var startValue = startProps[prop] = getPropFromShorthand(instance, prop);
+				//go through previous tweens to set the value so that when the timeline loops
+				//around, the values are set properly - having each tween know what came before
+				//allows us to set to a specific frame without running through the entire timeline
+				for(var i = this.length - 1; i >= 0; --i)
+				{
+					this[i].startProps[prop] = startValue;
+					this[i].endProps[prop] = startValue;
+				}
+			}
 		}
 		//create the new Tween
 		this.push(new Tween(instance, startProps, properties, startFrame, duration, ease));

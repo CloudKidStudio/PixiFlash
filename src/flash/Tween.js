@@ -22,15 +22,15 @@
 
 	var p = Tween.prototype;
 	
+	//standard tweening
 	function lerpValue(start, end, t)
 	{
-		//standard tweening
 		return start + (end - start) * t;
 	}
 	
+	//split r, g, b into separate values for tweening
 	function lerpColor(start, end, t)
 	{
-		//split r, g, b into separate values for tweening
 		if(t < 0)
 			t = 0;
 		else if(t > 1)
@@ -52,12 +52,11 @@
 	var PI = Math.PI;
 	var TWO_PI = PI * 2;
 	
+	//handle 355 -> 5 degrees only going through a 10 degree change instead of
+	//the long way around
+	//Math from http://stackoverflow.com/a/2708740
 	function lerpRotation(start, end, t)
 	{
-		//handle 355 -> 5 degrees only going through a 10 degree change instead of
-		//the long way around
-		//Math from http://stackoverflow.com/a/2708740
-		
 		var difference = Math.abs(end - start);
 		if (difference > PI)
 		{
@@ -107,7 +106,7 @@
 		v: null,//visible
 		m: null,//mask
 		g: null,//not sure if we'll actually handle graphics this way?
-		p: null//Graphic position/mode
+		p: null// (Flash) Graphic position/mode
 	};
 	
 	p.setPosition = function(currentFrame)
