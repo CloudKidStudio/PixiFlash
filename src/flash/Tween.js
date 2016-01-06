@@ -8,7 +8,24 @@
 		this.startProps = startProps;
 		//properties at the end of the tween, as well as any properties that are set
 		//instead of tweened
-		this.endProps = endProps;
+		this.endProps = {};
+		var prop;
+		//make a copy to safely include any unchanged values from the start of the tween
+		for(prop in endProps)
+		{
+			this.endProps[prop] = endProps[prop];
+			//for a synchronized movieclip, add additional data so we always know that it is correct
+			if(prop == "p")
+			{
+				this.endProps.p.parentSP = startFrame;
+			}
+		}
+		//copy in any starting properties don't change
+		for(prop in startProps)
+		{
+			if(!this.endProps.hasOwnProperty(prop))
+				this.endProps[prop] = startProps[prop];
+		}
 		//duration of tween in frames. For a keyframe with no tweening, the duration
 		//will be 0.
 		this.duration = duration;
@@ -31,19 +48,35 @@
 	//split r, g, b into separate values for tweening
 	function lerpColor(start, end, t)
 	{
-		if(t < 0)
-			t = 0;
-		else if(t > 1)
-			t = 1;
+		//split start color into components
 		var sR = start >> 16 & 0xFF;
 		var sG = start >> 8 & 0xFF;
 		var sB = start & 0xFF;
+		//split end color into components
 		var eR = end >> 16 & 0xFF;
 		var eG = end >> 8 & 0xFF;
 		var eB = end & 0xFF;
+		//lerp red
 		var r = sR + (eR - sR) * percent;
+		//clamp red to valid values
+		if(r < 0)
+			r = 0;
+		else if(r > 255)
+			r = 255;
+		//lerp green
 		var g = sG + (eG - sG) * percent;
+		//clamp green to valid values
+		if(g < 0)
+			g = 0;
+		else if(g > 255)
+			g = 255;
+		//lerp blue
 		var b = sB + (eB - sB) * percent;
+		//clamp blue to valid values
+		if(b < 0)
+			b = 0;
+		else if(b > 255)
+			b = 255;
 		
 		var combined = (r << 16) | (g << 8) | b;
 		return combined;
@@ -114,7 +147,10 @@
 		//if this is a single frame with no tweening, or at the end of the tween, then
 		//just speed up the process by setting values
 		if(currentFrame >= this.endFrame)
+		{
 			this.setToEnd();
+			return;
+		}
 		
 		var time = (currentFrame - this.startFrame) / this.duration;
 		if(this.ease)
@@ -126,8 +162,6 @@
 			var lerp = Tween.propDict[prop];
 			if(lerp)
 				setPropFromShorthand(target, prop, lerp(startProps[prop], endProps[prop], time));
-			else
-				setPropFromShorthand(target, prop, endProps[prop]);
 		}
 	};
 	
@@ -179,8 +213,16 @@
 				break;
 			//g: null,//not sure if we'll actually handle graphics this way?
 			case "p":
-				target.mode = value.m;
-				target.startPosition = value.sp;
+				if(value)
+				{
+					target.mode = value.m;
+					target.startPosition = value.sp;
+					target.parentStartPosition = value.parentSP;
+				}
+				else
+				{
+					//TODO: clear target mode/start position (make it an independent movieclip)
+				}
 				break;
 		}
 	}

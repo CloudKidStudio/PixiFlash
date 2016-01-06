@@ -164,13 +164,13 @@
 		this._frameDuration = 0;
 		
 		/**
-		 * Standard tween timelines for all objects. Each element in the _tweens array
+		 * Standard tween timelines for all objects. Each element in the _timelines array
 		 * is an array of tweens for one target, in order of occurrence.
-		 * @property _tweens
+		 * @property _timelines
 		 * @type Array
 		 * @protected
 		 **/
-		this._tweens = [];
+		this._timelines = [];
 		
 		/**
 		 * Array of frame scripts, indexed by frame.
@@ -378,18 +378,18 @@
 		//1. determine if there is already a tween for this instance, and if so prepare to add it
 		//   on/insert it - if there isn't, then make one and set up a wait until startFrame
 		var timeline, i;
-		for(i = this._tweens.length - 1; i >= 0; --i)
+		for(i = this._timelines.length - 1; i >= 0; --i)
 		{
-			if(this._tweens[i].target == instance)
+			if(this._timelines[i].target == instance)
 			{
-				timeline = this._tweens[i];
+				timeline = this._timelines[i];
 				break;
 			}
 		}
 		if(!timeline)
 		{
 			timeline = new Timeline(instance);
-			this._tweens.push(timeline);
+			this._timelines.push(timeline);
 		}
 		//2. create the tween segment, recording the starting values of properties and using the
 		//   supplied properties as the ending values
@@ -411,7 +411,7 @@
 			startFrame = 0;
 		if(duration == null || duration < 1)// jshint ignore:line
 			duration = 1;
-		//add tweening info about this child's visibility/presence on stage
+		//TODO: add tweening info about this child's visibility/presence on stage
 		//when the child is added, if it has 'autoReset' set to true, then it should be set back to
 		//frame 0
 		return this;
@@ -427,10 +427,12 @@
 	p.aa = p.addAction = function(callback, startFrame)
 	{
 		var _actions = this._actions;
+		//ensure that the movieclip timeline is long enough to support the target frame
 		if(_actions.length <= startFrame)
 			_actions.length = startFrame + 1;
 		if(this._frameDuration <= startFrame)
 			this._frameDuration = startFrame;
+		//add the action
 		if(_actions[startFrame])
 		{
 			_actions[startFrame].push(callback);
@@ -591,30 +593,21 @@
 	p._setTimelinePosition = function(startFrame, currentFrame, doActions)
 	{
 		//handle all tweens
-		var i, j, length, _tweens = this._tweens;
-		for(i = _tweens.length - 1; i >= 0; --i)
+		var i, j, length, _timelines = this._timelines;
+		for(i = _timelines.length - 1; i >= 0; --i)
 		{
-			var timeline = _tweens[i];
+			var timeline = _timelines[i];
 			for(j = 0, length = timeline.length; j < length; ++j)
 			{
 				var tween = timeline[j];
 				//if the tween contains part of the timeline that we are travelling through
 				if(currentFrame >= tween.startFrame &&
-					startFrame <= tween.startFrame + tween.duration - 1)
+					currentFrame <= tween.endFrame)
 				{
-					//if we are past the end of this tween, then just set values to the ending
-					//ones
-					if(currentFrame > tween.startFrame + tween.duration - 1)
-					{
-						tween.setToEnd();
-					}
-					//otherwise, set the position within that tween
-					//and break the loop
-					else
-					{
-						tween.setPosition(currentFrame);
-						break;
-					}
+					// set the position within that tween
+					//and break the loop to move onto the next timeline
+					tween.setPosition(currentFrame);
+					break;
 				}
 			}
 		}

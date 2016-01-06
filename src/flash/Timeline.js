@@ -72,9 +72,12 @@
 				}
 			}
 		}
-		//create the new Tween
-		this.push(new Tween(instance, startProps, properties, startFrame, duration, ease));
-		//update starting values for the next tween
+		//create the new Tween and add it to the list
+		var tween = new Tween(instance, startProps, properties, startFrame, duration, ease);
+		this.push(tween);
+		//update starting values for the next tween - if tweened values included "p", then Tween
+		//parsed that to add additional data that is required
+		properties = tween.endProps;
 		for(prop in properties)
 		{
 			this._currentProps[prop] = properties[prop];
@@ -103,13 +106,18 @@
 				return target.alpha;
 			case "t":
 				return target.tint;
-			case "v"://visibility isn't actually tweened anyway
+			case "v":
+				//visibility isn't actually tweened anyway
 				return target.visible;
-			case "m"://mask isn't actually tweened anyway
+			case "m":
+				//mask isn't actually tweened anyway
 				return target.mask;
 			//g: null,//not sure if we'll actually handle graphics this way?
-			case "p"://playback mode/frame isn't tweened, so we won't return anything
-				return null;
+			case "p":
+				//playback mode/frame isn't tweened but we need to provide the original values
+				//in theory this should only be used to get the value from the first frame, so
+				//we are hard coding the parent's starting position at 0.
+				return {m: target.mode, sp: target.startPosition, parentSP: 0};
 		}
 	}
 
