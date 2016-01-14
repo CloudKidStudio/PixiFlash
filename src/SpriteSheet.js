@@ -143,7 +143,7 @@
 			if (!id)
 			{
 				id = file;
-				var index = id.indexOf('/');
+				var index = id.lastIndexOf('/');
 				if (index > -1)
 					id = file.substr(index + 1);
 				id = id.substr(0, id.lastIndexOf('.'));
