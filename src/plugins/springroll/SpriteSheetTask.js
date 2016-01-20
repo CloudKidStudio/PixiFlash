@@ -18,6 +18,7 @@
 	 * @param {String} asset.type Asset type must be "pixi"
 	 * @param {String} asset.format Asset format must be "pixiflash.SpriteSheet"
 	 * @param {String} asset.src The source
+	 * @param {Array} [asset.images] image file paths for this spritesheet
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.id] Id of asset
 	 * @param {Function} [asset.complete] The event to call when done
@@ -26,6 +27,8 @@
 	var SpriteSheetTask = function(asset)
 	{
 		LoadTask.call(this, asset, asset.src);
+
+		this.images = asset.images;
 	};
 
 	// Reference to prototype
@@ -57,6 +60,10 @@
 		this.load(this.src, function(data)
 		{
 			var images = [];
+
+			if(this.images && this.images.length)
+				data.images = this.images;
+
 			data.images.forEach(function(image)
 			{
 				// Convert string loads
