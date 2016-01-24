@@ -1,4 +1,4 @@
-/*! Pixi Flash 0.2.10 */
+/*! Pixi Flash 0.2.11 */
 /**
  * @module SpringRoll Plugin
  * @namespace pixiflash
