@@ -98,16 +98,17 @@
 		{
 			enumerable: true,
 			get: function() {
-				if(this.parent && this.parent._isPixiFlash)
+				var parent = this.parent;
+				if(parent && parent._isPixiFlash)
 				{
 					var selfTint = this._selfTint;
-					var parentTint = this.parent.tint;
+					var parentTint = parent.tint;
 
 					if(selfTint == 0xFFFFFF)
 						this._lastComputedTint = parentTint;
 					else if(parentTint == 0xFFFFFF)
 						this._lastComputedTint = selfTint;
-					if(this._selfTint != this._lastSelfTint || this.parent.tint != this._lastParentTint)
+					else if(selfTint != this._lastSelfTint || parentTint != this._lastParentTint)
 					{
 						//calculate tint first time
 						var max = 255;
