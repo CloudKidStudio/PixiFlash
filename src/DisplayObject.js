@@ -359,11 +359,13 @@
 		// create some matrix refs for easy access
 		var pt = this.parent.worldTransform;
 		var wt = this.worldTransform;
+		
+		var scale = this.scale, skew = this.skew, position = this.position, pivot = this.pivot;
 
 		// temporary matrix variables
 		var a, b, c, d, tx, ty,
-			rotY = this._rotation + this.skew.y,
-			rotX = this._rotation + this.skew.x;
+			rotY = this._rotation + skew.y,
+			rotX = this._rotation + skew.x;
 
 		// so if rotation is between 0 then we can simplify the multiplication process...
 		if (rotY % PI_2 || rotX % PI_2)
@@ -384,18 +386,18 @@
 			}
 
 			// get the matrix values of the displayobject based on its transform properties..
-			a  = this._crA * this.scale.x;
-			b  = this._srB * this.scale.x;
-			c  = this._srC * this.scale.y;
-			d  = this._crD * this.scale.y;
-			tx =  this.position.x;
-			ty =  this.position.y;
+			a  = this._crA * scale.x;
+			b  = this._srB * scale.x;
+			c  = this._srC * scale.y;
+			d  = this._crD * scale.y;
+			tx =  position.x;
+			ty =  position.y;
 
 			// check for pivot.. not often used so geared towards that fact!
-			if (this.pivot.x || this.pivot.y)
+			if (pivot.x || pivot.y)
 			{
-				tx -= this.pivot.x * a + this.pivot.y * c;
-				ty -= this.pivot.x * b + this.pivot.y * d;
+				tx -= pivot.x * a + pivot.y * c;
+				ty -= pivot.x * b + pivot.y * d;
 			}
 
 			// concat the parent matrix with the objects transform.
@@ -409,11 +411,11 @@
 		else
 		{
 			// lets do the fast version as we know there is no rotation..
-			a  = this.scale.x;
-			d  = this.scale.y;
+			a  = scale.x;
+			d  = scale.y;
 
-			tx = this.position.x - this.pivot.x * a;
-			ty = this.position.y - this.pivot.y * d;
+			tx = position.x - pivot.x * a;
+			ty = position.y - pivot.y * d;
 
 			wt.a  = a  * pt.a;
 			wt.b  = a  * pt.b;
