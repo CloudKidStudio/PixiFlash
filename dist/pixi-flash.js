@@ -1,4 +1,4 @@
-/*! Pixi Flash 0.2.12 */
+/*! Pixi Flash 0.2.13 */
 /**
  * @module Pixi Flash
  * @namespace pixiflash

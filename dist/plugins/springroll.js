@@ -1,4 +1,4 @@
-/*! Pixi Flash 0.2.12 */
+/*! Pixi Flash 0.2.13 */
 /**
  * @module SpringRoll Plugin
  * @namespace pixiflash
@@ -280,7 +280,7 @@
 				//ensure an ID for these
 				if(!asset.id)
 				{
-					var fallbackId = asset.src || asset.color;
+					var fallbackId = asset.image || asset.color;
 					// Remove the file extension
 					var extIndex = fallbackId.lastIndexOf('.');
 					if (extIndex > -1)
