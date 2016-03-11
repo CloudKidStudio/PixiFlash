@@ -78,7 +78,11 @@
 			get: function() { return this.__filters; },
 			set: function(value)
 			{
-				if(value.length == 1 && value[0] instanceof ColorFilter)
+				if(!value)
+				{
+					this.__filters = null;
+				}
+				else if(value.length == 1 && value[0] instanceof ColorFilter && value[0].isTintOnly)
 				{
 					//ColorFilter added by CJS exporter - convert to PIXI tint
 					this.tint = value[0].tint;
@@ -86,7 +90,21 @@
 				}
 				else
 				{
-					this.__filters = value;
+					//make a copy, strip out any possible ColorFilters
+					this.__filters = [];
+					for(var i = 0; i < value.length; ++i)
+					{
+						if(value[i] instanceof ColorFilter && value[i].isTintOnly)
+						{
+							//ColorFilter added by CJS exporter - convert to PIXI tint
+							this.tint = value[i].tint;
+						}
+						else
+						{
+							//normal PIXI filter or our wrapper for one?
+							this.__filters.push(value[i]);
+						}
+					}
 				}
 			}
 		},
