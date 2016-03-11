@@ -1,6 +1,6 @@
 {
 	"name": "Pixi Flash",
-	"version": "0.2.13",
+	"version": "0.3.0",
 	"description": "Runtime library to play HTML5 Canvas content from Flash with Pixi.js",
 	"url": "https://github.com/CloudKidStudio/PixiFlash",
 	"output": "pixi-flash",
@@ -8,6 +8,7 @@
 		"src/main.js",
 		"src/utils.js",
 		"src/ColorFilter.js",
+		"src/BlurFilter.js",
 		"src/DisplayObject.js",
 		"src/Container.js",
 		"src/Bitmap.js",
