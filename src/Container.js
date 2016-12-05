@@ -7,7 +7,7 @@
 	var PixiContainer = PIXI.Container,
 		DisplayObject = pixiflash.DisplayObject,
 		SharedTicker = PIXI.ticker.shared;
-	
+
 	/**
 	 * The class to emulate createjs.Container
 	 * @class Container
@@ -17,7 +17,7 @@
 	{
 		PixiContainer.call(this);
 		DisplayObject.call(this);
-		
+
 		/**
 		 * If false, the tick will not be propagated to children of this Container. This can provide some performance benefits.
 		 * In addition to preventing the "tick" event from being dispatched, it will also prevent tick related updates
@@ -27,7 +27,7 @@
 		 * @default true
 		 **/
 		this.tickChildren = true;
-		
+
 		//add a listener for the first time the object is added, to get around
 		//using new instances for prototypes that the CreateJS exporting does.
 		this.once("added", function()
@@ -40,12 +40,12 @@
 			this.on("removed", this._onRemoved);
 		}.bind(this));
 	};
-	
+
 	var s = PixiContainer.prototype;
 	var p = Container.prototype = Object.create(s);
-	
+
 	DisplayObject.mixin(p);
-	
+
 	//constructor for backwards/Flash exporting compatibility
 	p.initialize = Container;
 
@@ -65,19 +65,19 @@
 			SharedTicker.add(this._tickListener);
 		}
 	};
-	
+
 	p._tickListener = function(tickerDeltaTime)
 	{
 		var ms = tickerDeltaTime / SharedTicker.speed / PIXI.TARGET_FPMS;
 		this._tick(ms);
 	};
-	
+
 	p._onRemoved = function()
 	{
 		if(this._tickListener)
 			SharedTicker.remove(this._tickListener);
 	};
-	
+
 	/**
 	 * @method _tick
 	 * @param {Number} delta Time elapsed since the previous tick, in milliseconds.
@@ -95,19 +95,19 @@
 			}
 		}
 	};
-	
+
 	p.__Container_destroy = p.destroy;
-	p.destroy = function(destroyChildren)
+	p.destroy = function(destroyParams)
 	{
 		if(this._tickListener)
 		{
 			SharedTicker.remove(this._tickListener);
 			this._tickListener = null;
 		}
-		
-		this.__Container_destroy(destroyChildren);
+
+		this.__Container_destroy(destroyParams);
 	};
-	
+
 	pixiflash.Container = Container;
-	
+
 }());

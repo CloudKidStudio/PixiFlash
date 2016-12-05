@@ -1,10 +1,10 @@
 {
 	"name": "pixi-flash",
-	"version": "0.4.0",
+	"version": "0.5.0",
 	"main": "dist/pixi-flash.min.js",
 	"author": "CloudKid <tools@cloudkid.com>",
 	"dependencies": {
-		"pixi.js": "*",
+		"pixi.js": "^4.2.0",
 		"createjs-tweenjs": "*"
 	},
 	"devDependencies": {

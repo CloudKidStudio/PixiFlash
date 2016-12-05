@@ -9,9 +9,9 @@
 		Timeline = createjs.Timeline,
 		Tween = createjs.Tween,
 		SharedTicker = PIXI.ticker.shared;
-	
+
 	//*** Note: the vast majority of the code here is from EaselJS's MovieClip class.
-	
+
 	/*
 	* MovieClip
 	* Visit http://createjs.com/ for documentation, updates and examples.
@@ -39,7 +39,7 @@
 	* FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 	* OTHER DEALINGS IN THE SOFTWARE.
 	*/
-	
+
 	/**
 	 * The class to emulate createjs.MovieClip, requires TweenJS
 	 * @class MovieClip
@@ -48,12 +48,12 @@
 	var MovieClip = function(mode, startPosition, loop, labels)
 	{
 		if(!MovieClip.inited) MovieClip.init(); // static init
-		
+
 		Container.call(this);
 		DisplayObject.call(this);
-		
+
 		this.tickChildren = true;
-		
+
 		/**
 		 * Controls how this MovieClip advances its time. Must be one of 0 (INDEPENDENT), 1 (SINGLE_FRAME), or 2 (SYNCHED).
 		 * See each constant for a description of the behaviour.
@@ -87,7 +87,7 @@
 		 * @readonly
 		 */
 		this.currentFrame = 0;
-		
+
 		/**
 		 * The TweenJS Timeline that is associated with this MovieClip. This is created automatically when the MovieClip
 		 * instance is initialized. Animations are created by adding <a href="http://tweenjs.com">TweenJS</a> Tween
@@ -113,7 +113,7 @@
 		 * @default null
 		 */
 		this.timeline = new Timeline(null, labels, {paused:true, position:startPosition, useTicks:true});
-	
+
 		/**
 		 * If true, the MovieClip's position will not advance when ticked.
 		 * @property paused
@@ -121,7 +121,7 @@
 		 * @default false
 		 */
 		this.paused = false;
-	
+
 		/**
 		 * If true, actions in this MovieClip's tweens will be run when the playhead advances.
 		 * @property actionsEnabled
@@ -129,7 +129,7 @@
 		 * @default true
 		 */
 		this.actionsEnabled = true;
-	
+
 		/**
 		 * If true, the MovieClip will automatically be reset to its first frame whenever the timeline adds
 		 * it back onto the display list. This only applies to MovieClip instances with mode=INDEPENDENT.
@@ -143,7 +143,7 @@
 		 * @default true
 		 */
 		this.autoReset = true;
-		
+
 		/**
 		 * @property _synchOffset
 		 * @type Number
@@ -151,7 +151,7 @@
 		 * @private
 		 */
 		this._synchOffset = 0;
-	
+
 		/**
 		 * @property _prevPos
 		 * @type Number
@@ -159,7 +159,7 @@
 		 * @private
 		 */
 		this._prevPos = -1; // TODO: evaluate using a ._reset Boolean prop instead of -1.
-	
+
 		/**
 		 * @property _prevPosition
 		 * @type Number
@@ -167,7 +167,7 @@
 		 * @private
 		 */
 		this._prevPosition = 0;
-	
+
 		/**
 		* Note - changed from default: When the MovieClip is framerate independent, this is the time
 		* elapsed from frame 0 in seconds.
@@ -177,7 +177,7 @@
 		* @private
 		*/
 		this._t = 0;
-		
+
 		/**
 		* By default MovieClip instances advance one frame per tick. Specifying a framerate for the MovieClip
 		* will cause it to advance based on elapsed time between ticks as appropriate to maintain the target
@@ -196,7 +196,7 @@
 		* @private
 		*/
 		this._duration = 0;
-	
+
 		/**
 		 * List of display objects that are actively being managed by the MovieClip.
 		 * @property _managed
@@ -204,7 +204,7 @@
 		 * @private
 		 */
 		this._managed = {};
-		
+
 		//add a listener for the first time the object is added, to get around
 		//using new instances for prototypes that the CreateJS exporting does.
 		this.once("added", function()
@@ -217,9 +217,9 @@
 			this.on("removed", this._onRemoved);
 		}.bind(this));
 	};
-	
+
 	MovieClip.inited = false;
-	
+
 	// static methods:
 	MovieClip.init = function() {
 		if (MovieClip.inited) { return; }
@@ -227,7 +227,7 @@
 		MovieClipPlugin.install();
 		MovieClip.inited = true;
 	};
-	
+
 	/**
 	 * The MovieClip will advance independently of its parent, even if its parent is paused.
 	 * This is the default mode.
@@ -259,14 +259,14 @@
 	 * @readonly
 	 **/
 	MovieClip.SYNCHED = "synched";
-	
+
 	var p = MovieClip.prototype = Object.create(Container.prototype);
-	
+
 	DisplayObject.mixin(p);
-	
+
 	//constructor for backwards/Flash exporting compatibility
 	p.initialize = MovieClip;
-	
+
 	p._onAdded = function()
 	{
 		if(!this.parent._isPixiFlash)
@@ -274,19 +274,19 @@
 			SharedTicker.add(this._tickListener);
 		}
 	};
-	
+
 	p._tickListener = function(tickerDeltaTime)
 	{
 		var ms = tickerDeltaTime / SharedTicker.speed / PIXI.TARGET_FPMS;
 		this._tick(ms);
 	};
-	
+
 	p._onRemoved = function()
 	{
 		if(this._tickListener)
 			SharedTicker.remove(this._tickListener);
 	};
-	
+
 	/**
 	 * Use the {{#crossLink "MovieClip/labels:property"}}{{/crossLink}} property instead.
 	 * @method getLabels
@@ -296,7 +296,7 @@
 	p.getLabels = function() {
 		return this.timeline.getLabels();
 	};
-	
+
 	/**
 	 * Use the {{#crossLink "MovieClip/currentLabel:property"}}{{/crossLink}} property instead.
 	 * @method getCurrentLabel
@@ -315,7 +315,7 @@
 	 * @type {Array}
 	 * @readonly
 	 **/
-	 
+
 	/**
 	 * Returns the name of the label on or immediately before the current frame. See TweenJS: Timeline.getCurrentLabel()
 	 * for more information.
@@ -329,7 +329,7 @@
 			currentLabel: { get: p.getCurrentLabel }
 		});
 	} catch (e) {}
-	
+
 	/**
 	* When the MovieClip is framerate independent, this is the time elapsed from frame 0 in seconds.
 	* @property elapsedTime
@@ -345,7 +345,7 @@
 			this._t = value;
 		}
 	});
-	
+
 	/**
 	* By default MovieClip instances advance one frame per tick. Specifying a framerate for the MovieClip
 	* will cause it to advance based on elapsed time between ticks as appropriate to maintain the target
@@ -375,7 +375,7 @@
 				this._framerate = this._duration = 0;
 		}
 	});
-	
+
 	/**
 	 * Sets paused to false.
 	 * @method play
@@ -383,7 +383,7 @@
 	p.play = function() {
 		this.paused = false;
 	};
-	
+
 	/**
 	 * Sets paused to true.
 	 * @method stop
@@ -391,7 +391,7 @@
 	p.stop = function() {
 		this.paused = true;
 	};
-	
+
 	/**
 	 * Advances this movie clip to the specified position or label and sets paused to false.
 	 * @method gotoAndPlay
@@ -401,7 +401,7 @@
 		this.paused = false;
 		this._goto(positionOrLabel);
 	};
-	
+
 	/**
 	 * Advances this movie clip to the specified position or label and sets paused to true.
 	 * @method gotoAndStop
@@ -411,7 +411,7 @@
 		this.paused = true;
 		this._goto(positionOrLabel);
 	};
-	
+
 	/**
 	 * Advances the playhead. This occurs automatically each tick by default.
 	 * @param [time] {Number} The amount of time in ms to advance by. Only applicable if framerate is set.
@@ -421,7 +421,7 @@
 		// TODO: should we worry at all about clips who change their own modes via frame scripts?
 		var independent = MovieClip.INDEPENDENT;
 		if (this.mode != independent) { return; }
-		
+
 		if(!this._framerate)
 		{
 			var o=this, fps = o._framerate;
@@ -430,7 +430,7 @@
 			}
 			this.framerate = fps;
 		}
-		
+
 		if(!this.paused)
 		{
 			if(this._framerate > 0)
@@ -451,7 +451,7 @@
 			//this._updateTimeline();
 		}
 	};
-	
+
 	/**
 	 * @method _tick
 	 * @param {Number} delta Time elapsed since the previous tick, in milliseconds.
@@ -464,7 +464,7 @@
 		this._updateTimeline();
 		this.Container__tick(delta);
 	};
-	
+
 	p.Container__tick = function(delta) {
 		if (this.tickChildren) {
 			for (var i=this.children.length-1; i>=0; i--) {
@@ -477,7 +477,7 @@
 			}
 		}
 	};
-	
+
 	/**
 	 * @method _goto
 	 * @param {String|Number} positionOrLabel The animation name or frame number to go to.
@@ -496,7 +496,7 @@
 			this._t = 0;
 		this._updateTimeline();
 	};
-	
+
 	/**
 	 * @method _reset
 	 * @private
@@ -506,7 +506,7 @@
 		this._t = 0;
 		this.currentFrame = 0;
 	};
-	
+
 	/**
 	 * @method _updateTimeline
 	 * @protected
@@ -535,7 +535,7 @@
 			var target = tween._target;
 			if (target == this || tween.passive) { continue; } // TODO: this assumes actions tween has this as the target. Valid?
 			var offset = tween._stepPosition;
-			
+
 			//Containers, Bitmaps(Sprites), and MovieClips(also Containers) all inherit from
 			//Container for PIXI
 			if (target instanceof Container) {
@@ -593,21 +593,21 @@
 		}
 		this._managed[child.id] = 2;
 	};
-	
+
 	p.__Container_destroy = p.destroy;
-	p.destroy = function(destroyChildren)
+	p.destroy = function(destroyParams)
 	{
 		if(this._tickListener)
 		{
 			SharedTicker.remove(this._tickListener);
 			this._tickListener = null;
 		}
-		
-		this.__Container_destroy(destroyChildren);
+
+		this.__Container_destroy(destroyParams);
 	};
-	
+
 	pixiflash.MovieClip = MovieClip;
-	
+
 	/**
 	 * This plugin works with <a href="http://tweenjs.com" target="_blank">TweenJS</a> to prevent the startPosition
 	 * property from tweening.
@@ -618,7 +618,7 @@
 	function MovieClipPlugin() {
 		throw("MovieClipPlugin cannot be instantiated.");
 	}
-	
+
 	/**
 	 * @method priority
 	 * @private
@@ -632,7 +632,7 @@
 	MovieClipPlugin.install = function() {
 		Tween.installPlugin(MovieClipPlugin, ["startPosition"]);
 	};
-	
+
 	/**
 	 * @method init
 	 * @param {Tween} tween
@@ -643,7 +643,7 @@
 	MovieClipPlugin.init = function(tween, prop, value) {
 		return value;
 	};
-	
+
 	/**
 	 * @method step
 	 * @private
@@ -668,5 +668,5 @@
 		if (!(tween.target instanceof MovieClip)) { return value; }
 		return (ratio == 1 ? endValues[prop] : startValues[prop]);
 	};
-	
+
 }());

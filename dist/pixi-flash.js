@@ -121,53 +121,8 @@
  */
 (function(undefined)
 {
-	var AbstractFilter = PIXI.AbstractFilter;
-	
-	//Modified colorMatrix.frag from PIXI to avoid having color offsets mess with transparency
-	var COLOR_FRAG =
-	"precision mediump float;" +
-	"varying vec2 vTextureCoord;" +
-	"uniform sampler2D uSampler;" +
-	"uniform float m[25];" +
-	"void main(void)" +
-	"{" +
-	"vec4 c = texture2D(uSampler, vTextureCoord);" +
-	"gl_FragColor.r = (m[0] * c.r);" +
-	"    gl_FragColor.r += (m[1] * c.g);" +
-	"    gl_FragColor.r += (m[2] * c.b);" +
-	"    gl_FragColor.r += (m[3] * c.a);" +
-	"    gl_FragColor.r += m[4] * c.a;" +
-	"gl_FragColor.g = (m[5] * c.r);" +
-	"    gl_FragColor.g += (m[6] * c.g);" +
-	"    gl_FragColor.g += (m[7] * c.b);" +
-	"    gl_FragColor.g += (m[8] * c.a);" +
-	"    gl_FragColor.g += m[9] * c.a;" +
-	" gl_FragColor.b = (m[10] * c.r);" +
-	"    gl_FragColor.b += (m[11] * c.g);" +
-	"    gl_FragColor.b += (m[12] * c.b);" +
-	"    gl_FragColor.b += (m[13] * c.a);" +
-	"    gl_FragColor.b += m[14] * c.a;" +
-	" gl_FragColor.a = (m[15] * c.r);" +
-	"    gl_FragColor.a += (m[16] * c.g);" +
-	"    gl_FragColor.a += (m[17] * c.b);" +
-	"    gl_FragColor.a += (m[18] * c.a);" +
-	"    gl_FragColor.a += m[19] * c.a;" +
-	"}";
+	var PixiCMFilter = PIXI.filters.ColorMatrixFilter;
 
-	//uniform from PIXI.ColorMatrixFilter
-	var UNIFORMS =
-	{
-	    m: {
-	        type: '1fv', value: [
-	            1, 0, 0, 0, 0,
-	            0, 1, 0, 0, 0,
-	            0, 0, 1, 0, 0,
-	            0, 0, 0, 1, 0
-	        ]
-	    }
-	};
-	
-	
 	/**
 	 * The class to emulate some of the functionality of createjs.ColorFilter (multiplicative values only -Advanced Color option in Flash)
 	 * (acts only as a container for multiplicative values, to be  used by DisplayObject)
@@ -189,7 +144,7 @@
 			g = 0;
 		if(b < 0)
 			b = 0;
-		
+
 		if(!rO && !gO && !bO)
 		{
 			var max = 255;
@@ -198,7 +153,7 @@
 		}
 		else
 		{
-			AbstractFilter.call(this, null, COLOR_FRAG, UNIFORMS);
+			PixiCMFilter.call(this);
 			this.isTintOnly = false;
 			this.uniforms.m.value = [r, 0, 0, 0, rO / 255,
 									0, g, 0, 0, gO / 255,
@@ -206,12 +161,12 @@
 									0, 0, 0, a, aO / 255];
 		}
 	};
-	
-	var s = AbstractFilter.prototype;
+
+	var s = PixiCMFilter.prototype;
 	var p = ColorFilter.prototype = Object.create(s);
-	
+
 	pixiflash.ColorFilter = ColorFilter;
-	
+
 }());
 /**
  * @module Pixi Flash
@@ -244,54 +199,8 @@
  */
 (function(undefined)
 {
-	var AbstractFilter = PIXI.AbstractFilter;
 	var PixiCMFilter = PIXI.filters.ColorMatrixFilter;
-	
-	//Modified colorMatrix.frag from PIXI to avoid having color offsets mess with transparency
-	var COLOR_FRAG =
-	"precision mediump float;" +
-	"varying vec2 vTextureCoord;" +
-	"uniform sampler2D uSampler;" +
-	"uniform float m[25];" +
-	"void main(void)" +
-	"{" +
-	"vec4 c = texture2D(uSampler, vTextureCoord);" +
-	"gl_FragColor.r = (m[0] * c.r);" +
-	"    gl_FragColor.r += (m[1] * c.g);" +
-	"    gl_FragColor.r += (m[2] * c.b);" +
-	"    gl_FragColor.r += (m[3] * c.a);" +
-	"    gl_FragColor.r += m[4] * c.a;" +
-	"gl_FragColor.g = (m[5] * c.r);" +
-	"    gl_FragColor.g += (m[6] * c.g);" +
-	"    gl_FragColor.g += (m[7] * c.b);" +
-	"    gl_FragColor.g += (m[8] * c.a);" +
-	"    gl_FragColor.g += m[9] * c.a;" +
-	" gl_FragColor.b = (m[10] * c.r);" +
-	"    gl_FragColor.b += (m[11] * c.g);" +
-	"    gl_FragColor.b += (m[12] * c.b);" +
-	"    gl_FragColor.b += (m[13] * c.a);" +
-	"    gl_FragColor.b += m[14] * c.a;" +
-	" gl_FragColor.a = (m[15] * c.r);" +
-	"    gl_FragColor.a += (m[16] * c.g);" +
-	"    gl_FragColor.a += (m[17] * c.b);" +
-	"    gl_FragColor.a += (m[18] * c.a);" +
-	"    gl_FragColor.a += m[19] * c.a;" +
-	"}";
 
-	//uniform from PIXI.ColorMatrixFilter
-	var UNIFORMS =
-	{
-	    m: {
-	        type: '1fv', value: [
-	            1, 0, 0, 0, 0,
-	            0, 1, 0, 0, 0,
-	            0, 0, 1, 0, 0,
-	            0, 0, 0, 1, 0
-	        ]
-	    }
-	};
-	
-	
 	/**
 	 * The class to emulate some the functionality of the AdjustColor filter in Flash. This is a
 	 * modified version of PIXI.filters.ColorMatrixFilter, with the same fragment shader as
@@ -302,8 +211,8 @@
 	 */
 	var ColorMatrixFilter = function(colorData)
 	{
-		AbstractFilter.call(this, null, COLOR_FRAG, UNIFORMS);
-		
+		PixiCMFilter.call(this);
+
 		//values are handled in a specific order: hue, contrast, brightness, saturation
 		if(colorData.hue !== 0)
 		{
@@ -329,12 +238,12 @@
 			this.saturate(colorData.saturation / 100, true);
 		}
 	};
-	
-	var s = AbstractFilter.prototype;
+
+	var s = PixiCMFilter.prototype;
 	var p = ColorMatrixFilter.prototype = Object.create(s);
-	
+
 	pixiflash.ColorMatrixFilter = ColorMatrixFilter;
-	
+
 }());
 /**
  * @module Pixi Flash
@@ -864,7 +773,7 @@
 	var PixiContainer = PIXI.Container,
 		DisplayObject = pixiflash.DisplayObject,
 		SharedTicker = PIXI.ticker.shared;
-	
+
 	/**
 	 * The class to emulate createjs.Container
 	 * @class Container
@@ -874,7 +783,7 @@
 	{
 		PixiContainer.call(this);
 		DisplayObject.call(this);
-		
+
 		/**
 		 * If false, the tick will not be propagated to children of this Container. This can provide some performance benefits.
 		 * In addition to preventing the "tick" event from being dispatched, it will also prevent tick related updates
@@ -884,7 +793,7 @@
 		 * @default true
 		 **/
 		this.tickChildren = true;
-		
+
 		//add a listener for the first time the object is added, to get around
 		//using new instances for prototypes that the CreateJS exporting does.
 		this.once("added", function()
@@ -897,12 +806,12 @@
 			this.on("removed", this._onRemoved);
 		}.bind(this));
 	};
-	
+
 	var s = PixiContainer.prototype;
 	var p = Container.prototype = Object.create(s);
-	
+
 	DisplayObject.mixin(p);
-	
+
 	//constructor for backwards/Flash exporting compatibility
 	p.initialize = Container;
 
@@ -922,19 +831,19 @@
 			SharedTicker.add(this._tickListener);
 		}
 	};
-	
+
 	p._tickListener = function(tickerDeltaTime)
 	{
 		var ms = tickerDeltaTime / SharedTicker.speed / PIXI.TARGET_FPMS;
 		this._tick(ms);
 	};
-	
+
 	p._onRemoved = function()
 	{
 		if(this._tickListener)
 			SharedTicker.remove(this._tickListener);
 	};
-	
+
 	/**
 	 * @method _tick
 	 * @param {Number} delta Time elapsed since the previous tick, in milliseconds.
@@ -952,21 +861,21 @@
 			}
 		}
 	};
-	
+
 	p.__Container_destroy = p.destroy;
-	p.destroy = function(destroyChildren)
+	p.destroy = function(destroyParams)
 	{
 		if(this._tickListener)
 		{
 			SharedTicker.remove(this._tickListener);
 			this._tickListener = null;
 		}
-		
-		this.__Container_destroy(destroyChildren);
+
+		this.__Container_destroy(destroyParams);
 	};
-	
+
 	pixiflash.Container = Container;
-	
+
 }());
 /**
  * @module Pixi Flash
@@ -1012,9 +921,9 @@
 		Timeline = createjs.Timeline,
 		Tween = createjs.Tween,
 		SharedTicker = PIXI.ticker.shared;
-	
+
 	//*** Note: the vast majority of the code here is from EaselJS's MovieClip class.
-	
+
 	/*
 	* MovieClip
 	* Visit http://createjs.com/ for documentation, updates and examples.
@@ -1042,7 +951,7 @@
 	* FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 	* OTHER DEALINGS IN THE SOFTWARE.
 	*/
-	
+
 	/**
 	 * The class to emulate createjs.MovieClip, requires TweenJS
 	 * @class MovieClip
@@ -1051,12 +960,12 @@
 	var MovieClip = function(mode, startPosition, loop, labels)
 	{
 		if(!MovieClip.inited) MovieClip.init(); // static init
-		
+
 		Container.call(this);
 		DisplayObject.call(this);
-		
+
 		this.tickChildren = true;
-		
+
 		/**
 		 * Controls how this MovieClip advances its time. Must be one of 0 (INDEPENDENT), 1 (SINGLE_FRAME), or 2 (SYNCHED).
 		 * See each constant for a description of the behaviour.
@@ -1090,7 +999,7 @@
 		 * @readonly
 		 */
 		this.currentFrame = 0;
-		
+
 		/**
 		 * The TweenJS Timeline that is associated with this MovieClip. This is created automatically when the MovieClip
 		 * instance is initialized. Animations are created by adding <a href="http://tweenjs.com">TweenJS</a> Tween
@@ -1116,7 +1025,7 @@
 		 * @default null
 		 */
 		this.timeline = new Timeline(null, labels, {paused:true, position:startPosition, useTicks:true});
-	
+
 		/**
 		 * If true, the MovieClip's position will not advance when ticked.
 		 * @property paused
@@ -1124,7 +1033,7 @@
 		 * @default false
 		 */
 		this.paused = false;
-	
+
 		/**
 		 * If true, actions in this MovieClip's tweens will be run when the playhead advances.
 		 * @property actionsEnabled
@@ -1132,7 +1041,7 @@
 		 * @default true
 		 */
 		this.actionsEnabled = true;
-	
+
 		/**
 		 * If true, the MovieClip will automatically be reset to its first frame whenever the timeline adds
 		 * it back onto the display list. This only applies to MovieClip instances with mode=INDEPENDENT.
@@ -1146,7 +1055,7 @@
 		 * @default true
 		 */
 		this.autoReset = true;
-		
+
 		/**
 		 * @property _synchOffset
 		 * @type Number
@@ -1154,7 +1063,7 @@
 		 * @private
 		 */
 		this._synchOffset = 0;
-	
+
 		/**
 		 * @property _prevPos
 		 * @type Number
@@ -1162,7 +1071,7 @@
 		 * @private
 		 */
 		this._prevPos = -1; // TODO: evaluate using a ._reset Boolean prop instead of -1.
-	
+
 		/**
 		 * @property _prevPosition
 		 * @type Number
@@ -1170,7 +1079,7 @@
 		 * @private
 		 */
 		this._prevPosition = 0;
-	
+
 		/**
 		* Note - changed from default: When the MovieClip is framerate independent, this is the time
 		* elapsed from frame 0 in seconds.
@@ -1180,7 +1089,7 @@
 		* @private
 		*/
 		this._t = 0;
-		
+
 		/**
 		* By default MovieClip instances advance one frame per tick. Specifying a framerate for the MovieClip
 		* will cause it to advance based on elapsed time between ticks as appropriate to maintain the target
@@ -1199,7 +1108,7 @@
 		* @private
 		*/
 		this._duration = 0;
-	
+
 		/**
 		 * List of display objects that are actively being managed by the MovieClip.
 		 * @property _managed
@@ -1207,7 +1116,7 @@
 		 * @private
 		 */
 		this._managed = {};
-		
+
 		//add a listener for the first time the object is added, to get around
 		//using new instances for prototypes that the CreateJS exporting does.
 		this.once("added", function()
@@ -1220,9 +1129,9 @@
 			this.on("removed", this._onRemoved);
 		}.bind(this));
 	};
-	
+
 	MovieClip.inited = false;
-	
+
 	// static methods:
 	MovieClip.init = function() {
 		if (MovieClip.inited) { return; }
@@ -1230,7 +1139,7 @@
 		MovieClipPlugin.install();
 		MovieClip.inited = true;
 	};
-	
+
 	/**
 	 * The MovieClip will advance independently of its parent, even if its parent is paused.
 	 * This is the default mode.
@@ -1262,14 +1171,14 @@
 	 * @readonly
 	 **/
 	MovieClip.SYNCHED = "synched";
-	
+
 	var p = MovieClip.prototype = Object.create(Container.prototype);
-	
+
 	DisplayObject.mixin(p);
-	
+
 	//constructor for backwards/Flash exporting compatibility
 	p.initialize = MovieClip;
-	
+
 	p._onAdded = function()
 	{
 		if(!this.parent._isPixiFlash)
@@ -1277,19 +1186,19 @@
 			SharedTicker.add(this._tickListener);
 		}
 	};
-	
+
 	p._tickListener = function(tickerDeltaTime)
 	{
 		var ms = tickerDeltaTime / SharedTicker.speed / PIXI.TARGET_FPMS;
 		this._tick(ms);
 	};
-	
+
 	p._onRemoved = function()
 	{
 		if(this._tickListener)
 			SharedTicker.remove(this._tickListener);
 	};
-	
+
 	/**
 	 * Use the {{#crossLink "MovieClip/labels:property"}}{{/crossLink}} property instead.
 	 * @method getLabels
@@ -1299,7 +1208,7 @@
 	p.getLabels = function() {
 		return this.timeline.getLabels();
 	};
-	
+
 	/**
 	 * Use the {{#crossLink "MovieClip/currentLabel:property"}}{{/crossLink}} property instead.
 	 * @method getCurrentLabel
@@ -1318,7 +1227,7 @@
 	 * @type {Array}
 	 * @readonly
 	 **/
-	 
+
 	/**
 	 * Returns the name of the label on or immediately before the current frame. See TweenJS: Timeline.getCurrentLabel()
 	 * for more information.
@@ -1332,7 +1241,7 @@
 			currentLabel: { get: p.getCurrentLabel }
 		});
 	} catch (e) {}
-	
+
 	/**
 	* When the MovieClip is framerate independent, this is the time elapsed from frame 0 in seconds.
 	* @property elapsedTime
@@ -1348,7 +1257,7 @@
 			this._t = value;
 		}
 	});
-	
+
 	/**
 	* By default MovieClip instances advance one frame per tick. Specifying a framerate for the MovieClip
 	* will cause it to advance based on elapsed time between ticks as appropriate to maintain the target
@@ -1378,7 +1287,7 @@
 				this._framerate = this._duration = 0;
 		}
 	});
-	
+
 	/**
 	 * Sets paused to false.
 	 * @method play
@@ -1386,7 +1295,7 @@
 	p.play = function() {
 		this.paused = false;
 	};
-	
+
 	/**
 	 * Sets paused to true.
 	 * @method stop
@@ -1394,7 +1303,7 @@
 	p.stop = function() {
 		this.paused = true;
 	};
-	
+
 	/**
 	 * Advances this movie clip to the specified position or label and sets paused to false.
 	 * @method gotoAndPlay
@@ -1404,7 +1313,7 @@
 		this.paused = false;
 		this._goto(positionOrLabel);
 	};
-	
+
 	/**
 	 * Advances this movie clip to the specified position or label and sets paused to true.
 	 * @method gotoAndStop
@@ -1414,7 +1323,7 @@
 		this.paused = true;
 		this._goto(positionOrLabel);
 	};
-	
+
 	/**
 	 * Advances the playhead. This occurs automatically each tick by default.
 	 * @param [time] {Number} The amount of time in ms to advance by. Only applicable if framerate is set.
@@ -1424,7 +1333,7 @@
 		// TODO: should we worry at all about clips who change their own modes via frame scripts?
 		var independent = MovieClip.INDEPENDENT;
 		if (this.mode != independent) { return; }
-		
+
 		if(!this._framerate)
 		{
 			var o=this, fps = o._framerate;
@@ -1433,7 +1342,7 @@
 			}
 			this.framerate = fps;
 		}
-		
+
 		if(!this.paused)
 		{
 			if(this._framerate > 0)
@@ -1454,7 +1363,7 @@
 			//this._updateTimeline();
 		}
 	};
-	
+
 	/**
 	 * @method _tick
 	 * @param {Number} delta Time elapsed since the previous tick, in milliseconds.
@@ -1467,7 +1376,7 @@
 		this._updateTimeline();
 		this.Container__tick(delta);
 	};
-	
+
 	p.Container__tick = function(delta) {
 		if (this.tickChildren) {
 			for (var i=this.children.length-1; i>=0; i--) {
@@ -1480,7 +1389,7 @@
 			}
 		}
 	};
-	
+
 	/**
 	 * @method _goto
 	 * @param {String|Number} positionOrLabel The animation name or frame number to go to.
@@ -1499,7 +1408,7 @@
 			this._t = 0;
 		this._updateTimeline();
 	};
-	
+
 	/**
 	 * @method _reset
 	 * @private
@@ -1509,7 +1418,7 @@
 		this._t = 0;
 		this.currentFrame = 0;
 	};
-	
+
 	/**
 	 * @method _updateTimeline
 	 * @protected
@@ -1538,7 +1447,7 @@
 			var target = tween._target;
 			if (target == this || tween.passive) { continue; } // TODO: this assumes actions tween has this as the target. Valid?
 			var offset = tween._stepPosition;
-			
+
 			//Containers, Bitmaps(Sprites), and MovieClips(also Containers) all inherit from
 			//Container for PIXI
 			if (target instanceof Container) {
@@ -1596,21 +1505,21 @@
 		}
 		this._managed[child.id] = 2;
 	};
-	
+
 	p.__Container_destroy = p.destroy;
-	p.destroy = function(destroyChildren)
+	p.destroy = function(destroyParams)
 	{
 		if(this._tickListener)
 		{
 			SharedTicker.remove(this._tickListener);
 			this._tickListener = null;
 		}
-		
-		this.__Container_destroy(destroyChildren);
+
+		this.__Container_destroy(destroyParams);
 	};
-	
+
 	pixiflash.MovieClip = MovieClip;
-	
+
 	/**
 	 * This plugin works with <a href="http://tweenjs.com" target="_blank">TweenJS</a> to prevent the startPosition
 	 * property from tweening.
@@ -1621,7 +1530,7 @@
 	function MovieClipPlugin() {
 		throw("MovieClipPlugin cannot be instantiated.");
 	}
-	
+
 	/**
 	 * @method priority
 	 * @private
@@ -1635,7 +1544,7 @@
 	MovieClipPlugin.install = function() {
 		Tween.installPlugin(MovieClipPlugin, ["startPosition"]);
 	};
-	
+
 	/**
 	 * @method init
 	 * @param {Tween} tween
@@ -1646,7 +1555,7 @@
 	MovieClipPlugin.init = function(tween, prop, value) {
 		return value;
 	};
-	
+
 	/**
 	 * @method step
 	 * @private
@@ -1671,7 +1580,7 @@
 		if (!(tween.target instanceof MovieClip)) { return value; }
 		return (ratio == 1 ? endValues[prop] : startValues[prop]);
 	};
-	
+
 }());
 /**
  * @module Pixi Flash
@@ -2457,7 +2366,7 @@
 	var Container = PIXI.Container,
 		Graphics = pixiflash.Graphics,
 		DisplayObject = pixiflash.DisplayObject;
-	
+
 	/**
 	 * The class to emulate createjs.Shape
 	 * @class Shape
@@ -2470,7 +2379,7 @@
 
 		// Shapes have a graphic by default
 		this.graphics = new Graphics();
-		
+
 		//keep track of the number of things using this as a mask so we can avoid adding/removing
 		//it more than needed
 		this._maskUses = 0;
@@ -2479,16 +2388,16 @@
 	// Extend PIXI.Sprite
 	var s = Container.prototype;
 	var p = Shape.prototype = Object.create(s);
-	
+
 	// Mixin the display object
 	DisplayObject.mixin(p);
-	
+
 	//constructor for backwards/Flash exporting compatibility
 	p.initialize = Shape;
 
 	// Assign to namespace
 	pixiflash.Shape = Shape;
-	
+
 	/**
 	 * The drawing graphics, these are necessary
 	 * for the compability with EaselJS Flash exports.
@@ -2518,12 +2427,12 @@
 	/**
 	 * Override for the destroy
 	 * @method  destroy
-	 * @param  {Boolean} recursive If we should destroy the children of this shape
+	 * @param  {Object} destroyParams Parameters for destruction. See PIXI.Container.destroy()
 	 */
-	p.destroy = function(recursive)
+	p.destroy = function(destroyParams)
 	{
 		this.graphics = null;
-		s.destroy.call(this, recursive);
+		s.destroy.call(this, destroyParams);
 	};
 
 }());
